@@ -1,0 +1,61 @@
+# Laravel Framework
+/vendor/
+/node_modules/
+/public/build/
+/public/hot
+/public/storage
+/storage/*.key
+/storage/logs/*.log
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/bootstrap/cache/*
+
+# Environment files
+.env
+.env.backup
+.env.production
+.env.local
+
+# IDE files
+/.fleet
+/.idea
+/.vscode
+.phpstorm.meta.php
+_ide_helper.php
+_ide_helper_models.php
+
+# Testing
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+auth.json
+
+# Logs
+npm-debug.log
+yarn-error.log
+*.log
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Development files
+/.nova
+/.vagrant
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Build files
+/public/build
+/public/mix-manifest.json
