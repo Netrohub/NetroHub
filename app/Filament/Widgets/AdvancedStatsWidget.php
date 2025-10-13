@@ -99,3 +99,4 @@ class AdvancedStatsWidget extends BaseWidget
     }
 }
 
+

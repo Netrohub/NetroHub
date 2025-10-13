@@ -75,6 +75,18 @@ class GeneralSettings extends Page
                     ])
                     ->columns(3),
                 
+                Forms\Components\Section::make('Social & Community')
+                    ->description('Configure your social media and community links')
+                    ->schema([
+                        Forms\Components\TextInput::make('discord_url')
+                            ->label('Discord Server URL')
+                            ->url()
+                            ->placeholder('https://discord.gg/your-server')
+                            ->helperText('Enter your Discord server invite link')
+                            ->suffixIcon('heroicon-m-link'),
+                    ])
+                    ->columns(1),
+                
                 Forms\Components\Section::make('Email Settings')
                     ->schema([
                         Forms\Components\TextInput::make('mail_from_name')
@@ -104,6 +116,7 @@ class GeneralSettings extends Page
             'admin_email' => Setting::get('admin_email', 'admin@netrohub.com'),
             'mail_from_name' => Setting::get('mail_from_name', 'NetroHub'),
             'mail_from_address' => Setting::get('mail_from_address', 'noreply@netrohub.com'),
+            'discord_url' => Setting::get('discord_url', 'https://discord.gg/your-server'),
         ];
     }
 

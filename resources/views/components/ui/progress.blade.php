@@ -22,3 +22,4 @@ $percentage = $max > 0 ? ($value / $max) * 100 : 0;
     </div>
 </div>
 
+

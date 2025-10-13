@@ -1,0 +1,320 @@
+/* ========================================
+   RTL Support for Arabic Language
+   Full Right-to-Left layout support
+   ======================================== */
+
+[dir="rtl"] {
+    direction: rtl;
+    text-align: right;
+}
+
+/* Font family for Arabic - Better readability */
+[dir="rtl"] body,
+[dir="rtl"] * {
+    font-family: 'Tajawal', 'Cairo', 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Adjust line height for better Arabic readability */
+[dir="rtl"] p,
+[dir="rtl"] .text-base,
+[dir="rtl"] .text-sm,
+[dir="rtl"] .text-lg {
+    line-height: 1.8;
+}
+
+/* ============ MARGIN FLIPPING ============ */
+[dir="rtl"] .mr-1 { margin-right: 0 !important; margin-left: 0.25rem !important; }
+[dir="rtl"] .ml-1 { margin-left: 0 !important; margin-right: 0.25rem !important; }
+[dir="rtl"] .mr-2 { margin-right: 0 !important; margin-left: 0.5rem !important; }
+[dir="rtl"] .ml-2 { margin-left: 0 !important; margin-right: 0.5rem !important; }
+[dir="rtl"] .mr-3 { margin-right: 0 !important; margin-left: 0.75rem !important; }
+[dir="rtl"] .ml-3 { margin-left: 0 !important; margin-right: 0.75rem !important; }
+[dir="rtl"] .mr-4 { margin-right: 0 !important; margin-left: 1rem !important; }
+[dir="rtl"] .ml-4 { margin-left: 0 !important; margin-right: 1rem !important; }
+[dir="rtl"] .mr-6 { margin-right: 0 !important; margin-left: 1.5rem !important; }
+[dir="rtl"] .ml-6 { margin-left: 0 !important; margin-right: 1.5rem !important; }
+[dir="rtl"] .mr-8 { margin-right: 0 !important; margin-left: 2rem !important; }
+[dir="rtl"] .ml-8 { margin-left: 0 !important; margin-right: 2rem !important; }
+[dir="rtl"] .-mr-2 { margin-right: 0 !important; margin-left: -0.5rem !important; }
+[dir="rtl"] .-ml-2 { margin-left: 0 !important; margin-right: -0.5rem !important; }
+
+/* ============ PADDING FLIPPING ============ */
+[dir="rtl"] .pr-2 { padding-right: 0 !important; padding-left: 0.5rem !important; }
+[dir="rtl"] .pl-2 { padding-left: 0 !important; padding-right: 0.5rem !important; }
+[dir="rtl"] .pr-3 { padding-right: 0 !important; padding-left: 0.75rem !important; }
+[dir="rtl"] .pl-3 { padding-left: 0 !important; padding-right: 0.75rem !important; }
+[dir="rtl"] .pr-4 { padding-right: 0 !important; padding-left: 1rem !important; }
+[dir="rtl"] .pl-4 { padding-left: 0 !important; padding-right: 1rem !important; }
+[dir="rtl"] .pr-6 { padding-right: 0 !important; padding-left: 1.5rem !important; }
+[dir="rtl"] .pl-6 { padding-left: 0 !important; padding-right: 1.5rem !important; }
+[dir="rtl"] .pr-8 { padding-right: 0 !important; padding-left: 2rem !important; }
+[dir="rtl"] .pl-8 { padding-left: 0 !important; padding-right: 2rem !important; }
+[dir="rtl"] .pr-10 { padding-right: 0 !important; padding-left: 2.5rem !important; }
+[dir="rtl"] .pl-10 { padding-left: 0 !important; padding-right: 2.5rem !important; }
+[dir="rtl"] .pr-12 { padding-right: 0 !important; padding-left: 3rem !important; }
+[dir="rtl"] .pl-12 { padding-left: 0 !important; padding-right: 3rem !important; }
+
+/* ============ TEXT ALIGNMENT ============ */
+[dir="rtl"] .text-left { text-align: right !important; }
+[dir="rtl"] .text-right { text-align: left !important; }
+
+/* Mobile responsive text alignment */
+@media (max-width: 768px) {
+    [dir="rtl"] .md\:text-left { text-align: right !important; }
+    [dir="rtl"] .md\:text-right { text-align: left !important; }
+}
+
+/* ============ FLEX DIRECTION ============ */
+[dir="rtl"] .flex-row-reverse { flex-direction: row !important; }
+[dir="rtl"] .space-x-reverse > * + * { 
+    margin-right: var(--tw-space-x-reverse);
+    margin-left: 0;
+}
+
+/* ============ TRANSFORMS & ANIMATIONS ============ */
+[dir="rtl"] .rotate-3 { transform: rotate(-3deg) !important; }
+[dir="rtl"] .-rotate-3 { transform: rotate(3deg) !important; }
+[dir="rtl"] .rotate-6 { transform: rotate(-6deg) !important; }
+[dir="rtl"] .-rotate-6 { transform: rotate(6deg) !important; }
+[dir="rtl"] .rotate-12 { transform: rotate(-12deg) !important; }
+[dir="rtl"] .-rotate-12 { transform: rotate(12deg) !important; }
+
+/* ============ POSITIONING ============ */
+[dir="rtl"] .left-0 { left: auto !important; right: 0 !important; }
+[dir="rtl"] .right-0 { right: auto !important; left: 0 !important; }
+[dir="rtl"] .left-2 { left: auto !important; right: 0.5rem !important; }
+[dir="rtl"] .right-2 { right: auto !important; left: 0.5rem !important; }
+[dir="rtl"] .left-3 { left: auto !important; right: 0.75rem !important; }
+[dir="rtl"] .right-3 { right: auto !important; left: 0.75rem !important; }
+[dir="rtl"] .left-4 { left: auto !important; right: 1rem !important; }
+[dir="rtl"] .right-4 { right: auto !important; left: 1rem !important; }
+[dir="rtl"] .-left-1 { left: auto !important; right: -0.25rem !important; }
+[dir="rtl"] .-right-1 { right: auto !important; left: -0.25rem !important; }
+[dir="rtl"] .-left-2 { left: auto !important; right: -0.5rem !important; }
+[dir="rtl"] .-right-2 { right: auto !important; left: -0.5rem !important; }
+
+/* Mobile responsive positioning */
+@media (max-width: 640px) {
+    [dir="rtl"] .sm\:left-0 { left: auto !important; right: 0 !important; }
+    [dir="rtl"] .sm\:right-0 { right: auto !important; left: 0 !important; }
+}
+
+@media (min-width: 768px) {
+    [dir="rtl"] .md\:left-0 { left: auto !important; right: 0 !important; }
+    [dir="rtl"] .md\:right-0 { right: auto !important; left: 0 !important; }
+}
+
+/* ============ FLOAT ============ */
+[dir="rtl"] .float-left { float: right !important; }
+[dir="rtl"] .float-right { float: left !important; }
+
+/* ============ BORDER RADIUS ============ */
+[dir="rtl"] .rounded-l { border-radius: 0 0.25rem 0.25rem 0 !important; }
+[dir="rtl"] .rounded-r { border-radius: 0.25rem 0 0 0.25rem !important; }
+[dir="rtl"] .rounded-l-lg { border-radius: 0 0.5rem 0.5rem 0 !important; }
+[dir="rtl"] .rounded-r-lg { border-radius: 0.5rem 0 0 0.5rem !important; }
+[dir="rtl"] .rounded-tl { border-radius: 0 0.25rem 0 0 !important; }
+[dir="rtl"] .rounded-tr { border-radius: 0.25rem 0 0 0 !important; }
+[dir="rtl"] .rounded-bl { border-radius: 0 0 0.25rem 0 !important; }
+[dir="rtl"] .rounded-br { border-radius: 0 0 0 0.25rem !important; }
+
+/* ============ LISTS ============ */
+[dir="rtl"] ul,
+[dir="rtl"] ol {
+    padding-right: 1.5rem;
+    padding-left: 0;
+}
+
+[dir="rtl"] .list-inside {
+    padding-right: 0;
+}
+
+/* ============ DROPDOWN & MENU ALIGNMENT ============ */
+[dir="rtl"] .dropdown,
+[dir="rtl"] [class*="absolute"][class*="right-"] {
+    left: 0;
+    right: auto;
+}
+
+/* ============ ICONS IN RTL ============ */
+[dir="rtl"] .group-hover\:rotate-12 {
+    transform: rotate(-12deg);
+}
+
+/* ============ MOBILE SPECIFIC RTL ============ */
+@media (max-width: 768px) {
+    [dir="rtl"] .mobile-menu {
+        text-align: right;
+    }
+    
+    [dir="rtl"] .flex.items-center.gap-2,
+    [dir="rtl"] .flex.items-center.gap-3 {
+        flex-direction: row-reverse;
+    }
+}
+
+/* ============ GRID ADJUSTMENTS ============ */
+[dir="rtl"] .grid {
+    direction: rtl;
+}
+
+/* ============ SHADOW POSITIONING ============ */
+[dir="rtl"] .shadow-gaming {
+    box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
+}
+
+/* ============ BADGE POSITIONING ============ */
+[dir="rtl"] .absolute.top-2.left-2,
+[dir="rtl"] .absolute.top-3.left-3 {
+    left: auto !important;
+    right: 0.5rem;
+}
+
+[dir="rtl"] .absolute.top-2.right-2,
+[dir="rtl"] .absolute.top-3.right-3 {
+    right: auto !important;
+    left: 0.5rem;
+}
+
+[dir="rtl"] .absolute.-top-1.-right-1 {
+    right: auto !important;
+    left: -0.25rem;
+}
+
+[dir="rtl"] .absolute.-top-1.-left-1 {
+    left: auto !important;
+    right: -0.25rem;
+}
+
+/* ============ RESPONSIVE MOBILE ============ */
+@media (max-width: 640px) {
+    [dir="rtl"] .sm\:text-left { text-align: right !important; }
+    [dir="rtl"] .sm\:text-right { text-align: left !important; }
+    
+    /* Mobile spacing */
+    [dir="rtl"] .sm\:mr-2 { margin-right: 0 !important; margin-left: 0.5rem !important; }
+    [dir="rtl"] .sm\:ml-2 { margin-left: 0 !important; margin-right: 0.5rem !important; }
+    [dir="rtl"] .sm\:pr-3 { padding-right: 0 !important; padding-left: 0.75rem !important; }
+    [dir="rtl"] .sm\:pl-3 { padding-left: 0 !important; padding-right: 0.75rem !important; }
+}
+
+/* ============ INPUT ICONS ============ */
+[dir="rtl"] input[type="search"]::-webkit-search-cancel-button {
+    margin-left: 0;
+    margin-right: 0.5rem;
+}
+
+/* ============ SCROLLBAR ============ */
+[dir="rtl"] ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+/* ============ FIXES FOR SPECIFIC COMPONENTS ============ */
+
+/* Navigation spacing */
+[dir="rtl"] nav .flex.items-center.space-x-2,
+[dir="rtl"] nav .flex.items-center.space-x-3 {
+    flex-direction: row-reverse;
+}
+
+/* Card content alignment */
+[dir="rtl"] .card {
+    text-align: right;
+}
+
+/* Button icons */
+[dir="rtl"] .btn svg:first-child {
+    margin-left: 0.5rem;
+    margin-right: 0;
+}
+
+[dir="rtl"] .btn svg:last-child {
+    margin-right: 0.5rem;
+    margin-left: 0;
+}
+
+/* Alert icons */
+[dir="rtl"] .alert svg {
+    margin-left: 0.75rem;
+    margin-right: 0;
+}
+
+/* Footer social icons */
+[dir="rtl"] .flex.space-x-3,
+[dir="rtl"] .flex.space-x-4 {
+    flex-direction: row-reverse;
+}
+
+/* Dropdown positioning */
+[dir="rtl"] .dropdown {
+    left: 0 !important;
+    right: auto !important;
+}
+
+/* Mobile menu alignment */
+[dir="rtl"] .mobile-menu-item {
+    text-align: right;
+    justify-content: flex-start;
+}
+
+/* Ensure badges don't overlap */
+[dir="rtl"] .badge {
+    direction: ltr;
+}
+
+/* Price alignment */
+[dir="rtl"] .price-container {
+    direction: ltr;
+    display: inline-block;
+}
+
+/* Number formatting */
+[dir="rtl"] .numeric {
+    direction: ltr;
+    unicode-bidi: embed;
+}
+
+/* ============ MOBILE RESPONSIVENESS ============ */
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+    [dir="rtl"] nav {
+        direction: rtl;
+    }
+    
+    [dir="rtl"] .md\:hidden .flex {
+        flex-direction: row-reverse;
+    }
+    
+    /* Mobile menu items */
+    [dir="rtl"] [data-nav-panel] a {
+        text-align: right;
+        padding-right: 1rem;
+        padding-left: 1rem;
+    }
+    
+    /* Mobile buttons full width */
+    [dir="rtl"] .block.w-full {
+        text-align: center;
+    }
+}
+
+/* ============ SMOOTH TRANSITIONS ============ */
+[dir="rtl"] * {
+    transition-property: margin, padding, text-align;
+    transition-duration: 150ms;
+}
+
+/* ============ IMPORTANT OVERRIDES FOR CONSISTENCY ============ */
+[dir="rtl"] .justify-start { justify-content: flex-end !important; }
+[dir="rtl"] .justify-end { justify-content: flex-start !important; }
+
+[dir="rtl"] .items-start { align-items: flex-end !important; }
+[dir="rtl"] .items-end { align-items: flex-start !important; }
+
+/* Keep center alignment as-is */
+[dir="rtl"] .justify-center { justify-content: center !important; }
+[dir="rtl"] .items-center { align-items: center !important; }
+[dir="rtl"] .text-center { text-align: center !important; }
+

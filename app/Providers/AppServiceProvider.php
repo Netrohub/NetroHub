@@ -43,6 +43,31 @@ class AppServiceProvider extends ServiceProvider
             return Limit::perMinute(20)->by($request->user()?->id ?: $request->ip());
         });
 
+        // Register event listeners
+        \Illuminate\Support\Facades\Event::listen(
+            \Illuminate\Auth\Events\Registered::class,
+            \App\Listeners\SendBrevoEmailVerification::class,
+        );
+
+        \Illuminate\Support\Facades\Event::listen(
+            \Illuminate\Auth\Events\Verified::class,
+            function ($event) {
+                \Log::info('User email verified', ['user_id' => $event->user->id]);
+                
+                // Send welcome email
+                try {
+                    if (config('services.brevo.welcome_template_id')) {
+                        app(\App\Services\BrevoMailer::class)->sendWelcomeEmail(
+                            $event->user->email,
+                            $event->user->name
+                        );
+                    }
+                } catch (\Exception $e) {
+                    \Log::warning('Failed to send welcome email', ['error' => $e->getMessage()]);
+                }
+            }
+        );
+
         // Register view composers
         \Illuminate\Support\Facades\View::composer('*', \App\View\Composers\AnnouncementComposer::class);
     }

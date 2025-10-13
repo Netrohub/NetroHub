@@ -144,7 +144,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function isAdmin(): bool
     {
-        return $this->hasRole('admin');
+        $adminRoles = ['SuperAdmin', 'Moderator', 'Finance', 'Support', 'Content', 'owner'];
+        return $this->hasAnyRole($adminRoles);
     }
 
     public function isVerified(): bool
@@ -261,46 +262,177 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->entitlementsService()->getDraftLimit($this);
     }
 
+    /**
+     * Get user's plan name
+     */
+    public function getPlanName(): string
+    {
+        return $this->entitlementsService()->getPlanName($this);
+    }
+
+    /**
+     * Check if user is on free plan
+     */
+    public function isFreePlan(): bool
+    {
+        return $this->entitlementsService()->isFreePlan($this);
+    }
+
+    /**
+     * Check if user is on plus plan
+     */
+    public function isPlusPlan(): bool
+    {
+        return $this->entitlementsService()->isPlusPlan($this);
+    }
+
+    /**
+     * Check if user is on pro plan
+     */
+    public function isProPlan(): bool
+    {
+        return $this->entitlementsService()->isProPlan($this);
+    }
+
+    /**
+     * Check if user can boost products
+     */
+    public function canBoostProduct(): bool
+    {
+        return $this->entitlementsService()->canBoostProduct($this);
+    }
+
+    /**
+     * Check if user can create more products (draft limit)
+     */
+    public function canCreateProduct(): bool
+    {
+        return $this->entitlementsService()->canCreateProduct($this);
+    }
+
+    /**
+     * Get subscription badge HTML
+     */
+    public function getSubscriptionBadge(): string
+    {
+        $badgeType = $this->getBadgeType();
+        
+        if ($badgeType === 'pro') {
+            return '<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold rounded-full shadow-lg">
+                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.519-4.674z"/>
+                        </svg>
+                        PRO
+                    </span>';
+        }
+        
+        if ($badgeType === 'plus') {
+            return '<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-xs font-bold rounded-full shadow-lg">
+                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        PLUS
+                    </span>';
+        }
+        
+        return '';
+    }
+
     public function getAvatarUrlAttribute($value): string
     {
-        // If user has uploaded an avatar, use that
-        if ($this->avatar) {
+        // Priority 1: If user has uploaded an avatar (avatar field), use that
+        if (!empty($this->attributes['avatar'])) {
+            $avatarPath = $this->attributes['avatar'];
+            
             // Check if it's already a full URL
-            if (filter_var($this->avatar, FILTER_VALIDATE_URL)) {
-                return $this->avatar;
+            if (filter_var($avatarPath, FILTER_VALIDATE_URL)) {
+                return $avatarPath;
             }
 
-            // Determine which disk to use
-            $disk = config('filesystems.default') === 's3' ? 's3' : 'public';
+            // Determine which disk to use - check if S3 is properly configured
+            $defaultDisk = config('filesystems.default');
+            $disk = 'public'; // Default to public
+            
+            if ($defaultDisk === 's3' && config('filesystems.disks.s3.region') && config('filesystems.disks.s3.key')) {
+                $disk = 's3';
+            }
 
             // Generate URL based on disk
             try {
                 if ($disk === 's3') {
-                    return Storage::disk('s3')->url($this->avatar);
+                    // For S3, use the URL method
+                    return Storage::disk('s3')->url($avatarPath);
                 } else {
-                    // For public disk, use asset path
-                    return asset('storage/'.$this->avatar);
+                    // For public disk, check if file exists
+                    $fullPath = storage_path('app/public/' . $avatarPath);
+                    if (file_exists($fullPath)) {
+                        // Add timestamp to prevent caching
+                        return asset('storage/' . $avatarPath) . '?v=' . filemtime($fullPath);
+                    }
+                    // Fallback without cache busting
+                    return asset('storage/' . $avatarPath) . '?v=' . time();
                 }
             } catch (\Exception $e) {
-                \Log::warning('Failed to generate avatar URL', [
+                \Log::warning('Failed to generate avatar URL from avatar field', [
                     'user_id' => $this->id,
-                    'avatar' => $this->avatar,
+                    'avatar' => $avatarPath,
                     'disk' => $disk,
                     'error' => $e->getMessage(),
                 ]);
 
-                // Fallback: try asset path
-                return asset('storage/'.$this->avatar);
+                // Fallback: try asset path with cache busting
+                return asset('storage/' . $avatarPath) . '?v=' . time();
             }
         }
 
-        // Use the avatar_url field (for external URLs)
-        if ($value) {
+        // Priority 2: Use the avatar_url field (for external URLs like OAuth providers)
+        if (!empty($value)) {
             return $value;
         }
 
         // Default avatar
         return asset('img/default-avatar.svg');
+    }
+
+    /**
+     * Send the email verification notification using Brevo.
+     */
+    public function sendEmailVerificationNotification(): void
+    {
+        try {
+            // Use Brevo if configured
+            if (config('services.brevo.key') && config('services.brevo.verify_template_id')) {
+                $brevoMailer = app(\App\Services\BrevoMailer::class);
+                $urlGenerator = app(\App\Actions\Auth\MakeEmailVerificationUrl::class);
+                
+                $verificationUrl = $urlGenerator($this);
+                
+                $brevoMailer->sendEmailVerification(
+                    $this->email,
+                    $this->name ?? 'User',
+                    $verificationUrl
+                );
+                
+                \Log::info('Brevo verification email sent via sendEmailVerificationNotification', [
+                    'user_id' => $this->id,
+                ]);
+            } else {
+                // Fallback to default Laravel notification
+                $this->notify(new \Illuminate\Auth\Notifications\VerifyEmail);
+                
+                \Log::info('Fallback Laravel verification email sent', [
+                    'user_id' => $this->id,
+                ]);
+            }
+        } catch (\Exception $e) {
+            \Log::error('Failed to send email verification', [
+                'user_id' => $this->id,
+                'error' => $e->getMessage(),
+            ]);
+            
+            // Fallback to default
+            $this->notify(new \Illuminate\Auth\Notifications\VerifyEmail);
+        }
     }
 
 }

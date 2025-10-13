@@ -7,12 +7,12 @@
 ])
 
 @php
-$baseClasses = 'inline-flex items-center justify-center font-semibold rounded-2xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-dark-900';
+$baseClasses = 'inline-flex items-center justify-center gap-2 font-semibold rounded-lg sm:rounded-xl md:rounded-2xl transition-all duration-300 transform md:hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-dark-900 min-h-[44px]';
 $sizeClasses = [
-    'sm' => 'px-4 py-2 text-sm',
-    'md' => 'px-6 py-3 text-base',
-    'lg' => 'px-8 py-4 text-lg',
-    'xl' => 'px-10 py-5 text-xl'
+    'sm' => 'px-3 py-2 text-xs sm:px-4 sm:py-2 sm:text-sm',
+    'md' => 'px-4 py-2.5 text-sm sm:px-6 sm:py-3 sm:text-base',
+    'lg' => 'px-5 py-3 text-base sm:px-8 sm:py-4 sm:text-lg',
+    'xl' => 'px-6 py-3.5 text-lg sm:px-10 sm:py-5 sm:text-xl'
 ];
 $variantClasses = [
     'primary' => 'bg-gaming-gradient hover:shadow-gaming text-white focus:ring-primary-500',

@@ -43,3 +43,4 @@ class CMSStatsWidget extends BaseWidget
     }
 }
 
+

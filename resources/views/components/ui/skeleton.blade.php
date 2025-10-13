@@ -17,3 +17,4 @@ $typeClasses = [
 
 <div {{ $attributes->merge(['class' => 'skeleton ' . $width . ' ' . ($type === 'custom' ? $height : $typeClasses[$type])]) }}></div>
 
+

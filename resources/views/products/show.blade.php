@@ -44,7 +44,7 @@
                     <!-- Gaming Thumbnail -->
                     <div class="aspect-video bg-gaming-gradient rounded-3xl relative overflow-hidden mb-8">
                         @if($product->thumbnail_url)
-                            <img src="{{ $product->thumbnail_url }}" alt="{{ $product->title }}" class="w-full h-full object-cover">
+                            <img src="{{ asset('storage/' . $product->thumbnail_url) }}" alt="{{ $product->title }}" class="w-full h-full object-cover">
                         @else
                             <div class="w-full h-full flex items-center justify-center text-white text-8xl font-black">
                                 {{ substr($product->title, 0, 1) }}
@@ -119,6 +119,132 @@
                                 <p class="text-muted-300 whitespace-pre-line leading-relaxed">{{ $product->description }}</p>
                             </div>
                         </div>
+
+                        <!-- Account Details (Metadata) -->
+                        @if($product->metadata && ($product->type === 'social_account' || $product->type === 'game_account'))
+                        <div class="space-y-4">
+                            <h3 class="text-2xl font-bold text-white flex items-center">
+                                <svg class="w-6 h-6 mr-3 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Account Details
+                            </h3>
+                            <div class="bg-dark-800/50 border border-gaming rounded-2xl p-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <!-- Automatic Delivery -->
+                                    <div class="flex items-center justify-between p-4 bg-green-500/5 border border-green-500/20 rounded-xl">
+                                        <span class="text-muted-300 text-sm">Automatic delivery?</span>
+                                        <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-lg text-sm font-semibold">
+                                            {{ ($product->metadata['automatic_delivery'] ?? false) ? 'Yes' : 'No' }}
+                                        </span>
+                                    </div>
+
+                                    <!-- KYC Verified -->
+                                    <div class="flex items-center justify-between p-4 bg-green-500/5 border border-green-500/20 rounded-xl">
+                                        <span class="text-muted-300 text-sm">Product owner verified with an ID?</span>
+                                        <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-lg text-sm font-semibold">
+                                            {{ ($product->metadata['kyc_verified'] ?? false) ? 'Yes' : 'No' }}
+                                        </span>
+                                    </div>
+
+                                    @if($product->type === 'social_account')
+                                        <!-- With Primary Email -->
+                                        <div class="flex items-center justify-between p-4 bg-dark-700/30 border border-gaming rounded-xl">
+                                            <span class="text-muted-300 text-sm">With primary email?</span>
+                                            <span class="px-3 py-1 {{ ($product->metadata['with_primary_email'] ?? false) ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400' }} rounded-lg text-sm font-semibold">
+                                                {{ ($product->metadata['with_primary_email'] ?? false) ? 'Yes' : 'No' }}
+                                            </span>
+                                        </div>
+
+                                        <!-- With Current Email -->
+                                        <div class="flex items-center justify-between p-4 bg-dark-700/30 border border-gaming rounded-xl">
+                                            <span class="text-muted-300 text-sm">With current email?</span>
+                                            <span class="px-3 py-1 {{ ($product->metadata['with_current_email'] ?? false) ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400' }} rounded-lg text-sm font-semibold">
+                                                {{ ($product->metadata['with_current_email'] ?? false) ? 'Yes' : 'No' }}
+                                            </span>
+                                        </div>
+
+                                        <!-- Linked to Number -->
+                                        <div class="flex items-center justify-between p-4 bg-dark-700/30 border border-gaming rounded-xl">
+                                            <span class="text-muted-300 text-sm">Linked to a number?</span>
+                                            <span class="px-3 py-1 {{ ($product->metadata['linked_to_number'] ?? false) ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400' }} rounded-lg text-sm font-semibold">
+                                                {{ ($product->metadata['linked_to_number'] ?? false) ? 'Yes' : 'No' }}
+                                            </span>
+                                        </div>
+                                    @endif
+
+                                    @if($product->type === 'game_account' && $product->game_title === 'Whiteout Survival')
+                                        <!-- With Primary Email -->
+                                        <div class="flex items-center justify-between p-4 bg-dark-700/30 border border-gaming rounded-xl">
+                                            <span class="text-muted-300 text-sm">With primary email?</span>
+                                            <span class="px-3 py-1 {{ ($product->metadata['with_primary_email'] ?? false) ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400' }} rounded-lg text-sm font-semibold">
+                                                {{ ($product->metadata['with_primary_email'] ?? false) ? 'Yes' : 'No' }}
+                                            </span>
+                                        </div>
+
+                                        <!-- Linked to Facebook -->
+                                        <div class="flex items-center justify-between p-4 bg-dark-700/30 border border-gaming rounded-xl">
+                                            <span class="text-muted-300 text-sm">Linked to Facebook?</span>
+                                            <span class="px-3 py-1 {{ ($product->metadata['linked_to_facebook'] ?? false) ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400' }} rounded-lg text-sm font-semibold">
+                                                {{ ($product->metadata['linked_to_facebook'] ?? false) ? 'Yes' : 'No' }}
+                                            </span>
+                                        </div>
+
+                                        <!-- Linked to Google -->
+                                        <div class="flex items-center justify-between p-4 bg-dark-700/30 border border-gaming rounded-xl">
+                                            <span class="text-muted-300 text-sm">Linked to Google account?</span>
+                                            <span class="px-3 py-1 {{ ($product->metadata['linked_to_google'] ?? false) ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400' }} rounded-lg text-sm font-semibold">
+                                                {{ ($product->metadata['linked_to_google'] ?? false) ? 'Yes' : 'No' }}
+                                            </span>
+                                        </div>
+
+                                        <!-- Linked to Apple ID -->
+                                        <div class="flex items-center justify-between p-4 bg-dark-700/30 border border-gaming rounded-xl">
+                                            <span class="text-muted-300 text-sm">Linked to Apple ID?</span>
+                                            <span class="px-3 py-1 {{ ($product->metadata['linked_to_apple'] ?? false) ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400' }} rounded-lg text-sm font-semibold">
+                                                {{ ($product->metadata['linked_to_apple'] ?? false) ? 'Yes' : 'No' }}
+                                            </span>
+                                        </div>
+
+                                        <!-- Linked to Game Center -->
+                                        <div class="flex items-center justify-between p-4 bg-dark-700/30 border border-gaming rounded-xl">
+                                            <span class="text-muted-300 text-sm">Linked to Game Center?</span>
+                                            <span class="px-3 py-1 {{ ($product->metadata['linked_to_game_center'] ?? false) ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400' }} rounded-lg text-sm font-semibold">
+                                                {{ ($product->metadata['linked_to_game_center'] ?? false) ? 'Yes' : 'No' }}
+                                            </span>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+
+                        <!-- Gallery Images (for Whiteout Survival) -->
+                        @if($product->gallery_urls && count($product->gallery_urls) > 0 && $product->type === 'game_account' && $product->game_title === 'Whiteout Survival')
+                        <div class="space-y-4">
+                            <h3 class="text-2xl font-bold text-white flex items-center">
+                                <svg class="w-6 h-6 mr-3 text-secondary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                Account Screenshots
+                            </h3>
+                            <div class="bg-dark-800/50 border border-gaming rounded-2xl p-6">
+                                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                    @foreach($product->gallery_urls as $imageUrl)
+                                        <a href="{{ asset('storage/' . $imageUrl) }}" target="_blank" class="group relative aspect-video rounded-xl overflow-hidden border border-gaming hover:border-primary-500 transition-all">
+                                            <img src="{{ asset('storage/' . $imageUrl) }}" alt="Account screenshot" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+                                                <svg class="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                                                </svg>
+                                            </div>
+                                        </a>
+                                    @endforeach
+                                </div>
+                                <p class="text-xs text-muted-400 mt-4">Click images to view full size</p>
+                            </div>
+                        </div>
+                        @endif
 
                         <!-- Gaming Features -->
                         @if($product->features && count($product->features) > 0)
@@ -236,7 +362,7 @@
                             <x-ui.card variant="glass" hover="true" class="h-full">
                                 <div class="aspect-video bg-gaming-gradient rounded-2xl relative overflow-hidden mb-4">
                                     @if($related->thumbnail_url)
-                                        <img src="{{ $related->thumbnail_url }}" alt="{{ $related->title }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                        <img src="{{ asset('storage/' . $related->thumbnail_url) }}" alt="{{ $related->title }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                                     @endif
                                 </div>
                                 <div class="space-y-3">

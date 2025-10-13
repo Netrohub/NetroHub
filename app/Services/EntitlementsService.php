@@ -261,4 +261,159 @@ class EntitlementsService
 
         return null;
     }
+
+    /**
+     * Check if user has priority support
+     */
+    public function hasPrioritySupport(User $user): bool
+    {
+        return $this->has($user, 'priority_support');
+    }
+
+    /**
+     * Check if user has featured placement
+     */
+    public function hasFeaturedPlacement(User $user): bool
+    {
+        return $this->has($user, 'featured_placement');
+    }
+
+    /**
+     * Get remaining boost slots for user
+     */
+    public function getRemainingBoosts(User $user): int
+    {
+        return (int) $this->get($user, 'boost_slots', 0);
+    }
+
+    /**
+     * Get draft limit for user
+     */
+    public function getDraftLimit(User $user): int
+    {
+        return (int) $this->get($user, 'draft_limit', 1);
+    }
+
+    /**
+     * Get all entitlements for a user (for display)
+     */
+    public function getUserEntitlements(User $user): array
+    {
+        $subscription = $user->activeSubscription;
+        
+        if (!$subscription || !$subscription->plan) {
+            return [];
+        }
+
+        $entitlements = [];
+        foreach ($subscription->plan->features as $feature) {
+            $entitlements[$feature->key] = [
+                'label' => $feature->label,
+                'value' => $this->get($user, $feature->key, $feature->getValue()),
+                'type' => $feature->getType(),
+                'is_new' => $feature->is_new,
+            ];
+        }
+
+        return $entitlements;
+    }
+
+    /**
+     * Check if user can list more products (based on draft limit)
+     */
+    public function canCreateProduct(User $user): bool
+    {
+        if (!$user->seller) {
+            return true; // Let them create seller profile
+        }
+
+        $currentDrafts = $user->seller->products()->where('status', 'draft')->count();
+        $draftLimit = $this->getDraftLimit($user);
+
+        return $currentDrafts < $draftLimit;
+    }
+
+    /**
+     * Check if user can boost a product
+     */
+    public function canBoostProduct(User $user): bool
+    {
+        return $this->getRemainingBoosts($user) > 0;
+    }
+
+    /**
+     * Use a boost slot
+     */
+    public function useBoost(User $user): bool
+    {
+        return $this->use($user, 'boost_slots', 1);
+    }
+
+    /**
+     * Check if user can change username
+     */
+    public function canChangeUsername(User $user): bool
+    {
+        // Free plan users can change username anytime
+        $subscription = $user->activeSubscription;
+        
+        if (!$subscription || $subscription->plan->isFree()) {
+            return true;
+        }
+
+        // Plus and Pro users get monthly changes
+        return $this->canUse($user, 'username_changes', 1);
+    }
+
+    /**
+     * Use a username change
+     */
+    public function useUsernameChange(User $user): bool
+    {
+        $subscription = $user->activeSubscription;
+        
+        // Free plan - unlimited changes
+        if (!$subscription || $subscription->plan->isFree()) {
+            return true;
+        }
+
+        // Use entitlement for paid plans
+        return $this->use($user, 'username_changes', 1);
+    }
+
+    /**
+     * Get user's plan name
+     */
+    public function getPlanName(User $user): string
+    {
+        $subscription = $user->activeSubscription;
+        return $subscription?->plan->name ?? 'Free';
+    }
+
+    /**
+     * Check if user is on free plan
+     */
+    public function isFreePlan(User $user): bool
+    {
+        $subscription = $user->activeSubscription;
+        return !$subscription || $subscription->plan->isFree();
+    }
+
+    /**
+     * Check if user is on plus plan
+     */
+    public function isPlusPlan(User $user): bool
+    {
+        $subscription = $user->activeSubscription;
+        return $subscription && $subscription->plan->slug === 'plus';
+    }
+
+    /**
+     * Check if user is on pro plan
+     */
+    public function isProPlan(User $user): bool
+    {
+        $subscription = $user->activeSubscription;
+        return $subscription && $subscription->plan->slug === 'pro';
+    }
 }

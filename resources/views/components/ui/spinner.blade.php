@@ -14,3 +14,4 @@ $sizeClasses = [
 
 <div {{ $attributes->merge(['class' => 'spinner ' . $sizeClasses[$size]]) }}></div>
 
+

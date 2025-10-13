@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Plan;
-use App\Services\PaddleSubscriptionService;
+use App\Services\TapPaymentService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class SubscriptionController extends Controller
 {
     public function __construct(
-        protected PaddleSubscriptionService $paddleService
+        protected TapPaymentService $tapService
     ) {}
 
     /**
@@ -87,10 +87,15 @@ class SubscriptionController extends Controller
         }
 
         try {
-            $this->paddleService->cancel($subscription);
+            $this->tapService->cancelSubscription($subscription);
 
             return back()->with('success', 'Subscription will be cancelled at the end of the billing period');
         } catch (\Exception $e) {
+            \Log::error('Subscription cancellation failed', [
+                'error' => $e->getMessage(),
+                'subscription_id' => $subscription->id,
+            ]);
+            
             return back()->with('error', 'Failed to cancel subscription: ' . $e->getMessage());
         }
     }
@@ -108,10 +113,15 @@ class SubscriptionController extends Controller
         }
 
         try {
-            $this->paddleService->resume($subscription);
+            $this->tapService->resumeSubscription($subscription);
 
             return back()->with('success', 'Subscription resumed successfully');
         } catch (\Exception $e) {
+            \Log::error('Subscription resume failed', [
+                'error' => $e->getMessage(),
+                'subscription_id' => $subscription->id,
+            ]);
+            
             return back()->with('error', 'Failed to resume subscription: ' . $e->getMessage());
         }
     }
@@ -138,26 +148,88 @@ class SubscriptionController extends Controller
         }
 
         try {
-            $this->paddleService->changePlan($subscription, $newPlan, $interval);
+            // Normalize prices for comparison (convert to monthly equivalent)
+            $currentMonthlyPrice = $subscription->billing_interval === 'monthly' 
+                ? (float) ($subscription->plan->price_month ?? 0)
+                : (float) ($subscription->plan->price_year ?? 0) / 12;
+                
+            $newMonthlyPrice = $interval === 'monthly'
+                ? (float) ($newPlan->price_month ?? 0)
+                : (float) ($newPlan->price_year ?? 0) / 12;
+            
+            // Handle edge case where both are 0 (free plans) - compare sort_order instead
+            if ($currentMonthlyPrice === 0.0 && $newMonthlyPrice === 0.0) {
+                $currentSortOrder = $subscription->plan->sort_order ?? 0;
+                $newSortOrder = $newPlan->sort_order ?? 0;
+                $isUpgrade = $newSortOrder > $currentSortOrder;
+            } else {
+                $isUpgrade = $newMonthlyPrice > $currentMonthlyPrice;
+            }
+            
+            // Calculate proration if upgrading mid-cycle
+            $proratedAmount = 0;
+            if ($isUpgrade && $subscription->current_period_end) {
+                $now = now();
+                $periodEnd = \Carbon\Carbon::parse($subscription->current_period_end);
+                $periodStart = \Carbon\Carbon::parse($subscription->current_period_start ?? $subscription->created_at);
+                
+                // Days remaining in current billing period
+                $totalDays = $periodStart->diffInDays($periodEnd);
+                $remainingDays = $now->diffInDays($periodEnd);
+                
+                if ($totalDays > 0 && $remainingDays > 0) {
+                    // Unused portion of current plan
+                    $currentDailyRate = $currentMonthlyPrice / 30;
+                    $unusedCredit = $currentDailyRate * $remainingDays;
+                    
+                    // Cost for new plan for remaining period
+                    $newDailyRate = $newMonthlyPrice / 30;
+                    $newCost = $newDailyRate * $remainingDays;
+                    
+                    // Prorated amount = new cost - unused credit
+                    $proratedAmount = max(0, $newCost - $unusedCredit);
+                }
+            }
 
-            // Debug: Log the plan comparison
-            \Log::info('Plan change debug', [
-                'current_plan' => $subscription->plan->name . ' ($' . $subscription->plan->price_month . ')',
-                'new_plan' => $newPlan->name . ' ($' . $newPlan->price_month . ')',
-                'is_upgrade' => $subscription->canUpgrade($newPlan),
-                'is_downgrade' => $subscription->canDowngrade($newPlan),
+            // Log for debugging
+            \Log::info('Plan change initiated', [
                 'user_id' => $user->id,
+                'current_plan' => $subscription->plan->name,
+                'current_monthly_price' => $currentMonthlyPrice,
+                'new_plan' => $newPlan->name,
+                'new_monthly_price' => $newMonthlyPrice,
+                'is_upgrade' => $isUpgrade,
+                'prorated_amount' => $proratedAmount,
             ]);
 
-            // Determine if this is an upgrade or downgrade
-            $isUpgrade = $newPlan->price_month > $subscription->plan->price_month;
+            // Execute the plan change with proration
+            $success = $this->tapService->changePlan($subscription, $newPlan, $interval, $isUpgrade);
             
-            $message = $isUpgrade
-                ? 'Plan upgraded successfully! You now have access to all premium features.'
-                : 'Plan will be downgraded at the end of the billing period.';
+            if (!$success) {
+                throw new \Exception('Plan change failed');
+            }
+
+            // Regenerate entitlements immediately
+            $entitlementsService = app(\App\Services\EntitlementsService::class);
+            $entitlementsService->regenerateEntitlements($user);
+            
+            if ($isUpgrade) {
+                $message = 'Plan upgraded successfully! You now have access to all premium features.';
+                if ($proratedAmount > 0) {
+                    $message .= ' Prorated charge of $' . number_format($proratedAmount, 2) . ' for the remaining billing period.';
+                }
+            } else {
+                $message = 'Plan will be downgraded at the end of the billing period.';
+            }
 
             return back()->with('success', $message);
         } catch (\Exception $e) {
+            \Log::error('Plan change failed', [
+                'user_id' => $user->id,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+            
             return back()->with('error', 'Failed to change plan: ' . $e->getMessage());
         }
     }

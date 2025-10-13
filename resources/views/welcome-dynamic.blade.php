@@ -14,46 +14,46 @@
 
 {{-- Hero Section --}}
 @if($heroBlock && $heroBlock->canView(auth()->user()))
-<section class="relative overflow-hidden bg-dark-900 section-padding">
+<section class="relative overflow-hidden bg-dark-900 py-12 sm:py-16 md:py-20 lg:py-24">
     <!-- Animated Background -->
     <div class="absolute inset-0">
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl animate-float"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary-500/10 rounded-full blur-3xl animate-float animation-delay-2000"></div>
+        <div class="absolute top-1/4 left-1/4 w-64 h-64 sm:w-96 sm:h-96 bg-primary-500/10 rounded-full blur-3xl animate-float"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-64 h-64 sm:w-96 sm:h-96 bg-secondary-500/10 rounded-full blur-3xl animate-float animation-delay-2000"></div>
     </div>
     
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <!-- Icon -->
-        <div class="inline-flex items-center justify-center w-20 h-20 bg-gaming-gradient rounded-3xl mb-6 shadow-gaming-lg animate-bounce-in">
-            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-gaming-gradient rounded-2xl sm:rounded-3xl mb-4 sm:mb-6 shadow-gaming-lg animate-bounce-in">
+            <svg class="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
             </svg>
         </div>
         
         <!-- Title -->
-        <h1 class="text-5xl md:text-6xl lg:text-7xl font-black mb-6 text-gradient scroll-fade-in">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-4 sm:mb-6 text-gradient leading-tight sm:leading-snug scroll-fade-in">
             {{ $heroBlock->title }}
         </h1>
         
         <!-- Description -->
-        <p class="text-xl md:text-2xl text-muted-300 max-w-3xl mx-auto mb-10 scroll-fade-in animation-delay-100">
+        <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-300 max-w-3xl mx-auto mb-6 sm:mb-8 md:mb-10 leading-relaxed scroll-fade-in animation-delay-100">
             {{ $heroBlock->content }}
         </p>
         
         <!-- CTAs -->
-        <div class="flex flex-col sm:flex-row gap-4 justify-center scroll-fade-in animation-delay-200">
+        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center scroll-fade-in animation-delay-200 max-w-lg mx-auto sm:max-w-none">
             <a href="{{ $heroBlock->metadata['cta_primary_link'] ?? '/products' }}" 
-               class="btn-secondary btn-lg group">
+               class="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-bold bg-dark-800/70 hover:bg-dark-700/70 text-white rounded-xl transition-all duration-300 shadow-lg hover:shadow-gaming min-h-[48px] group">
                 <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                 </svg>
-                {{ $heroBlock->metadata['cta_primary_text'] ?? 'Browse Products' }}
+                {{ __($heroBlock->metadata['cta_primary_text'] ?? 'Browse Products') }}
             </a>
             <a href="{{ $heroBlock->metadata['cta_secondary_link'] ?? '/sell' }}" 
-               class="btn-primary btn-lg group">
+               class="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-bold bg-gaming-gradient text-white rounded-xl transition-all duration-300 shadow-gaming hover:shadow-gaming-lg min-h-[48px] group">
                 <svg class="w-5 h-5 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                 </svg>
-                {{ $heroBlock->metadata['cta_secondary_text'] ?? 'Start Selling' }}
+                {{ __($heroBlock->metadata['cta_secondary_text'] ?? 'Start Selling Now') }}
             </a>
         </div>
     </div>
@@ -62,15 +62,15 @@
 
 {{-- Stats Section --}}
 @if($statsBlock && $statsBlock->canView(auth()->user()))
-<section class="bg-dark-800/50 backdrop-blur-sm border-y border-gaming py-12">
+<section class="bg-dark-800/50 backdrop-blur-sm border-y border-gaming py-8 sm:py-10 md:py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 scroll-stagger">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 scroll-stagger">
             @foreach($statsBlock->metadata['stats'] ?? [] as $stat)
                 <div class="text-center scroll-fade-in">
-                    <div class="text-4xl md:text-5xl font-black text-gradient mb-2">
+                    <div class="text-3xl sm:text-4xl md:text-5xl font-black text-gradient mb-1 sm:mb-2 leading-none">
                         <span data-count="{{ $stat['value'] }}" data-duration="2000">0</span>{{ $stat['suffix'] ?? '' }}
                     </div>
-                    <p class="text-sm md:text-base text-muted-400 font-medium">{{ $stat['label'] }}</p>
+                    <p class="text-xs sm:text-sm md:text-base text-muted-400 font-medium">{{ $stat['label'] }}</p>
                 </div>
             @endforeach
         </div>
@@ -80,28 +80,28 @@
 
 {{-- Categories Section --}}
 @if($categories->isNotEmpty())
-<section class="section-padding bg-dark-900">
+<section class="py-12 sm:py-16 md:py-20 bg-dark-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 scroll-fade-in">
-            <h2 class="text-3xl md:text-4xl font-black text-white mb-4">Popular Categories</h2>
-            <p class="text-muted-400 text-lg">Browse our most popular digital product categories</p>
+        <div class="text-center mb-8 sm:mb-10 md:mb-12 scroll-fade-in">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-3 sm:mb-4 leading-tight">{{ __('Popular Categories') }}</h2>
+            <p class="text-muted-400 text-sm sm:text-base md:text-lg">{{ __('Browse our most popular digital product categories') }}</p>
         </div>
         
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 scroll-stagger">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 scroll-stagger">
             @foreach($categories as $category)
                 <a href="{{ route('products.index', ['category' => $category->slug]) }}" 
                    class="group scroll-fade-in">
-                    <div class="card card-hover p-6 text-center h-full">
-                        <div class="flex justify-center mb-4">
-                            <div class="w-16 h-16 rounded-2xl bg-gaming-gradient flex items-center justify-center shadow-gaming group-hover:scale-110 transition-transform duration-300">
+                    <div class="card card-hover p-4 sm:p-5 md:p-6 text-center h-full">
+                        <div class="flex justify-center mb-3 sm:mb-4">
+                            <div class="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl sm:rounded-2xl bg-gaming-gradient flex items-center justify-center shadow-gaming group-hover:scale-110 transition-transform duration-300">
                                 <x-platform-icon :category="$category->name" size="lg" class="filter brightness-0 invert" />
                             </div>
                         </div>
-                        <h3 class="font-bold text-lg mb-2 group-hover:text-primary-400 transition-colors">
+                        <h3 class="font-bold text-sm sm:text-base md:text-lg mb-1 sm:mb-2 group-hover:text-primary-400 transition-colors line-clamp-1">
                             {{ $category->name }}
                         </h3>
                         <p class="text-sm text-muted-400">
-                            {{ number_format($category->products_count) }} products
+                            {{ number_format($category->products_count) }} {{ __('products') }}
                         </p>
                     </div>
                 </a>
@@ -302,5 +302,61 @@
 </section>
 @endif
 
+{{-- Discord Community Section --}}
+<section class="section-padding bg-dark-900 border-t border-gaming">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center scroll-fade-in">
+        <!-- Discord Icon -->
+        <div class="inline-flex items-center justify-center w-20 h-20 bg-indigo-600 rounded-full mb-6 shadow-lg hover:scale-110 transition-transform duration-300">
+            <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
+            </svg>
+        </div>
+        
+        <h2 class="text-3xl md:text-4xl font-black text-white mb-4">
+            {{ __('Join Our Discord Community') }}
+        </h2>
+        <p class="text-lg text-muted-400 mb-8 leading-relaxed">
+            {{ __('Connect with thousands of sellers and buyers, get instant support, and stay updated with the latest news and exclusive offers!') }}
+        </p>
+        
+        <!-- Discord Button -->
+        @php
+            $discordUrl = \App\Models\Setting::get('discord_url', 'https://discord.gg/your-server');
+        @endphp
+        <a href="{{ $discordUrl }}" 
+           target="_blank"
+           rel="noopener noreferrer"
+           class="inline-flex items-center gap-3 px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white text-lg font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 group">
+            <svg class="w-6 h-6 group-hover:rotate-12 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
+            </svg>
+            {{ __('Join Discord Server') }}
+            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+            </svg>
+        </a>
+        
+        <!-- Benefits -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+            <div class="text-center">
+                <div class="text-3xl mb-2">💬</div>
+                <h3 class="font-bold text-white mb-1">{{ __('Instant Support') }}</h3>
+                <p class="text-sm text-muted-400">{{ __('Get help from our team and community') }}</p>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl mb-2">🎉</div>
+                <h3 class="font-bold text-white mb-1">{{ __('Exclusive Events') }}</h3>
+                <p class="text-sm text-muted-400">{{ __('Join giveaways and special promotions') }}</p>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl mb-2">🤝</div>
+                <h3 class="font-bold text-white mb-1">{{ __('Active Community') }}</h3>
+                <p class="text-sm text-muted-400">{{ __('Connect with sellers and buyers') }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
 @endsection
+
 

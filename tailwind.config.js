@@ -4,10 +4,20 @@ export default {
     "./resources/**/*.blade.php",
     "./resources/**/*.js",
     "./resources/**/*.vue",
+    "./app/View/Components/**/*.php",
   ],
   darkMode: 'class',
   theme: {
     extend: {
+      container: {
+        center: true,
+        padding: {
+          DEFAULT: '1rem',
+          sm: '1rem',
+          md: '1.5rem',
+          lg: '2rem',
+        },
+      },
       fontFamily: {
         'sans': ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
         'display': ['Poppins', 'Inter', 'sans-serif'],

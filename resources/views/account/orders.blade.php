@@ -9,16 +9,12 @@
 
     <x-ui.card variant="glass" class="p-0 mb-6">
         <nav class="flex overflow-x-auto text-sm">
-            @php($tabs=['social'=>'Social','games'=>'Games','services'=>'Services','disputes'=>'Disputes'])
-            @foreach($tabs as $key=>$label)
-                <a href="{{ route('account.orders', ['tab'=>$key]) }}" class="flex items-center gap-2 px-5 py-3 border-b-2 {{ $tab === $key ? 'border-primary-500 text-white' : 'border-transparent text-muted-300 hover:text-white' }} whitespace-nowrap">
-                    @if($key !== 'disputes')
-                        <x-platform-icon :category="$label" size="xs" />
-                    @else
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                        </svg>
-                    @endif
+            @php
+                $tabs = ['social' => 'Social', 'games' => 'Games', 'services' => 'Services'];
+            @endphp
+            @foreach($tabs as $key => $label)
+                <a href="{{ route('account.orders', ['tab' => $key]) }}" class="flex items-center gap-2 px-5 py-3 border-b-2 {{ $tab === $key ? 'border-primary-500 text-white' : 'border-transparent text-muted-300 hover:text-white' }} whitespace-nowrap">
+                    <x-platform-icon :category="$label" size="xs" />
                     {{ $label }}
                 </a>
             @endforeach
@@ -37,9 +33,7 @@
                     <tr>
                         <th class="px-4 py-3">Product</th>
                         <th class="px-4 py-3">Amount</th>
-                        @if($tab==='disputes')
-                            <th class="px-4 py-3">Dispute Status</th>
-                        @endif
+                        <th class="px-4 py-3">Status</th>
                         <th class="px-4 py-3">Order Date</th>
                         <th class="px-4 py-3 text-right">Actions</th>
                     </tr>
@@ -77,10 +71,16 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-4 py-4 font-semibold text-white">${{ number_format($order->total_amount ?? 0,2) }}</td>
-                            @if($tab==='disputes')
-                                <td class="px-4 py-4"><x-ui.badge size="sm">Open</x-ui.badge></td>
-                            @endif
+                            <td class="px-4 py-4 font-semibold text-white">${{ number_format($order->total_amount ?? 0, 2) }}</td>
+                            <td class="px-4 py-4">
+                                @if($order->payment_status === 'completed')
+                                    <x-ui.badge color="green" size="sm">Completed</x-ui.badge>
+                                @elseif($order->payment_status === 'pending')
+                                    <x-ui.badge color="yellow" size="sm">Pending</x-ui.badge>
+                                @else
+                                    <x-ui.badge color="gray" size="sm">{{ ucfirst($order->payment_status ?? 'Unknown') }}</x-ui.badge>
+                                @endif
+                            </td>
                             <td class="px-4 py-4 text-muted-300">{{ optional($order->created_at)->format('M d, Y') }}</td>
                             <td class="px-4 py-4 text-right">
                                 <div class="flex items-center gap-2 justify-end">

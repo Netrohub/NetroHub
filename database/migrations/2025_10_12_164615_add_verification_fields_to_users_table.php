@@ -17,7 +17,7 @@ return new class extends Migration
             }
             
             if (!Schema::hasColumn('users', 'phone_number')) {
-                $table->string('phone_number')->nullable()->after('phone_verification_code_expires_at');
+                $table->string('phone_number')->nullable();
             }
             
             if (!Schema::hasColumn('users', 'phone_verified_at')) {

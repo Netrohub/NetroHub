@@ -20,6 +20,11 @@ return Application::configure(basePath: dirname(__DIR__))
         'require.kyc' => \App\Http\Middleware\RequireKycVerification::class,
         ]);
         
+        // Add locale middleware to web group
+        $middleware->web(append: [
+            \App\Http\Middleware\SetLocale::class,
+        ]);
+        
         // Configure rate limiting
         $middleware->throttleApi();
     })

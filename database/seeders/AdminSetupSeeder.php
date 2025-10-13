@@ -134,9 +134,62 @@ class AdminSetupSeeder extends Seeder
                 'key' => 'verification_email',
                 'name' => 'Email Verification',
                 'description' => 'Email verification link',
-                'subject' => 'Verify your email address',
-                'body' => '<h2>Welcome to NetroHub!</h2><p>Hi {{user_name}},</p><p>Please verify your email address by clicking the link below:</p><p><a href="{{verification_url}}">Verify Email</a></p><p>This link will expire in 24 hours.</p>',
-                'available_variables' => ['user_name', 'verification_url'],
+                'subject' => 'Verify your email - NetroHub',
+                'body' => '<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <title>Verify your email - NetroHub</title>
+</head>
+<body style="background-color:#f5f7fa; font-family: Arial, sans-serif; padding: 0; margin: 0;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f5f7fa; padding: 40px 0;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+          <tr>
+            <td style="background-color:#0f172a; padding: 20px; text-align:center;">
+              <h1 style="color:#ffffff; margin:0; font-size:24px;">NetroHub</h1>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 40px; text-align: left; color: #1e293b;">
+              <h2 style="margin-top: 0;">Verify your email address</h2>
+              <p style="font-size: 16px; line-height: 1.5; color: #334155;">
+                Hello 👋,<br><br>
+                Thank you for signing up to <strong>NetroHub</strong>!  
+                Please verify your email address to complete your registration and activate your account.
+              </p>
+              <p style="font-size: 16px; margin: 30px 0;">
+                Click the button below to verify your email:
+              </p>
+              <p style="text-align: center;">
+                <a href="{{verification_url}}" style="background-color:#2563eb; color:#ffffff; text-decoration:none; padding: 14px 30px; border-radius: 8px; font-size: 16px; display: inline-block;">
+                  Verify My Email
+                </a>
+              </p>
+              <p style="font-size: 14px; color: #64748b; margin-top: 40px;">
+                If the button above doesn\'t work, copy and paste the link below into your browser:
+              </p>
+              <p style="word-break: break-all; color:#2563eb; font-size:14px;">
+                {{verification_url}}
+              </p>
+              <p style="font-size: 14px; color: #94a3b8; margin-top: 30px;">
+                If you didn\'t create an account with NetroHub, you can safely ignore this email.
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td style="background-color:#f1f5f9; text-align:center; padding: 15px; font-size: 12px; color:#94a3b8;">
+              © {{year}} NetroHub. All rights reserved.
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>',
+                'available_variables' => ['verification_url', 'year'],
                 'is_active' => true,
             ],
             [

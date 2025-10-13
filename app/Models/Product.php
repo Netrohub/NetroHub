@@ -17,11 +17,15 @@ class Product extends Model
     protected $fillable = [
         'seller_id',
         'category_id',
+        'type',
+        'game_title',
+        'platform',
         'title',
         'slug',
         'description',
         'features',
         'tags',
+        'metadata',
         'price',
         'delivery_type',
         'delivery_credentials',
@@ -46,6 +50,7 @@ class Product extends Model
         return [
             'features' => 'array',
             'tags' => 'array',
+            'metadata' => 'array',
             'gallery_urls' => 'array',
             'delivery_credentials' => 'encrypted:array',
             'is_unique_credential' => 'boolean',

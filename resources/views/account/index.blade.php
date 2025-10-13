@@ -242,14 +242,24 @@
                                 <div>
                                     <label for="username" class="block text-sm font-semibold text-white mb-2">
                                         Username
+                                        <span class="text-red-400">*</span>
                                     </label>
                                     <input type="text" 
                                            name="username" 
                                            id="username" 
                                            value="{{ old('username', $user->username) }}"
+                                           required
+                                           minlength="3"
+                                           maxlength="30"
+                                           pattern="[a-zA-Z0-9_]+"
                                            class="w-full px-4 py-3 bg-dark-900/70 border border-gaming rounded-xl text-white placeholder-muted-500 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all"
                                            placeholder="@username">
-                                    <p class="mt-1 text-xs text-muted-400">Your unique identifier</p>
+                                    <p class="mt-1 text-xs text-muted-400">
+                                        Your unique identifier (3-30 characters, letters, numbers, and underscores only)
+                                    </p>
+                                    @error('username')
+                                        <p class="mt-1 text-xs text-red-400">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -659,15 +669,23 @@ setTimeout(function() {
     }
 }, 5000);
 
-// Force reload avatar on page load if we just uploaded
-if (window.location.search.includes('tab=my-account') && document.referrer.includes('account')) {
+// Force reload avatar on page load to show updated image
+document.addEventListener('DOMContentLoaded', function() {
     const img = document.getElementById('avatar-preview');
-    if (img) {
-        // Force reload the image by setting src again with timestamp
+    if (img && img.src) {
+        // Add timestamp to force reload and bypass cache
         const currentSrc = img.src.split('?')[0];
         img.src = currentSrc + '?v=' + new Date().getTime();
     }
-}
+    
+    // Also update all avatar images on the page
+    document.querySelectorAll('img[alt*="{{ auth()->user()->name }}"]').forEach(function(avatarImg) {
+        if (avatarImg.src) {
+            const src = avatarImg.src.split('?')[0];
+            avatarImg.src = src + '?v=' + new Date().getTime();
+        }
+    });
+});
 </script>
 @endpush
 @endsection

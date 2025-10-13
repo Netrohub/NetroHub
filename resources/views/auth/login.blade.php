@@ -20,10 +20,10 @@
                 </svg>
             </div>
             <h2 class="text-4xl font-black text-white mb-2 bg-gaming-gradient bg-clip-text text-transparent">
-                Welcome Back
+                {{ __('Welcome back!') }}
             </h2>
             <p class="text-muted-300">
-                Sign in to your gaming marketplace account
+                {{ __('Sign in to your account') }}
             </p>
         </div>
 
@@ -35,7 +35,7 @@
                 <!-- Email Field -->
                 <div>
                     <label for="email" class="block text-sm font-semibold text-white mb-2">
-                        Email Address
+                        {{ __('Email') }}
                     </label>
                     <x-ui.input 
                         id="email" 
@@ -55,11 +55,11 @@
                 <div>
                     <div class="flex items-center justify-between mb-2">
                         <label for="password" class="block text-sm font-semibold text-white">
-                            Password
+                            {{ __('Password') }}
                         </label>
                         <a href="{{ route('password.request') }}" 
                            class="text-xs text-primary-400 hover:text-primary-300 transition-colors">
-                            Forgot password?
+                            {{ __('Forgot password?') }}
                         </a>
                     </div>
                     <x-ui.input 
@@ -80,7 +80,7 @@
                     <input id="remember" name="remember" type="checkbox"
                            class="h-4 w-4 text-primary-500 focus:ring-primary-500 border-gaming rounded bg-dark-800">
                     <label for="remember" class="ml-2 block text-sm text-muted-300">
-                        Remember me
+                        {{ __('Remember me') }}
                     </label>
                 </div>
 
@@ -104,16 +104,16 @@
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
                         </svg>
-                        Sign in
+                        {{ __('Login') }}
                     </x-ui.button>
                 </div>
 
                 <!-- Create Account Link -->
                 <div class="text-center">
                     <p class="text-sm text-muted-400">
-                        Don't have an account? 
+                        {{ __("Don't have an account?") }} 
                         <a href="{{ route('register') }}" class="text-primary-400 hover:text-primary-300 font-semibold transition-colors">
-                            Create one
+                            {{ __('Sign up here') }}
                         </a>
                     </p>
                 </div>

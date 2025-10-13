@@ -46,7 +46,6 @@ class KycController extends Controller
         $validator = Validator::make($request->all(), [
             'country_code' => 'required|string|size:2',
             'full_name' => 'required|string|max:255',
-            'dob' => 'required|date|before:today',
             'id_type' => 'required|in:national_id,passport,driver_license',
             'id_image' => 'required|file|mimes:jpg,jpeg,png,pdf|max:5120', // 5MB max
         ]);
@@ -71,7 +70,6 @@ class KycController extends Controller
                 'user_id' => $user->id,
                 'country_code' => $request->country_code,
                 'full_name' => $request->full_name,
-                'dob' => $request->dob,
                 'id_type' => $request->id_type,
                 'id_image_path' => $encryptedPath,
                 'status' => 'pending',

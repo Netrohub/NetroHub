@@ -52,6 +52,10 @@ Route::get('/privacy', function () {
     return view('legal.privacy');
 })->name('privacy');
 
+Route::get('/refund-policy', function () {
+    return view('legal.refund');
+})->name('refund');
+
 // Sitemap
 Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap.index');
 Route::get('/sitemap/static.xml', [App\Http\Controllers\SitemapController::class, 'static'])->name('sitemap.static');
@@ -88,7 +92,7 @@ Route::prefix('cart')->name('cart.')->group(function () {
 // Subscriptions & Pricing
 Route::get('/pricing', [PricingController::class, 'index'])->name('pricing.index');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     // Subscription management
     Route::post('/subscribe/{plan}/{interval?}', [SubscriptionController::class, 'subscribe'])->name('subscription.subscribe');
     Route::post('/subscription/cancel', [SubscriptionController::class, 'cancel'])->name('subscription.cancel');
@@ -101,11 +105,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/billing/cancel', [BillingController::class, 'cancel'])->name('billing.cancel');
 });
 
-// Paddle webhooks (public, no CSRF)
-Route::post('/webhook/paddle', [PaddleWebhookController::class, 'handle'])->name('webhook.paddle')->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
+// Tap webhooks and callbacks (public, no CSRF for webhook)
+Route::post('/webhook/tap', [App\Http\Controllers\TapWebhookController::class, 'handle'])
+    ->name('webhook.tap')
+    ->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
 
-// Account area (authenticated)
-Route::middleware('auth')->prefix('account')->name('account.')->group(function () {
+Route::get('/subscription/callback', [App\Http\Controllers\TapWebhookController::class, 'callback'])
+    ->name('subscription.callback')
+    ->middleware('auth');
+
+// Account area (authenticated and verified)
+Route::middleware(['auth', 'verified'])->prefix('account')->name('account.')->group(function () {
     Route::get('/', [AccountController::class, 'index'])->name('index');
     Route::put('/', [AccountController::class, 'update'])->name('update');
     Route::get('/orders', [AccountController::class, 'orders'])->name('orders');
@@ -122,21 +132,21 @@ Route::middleware('auth')->prefix('account')->name('account.')->group(function (
 });
 
 // KYC Verification Routes (Legacy - for backward compatibility)
-Route::middleware('auth')->prefix('kyc')->name('kyc.')->group(function () {
+Route::middleware(['auth', 'verified'])->prefix('kyc')->name('kyc.')->group(function () {
     Route::get('/verification', [KycVerificationController::class, 'show'])->name('verification.show');
     Route::post('/verification', [KycVerificationController::class, 'store'])->name('verification.store');
     Route::get('/status', [KycVerificationController::class, 'status'])->name('status');
 });
 
 // New KYC Verification Routes
-Route::middleware('auth')->prefix('account/kyc')->name('account.kyc.')->group(function () {
+Route::middleware(['auth', 'verified'])->prefix('account/kyc')->name('account.kyc.')->group(function () {
     Route::get('/', [App\Http\Controllers\Account\KycController::class, 'show'])->name('show');
     Route::post('/', [App\Http\Controllers\Account\KycController::class, 'store'])->name('store')->middleware('throttle:3,1');
     Route::get('/status', [App\Http\Controllers\Account\KycController::class, 'status'])->name('status');
 });
 
 // Phone Verification Routes
-Route::middleware('auth')->prefix('account/phone')->name('account.phone.')->group(function () {
+Route::middleware(['auth', 'verified'])->prefix('account/phone')->name('account.phone.')->group(function () {
     Route::get('/', [App\Http\Controllers\Account\PhoneVerificationController::class, 'show'])->name('show');
     Route::post('/send-code', [App\Http\Controllers\Account\PhoneVerificationController::class, 'sendCode'])->name('send-code')->middleware('throttle:5,1');
     Route::post('/verify-code', [App\Http\Controllers\Account\PhoneVerificationController::class, 'verifyCode'])->name('verify-code')->middleware('throttle:5,1');
@@ -175,7 +185,7 @@ Route::middleware(['auth'])->prefix('admin/kyc')->name('admin.kyc.')->group(func
 });
 
 // Checkout
-Route::middleware('auth')->prefix('checkout')->name('checkout.')->group(function () {
+Route::middleware(['auth', 'verified'])->prefix('checkout')->name('checkout.')->group(function () {
     Route::get('/', [CheckoutController::class, 'index'])->name('index');
     Route::post('/process', [CheckoutController::class, 'process'])->name('process');
     Route::get('/success/{order}', [CheckoutController::class, 'success'])->name('success');
@@ -185,13 +195,13 @@ Route::middleware('auth')->prefix('checkout')->name('checkout.')->group(function
 Route::post('/webhook/paddle', [CheckoutController::class, 'webhook'])->name('webhook.paddle');
 
 // Order delivery (secure credential viewing)
-Route::middleware(['auth', 'throttle:delivery'])->prefix('orders')->name('orders.')->group(function () {
+Route::middleware(['auth', 'verified', 'throttle:delivery'])->prefix('orders')->name('orders.')->group(function () {
     Route::get('/{order}/delivery', [App\Http\Controllers\OrderDeliveryController::class, 'show'])->name('delivery');
     Route::post('/{order}/delivery/reveal/{orderItem}', [App\Http\Controllers\OrderDeliveryController::class, 'reveal'])->name('delivery.reveal');
 });
 
 // Secure download routes
-Route::middleware('auth')->prefix('downloads')->name('downloads.')->group(function () {
+Route::middleware(['auth', 'verified'])->prefix('downloads')->name('downloads.')->group(function () {
     Route::get('/secure', [SecureDownloadController::class, 'download'])->name('secure');
     Route::post('/generate/{orderItem}', [SecureDownloadController::class, 'generateUrl'])->name('generate');
     Route::get('/stats/{orderItem}', [SecureDownloadController::class, 'stats'])->name('stats');
@@ -218,7 +228,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 // Sell Routes (auto-creates seller profile)
-Route::middleware(['auth', 'require.kyc'])->prefix('sell')->name('sell.')->group(function () {
+Route::middleware(['auth', 'verified', 'require.kyc'])->prefix('sell')->name('sell.')->group(function () {
     Route::get('/', [SellController::class, 'index'])->name('index');
     Route::get('/game', [SellController::class, 'createGame'])->name('game.create');
     Route::get('/social', [SellController::class, 'createSocial'])->name('social.create');
@@ -230,7 +240,7 @@ Route::middleware(['auth', 'require.kyc'])->prefix('sell')->name('sell.')->group
 Route::middleware('auth')->get('/sell-entry', [SellController::class, 'entry'])->name('sell.entry');
 
 // Seller Routes
-Route::middleware(['auth', 'require.kyc'])->prefix('seller')->name('seller.')->group(function () {
+Route::middleware(['auth', 'verified', 'require.kyc'])->prefix('seller')->name('seller.')->group(function () {
     Route::get('/dashboard', [SellerDashboardController::class, 'index'])->name('dashboard');
 
     // Products
@@ -263,10 +273,10 @@ Route::middleware(['auth'])->group(function () {
 // Auth routes (will be added by Breeze)
 require __DIR__.'/auth.php';
 
-// Locale toggle (simple session switcher)
-Route::post('/locale/toggle', function (Request $request) {
-    $locale = session('locale', 'en') === 'en' ? 'ar' : 'en';
-    session(['locale' => $locale]);
-
+// Locale switching (available to all users)
+Route::get('/locale/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'ar'])) {
+        session(['locale' => $locale]);
+    }
     return back();
-})->middleware('auth')->name('locale.toggle');
+})->name('locale.switch');

@@ -58,4 +58,20 @@ return [
         'api_key' => env('POSTHOG_API_KEY'),
         'host' => env('POSTHOG_HOST', 'https://app.posthog.com'),
     ],
+
+    'brevo' => [
+        'key' => env('BREVO_API_KEY'),
+        'verify_template_id' => env('BREVO_TEMPLATE_VERIFY_ID'),
+        'welcome_template_id' => env('BREVO_TEMPLATE_WELCOME_ID'),
+    ],
+
+    'tap' => [
+        'secret_key' => env('TAP_SECRET_KEY'),
+        'public_key' => env('TAP_PUBLIC_KEY'),
+        'webhook_secret' => env('TAP_WEBHOOK_SECRET'),
+        'sandbox' => env('TAP_SANDBOX', true),
+        'api_url' => env('TAP_SANDBOX', true) 
+            ? 'https://api.tap.company/v2' 
+            : 'https://api.tap.company/v2',
+    ],
 ];

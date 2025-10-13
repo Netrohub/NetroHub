@@ -189,7 +189,7 @@
                         </div>
 
                         <!-- Full Name -->
-                        <div>
+                        <div class="md:col-span-2">
                             <label for="full_name" class="block text-sm font-medium text-white mb-2">
                                 Full Name <span class="text-red-400">*</span>
                             </label>
@@ -201,22 +201,6 @@
                                    placeholder="Enter your full legal name"
                                    required>
                             @error('full_name')
-                                <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <!-- Date of Birth -->
-                        <div>
-                            <label for="dob" class="block text-sm font-medium text-white mb-2">
-                                Date of Birth <span class="text-red-400">*</span>
-                            </label>
-                            <input type="date" 
-                                   id="dob" 
-                                   name="dob" 
-                                   value="{{ old('dob') }}"
-                                   class="w-full px-4 py-3 bg-dark-700/50 border border-gaming rounded-xl text-white placeholder-muted-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                                   required>
-                            @error('dob')
                                 <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
                             @enderror
                         </div>
