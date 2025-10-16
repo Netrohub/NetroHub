@@ -15,7 +15,7 @@
     
     @stack('styles')
 </head>
-<body class="font-inter antialiased bg-gray-50 dark:bg-gray-950 text-gray-800 dark:text-gray-100">
+<body class="font-sans antialiased bg-gray-50 dark:bg-gray-950 text-gray-800 dark:text-gray-100">
     
     <div class="flex h-screen overflow-hidden" x-data="{ sidebarOpen: false, sidebarExpanded: localStorage.getItem('sidebar-expanded') == 'true' }" x-init="$watch('sidebarExpanded', value => localStorage.setItem('sidebar-expanded', value))">
         

@@ -16,7 +16,7 @@
     
     @stack('styles')
 </head>
-<body class="font-inter antialiased bg-slate-900 text-slate-100 tracking-tight">
+<body class="font-sans antialiased bg-slate-900 text-slate-100 tracking-tight">
     <div class="relative flex min-h-screen">
         
         <!-- Content -->

@@ -18,7 +18,7 @@
   }
 
   body {
-    @apply font-inter antialiased bg-slate-900 text-slate-100 tracking-tight;
+    @apply font-sans antialiased bg-slate-900 text-slate-100 tracking-tight;
   }
 }
 

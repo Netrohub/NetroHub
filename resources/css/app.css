@@ -23,7 +23,7 @@
     }
     
     body {
-        @apply bg-slate-900 text-white font-inter;
+        @apply bg-slate-900 text-white font-sans;
     }
     
     /* Typography Defaults */
