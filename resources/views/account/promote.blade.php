@@ -1,7 +1,8 @@
-@extends('layouts.app')
+<x-layouts.stellar>
+    <x-slot name="title">{{ __('Promote Product') }} - {{ config('app.name') }}</x-slot>
 
-@section('content')
-<div class="min-h-screen relative overflow-hidden bg-dark-900 py-10">
+<section class="relative pt-32 pb-12">
+<div class="relative overflow-hidden py-10">
     <!-- Gaming Background Effects -->
     <div class="absolute inset-0 pointer-events-none">
         <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl animate-float"></div>
@@ -176,7 +177,7 @@
                     <div>
                         <label class="block text-sm font-medium text-muted-300 mb-2">Duration (Days)</label>
                         <input type="number" name="duration" min="1" max="30" value="7" class="w-full px-4 py-3 bg-dark-700/50 border border-gaming rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary-500" required>
-                        <p class="text-xs text-muted-400 mt-1">Minimum 1 day, maximum 30 days</p>
+                        <p class="text-xs text-muted-400 mt-1">{{ __('Minimum 1 day, maximum 30 days') }}</p>
                     </div>
 
                     <div class="bg-dark-700/30 rounded-xl p-4 border border-gaming">
@@ -216,7 +217,7 @@
                                     <svg class="w-12 h-12 text-muted-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                                     </svg>
-                                    <p class="text-muted-400">No active promotions</p>
+                                    <p class="text-muted-400">{{ __('No active promotions') }}</p>
                                 </div>
                             </td>
                         </tr>
@@ -253,5 +254,9 @@ document.addEventListener('DOMContentLoaded', function() {
     typeInputs.forEach(input => input.addEventListener('change', calculateTotal));
 });
 </script>
-@endsection
+@endpush
+
+</section>
+
+</x-layouts.stellar>
 

@@ -12,7 +12,8 @@ class MembersController extends Controller
         // Get filter parameters
         $filter = $request->query('filter', 'all');
         $search = $request->query('search', '');
-        $sort = $request->query('sort', 'recent');
+        // Align sort options with UI (latest, name, sales)
+        $sort = $request->query('sort', 'latest');
 
         // Build query for all active users
         $membersQuery = User::with(['seller' => function ($q) {
@@ -39,6 +40,7 @@ class MembersController extends Controller
         if (! empty($search)) {
             $membersQuery->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('username', 'like', "%{$search}%")
                     ->orWhere('email', 'like', "%{$search}%")
                     ->orWhereHas('seller', function ($sq) use ($search) {
                         $sq->where('display_name', 'like', "%{$search}%");
@@ -56,7 +58,7 @@ class MembersController extends Controller
             case 'name':
                 $membersQuery->orderBy('name', 'asc');
                 break;
-            case 'recent':
+            case 'latest':
             default:
                 $membersQuery->latest();
                 break;
@@ -75,8 +77,11 @@ class MembersController extends Controller
             'sort' => $sort,
         ]);
 
+        // Match view expectations: it reads $users
+        $users = $members;
+
         return view('members.index', compact(
-            'members',
+            'users',
             'filter',
             'search',
             'sort',

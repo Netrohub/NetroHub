@@ -1,230 +1,138 @@
-@extends('layouts.app')
+<x-layouts.stellar>
+    <x-slot name="title">{{ __('My Orders') }} - {{ config('app.name') }}</x-slot>
 
-@section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-    <div class="mb-6">
-        <h1 class="text-3xl font-black text-white">Orders</h1>
-        <p class="text-muted-300">View all purchases you made.</p>
-    </div>
-
-    <x-ui.card variant="glass" class="p-0 mb-6">
-        <nav class="flex overflow-x-auto text-sm">
-            @php
-                $tabs = ['social' => 'Social', 'games' => 'Games', 'services' => 'Services'];
-            @endphp
-            @foreach($tabs as $key => $label)
-                <a href="{{ route('account.orders', ['tab' => $key]) }}" class="flex items-center gap-2 px-5 py-3 border-b-2 {{ $tab === $key ? 'border-primary-500 text-white' : 'border-transparent text-muted-300 hover:text-white' }} whitespace-nowrap">
-                    <x-platform-icon :category="$label" size="xs" />
-                    {{ $label }}
-                </a>
-            @endforeach
-        </nav>
-    </x-ui.card>
-
-    <x-ui.card variant="glass">
-        <div class="mb-4">
-            <h2 class="text-xl font-bold text-white">{{ Str::title($tab) }}</h2>
-            <p class="text-sm text-muted-400">All your orders in this category.</p>
-        </div>
-
-        <div class="overflow-x-auto">
-            <table class="min-w-full text-sm">
-                <thead class="text-left text-muted-400">
-                    <tr>
-                        <th class="px-4 py-3">Product</th>
-                        <th class="px-4 py-3">Amount</th>
-                        <th class="px-4 py-3">Status</th>
-                        <th class="px-4 py-3">Order Date</th>
-                        <th class="px-4 py-3 text-right">Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gaming">
-                    @forelse($orders as $order)
-                        @php
-                            $product = optional($order->items->first())->product;
-                            $hasReview = $product ? $product->reviews()
-                                ->where('reviewable_type', App\Models\Product::class)
-                                ->where('user_id', auth()->id())
-                                ->exists() : false;
-                            $canReview = $product && $order->payment_status === 'completed' && !$hasReview;
-                        @endphp
-                        <tr class="hover:bg-dark-800/50">
-                            <td class="px-4 py-4">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-xl overflow-hidden bg-dark-800 border border-gaming flex-shrink-0">
-                                        @if($product->thumbnail_url)
-                                            <img src="{{ $product->thumbnail_url }}" class="w-full h-full object-cover"/>
-                                        @else
-                                            <div class="w-full h-full flex items-center justify-center">
-                                                <x-platform-icon :product="$product" size="sm" />
-                                            </div>
-                                        @endif
-                                    </div>
-                                    <div>
-                                        <div class="text-white font-medium line-clamp-1">{{ $product->title ?? 'Product' }}</div>
-                                        @if($product->metadata['platform'] ?? false)
-                                        <div class="flex items-center gap-1 text-xs text-muted-400">
-                                            <x-platform-icon :product="$product" size="xs" />
-                                            <span>{{ $product->metadata['platform'] }}</span>
-                                        </div>
-                                        @endif
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-4 py-4 font-semibold text-white">${{ number_format($order->total_amount ?? 0, 2) }}</td>
-                            <td class="px-4 py-4">
-                                @if($order->payment_status === 'completed')
-                                    <x-ui.badge color="green" size="sm">Completed</x-ui.badge>
-                                @elseif($order->payment_status === 'pending')
-                                    <x-ui.badge color="yellow" size="sm">Pending</x-ui.badge>
-                                @else
-                                    <x-ui.badge color="gray" size="sm">{{ ucfirst($order->payment_status ?? 'Unknown') }}</x-ui.badge>
-                                @endif
-                            </td>
-                            <td class="px-4 py-4 text-muted-300">{{ optional($order->created_at)->format('M d, Y') }}</td>
-                            <td class="px-4 py-4 text-right">
-                                <div class="flex items-center gap-2 justify-end">
-                                    <a href="{{ route('products.show', $product?->slug ?? '') }}" class="px-3 py-2 rounded-xl border border-gaming text-muted-300 hover:text-white hover:bg-dark-700/50" title="View Product">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                                        </svg>
-                                    </a>
-                                    @if($canReview)
-                                        <button onclick="openReviewModal('{{ $product->id }}', '{{ $product->title }}')" class="px-3 py-2 rounded-xl bg-primary-500 text-white hover:bg-primary-600 transition-colors" title="Write Review">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
-                                            </svg>
-                                        </button>
-                                    @elseif($hasReview)
-                                        <span class="px-3 py-2 rounded-xl bg-green-500/20 text-green-400 border border-green-500/30" title="Already Reviewed">
-                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                                            </svg>
-                                        </span>
-                                    @endif
-                                </div>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="5" class="px-4 py-10 text-center text-muted-400">No orders found.</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-        <div class="mt-6">{{ method_exists($orders,'links') ? $orders->links() : '' }}</div>
-    </x-ui.card>
-</div>
-
-<!-- Review Modal -->
-<div id="reviewModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
-    <div class="bg-dark-800 border border-gaming rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        <div class="p-6">
-            <div class="flex items-center justify-between mb-6">
-                <h2 class="text-xl font-bold text-white">Write a Review</h2>
-                <button onclick="closeReviewModal()" class="text-muted-400 hover:text-white transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
-                </button>
-            </div>
+    <section class="relative pt-32 pb-12 md:pb-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
             
-            <div id="reviewModalContent">
-                <!-- Review form will be loaded here -->
+            <h1 class="h2 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60 mb-8">
+                {{ __('My Orders') }}
+            </h1>
+
+            <div class="lg:flex lg:gap-8">
+                
+                <!-- Sidebar -->
+                <x-stellar.account-sidebar />
+
+                <!-- Main Content -->
+                <div class="flex-1 min-w-0">
+                    
+                    <!-- Filters -->
+                    <div class="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50 mb-8" data-aos="fade-up">
+                        <form method="GET" class="grid md:grid-cols-3 gap-4">
+                            <div>
+                                <select name="status" onchange="this.form.submit()" class="form-select w-full">
+                                    <option value="">{{ __('All Statuses') }}</option>
+                                    <option value="pending" {{ request('status') === 'pending' ? 'selected' : '' }}>{{ __('Pending') }}</option>
+                                    <option value="completed" {{ request('status') === 'completed' ? 'selected' : '' }}>{{ __('Completed') }}</option>
+                                    <option value="refunded" {{ request('status') === 'refunded' ? 'selected' : '' }}>{{ __('Refunded') }}</option>
+                                    <option value="failed" {{ request('status') === 'failed' ? 'selected' : '' }}>{{ __('Failed') }}</option>
+                                </select>
+                            </div>
+                            <div>
+                                <input type="search" name="search" placeholder="{{ __('Search orders...') }}" value="{{ request('search') }}" class="form-input w-full">
+                            </div>
+                            <div>
+                                <select name="sort" onchange="this.form.submit()" class="form-select w-full">
+                                    <option value="latest" {{ request('sort') === 'latest' ? 'selected' : '' }}>{{ __('Latest First') }}</option>
+                                    <option value="oldest" {{ request('sort') === 'oldest' ? 'selected' : '' }}>{{ __('Oldest First') }}</option>
+                                    <option value="amount_high" {{ request('sort') === 'amount_high' ? 'selected' : '' }}>{{ __('Amount: High to Low') }}</option>
+                                    <option value="amount_low" {{ request('sort') === 'amount_low' ? 'selected' : '' }}>{{ __('Amount: Low to High') }}</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Orders List -->
+                    @if(isset($orders) && $orders->count() > 0)
+                        <div class="space-y-6">
+                            @foreach($orders as $order)
+                                <div class="bg-slate-800/50 rounded-2xl border border-slate-700/50 overflow-hidden hover:border-purple-500/30 transition-colors" data-aos="fade-up" data-aos-delay="{{ ($loop->index % 5) * 50 }}">
+                                    <!-- Order Header -->
+                                    <div class="p-6 border-b border-slate-700/50">
+                                        <div class="flex flex-wrap items-center justify-between gap-4">
+                                            <div class="flex items-center gap-4">
+                                                <div class="w-12 h-12 bg-slate-700 rounded-lg flex items-center justify-center">
+                                                    <svg class="w-6 h-6 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                                                    </svg>
+                                                </div>
+                                                <div>
+                                                    <div class="text-slate-100 font-bold">{{ __('Order #:id', ['id' => $order->id]) }}</div>
+                                                    <div class="text-sm text-slate-400">{{ $order->created_at->format('M d, Y h:i A') }}</div>
+                                                </div>
+                                            </div>
+                                            <div class="text-right">
+                                                <div class="text-2xl font-bold text-white mb-1">${{ number_format($order->total, 2) }}</div>
+                                                <span class="inline-flex items-center text-xs px-3 py-1 rounded-full {{ 
+                                                    $order->status === 'completed' ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 
+                                                    ($order->status === 'pending' ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30' : 
+                                                    'bg-red-500/20 text-red-400 border border-red-500/30') 
+                                                }}">
+                                                    {{ ucfirst($order->status) }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Order Items -->
+                                    <div class="p-6">
+                                        <div class="space-y-3">
+                                            @foreach($order->items as $item)
+                                                <div class="flex items-center gap-4">
+                                                    <div class="w-12 h-12 bg-slate-700 rounded-lg flex items-center justify-center flex-shrink-0">
+                                                        <x-platform-icon :product="$item->product" />
+                                                    </div>
+                                                    <div class="flex-1 min-w-0">
+                                                        <div class="text-slate-100 font-medium truncate">{{ $item->product->title }}</div>
+                                                        <div class="text-sm text-slate-400">{{ $item->product->category->name ?? '' }}</div>
+                                                    </div>
+                                                    <div class="text-white font-bold">${{ number_format($item->price, 2) }}</div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+
+                                        <!-- Actions -->
+                                        <div class="mt-6 pt-6 border-t border-slate-700/50 flex flex-wrap gap-3">
+                                            @if($order->status === 'completed')
+                                                <a href="{{ route('orders.delivery', $order) }}" class="btn text-white bg-purple-500 hover:bg-purple-600">
+                                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                                    </svg>
+                                                    {{ __('View Items') }}
+                                                </a>
+                                            @endif
+                                            <a href="#" class="btn text-slate-300 hover:text-white bg-slate-700 hover:bg-slate-600">
+                                                {{ __('View Receipt') }}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <!-- Pagination -->
+                        @if($orders->hasPages())
+                            <div class="mt-8">
+                                {{ $orders->links() }}
+                            </div>
+                        @endif
+                    @else
+                        <div class="bg-slate-800/50 rounded-2xl p-12 border border-slate-700/50 text-center" data-aos="fade-up">
+                            <div class="w-20 h-20 bg-slate-700 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <svg class="w-10 h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-100 mb-2">{{ __('No orders yet') }}</h3>
+                            <p class="text-slate-400 mb-6">{{ __('Start shopping to see your orders here') }}</p>
+                            <a href="{{ route('products.index') }}" class="btn text-slate-900 bg-gradient-to-r from-white/80 via-white to-white/80 hover:bg-white inline-flex">
+                                {{ __('Browse Products') }}
+                            </a>
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
-    </div>
-</div>
-
-<script>
-function openReviewModal(productId, productTitle) {
-    const modal = document.getElementById('reviewModal');
-    const content = document.getElementById('reviewModalContent');
-    
-    // Show loading state
-    content.innerHTML = `
-        <div class="flex items-center justify-center py-8">
-            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500"></div>
-            <span class="ml-3 text-muted-400">Loading review form...</span>
-        </div>
-    `;
-    
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
-    
-    // Load the review form via AJAX
-    fetch(`/products/${productId}/review-form`)
-        .then(response => response.text())
-        .then(html => {
-            content.innerHTML = html;
-            // Re-initialize star rating functionality
-            initializeStarRating();
-        })
-        .catch(error => {
-            console.error('Error loading review form:', error);
-            content.innerHTML = `
-                <div class="text-center py-8">
-                    <p class="text-red-400">Error loading review form. Please try again.</p>
-                </div>
-            `;
-        });
-}
-
-function closeReviewModal() {
-    const modal = document.getElementById('reviewModal');
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
-}
-
-function initializeStarRating() {
-    const starLabels = document.querySelectorAll('.star-label');
-    const starIcons = document.querySelectorAll('.star-icon');
-    
-    function updateStars(rating) {
-        starIcons.forEach((icon, index) => {
-            if (index < rating) {
-                icon.classList.remove('text-gray-600');
-                icon.classList.add('text-yellow-400');
-            } else {
-                icon.classList.remove('text-yellow-400');
-                icon.classList.add('text-gray-600');
-            }
-        });
-    }
-    
-    starLabels.forEach((label, index) => {
-        label.addEventListener('click', function() {
-            const rating = parseInt(this.getAttribute('data-rating'));
-            const radio = this.querySelector('input[type="radio"]');
-            radio.checked = true;
-            updateStars(rating);
-        });
-        
-        label.addEventListener('mouseenter', function() {
-            const rating = parseInt(this.getAttribute('data-rating'));
-            updateStars(rating);
-        });
-    });
-    
-    document.getElementById('star-rating').addEventListener('mouseleave', function() {
-        const checkedRadio = document.querySelector('input[name="rating"]:checked');
-        if (checkedRadio) {
-            updateStars(parseInt(checkedRadio.value));
-        } else {
-            updateStars(0);
-        }
-    });
-}
-
-// Close modal when clicking outside
-document.getElementById('reviewModal').addEventListener('click', function(e) {
-    if (e.target === this) {
-        closeReviewModal();
-    }
-});
-</script>
-@endsection
-
-
+    </section>
+</x-layouts.stellar>

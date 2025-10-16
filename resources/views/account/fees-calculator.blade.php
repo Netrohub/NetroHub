@@ -1,7 +1,8 @@
-@extends('layouts.app')
+<x-layouts.stellar>
+    <x-slot name="title">{{ __('Fees Calculator') }} - {{ config('app.name') }}</x-slot>
 
-@section('content')
-<div class="min-h-screen relative overflow-hidden bg-dark-900 py-10">
+<section class="relative pt-32 pb-12">
+<div class="relative overflow-hidden py-10">
     <!-- Gaming Background Effects -->
     <div class="absolute inset-0 pointer-events-none">
         <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl animate-float"></div>
@@ -17,9 +18,9 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                     </svg>
                 </a>
-                <h1 class="text-4xl font-black text-white bg-gaming-gradient bg-clip-text text-transparent">Fees Calculator</h1>
+                <h1 class="text-4xl font-black text-white bg-gaming-gradient bg-clip-text text-transparent">{{ __('Fees Calculator') }}</h1>
             </div>
-            <p class="text-muted-300">Calculate your earnings after platform fees</p>
+            <p class="text-muted-300">{{ __('Calculate your earnings after platform fees') }}</p>
         </div>
 
         <!-- Calculator -->
@@ -27,7 +28,7 @@
             <div class="max-w-2xl mx-auto">
                 <!-- Sale Amount Input -->
                 <div class="mb-8">
-                    <label class="block text-sm font-medium text-muted-300 mb-3">Sale Amount</label>
+                    <label class="block text-sm font-medium text-muted-300 mb-3">{{ __('Sale Amount') }}</label>
                     <div class="relative">
                         <span class="absolute left-6 top-1/2 -translate-y-1/2 text-white font-bold text-2xl">$</span>
                         <input 
@@ -40,7 +41,7 @@
                             placeholder="0.00"
                         >
                     </div>
-                    <p class="text-xs text-muted-400 mt-2">Enter the price you want to sell your product for</p>
+                    <p class="text-xs text-muted-400 mt-2">{{ __('Enter the price you want to sell your product for') }}</p>
                 </div>
 
                 <!-- Your Plan Info -->
@@ -81,7 +82,7 @@
                                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>
                                 </svg>
                                 <div class="hidden group-hover:block absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-3 bg-dark-800 border border-gaming rounded-xl text-xs text-muted-300 z-10">
-                                    NetroHub charges a platform fee to cover hosting, support, and payment processing
+                                    {{ __('NetroHub charges a platform fee to cover hosting, support, and payment processing') }}
                                 </div>
                             </div>
                         </div>
@@ -144,10 +145,10 @@
                     @if($userPlan !== 'Pro')
                         <div class="mt-6 p-4 bg-gradient-to-r from-primary-500/10 to-secondary-500/10 rounded-xl border border-primary-500/30">
                             <p class="text-sm text-muted-300 mb-3">
-                                Upgrade to {{ $userPlan === 'Free' ? 'Plus or Pro' : 'Pro' }} to save on fees and keep more of your earnings!
+                                {{ __('Upgrade to :plan to save on fees and keep more of your earnings!', ['plan' => $userPlan === 'Free' ? __('Plus or Pro') : __('Pro')]) }}
                             </p>
                             <a href="{{ route('pricing.index') }}" class="inline-flex items-center gap-2 px-4 py-2 bg-gaming-gradient text-white rounded-xl hover:shadow-gaming-lg transition font-semibold text-sm">
-                                View Plans
+                                {{ __('View Plans') }}
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                                 </svg>
@@ -228,5 +229,9 @@ document.addEventListener('DOMContentLoaded', function() {
     calculateFees();
 });
 </script>
-@endsection
+@endpush
+
+</section>
+
+</x-layouts.stellar>
 

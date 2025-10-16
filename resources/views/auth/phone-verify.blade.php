@@ -1,8 +1,7 @@
-@extends('layouts.app')
+<x-layouts.stellar-auth>
+    <x-slot name="title">{{ __('Verify Code') }} - {{ config('app.name') }}</x-slot>
 
-@section('title', 'Verify Code')
-
-@section('content')
+<section class="relative">
 <div class="min-h-screen relative overflow-hidden flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
     <!-- Gaming Background Effects -->
     <div class="absolute inset-0 bg-dark-900">
@@ -137,6 +136,10 @@ document.getElementById('otp').addEventListener('input', function(e) {
     animation-delay: 4s;
 }
 </style>
-@endsection
+@endpush
+
+</section>
+
+</x-layouts.stellar-auth>
 
 

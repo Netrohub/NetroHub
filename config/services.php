@@ -74,4 +74,11 @@ return [
             ? 'https://api.tap.company/v2' 
             : 'https://api.tap.company/v2',
     ],
+
+    'persona' => [
+        'api_key' => env('PERSONA_API_KEY'),
+        'template_id' => env('PERSONA_TEMPLATE_ID'),
+        'environment' => env('PERSONA_ENVIRONMENT', 'sandbox'), // 'sandbox' or 'production'
+        'webhook_secret' => env('PERSONA_WEBHOOK_SECRET'),
+    ],
 ];

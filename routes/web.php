@@ -23,6 +23,11 @@ use App\Http\Controllers\SubscriptionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+// Seller verification checklist
+Route::middleware(['auth'])->get('/account/verification-checklist', function () {
+    return view('account.verification-checklist');
+})->name('account.verification.checklist');
+
 // Public routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -46,15 +51,15 @@ Route::get('/leaderboard', [App\Http\Controllers\LeaderboardController::class, '
 // Legal Pages
 Route::get('/terms', function () {
     return view('legal.terms');
-})->name('terms');
+})->name('legal.terms');
 
 Route::get('/privacy', function () {
     return view('legal.privacy');
-})->name('privacy');
+})->name('legal.privacy');
 
 Route::get('/refund-policy', function () {
     return view('legal.refund');
-})->name('refund');
+})->name('legal.refund');
 
 // Sitemap
 Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap.index');
@@ -66,7 +71,6 @@ Route::get('/sitemap/members.xml', [App\Http\Controllers\SitemapController::clas
 Route::get('/robots.txt', function () {
     $robots = "User-agent: *\n";
     $robots .= "Allow: /\n";
-    $robots .= "Disallow: /admin\n";
     $robots .= "Disallow: /account\n";
     $robots .= "Disallow: /seller\n";
     $robots .= "Disallow: /checkout\n";
@@ -80,6 +84,35 @@ Route::get('/robots.txt', function () {
 
 // Health Check
 Route::get('/health', [App\Http\Controllers\HealthController::class, 'check'])->name('health');
+
+// Admin Panel Routes
+Route::prefix('admin')->name('admin.')->middleware(['auth', App\Http\Middleware\AdminMiddleware::class])->group(function () {
+    Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+    
+    // Users Management
+    Route::get('/users', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('users.index');
+    Route::get('/users/{user}', [App\Http\Controllers\Admin\UserController::class, 'show'])->name('users.show');
+    Route::delete('/users/{user}', [App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('users.destroy');
+    
+    // Products Management
+    Route::get('/products', [App\Http\Controllers\Admin\ProductController::class, 'index'])->name('products.index');
+    Route::get('/products/{product}', [App\Http\Controllers\Admin\ProductController::class, 'show'])->name('products.show');
+    Route::patch('/products/{product}/status', [App\Http\Controllers\Admin\ProductController::class, 'updateStatus'])->name('products.update-status');
+    Route::delete('/products/{product}', [App\Http\Controllers\Admin\ProductController::class, 'destroy'])->name('products.destroy');
+    
+    // Orders Management
+    Route::get('/orders', [App\Http\Controllers\Admin\OrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/{order}', [App\Http\Controllers\Admin\OrderController::class, 'show'])->name('orders.show');
+
+    // Site Settings
+    Route::get('/settings', [App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('settings.index');
+    Route::put('/settings', [App\Http\Controllers\Admin\SettingsController::class, 'update'])->name('settings.update');
+
+    // CMS Pages
+    Route::get('/cms', [App\Http\Controllers\Admin\CmsController::class, 'index'])->name('cms.index');
+    Route::get('/cms/{page}/edit', [App\Http\Controllers\Admin\CmsController::class, 'edit'])->name('cms.edit');
+    Route::put('/cms/{page}', [App\Http\Controllers\Admin\CmsController::class, 'update'])->name('cms.update');
+});
 
 // Cart
 Route::prefix('cart')->name('cart.')->group(function () {
@@ -131,19 +164,35 @@ Route::middleware(['auth', 'verified'])->prefix('account')->name('account.')->gr
     Route::post('/privacy-mode/toggle', [AccountController::class, 'togglePrivacy'])->name('privacy.toggle');
 });
 
-// KYC Verification Routes (Legacy - for backward compatibility)
+// KYC Verification Routes (Legacy - redirects to Persona)
 Route::middleware(['auth', 'verified'])->prefix('kyc')->name('kyc.')->group(function () {
-    Route::get('/verification', [KycVerificationController::class, 'show'])->name('verification.show');
-    Route::post('/verification', [KycVerificationController::class, 'store'])->name('verification.store');
-    Route::get('/status', [KycVerificationController::class, 'status'])->name('status');
+    Route::get('/verification', function() {
+        return redirect()->route('persona.kyc.show');
+    })->name('verification.show');
+    Route::get('/status', function() {
+        return redirect()->route('persona.kyc.status');
+    })->name('status');
 });
 
-// New KYC Verification Routes
+// Redirect old KYC route to new Persona KYC
 Route::middleware(['auth', 'verified'])->prefix('account/kyc')->name('account.kyc.')->group(function () {
-    Route::get('/', [App\Http\Controllers\Account\KycController::class, 'show'])->name('show');
-    Route::post('/', [App\Http\Controllers\Account\KycController::class, 'store'])->name('store')->middleware('throttle:3,1');
-    Route::get('/status', [App\Http\Controllers\Account\KycController::class, 'status'])->name('status');
+    Route::get('/', function() {
+        return redirect()->route('persona.kyc.show');
+    })->name('show');
+    Route::get('/status', function() {
+        return redirect()->route('persona.kyc.status');
+    })->name('status');
 });
+
+// Persona KYC Verification Routes
+Route::middleware(['auth', 'verified'])->prefix('persona/kyc')->name('persona.kyc.')->group(function () {
+    Route::get('/', [App\Http\Controllers\PersonaKycController::class, 'show'])->name('show');
+    Route::post('/create', [App\Http\Controllers\PersonaKycController::class, 'createInquiry'])->name('create');
+    Route::get('/status', [App\Http\Controllers\PersonaKycController::class, 'status'])->name('status');
+});
+
+// Persona Webhook (no auth middleware)
+Route::post('/webhooks/persona', [App\Http\Controllers\PersonaKycController::class, 'webhook'])->name('webhooks.persona');
 
 // Phone Verification Routes
 Route::middleware(['auth', 'verified'])->prefix('account/phone')->name('account.phone.')->group(function () {
@@ -228,7 +277,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 // Sell Routes (auto-creates seller profile)
-Route::middleware(['auth', 'verified', 'require.kyc'])->prefix('sell')->name('sell.')->group(function () {
+Route::middleware(['auth', 'verified', 'require.kyc', 'require.phone', 'require.seller.verifications'])->prefix('sell')->name('sell.')->group(function () {
     Route::get('/', [SellController::class, 'index'])->name('index');
     Route::get('/game', [SellController::class, 'createGame'])->name('game.create');
     Route::get('/social', [SellController::class, 'createSocial'])->name('social.create');
@@ -240,7 +289,7 @@ Route::middleware(['auth', 'verified', 'require.kyc'])->prefix('sell')->name('se
 Route::middleware('auth')->get('/sell-entry', [SellController::class, 'entry'])->name('sell.entry');
 
 // Seller Routes
-Route::middleware(['auth', 'verified', 'require.kyc'])->prefix('seller')->name('seller.')->group(function () {
+Route::middleware(['auth', 'verified', 'require.kyc', 'require.phone', 'require.seller.verifications'])->prefix('seller')->name('seller.')->group(function () {
     Route::get('/dashboard', [SellerDashboardController::class, 'index'])->name('dashboard');
 
     // Products
@@ -272,11 +321,3 @@ Route::middleware(['auth'])->group(function () {
 
 // Auth routes (will be added by Breeze)
 require __DIR__.'/auth.php';
-
-// Locale switching (available to all users)
-Route::get('/locale/{locale}', function ($locale) {
-    if (in_array($locale, ['en', 'ar'])) {
-        session(['locale' => $locale]);
-    }
-    return back();
-})->name('locale.switch');

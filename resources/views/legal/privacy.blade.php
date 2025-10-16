@@ -1,212 +1,199 @@
-@extends('layouts.app')
+<x-layouts.stellar>
+    <x-slot name="title">{{ __('سياسة الخصوصية') }} - {{ config('app.name') }}</x-slot>
 
-@section('title', 'Privacy Policy - NetroHub')
-@section('description', 'Learn how NetroHub protects your privacy and handles your personal data. Read our comprehensive privacy policy for our digital marketplace platform.')
+    <section class="relative pt-32 pb-16 md:pb-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12">
+                <h1 class="h1 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60 pb-4" data-aos="fade-down">
+                    {{ __('سياسة الخصوصية') }}
+                </h1>
+                <p class="text-slate-400" data-aos="fade-down" data-aos-delay="200">
+                {{ __('آخر تحديث: :date', ['date' => now()->locale('ar')->translatedFormat('d F Y')]) }}
 
-@section('content')
-<div class="min-h-screen relative overflow-hidden bg-dark-900 py-10">
-    <!-- Gaming Background Effects -->
-    <div class="absolute inset-0 pointer-events-none">
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl animate-float"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-secondary-500/5 rounded-full blur-3xl animate-float animation-delay-2000"></div>
-    </div>
+                </p>
+            </div>
 
-    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Header -->
-        <div class="text-center mb-12">
-            <h1 class="text-4xl font-black text-white mb-4">🔒 Privacy Policy</h1>
-            <p class="text-muted-300 text-lg">Last updated: {{ now()->format('F d, Y') }}</p>
-        </div>
+            <div class="bg-slate-800/50 rounded-2xl p-8 lg:p-12 border border-slate-700/50 space-y-8" data-aos="fade-up">
 
-        <!-- Content -->
-        <x-ui.card variant="glass" class="prose prose-invert max-w-none">
-            <div class="space-y-8">
-                
-                <!-- KYC Verification Notice -->
-                <section>
+                <!-- قسم التحقق من الهوية (KYC) -->
+                <section class="bg-slate-700/30 rounded-xl p-6 border border-slate-600/50">
                     <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
-                        <span class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">🔐</span>
-                        KYC Verification & Identity Collection
+                        <svg class="w-6 h-6 text-primary-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                        التحقق من الهوية وجمع بيانات KYC
                     </h2>
                     <div class="space-y-4">
-                        <p class="text-muted-300">
-                            <strong class="text-white">Purpose:</strong> We collect identity verification documents (KYC - Know Your Customer) to comply with financial regulations, prevent fraud, and ensure the security of our marketplace platform.
+                        <p class="text-slate-300">
+                            <strong class="text-white">الغرض:</strong> نقوم بجمع مستندات التحقق من الهوية (KYC - اعرف عميلك) للامتثال للوائح المالية، ومنع الاحتيال، وضمان أمان منصتنا.
                         </p>
-                        <p class="text-muted-300">
-                            <strong class="text-white">Legal Basis:</strong> This data collection is required for sellers to use our platform and is conducted in accordance with Saudi PDPL (Personal Data Protection Law) and international anti-money laundering regulations.
+                        <p class="text-slate-300">
+                            <strong class="text-white">الأساس القانوني:</strong> هذا الجمع مطلوب للبائعين لاستخدام منصتنا ويتم وفقًا لقانون حماية البيانات الشخصية السعودي (PDPL) ولوائح مكافحة غسل الأموال الدولية.
                         </p>
-                        <p class="text-muted-300">
-                            <strong class="text-white">Data Collected:</strong>
-                        </p>
-                        <ul class="list-disc list-inside text-muted-300 space-y-2 ml-4">
-                            <li>Full legal name and date of birth</li>
-                            <li>Country of residence</li>
-                            <li>Government-issued ID documents (passport, national ID, driver's license)</li>
-                            <li>ID number and type</li>
-                            <li>Document images (front and back when applicable)</li>
+                        <p class="text-slate-300"><strong class="text-white">البيانات التي يتم جمعها:</strong></p>
+                        <ul class="list-disc list-inside text-slate-300 space-y-2 ml-4">
+                            <li>الاسم الكامل وتاريخ الميلاد</li>
+                            <li>دولة الإقامة</li>
+                            <li>وثائق الهوية الحكومية (جواز السفر، الهوية الوطنية، رخصة القيادة)</li>
+                            <li>رقم ونوع الهوية</li>
+                            <li>صور المستندات (الوجه الأمامي والخلفي إن وُجد)</li>
                         </ul>
-                        <p class="text-muted-300">
-                            <strong class="text-white">Security:</strong> All identity documents are encrypted and stored securely using industry-standard encryption. Access is restricted to authorized personnel only and is subject to strict audit trails.
+                        <p class="text-slate-300">
+                            <strong class="text-white">الأمان:</strong> يتم تشفير جميع مستندات الهوية وتخزينها بشكل آمن باستخدام تقنيات التشفير القياسية، ولا يتم الوصول إليها إلا من قبل موظفين مخوّلين وتحت رقابة صارمة.
                         </p>
-                        <p class="text-muted-300">
-                            <strong class="text-white">Retention:</strong> Identity verification data is retained for the duration of your account plus 7 years as required by financial regulations. You may request deletion after account closure, subject to legal requirements.
+                        <p class="text-slate-300">
+                            <strong class="text-white">الاحتفاظ:</strong> نحتفظ ببيانات التحقق طوال مدة حسابك ولفترة 7 سنوات بعد إغلاقه وفقًا للمتطلبات المالية. يمكنك طلب حذفها بعد إغلاق الحساب إذا سمحت القوانين.
                         </p>
-                        <p class="text-muted-300">
-                            <strong class="text-white">Sharing:</strong> We do not sell or share your identity verification data with third parties, except as required by law or with your explicit consent.
+                        <p class="text-slate-300">
+                            <strong class="text-white">المشاركة:</strong> لا نقوم ببيع أو مشاركة بيانات التحقق الخاصة بك مع أي طرف ثالث إلا إذا طُلب ذلك قانونيًا أو بموافقتك الصريحة.
                         </p>
                     </div>
                 </section>
 
-                <!-- Section 1 -->
+                <!-- 1: المقدمة -->
                 <section>
                     <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
                         <span class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">1</span>
-                        Introduction
+                        المقدمة
                     </h2>
-                    <div class="text-muted-300 leading-relaxed">
-                        <p>At NetroHub, we value your privacy and are committed to protecting your personal data. This policy explains how we collect, use, store, and protect your information when you use our platform.</p>
+                    <div class="text-slate-300 leading-relaxed">
+                        <p>في NetroHub، نُقدّر خصوصيتك وملتزمون بحماية بياناتك الشخصية. توضح هذه السياسة كيفية جمعنا واستخدامنا وتخزيننا وحماية معلوماتك عند استخدامك لمنصتنا.</p>
                     </div>
                 </section>
 
-                <!-- Section 2 -->
+                <!-- 2: المعلومات التي نجمعها -->
                 <section>
                     <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
                         <span class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">2</span>
-                        Information We Collect
+                        المعلومات التي نجمعها
                     </h2>
-                    <div class="text-muted-300 leading-relaxed space-y-3">
+                    <div class="text-slate-300 leading-relaxed space-y-3">
                         <div>
-                            <h3 class="text-lg font-semibold text-white mb-2">Personal Information:</h3>
-                            <p>Name, email, phone number, and government ID (if required for verification).</p>
+                            <h3 class="text-lg font-semibold text-white mb-2">المعلومات الشخصية:</h3>
+                            <p>الاسم، البريد الإلكتروني، رقم الهاتف، والهوية الحكومية (عند الحاجة للتحقق).</p>
                         </div>
                         <div>
-                            <h3 class="text-lg font-semibold text-white mb-2">Account Information:</h3>
-                            <p>Login credentials, profile data, and payment details.</p>
+                            <h3 class="text-lg font-semibold text-white mb-2">معلومات الحساب:</h3>
+                            <p>بيانات تسجيل الدخول، بيانات الملف الشخصي، وتفاصيل الدفع.</p>
                         </div>
                         <div>
-                            <h3 class="text-lg font-semibold text-white mb-2">Transaction Information:</h3>
-                            <p>Details related to purchases, sales, and withdrawals.</p>
+                            <h3 class="text-lg font-semibold text-white mb-2">معلومات المعاملات:</h3>
+                            <p>تفاصيل المشتريات والمبيعات وطلبات السحب.</p>
                         </div>
                         <div>
-                            <h3 class="text-lg font-semibold text-white mb-2">Device & Usage Data:</h3>
-                            <p>IP address, browser type, and usage statistics.</p>
+                            <h3 class="text-lg font-semibold text-white mb-2">بيانات الجهاز والاستخدام:</h3>
+                            <p>عنوان IP، نوع المتصفح، وإحصاءات الاستخدام.</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- Section 3 -->
+                <!-- 3: كيفية استخدام المعلومات -->
                 <section>
                     <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
                         <span class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">3</span>
-                        How We Use Your Information
+                        كيفية استخدام المعلومات
                     </h2>
-                    <div class="text-muted-300 leading-relaxed">
-                        <p class="mb-3">We use the data we collect to:</p>
+                    <div class="text-slate-300 leading-relaxed">
+                        <p class="mb-3">نستخدم البيانات التي نجمعها من أجل:</p>
                         <ul class="space-y-2 ml-4">
-                            <li>• Provide and improve our services.</li>
-                            <li>• Secure accounts and prevent fraud.</li>
-                            <li>• Process payments and payouts.</li>
-                            <li>• Communicate updates, changes, or important notifications.</li>
-                            <li>• Comply with legal obligations and regulatory requirements.</li>
+                            <li>• تقديم خدماتنا وتحسينها.</li>
+                            <li>• تأمين الحسابات ومنع الاحتيال.</li>
+                            <li>• معالجة المدفوعات وعمليات السحب.</li>
+                            <li>• إرسال التحديثات والإشعارات المهمة.</li>
+                            <li>• الامتثال للمتطلبات القانونية والتنظيمية.</li>
                         </ul>
                     </div>
                 </section>
 
-                <!-- Section 4 -->
+                <!-- 4: أمان البيانات -->
                 <section>
                     <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
                         <span class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">4</span>
-                        Data Security
+                        أمان البيانات
                     </h2>
-                    <div class="text-muted-300 leading-relaxed">
-                        <p>We use industry-standard encryption, secure servers, and strict access controls to protect your data. While we strive for maximum security, no method of transmission over the internet is 100% secure. We encourage you to keep your login details confidential.</p>
+                    <div class="text-slate-300 leading-relaxed">
+                        <p>نستخدم تقنيات التشفير القياسية وخوادم آمنة وضوابط وصول صارمة لحماية بياناتك. وعلى الرغم من حرصنا على أعلى درجات الأمان، لا توجد وسيلة نقل عبر الإنترنت آمنة بنسبة 100٪. نوصيك بالحفاظ على سرية بيانات الدخول الخاصة بك.</p>
                     </div>
                 </section>
 
-                <!-- Section 5 -->
+                <!-- 5: مشاركة البيانات -->
                 <section>
                     <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
                         <span class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">5</span>
-                        Data Sharing
+                        مشاركة البيانات
                     </h2>
-                    <div class="text-muted-300 leading-relaxed">
-                        <p class="mb-3">We may share your data in the following cases:</p>
+                    <div class="text-slate-300 leading-relaxed">
+                        <p class="mb-3">قد نشارك بياناتك في الحالات التالية:</p>
                         <ul class="space-y-2 ml-4">
-                            <li>• With payment processors to complete transactions.</li>
-                            <li>• With legal authorities if required by law.</li>
-                            <li>• With third-party service providers strictly for operational purposes (e.g., email delivery, analytics).</li>
+                            <li>• مع مزودي خدمات الدفع لإتمام المعاملات.</li>
+                            <li>• مع الجهات القانونية عند الطلب وفقًا للقانون.</li>
+                            <li>• مع مزودي خدمات طرف ثالث لأغراض تشغيلية بحتة (مثل إرسال البريد الإلكتروني، التحليلات).</li>
                         </ul>
+
+                        <!-- فقرة أدوات التحليل وملفات الطرف الثالث -->
+                        <p class="text-slate-300 mt-4">
+                            <strong class="text-white">أدوات التحليل وملفات الطرف الثالث:</strong>
+                            قد نستخدم خدمات تحليلية تابعة لجهات خارجية مثل <em>Google Analytics</em> لتحسين أداء منصتنا وفهم كيفية استخدام المستخدمين لخدماتنا. قد تجمع هذه الأدوات بيانات غير شخصية مثل نوع الجهاز ونظام التشغيل وسلوك التصفح، ويتم التعامل مع هذه المعلومات وفقًا لسياسات الخصوصية الخاصة بمزودي تلك الخدمات.
+                        </p>
                     </div>
                 </section>
 
-                <!-- Section 6 -->
+                <!-- 6: حقوقك -->
                 <section>
                     <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
                         <span class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">6</span>
-                        Your Rights
+                        حقوقك
                     </h2>
-                    <div class="text-muted-300 leading-relaxed">
-                        <p class="mb-3">You have the right to:</p>
+                    <div class="text-slate-300 leading-relaxed">
+                        <p class="mb-3">يحق لك:</p>
                         <ul class="space-y-2 ml-4">
-                            <li>• Access and request a copy of your data.</li>
-                            <li>• Correct inaccurate or outdated information.</li>
-                            <li>• Request deletion of your data, where legally permissible.</li>
-                            <li>• Withdraw consent for data processing at any time.</li>
+                            <li>• طلب الوصول إلى بياناتك والحصول على نسخة منها.</li>
+                            <li>• تصحيح المعلومات غير الدقيقة أو القديمة.</li>
+                            <li>• طلب حذف بياناتك حيثما كان ذلك مسموحًا قانونيًا.</li>
+                            <li>• سحب الموافقة على معالجة البيانات في أي وقت.</li>
                         </ul>
                     </div>
                 </section>
 
-                <!-- Section 7 -->
+                <!-- 7: ملفات تعريف الارتباط (الكوكيز) -->
                 <section>
                     <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
                         <span class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">7</span>
-                        Cookies
+                        ملفات تعريف الارتباط (الكوكيز)
                     </h2>
-                    <div class="text-muted-300 leading-relaxed">
-                        <p>We use cookies to enhance your user experience, remember your preferences, and improve platform functionality. You can disable cookies in your browser settings, but some features may not function correctly.</p>
+                    <div class="text-slate-300 leading-relaxed">
+                        <p>نستخدم ملفات تعريف الارتباط لتحسين تجربتك، وتذكر تفضيلاتك، وتعزيز وظائف المنصة. يمكنك تعطيل الكوكيز من إعدادات المتصفح، لكن قد لا تعمل بعض الخصائص بالشكل المتوقع.</p>
                     </div>
                 </section>
 
-                <!-- Section 8 -->
+                <!-- 8: تحديثات السياسة -->
                 <section>
                     <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
                         <span class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">8</span>
-                        Policy Updates
+                        تحديثات السياسة
                     </h2>
-                    <div class="text-muted-300 leading-relaxed">
-                        <p>NetroHub may update this Privacy Policy periodically. Continued use of the platform after changes means you accept the new terms.</p>
+                    <div class="text-slate-300 leading-relaxed">
+                        <p>قد نقوم بتحديث هذه السياسة من حين لآخر. يعني استمرارك في استخدام المنصة بعد أي تغييرات قبولك للشروط المحدّثة.</p>
                     </div>
                 </section>
 
-                <!-- Section 9 -->
+                <!-- 9: تواصل معنا -->
                 <section>
                     <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
                         <span class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">9</span>
-                        Contact Us
+                        تواصل معنا
                     </h2>
-                    <div class="text-muted-300 leading-relaxed">
-                        <p>If you have any questions about this policy or how we handle your data, please contact our support team through the "Help" section on the platform.</p>
+                    <div class="text-slate-300 leading-relaxed">
+                        <p>لأي استفسارات بخصوص هذه السياسة أو كيفية تعاملنا مع بياناتك، يُرجى التواصل مع فريق الدعم عبر قسم "المساعدة" في المنصة.</p>
                     </div>
                 </section>
-
             </div>
-        </x-ui.card>
 
-        <!-- Footer Actions -->
-        <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="{{ route('terms') }}" class="inline-flex items-center px-6 py-3 bg-dark-800 border border-gaming text-muted-300 hover:text-white hover:bg-dark-700 rounded-xl transition-colors">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                </svg>
-                Terms & Conditions
-            </a>
-            <a href="{{ route('home') }}" class="inline-flex items-center px-6 py-3 bg-gaming-gradient text-white rounded-xl hover:shadow-gaming transition-all">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
-                </svg>
-                Back to Home
-            </a>
+            <div class="text-center mt-8">
+                <a href="{{ route('home') }}" class="btn text-slate-900 bg-gradient-to-r from-white/80 via-white to-white/80 hover:bg-white inline-flex">
+                    {{ __('الرجوع للرئيسية') }}
+                </a>
+            </div>
         </div>
-    </div>
-</div>
-@endsection
+    </section>
+</x-layouts.stellar>

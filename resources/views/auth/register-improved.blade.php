@@ -1,8 +1,7 @@
-@extends('layouts.app')
+<x-layouts.stellar-auth>
+    <x-slot name="title">{{ __('Create Account') }} - {{ config('app.name') }}</x-slot>
 
-@section('title', 'Create Account')
-
-@section('content')
+<section class="relative">
 <div class="min-h-screen relative overflow-hidden flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
     <!-- Gaming Background Effects -->
     <div class="absolute inset-0 bg-dark-900">
@@ -102,7 +101,10 @@
                             <div id="country-display" 
                                  class="w-full bg-dark-800 border border-gaming rounded-2xl px-4 py-3 text-white focus:ring-2 focus:ring-secondary-500 focus:border-transparent transition-all cursor-pointer text-sm flex items-center justify-between"
                                  onclick="toggleCountryDropdown()">
-                                <span id="selected-country">🇺🇸 United States (+1)</span>
+                                <div class="flex items-center gap-2">
+                                    <span id="selected-flag">🇺🇸</span>
+                                    <span id="selected-country">+1</span>
+                                </div>
                                 <svg class="w-4 h-4 text-muted-400 transition-transform" id="dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
@@ -127,85 +129,85 @@
                                 <!-- Countries List -->
                                 <div id="countries-list" class="max-h-48 overflow-y-auto">
                                     <div class="country-option px-4 py-2 text-sm text-white hover:bg-dark-700 cursor-pointer flex items-center" 
-                                         data-value="+1" onclick="selectCountry('+1', '🇺🇸 United States (+1)')">
+                                         data-value="+1" onclick="selectCountry('+1', '🇺🇸', 'United States')">
                                         <span class="mr-2">🇺🇸</span>
                                         <span>United States</span>
                                         <span class="ml-auto text-muted-400">+1</span>
                                     </div>
                                     <div class="country-option px-4 py-2 text-sm text-white hover:bg-dark-700 cursor-pointer flex items-center" 
-                                         data-value="+44" onclick="selectCountry('+44', '🇬🇧 United Kingdom (+44)')">
+                                         data-value="+44" onclick="selectCountry('+44', '🇬🇧', 'United Kingdom')">
                                         <span class="mr-2">🇬🇧</span>
                                         <span>United Kingdom</span>
                                         <span class="ml-auto text-muted-400">+44</span>
                                     </div>
                                     <div class="country-option px-4 py-2 text-sm text-white hover:bg-dark-700 cursor-pointer flex items-center" 
-                                         data-value="+91" onclick="selectCountry('+91', '🇮🇳 India (+91)')">
+                                         data-value="+91" onclick="selectCountry('+91', '🇮🇳', 'India')">
                                         <span class="mr-2">🇮🇳</span>
                                         <span>India</span>
                                         <span class="ml-auto text-muted-400">+91</span>
                                     </div>
                                     <div class="country-option px-4 py-2 text-sm text-white hover:bg-dark-700 cursor-pointer flex items-center" 
-                                         data-value="+86" onclick="selectCountry('+86', '🇨🇳 China (+86)')">
+                                         data-value="+86" onclick="selectCountry('+86', '🇨🇳', 'China')">
                                         <span class="mr-2">🇨🇳</span>
                                         <span>China</span>
                                         <span class="ml-auto text-muted-400">+86</span>
                                     </div>
                                     <div class="country-option px-4 py-2 text-sm text-white hover:bg-dark-700 cursor-pointer flex items-center" 
-                                         data-value="+81" onclick="selectCountry('+81', '🇯🇵 Japan (+81)')">
+                                         data-value="+81" onclick="selectCountry('+81', '🇯🇵', 'Japan')">
                                         <span class="mr-2">🇯🇵</span>
                                         <span>Japan</span>
                                         <span class="ml-auto text-muted-400">+81</span>
                                     </div>
                                     <div class="country-option px-4 py-2 text-sm text-white hover:bg-dark-700 cursor-pointer flex items-center" 
-                                         data-value="+49" onclick="selectCountry('+49', '🇩🇪 Germany (+49)')">
+                                         data-value="+49" onclick="selectCountry('+49', '🇩🇪', 'Germany')">
                                         <span class="mr-2">🇩🇪</span>
                                         <span>Germany</span>
                                         <span class="ml-auto text-muted-400">+49</span>
                                     </div>
                                     <div class="country-option px-4 py-2 text-sm text-white hover:bg-dark-700 cursor-pointer flex items-center" 
-                                         data-value="+33" onclick="selectCountry('+33', '🇫🇷 France (+33)')">
+                                         data-value="+33" onclick="selectCountry('+33', '🇫🇷', 'France')">
                                         <span class="mr-2">🇫🇷</span>
                                         <span>France</span>
                                         <span class="ml-auto text-muted-400">+33</span>
                                     </div>
                                     <div class="country-option px-4 py-2 text-sm text-white hover:bg-dark-700 cursor-pointer flex items-center" 
-                                         data-value="+61" onclick="selectCountry('+61', '🇦🇺 Australia (+61)')">
+                                         data-value="+61" onclick="selectCountry('+61', '🇦🇺', 'Australia')">
                                         <span class="mr-2">🇦🇺</span>
                                         <span>Australia</span>
                                         <span class="ml-auto text-muted-400">+61</span>
                                     </div>
                                     <div class="country-option px-4 py-2 text-sm text-white hover:bg-dark-700 cursor-pointer flex items-center" 
-                                         data-value="+971" onclick="selectCountry('+971', '🇦🇪 UAE (+971)')">
+                                         data-value="+971" onclick="selectCountry('+971', '🇦🇪', 'UAE')">
                                         <span class="mr-2">🇦🇪</span>
                                         <span>UAE</span>
                                         <span class="ml-auto text-muted-400">+971</span>
                                     </div>
                                     <div class="country-option px-4 py-2 text-sm text-white hover:bg-dark-700 cursor-pointer flex items-center" 
-                                         data-value="+966" onclick="selectCountry('+966', '🇸🇦 Saudi Arabia (+966)')">
+                                         data-value="+966" onclick="selectCountry('+966', '🇸🇦', 'Saudi Arabia')">
                                         <span class="mr-2">🇸🇦</span>
                                         <span>Saudi Arabia</span>
                                         <span class="ml-auto text-muted-400">+966</span>
                                     </div>
                                     <div class="country-option px-4 py-2 text-sm text-white hover:bg-dark-700 cursor-pointer flex items-center" 
-                                         data-value="+20" onclick="selectCountry('+20', '🇪🇬 Egypt (+20)')">
+                                         data-value="+20" onclick="selectCountry('+20', '🇪🇬', 'Egypt')">
                                         <span class="mr-2">🇪🇬</span>
                                         <span>Egypt</span>
                                         <span class="ml-auto text-muted-400">+20</span>
                                     </div>
                                     <div class="country-option px-4 py-2 text-sm text-white hover:bg-dark-700 cursor-pointer flex items-center" 
-                                         data-value="+55" onclick="selectCountry('+55', '🇧🇷 Brazil (+55)')">
+                                         data-value="+55" onclick="selectCountry('+55', '🇧🇷', 'Brazil')">
                                         <span class="mr-2">🇧🇷</span>
                                         <span>Brazil</span>
                                         <span class="ml-auto text-muted-400">+55</span>
                                     </div>
                                     <div class="country-option px-4 py-2 text-sm text-white hover:bg-dark-700 cursor-pointer flex items-center" 
-                                         data-value="+52" onclick="selectCountry('+52', '🇲🇽 Mexico (+52)')">
+                                         data-value="+52" onclick="selectCountry('+52', '🇲🇽', 'Mexico')">
                                         <span class="mr-2">🇲🇽</span>
                                         <span>Mexico</span>
                                         <span class="ml-auto text-muted-400">+52</span>
                                     </div>
                                     <div class="country-option px-4 py-2 text-sm text-white hover:bg-dark-700 cursor-pointer flex items-center" 
-                                         data-value="+34" onclick="selectCountry('+34', '🇪🇸 Spain (+34)')">
+                                         data-value="+34" onclick="selectCountry('+34', '🇪🇸', 'Spain')">
                                         <span class="mr-2">🇪🇸</span>
                                         <span>Spain</span>
                                         <span class="ml-auto text-muted-400">+34</span>
@@ -410,9 +412,9 @@
                     <div class="ml-3 text-sm">
                         <label for="terms" class="text-muted-300">
                             I agree to the 
-                            <a href="{{ route('terms') }}" target="_blank" class="text-secondary-400 hover:text-secondary-300 transition-colors">Terms & Conditions</a> 
+                            <a href="{{ route('legal.terms') }}" target="_blank" class="text-secondary-400 hover:text-secondary-300 transition-colors">Terms & Conditions</a> 
                             and 
-                            <a href="{{ route('privacy') }}" target="_blank" class="text-secondary-400 hover:text-secondary-300 transition-colors">Privacy Policy</a>
+                            <a href="{{ route('legal.privacy') }}" target="_blank" class="text-secondary-400 hover:text-secondary-300 transition-colors">Privacy Policy</a>
                         </label>
                     </div>
                 </div>
@@ -505,9 +507,11 @@ function toggleCountryDropdown() {
     }
 }
 
-function selectCountry(code, display) {
+function selectCountry(code, flag, countryName) {
     document.getElementById('country_code').value = code;
-    document.getElementById('selected-country').textContent = display;
+    // Show flag and country code externally
+    document.getElementById('selected-flag').textContent = flag;
+    document.getElementById('selected-country').textContent = code;
     document.getElementById('country-dropdown').classList.add('hidden');
     document.getElementById('dropdown-arrow').style.transform = 'rotate(0deg)';
     document.getElementById('country-search').value = '';
@@ -583,4 +587,8 @@ document.querySelector('form').addEventListener('submit', function(e) {
     animation-delay: 4s;
 }
 </style>
-@endsection
+@endpush
+
+</section>
+
+</x-layouts.stellar-auth>

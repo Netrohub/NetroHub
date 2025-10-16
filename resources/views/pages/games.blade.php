@@ -1,9 +1,8 @@
-@extends('layouts.app')
+<x-layouts.stellar>
+    <x-slot name="title">{{ __('Game Accounts') }} - {{ config('app.name') }}</x-slot>
 
-@section('title', 'Game Accounts - NetroHub')
-
-@section('content')
-<div class="min-h-screen relative overflow-hidden bg-dark-900 py-12">
+<section class="relative pt-32 pb-12">
+<div class="relative overflow-hidden">
     <!-- Gaming Background Effects -->
     <div class="absolute inset-0 pointer-events-none">
         <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl animate-float"></div>
@@ -60,4 +59,6 @@
         @endif
     </div>
 </div>
-@endsection
+</section>
+
+</x-layouts.stellar>

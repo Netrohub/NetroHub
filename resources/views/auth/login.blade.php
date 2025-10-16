@@ -1,75 +1,64 @@
-@extends('layouts.app')
+<x-layouts.stellar-auth>
+    <x-slot name="title">{{ __('Sign In') }} - {{ config('app.name') }}</x-slot>
 
-@section('title', 'Sign In')
-
-@section('content')
-<div class="min-h-screen relative overflow-hidden flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-    <!-- Gaming Background Effects -->
-    <div class="absolute inset-0 bg-dark-900">
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/20 rounded-full blur-3xl animate-float"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-secondary-500/20 rounded-full blur-3xl animate-float animation-delay-2000"></div>
-        <div class="absolute top-3/4 left-3/4 w-64 h-64 bg-neon-blue/10 rounded-full blur-3xl animate-float animation-delay-4000"></div>
-    </div>
-
-    <div class="relative max-w-md w-full space-y-8">
-        <!-- Gaming Header -->
-        <div class="text-center animate-fade-in">
-            <div class="inline-flex items-center justify-center w-20 h-20 bg-gaming-gradient rounded-3xl mb-6 shadow-gaming-lg">
-                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+    <!-- Page header -->
+    <div class="text-center mb-8">
+        <!-- Logo -->
+        <div class="mb-6">
+            <div class="relative flex items-center justify-center w-16 h-16 border border-transparent rounded-2xl shadow-2xl mx-auto [background:linear-gradient(var(--color-slate-900),var(--color-slate-900))_padding-box,conic-gradient(var(--color-slate-400),var(--color-slate-700)_25%,var(--color-slate-700)_75%,var(--color-slate-400)_100%)_border-box] before:absolute before:inset-0 before:bg-slate-800/30 before:rounded-2xl">
+                <svg class="w-8 h-8 fill-current text-purple-500" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M31.952 14.751a260.51 260.51 0 00-4.359-4.407C23.932 6.734 20.16 3.182 16.171 0c1.634.017 3.21.28 4.692.751 3.487 3.114 6.846 6.398 10.163 9.737.493 1.346.811 2.776.926 4.262zm-1.388 7.883c-2.496-2.597-5.051-5.12-7.737-7.471-3.706-3.246-10.693-9.81-15.736-7.418-4.552 2.158-4.717 10.543-4.96 16.238A15.926 15.926 0 010 16C0 9.799 3.528 4.421 8.686 1.766c1.82.593 3.593 1.675 5.038 2.587 6.569 4.14 12.29 9.71 17.792 15.57-.237.94-.557 1.846-.952 2.711zm-4.505 5.81a56.161 56.161 0 00-1.007-.823c-2.574-2.054-6.087-4.805-9.394-4.044-3.022.695-4.264 4.267-4.97 7.52a15.945 15.945 0 01-3.665-1.85c.366-3.242.89-6.675 2.405-9.364 2.315-4.107 6.287-3.072 9.613-1.132 3.36 1.96 6.417 4.572 9.313 7.417a16.097 16.097 0 01-2.295 2.275z" />
                 </svg>
             </div>
-            <h2 class="text-4xl font-black text-white mb-2 bg-gaming-gradient bg-clip-text text-transparent">
-                {{ __('Welcome back!') }}
-            </h2>
-            <p class="text-muted-300">
-                {{ __('Sign in to your account') }}
-            </p>
         </div>
+        <!-- Page title -->
+        <h1 class="text-2xl font-bold text-white mb-2">{{ __('Sign in to your account') }}</h1>
+    </div>
+    
+    <!-- Form -->
+    <div class="space-y-6 relative z-20">
 
-        <!-- Gaming Login Form -->
-        <x-ui.card variant="glass" class="animate-fade-in animation-delay-200">
-            <form class="space-y-5" method="POST" action="{{ route('login') }}" id="login-form">
-                @csrf
-                
-                <!-- Email Field -->
+        <!-- Flash Messages -->
+        @if(session('success'))
+            <div class="bg-green-500/10 border border-green-500/50 text-green-300 px-4 py-3 rounded-lg">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="bg-red-500/10 border border-red-500/50 text-red-300 px-4 py-3 rounded-lg">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @if ($errors->any())
+            <div class="bg-red-500/10 border border-red-500/50 text-red-300 px-4 py-3 rounded-lg">
+                <ul class="list-disc list-inside text-sm">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <form method="POST" action="{{ route('login') }}">
+            @csrf
+            <div class="space-y-4">
                 <div>
-                    <label for="email" class="block text-sm font-semibold text-white mb-2">
-                        {{ __('Email') }}
-                    </label>
-                    <x-ui.input 
-                        id="email" 
-                        name="email" 
-                        type="email" 
-                        placeholder="Enter your email" 
-                        value="{{ old('email') }}"
-                        required
-                        class="w-full"
-                    />
+                    <label class="block text-sm text-slate-300 font-medium mb-1" for="email">{{ __('Email') }}</label>
+                    <input id="email" name="email" class="form-input w-full" type="email" value="{{ old('email') }}" required autofocus />
                     @error('email')
                         <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
                     @enderror
                 </div>
-
-                <!-- Password Field -->
                 <div>
-                    <div class="flex items-center justify-between mb-2">
-                        <label for="password" class="block text-sm font-semibold text-white">
-                            {{ __('Password') }}
-                        </label>
-                        <a href="{{ route('password.request') }}" 
-                           class="text-xs text-primary-400 hover:text-primary-300 transition-colors">
-                            {{ __('Forgot password?') }}
-                        </a>
+                    <div class="flex justify-between">
+                        <label class="block text-sm text-slate-300 font-medium mb-1" for="password">{{ __('Password') }}</label>
+                        @if (Route::has('password.request'))
+                            <a class="text-sm font-medium text-purple-500 hover:text-purple-400 transition duration-150 ease-in-out ml-2" href="{{ route('password.request') }}">{{ __('Forgot?') }}</a>
+                        @endif
                     </div>
-                    <x-ui.input 
-                        id="password" 
-                        name="password" 
-                        type="password" 
-                        placeholder="Enter your password" 
-                        required
-                        class="w-full"
-                    />
+                    <input id="password" name="password" class="form-input w-full" type="password" autocomplete="current-password" required />
                     @error('password')
                         <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
                     @enderror
@@ -77,121 +66,30 @@
 
                 <!-- Remember Me -->
                 <div class="flex items-center">
-                    <input id="remember" name="remember" type="checkbox"
-                           class="h-4 w-4 text-primary-500 focus:ring-primary-500 border-gaming rounded bg-dark-800">
-                    <label for="remember" class="ml-2 block text-sm text-muted-300">
-                        {{ __('Remember me') }}
-                    </label>
+                    <input id="remember" name="remember" type="checkbox" class="form-checkbox text-purple-500" {{ old('remember') ? 'checked' : '' }} />
+                    <label for="remember" class="text-sm text-slate-300 ml-2">{{ __('Remember me') }}</label>
                 </div>
 
-                <!-- Turnstile Widget -->
-                <div>
+                <!-- Cloudflare Turnstile - Temporarily disabled -->
+                {{-- @if(env('TURNSTILE_SITE_KEY'))
+                <div class="flex justify-center">
                     <div class="cf-turnstile" data-sitekey="{{ env('TURNSTILE_SITE_KEY') }}" data-theme="dark"></div>
-                    @error('cf-turnstile-response')
-                        <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
-                    @enderror
                 </div>
-
-                <!-- Sign In Button -->
-                <div>
-                    <x-ui.button 
-                        type="submit" 
-                        variant="primary" 
-                        size="lg" 
-                        glow="true"
-                        class="w-full justify-center"
-                    >
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                        </svg>
-                        {{ __('Login') }}
-                    </x-ui.button>
-                </div>
-
-                <!-- Create Account Link -->
-                <div class="text-center">
-                    <p class="text-sm text-muted-400">
-                        {{ __("Don't have an account?") }} 
-                        <a href="{{ route('register') }}" class="text-primary-400 hover:text-primary-300 font-semibold transition-colors">
-                            {{ __('Sign up here') }}
-                        </a>
-                    </p>
-                </div>
-            </form>
-
-            <!-- Phone Login Button -->
-            <div class="mt-4">
-                <a href="{{ route('login.phone') }}" 
-                   class="inline-flex items-center justify-center w-full px-4 py-3 border border-gaming text-base font-medium rounded-2xl text-white bg-dark-800/50 hover:bg-dark-700/50 hover:border-primary-500 transition-all duration-300">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                    </svg>
-                    Sign in with phone number
-                </a>
+                @endif --}}
             </div>
-
-            <!-- Divider -->
             <div class="mt-6">
-                <div class="relative">
-                    <div class="absolute inset-0 flex items-center">
-                        <div class="w-full border-t border-gaming"></div>
-                    </div>
-                    <div class="relative flex justify-center text-sm">
-                        <span class="px-4 bg-dark-800 text-muted-400 font-medium">or continue with</span>
-                    </div>
-                </div>
+                <button type="submit" class="btn text-sm text-white bg-purple-500 hover:bg-purple-600 w-full shadow-xs group">
+                    {{ __('Sign In') }} <span class="tracking-normal text-purple-300 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span>
+                </button>
             </div>
-
-            <!-- Social Login Buttons -->
-            <div class="mt-6">
-                <!-- Google -->
-                <a href="{{ route('login.social', 'google') }}" 
-                   class="flex items-center justify-center w-full px-4 py-3 border border-gaming text-base font-medium rounded-2xl text-white bg-dark-800/50 hover:bg-dark-700/50 hover:border-red-500 transition-all duration-300">
-                    <svg class="w-5 h-5 mr-3" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-                    </svg>
-                    Continue with Google
-                </a>
-            </div>
-        </x-ui.card>
+        </form>
     </div>
-</div>
 
-<!-- Turnstile Script -->
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
-<style>
-@keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-}
+    {{-- @push('scripts')
+    @if(env('TURNSTILE_SITE_KEY'))
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    @endif
+    @endpush --}}
 
-@keyframes fade-in {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.animate-float {
-    animation: float 6s ease-in-out infinite;
-}
-
-.animate-fade-in {
-    animation: fade-in 0.8s ease-out forwards;
-}
-
-.animation-delay-200 {
-    animation-delay: 0.2s;
-}
-
-.animation-delay-2000 {
-    animation-delay: 2s;
-}
-
-.animation-delay-4000 {
-    animation-delay: 4s;
-}
-</style>
-@endsection
+</x-layouts.stellar-auth>

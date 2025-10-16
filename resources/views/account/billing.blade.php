@@ -1,12 +1,13 @@
-@extends('layouts.app')
+<x-layouts.stellar>
+    <x-slot name="title">{{ __('Billing & Subscription') }} - {{ config('app.name') }}</x-slot>
 
-@section('content')
-<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+<section class="relative pt-32 pb-12">
+<div class="min-h-screen py-8">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
         <div class="mb-8">
             <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Billing & Subscription</h1>
-            <p class="text-gray-600 dark:text-gray-400 mt-2">Manage your subscription and billing settings</p>
+            <p class="text-gray-600 dark:text-gray-400 mt-2">{{ __('Manage your subscription and billing settings') }}</p>
         </div>
 
         @if(session('success'))
@@ -47,11 +48,11 @@
 
                             @if($subscription->renews_at && !$subscription->isCancelled())
                             <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">
-                                Renews on {{ $subscription->renews_at->format('F d, Y') }}
+                                {{ __('Renews on') }} {{ $subscription->renews_at->format('F d, Y') }}
                             </p>
                             @elseif($subscription->cancel_at)
                             <p class="text-sm text-yellow-600 dark:text-yellow-400 mt-2">
-                                ⚠️ Expires on {{ $subscription->cancel_at->format('F d, Y') }}
+                                ⚠️ {{ __('Expires on') }} {{ $subscription->cancel_at->format('F d, Y') }}
                             </p>
                             @endif
                         </div>
@@ -68,35 +69,35 @@
                     <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 flex gap-4">
                         @if(!$subscription->plan->isFree())
                         <a href="{{ route('pricing') }}" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition">
-                            Change Plan
+                            {{ __('Change Plan') }}
                         </a>
 
                         @if(!$subscription->isCancelled())
                         <form action="{{ route('subscription.cancel-auto-renew') }}" method="POST">
                             @csrf
-                            <button type="submit" onclick="return confirm('Are you sure you want to cancel auto-renewal?')" 
+                            <button type="submit" onclick="return confirm('{{ __('Are you sure you want to cancel auto-renewal?') }}')" 
                                 class="px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-lg font-medium transition">
-                                Cancel Auto-Renew
+                                {{ __('Cancel Auto-Renew') }}
                             </button>
                         </form>
                         @else
                         <form action="{{ route('subscription.resume') }}" method="POST">
                             @csrf
                             <button type="submit" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition">
-                                Resume Subscription
+                                {{ __('Resume Subscription') }}
                             </button>
                         </form>
                         @endif
                         @else
                         <a href="{{ route('pricing') }}" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition">
-                            Upgrade Now
+                            {{ __('Upgrade Now') }}
                         </a>
                         @endif
                     </div>
                     @else
-                    <p class="text-gray-600 dark:text-gray-400">You don't have an active subscription.</p>
+                    <p class="text-gray-600 dark:text-gray-400">{{ __('You don\'t have an active subscription.') }}</p>
                     <a href="{{ route('pricing') }}" class="inline-block mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition">
-                        View Plans
+                        {{ __('View Plans') }}
                     </a>
                     @endif
                 </div>
@@ -111,7 +112,7 @@
                         <a href="https://vendors.paddle.com" target="_blank" class="text-blue-600 hover:text-blue-700 underline">Paddle account</a>
                     </p>
                     @else
-                    <p class="text-gray-500 dark:text-gray-400">No payment history available.</p>
+                    <p class="text-gray-500 dark:text-gray-400">{{ __('No payment history available.') }}</p>
                     @endif
                 </div>
             </div>
@@ -189,17 +190,19 @@
 
                 <!-- Quick Actions -->
                 <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-6">
-                    <h4 class="font-semibold text-blue-900 dark:text-blue-400 mb-2">Need Help?</h4>
+                    <h4 class="font-semibold text-blue-900 dark:text-blue-400 mb-2">{{ __('Need Help?') }}</h4>
                     <p class="text-sm text-blue-800 dark:text-blue-300 mb-4">
-                        Have questions about your subscription? We're here to help!
+                        {{ __('Have questions about your subscription? We\'re here to help!') }}
                     </p>
                     <a href="#" class="text-sm text-blue-600 dark:text-blue-400 hover:underline font-medium">
-                        Contact Support →
+                        {{ __('Contact Support') }} →
                     </a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-@endsection
+</section>
+
+</x-layouts.stellar>
 

@@ -30,7 +30,6 @@
     "Legal": "Legal",
     "Terms & Conditions": "Terms & Conditions",
     "Privacy Policy": "Privacy Policy",
-    "Refund Policy": "Refund Policy",
     "Help Center": "Help Center",
     "Contact Us": "Contact Us",
     "Discord Community": "Discord Community",
@@ -359,5 +358,24 @@
     "This action cannot be undone.": "This action cannot be undone.",
     "Translations updated successfully": "Translations updated successfully",
     "Translation added successfully": "Translation added successfully",
-    "Translation deleted successfully": "Translation deleted successfully"
+    "Translation deleted successfully": "Translation deleted successfully",
+    
+    "Choose What You Want to Sell": "Choose What You Want to Sell",
+    "Select the type of digital product you want to list on our marketplace": "Select the type of digital product you want to list on our marketplace",
+    "Gaming Accounts": "Gaming Accounts",
+    "Sell game accounts, in-game items, currency, and gaming-related digital products": "Sell game accounts, in-game items, currency, and gaming-related digital products",
+    "Popular games & platforms": "Popular games & platforms",
+    "Secure account transfer": "Secure account transfer",
+    "Instant delivery system": "Instant delivery system",
+    "Social Accounts": "Social Accounts",
+    "Sell social media accounts, followers, engagement packages, and social platform services": "Sell social media accounts, followers, engagement packages, and social platform services",
+    "All major platforms": "All major platforms",
+    "Verified account transfers": "Verified account transfers",
+    "Safe & protected sales": "Safe & protected sales",
+    "Sign In Required": "Sign In Required",
+    "You need to sign in or create an account to start selling on our platform": "You need to sign in or create an account to start selling on our platform",
+    "Join Our Marketplace": "Join Our Marketplace",
+    "Turn your digital products into profit. Join thousands of sellers earning on our platform with instant payouts and secure transactions.": "Turn your digital products into profit. Join thousands of sellers earning on our platform with instant payouts and secure transactions.",
+    "Go to Dashboard": "Go to Dashboard",
+    "Sign Up to Start Selling": "Sign Up to Start Selling"
 }

@@ -1,6 +1,7 @@
-@extends('layouts.app')
+<x-layouts.stellar>
+    <x-slot name="title">{{ __('Edit Product') }} - {{ config('app.name') }}</x-slot>
 
-@section('content')
+<section class="relative pt-32 pb-12">
 <div class="min-h-screen bg-gray-50 py-8">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
@@ -241,4 +242,8 @@ function addTag() {
     container.appendChild(div);
 }
 </script>
-@endsection
+@endpush
+
+</section>
+
+</x-layouts.stellar>

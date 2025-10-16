@@ -1,8 +1,7 @@
-@extends('layouts.app')
+<x-layouts.stellar>
+    <x-slot name="title">{{ __('Leaderboard') }} - {{ config('app.name') }}</x-slot>
 
-@section('title', 'Leaderboard - NetroHub')
-
-@section('content')
+<section class="relative pt-32 pb-12">
 <div class="min-h-screen bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-7xl mx-auto">
         <!-- Header -->
@@ -182,4 +181,6 @@
         </div>
     </div>
 </div>
-@endsection
+</section>
+
+</x-layouts.stellar>

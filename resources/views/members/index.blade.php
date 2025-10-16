@@ -1,295 +1,121 @@
-@extends('layouts.app')
+<x-layouts.stellar>
+    <x-slot name="title">{{ __('Members') }} - {{ config('app.name') }}</x-slot>
 
-@section('content')
-<div class="min-h-screen relative overflow-hidden bg-dark-900 py-12">
-    <!-- Gaming Background Effects -->
-    <div class="absolute inset-0 pointer-events-none">
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl animate-float"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-secondary-500/10 rounded-full blur-3xl animate-float animation-delay-2000"></div>
-        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-neon-blue/5 rounded-full blur-3xl animate-pulse-slow"></div>
-    </div>
-
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Page Header -->
-        <div class="text-center mb-12 animate-fade-in">
-            <div class="relative inline-flex items-center justify-center w-20 h-20 bg-gaming-gradient rounded-3xl mb-8 shadow-gaming-xl group">
-                <div class="absolute inset-0 bg-gaming-gradient rounded-3xl blur-xl opacity-50 group-hover:opacity-100 transition-opacity"></div>
-                <svg class="relative w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                </svg>
-            </div>
-            <h1 class="text-5xl md:text-6xl font-black text-white mb-6 bg-gaming-gradient bg-clip-text text-transparent leading-tight">
-                Platform Members
-            </h1>
-            <p class="text-xl text-muted-300 max-w-2xl mx-auto">
-                Discover and connect with our thriving gaming community
-            </p>
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-12">
+        <!-- Soft radial glow -->
+        <div class="absolute inset-0 -z-10" aria-hidden="true">
+            <div class="absolute left-1/2 -translate-x-1/2 top-10 w-[700px] h-[700px] rounded-full bg-purple-500/20 blur-[120px]"></div>
         </div>
-
-        <!-- Stats Overview -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 animate-fade-in animation-delay-200">
-            <div class="card-interactive p-6">
-                <div class="flex items-center gap-4">
-                    <div class="relative p-4 bg-primary-500/10 rounded-2xl">
-                        <div class="absolute inset-0 bg-primary-500/20 rounded-2xl blur-lg"></div>
-                        <svg class="relative w-8 h-8 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="text-3xl font-black text-gradient">{{ $totalMembers }}</p>
-                        <p class="text-sm text-muted-400 font-medium">Total Members</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card-interactive p-6">
-                <div class="flex items-center gap-4">
-                    <div class="relative p-4 bg-neon-green/10 rounded-2xl">
-                        <div class="absolute inset-0 bg-neon-green/20 rounded-2xl blur-lg"></div>
-                        <svg class="relative w-8 h-8 text-neon-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="text-3xl font-black text-gradient-success">{{ $totalSellers }}</p>
-                        <p class="text-sm text-muted-400 font-medium">Active Sellers</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card-interactive p-6">
-                <div class="flex items-center gap-4">
-                    <div class="relative p-4 bg-secondary-500/10 rounded-2xl">
-                        <div class="absolute inset-0 bg-secondary-500/20 rounded-2xl blur-lg"></div>
-                        <svg class="relative w-8 h-8 text-secondary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="text-3xl font-black text-gradient-purple">{{ $totalBuyers }}</p>
-                        <p class="text-sm text-muted-400 font-medium">Active Buyers</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card-interactive p-6">
-                <div class="flex items-center gap-4">
-                    <div class="relative p-4 bg-neon-blue/10 rounded-2xl">
-                        <div class="absolute inset-0 bg-neon-blue/20 rounded-2xl blur-lg"></div>
-                        <svg class="relative w-8 h-8 text-neon-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="text-3xl font-black text-white">{{ $totalVerified }}</p>
-                        <p class="text-sm text-muted-400 font-medium">Verified</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Search & Filter Section -->
-        <div class="card-glass p-6 md:p-8 mb-12 animate-fade-in animation-delay-300">
-            <form method="GET" action="{{ route('members.index') }}" class="space-y-6">
-                <!-- Filter Buttons -->
-                <div>
-                    <label class="label mb-3">
-                        <svg class="w-4 h-4 inline mr-2 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
-                        </svg>
-                        Filter Members
-                    </label>
-                    <div class="flex flex-wrap gap-2">
-                        <button type="submit" name="filter" value="all" 
-                                class="px-5 py-2.5 rounded-xl font-semibold transition-all duration-300 {{ $filter === 'all' ? 'bg-gaming-gradient text-white shadow-gaming scale-105' : 'bg-dark-800/70 text-muted-300 hover:bg-dark-700/70 hover:text-white hover:scale-105 border border-gaming' }}">
-                            All Members
-                        </button>
-                        <button type="submit" name="filter" value="sellers" 
-                                class="px-5 py-2.5 rounded-xl font-semibold transition-all duration-300 {{ $filter === 'sellers' ? 'bg-gaming-gradient text-white shadow-gaming scale-105' : 'bg-dark-800/70 text-muted-300 hover:bg-dark-700/70 hover:text-white hover:scale-105 border border-gaming' }}">
-                            Sellers Only
-                        </button>
-                        <button type="submit" name="filter" value="buyers" 
-                                class="px-5 py-2.5 rounded-xl font-semibold transition-all duration-300 {{ $filter === 'buyers' ? 'bg-gaming-gradient text-white shadow-gaming scale-105' : 'bg-dark-800/70 text-muted-300 hover:bg-dark-700/70 hover:text-white hover:scale-105 border border-gaming' }}">
-                            Buyers Only
-                        </button>
-                        <button type="submit" name="filter" value="verified" 
-                                class="px-5 py-2.5 rounded-xl font-semibold transition-all duration-300 {{ $filter === 'verified' ? 'bg-gaming-gradient text-white shadow-gaming scale-105' : 'bg-dark-800/70 text-muted-300 hover:bg-dark-700/70 hover:text-white hover:scale-105 border border-gaming' }}">
-                            Verified
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Search and Sort -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="md:col-span-2">
-                        <label class="label">
-                            <svg class="w-4 h-4 inline mr-2 text-secondary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                            </svg>
-                            Search Members
-                        </label>
-                        <div class="input-group">
-                            <svg class="input-group-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                            </svg>
-                            <input type="text" name="search" value="{{ $search }}" 
-                                   placeholder="Search by name, username, or email..." 
-                                   class="input input-with-icon"/>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="label">
-                            <svg class="w-4 h-4 inline mr-2 text-neon-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"/>
-                            </svg>
-                            Sort By
-                        </label>
-                        <select name="sort" class="select">
-                            <option value="recent" {{ $sort === 'recent' ? 'selected' : '' }}>Recently Joined</option>
-                            <option value="sales" {{ $sort === 'sales' ? 'selected' : '' }}>Most Sales</option>
-                            <option value="name" {{ $sort === 'name' ? 'selected' : '' }}>Alphabetical</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <button type="submit" class="btn-primary w-full md:w-auto">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                    </svg>
-                    Apply Filters
-                </button>
-            </form>
-            
-            <!-- Results Count -->
-            <div class="mt-6 pt-6 border-t border-gaming flex items-center gap-3">
-                <div class="w-1 h-8 bg-gaming-gradient rounded-full"></div>
-                <p class="text-sm text-muted-400">
-                    Showing <span class="text-white font-bold">{{ $members->firstItem() ?? 0 }} - {{ $members->lastItem() ?? 0 }}</span> 
-                    of <span class="text-gradient font-bold">{{ $members->total() }}</span> members
-                    @if(!empty($search))
-                        <span class="text-primary-400"> (filtered by "{{ $search }}")</span>
-                    @endif
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="text-center">
+                <h1 class="h1 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60 pb-4" data-aos="fade-down">
+                    {{ __('Community Members') }}
+                </h1>
+                <p class="text-lg text-slate-300 max-w-2xl mx-auto" data-aos="fade-down" data-aos-delay="200">
+                    {{ __('Meet our talented community of sellers and buyers') }}
                 </p>
             </div>
         </div>
+    </section>
 
-        <!-- Members Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            @forelse($members as $member)
-                <div class="card-interactive text-center group scroll-fade-in">
-                    <!-- Avatar with verification badges -->
-                    <div class="relative inline-block mb-4">
-                        <div class="w-24 h-24 mx-auto rounded-2xl overflow-hidden bg-gaming-gradient shadow-lg group-hover:shadow-gaming transition-all">
-                            <img src="{{ $member->avatar_url }}" alt="{{ $member->name }}" class="w-full h-full object-cover">
-                        </div>
-                        
-                        <!-- Verification badges -->
-                        @if($member->seller && $member->seller->total_sales > 0)
-                            <div class="absolute -bottom-1 -right-1 w-8 h-8 bg-neon-green rounded-full border-4 border-dark-800 flex items-center justify-center shadow-lg" title="Verified Seller">
-                                <svg class="w-5 h-5 text-dark-900" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
-                                    <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                                </svg>
+    <!-- Search & Filters -->
+    <section class="pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50 shadow-lg shadow-black/10" data-aos="fade-up">
+                <form method="GET" class="grid md:grid-cols-4 gap-4">
+                    <input type="search" name="search" placeholder="{{ __('Search members...') }}" value="{{ request('search') }}" class="form-input w-full md:col-span-2">
+                    <select name="filter" class="form-select w-full" onchange="this.form.submit()">
+                        <option value="all" {{ request('filter','all') === 'all' ? 'selected' : '' }}>{{ __('All') }}</option>
+                        <option value="sellers" {{ request('filter') === 'sellers' ? 'selected' : '' }}>{{ __('Sellers') }}</option>
+                        <option value="buyers" {{ request('filter') === 'buyers' ? 'selected' : '' }}>{{ __('Buyers') }}</option>
+                        <option value="verified" {{ request('filter') === 'verified' ? 'selected' : '' }}>{{ __('Verified') }}</option>
+                    </select>
+                    <select name="sort" onchange="this.form.submit()" class="form-select w-full">
+                        <option value="latest" {{ request('sort','latest') === 'latest' ? 'selected' : '' }}>{{ __('Newest First') }}</option>
+                        <option value="name" {{ request('sort') === 'name' ? 'selected' : '' }}>{{ __('Name A–Z') }}</option>
+                        <option value="sales" {{ request('sort') === 'sales' ? 'selected' : '' }}>{{ __('Top Sellers') }}</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Members Grid -->
+    <section class="pb-16 md:pb-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            @if(isset($users) && $users->count() > 0)
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    @foreach($users as $user)
+                        <div class="group relative" data-aos="fade-up" data-aos-delay="{{ ($loop->index % 8) * 50 }}">
+                            <div class="absolute inset-0 bg-gradient-to-b from-slate-800/60 to-slate-900/60 rounded-2xl -m-px opacity-0 group-hover:opacity-100 transition duration-700"></div>
+                            <div class="relative bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50 text-center shadow-md shadow-black/10">
+                                <!-- Avatar -->
+                                <div class="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden border-2 border-slate-700 bg-slate-700">
+                                    @if(!empty($user->avatar_url))
+                                        <img src="{{ $user->avatar_url }}" alt="{{ $user->name }}" class="w-full h-full object-cover">
+                                    @else
+                                        <div class="w-full h-full bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center">
+                                            <span class="text-2xl font-bold text-white">{{ strtoupper(substr($user->name, 0, 1)) }}</span>
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <!-- Name -->
+                                <h3 class="text-lg font-bold text-slate-100 mb-1">{{ $user->name }}</h3>
+                                
+                                <!-- Username -->
+                                @if($user->username)
+                                    <p class="text-sm text-slate-400 mb-3">{{ '@' . $user->username }}</p>
+                                @endif
+
+                                <!-- Stats -->
+                                <div class="flex items-center justify-center gap-4 mb-4 text-sm">
+                                    @if($user->seller)
+                                        <div class="flex items-center text-slate-400">
+                                            <svg class="w-4 h-4 mr-1 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+                                            </svg>
+                                            {{ $user->seller->products_count ?? 0 }}
+                                        </div>
+                                    @endif
+                                    @if($user->seller && $user->seller->rating)
+                                        <div class="flex items-center text-slate-400">
+                                            <svg class="w-4 h-4 mr-1 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                            </svg>
+                                            {{ number_format($user->seller->rating, 1) }}
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <!-- View Profile Button -->
+                                <a href="{{ route('members.show', $user) }}" 
+                                   class="btn text-slate-900 bg-gradient-to-r from-white/80 via-white to-white/80 hover:bg-white w-full text-sm group/btn">
+                                    {{ __('View Profile') }}
+                                    <span class="tracking-normal text-purple-500 group-hover/btn:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">→</span>
+                                </a>
                             </div>
-                        @elseif($member->email_verified_at)
-                            <div class="absolute -bottom-1 -right-1 w-8 h-8 bg-neon-blue rounded-full border-4 border-dark-800 flex items-center justify-center shadow-lg" title="Email Verified">
-                                <svg class="w-5 h-5 text-dark-900" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                                </svg>
-                            </div>
-                        @endif
-                    </div>
-                    
-                    <!-- Name and handle -->
-                    <h3 class="text-lg font-bold text-white group-hover:text-primary-400 transition-colors mb-1">
-                        {{ $member->seller->display_name ?? $member->name }}
-                    </h3>
-                    <p class="text-sm text-muted-400 mb-3">{{ Str::slug($member->seller->display_name ?? $member->name) }}</p>
-                    
-                    <!-- Bio/tagline -->
-                    @if($member->seller && $member->seller->bio)
-                        <p class="text-sm text-muted-300 mb-4 line-clamp-2 px-2 min-h-[40px]">{{ $member->seller->bio }}</p>
-                    @else
-                        <p class="text-sm text-muted-400 mb-4 italic min-h-[40px]">
-                            @if($member->seller)
-                                No bio yet
-                            @else
-                                Platform Member
-                            @endif
-                        </p>
-                    @endif
-                    
-                    <!-- Stats row -->
-                    <div class="grid grid-cols-3 gap-2 mb-4">
-                        <div class="bg-dark-900/50 rounded-xl p-3 border border-gaming/30">
-                            <p class="text-lg font-bold text-white">{{ $member->seller->total_sales ?? 0 }}</p>
-                            <p class="text-xs text-muted-400">Sales</p>
                         </div>
-                        <div class="bg-dark-900/50 rounded-xl p-3 border border-gaming/30">
-                            <p class="text-lg font-bold text-white">{{ $member->seller ? $member->seller->products_count : 0 }}</p>
-                            <p class="text-xs text-muted-400">Listings</p>
-                        </div>
-                        <div class="bg-dark-900/50 rounded-xl p-3 border border-gaming/30">
-                            <p class="text-lg font-bold text-white">{{ $member->created_at->format('Y') }}</p>
-                            <p class="text-xs text-muted-400">Joined</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Seller badge -->
-                    @if($member->seller)
-                        <div class="mb-4">
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-neon-green/20 text-neon-green border border-neon-green/30">
-                                <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"/>
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"/>
-                                </svg>
-                                Seller
-                            </span>
-                        </div>
-                    @endif
-                    
-                    <!-- View Profile button -->
-                    <a href="{{ route('members.show', $member) }}" class="btn-primary w-full">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                        </svg>
-                        View Profile
-                    </a>
+                    @endforeach
                 </div>
-            @empty
-                <div class="col-span-full">
-                    <div class="card-glass text-center py-20">
-                        <svg class="w-24 h-24 mx-auto text-muted-400 mb-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                @if($users->hasPages())
+                    <div class="mt-12">
+                        {{ $users->links() }}
+                    </div>
+                @endif
+            @else
+                <div class="text-center py-16">
+                    <div class="w-20 h-20 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-10 h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
                         </svg>
-                        <h3 class="text-3xl font-bold text-white mb-4">No Members Found</h3>
-                        <p class="text-muted-400 mb-8 max-w-md mx-auto">
-                            @if(!empty($search))
-                                No members match your search criteria. Try adjusting your filters or search terms.
-                            @else
-                                No members available at the moment. Check back later!
-                            @endif
-                        </p>
-                        @if(!empty($search) || $filter !== 'all')
-                            <a href="{{ route('members.index') }}" class="btn-primary btn-lg">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-                                </svg>
-                                Clear Filters
-                            </a>
-                        @endif
                     </div>
+                    <h3 class="text-xl font-bold text-slate-100 mb-2">{{ __('No members found') }}</h3>
+                    <p class="text-slate-400">{{ __('Try adjusting your search criteria') }}</p>
                 </div>
-            @endforelse
+            @endif
         </div>
-
-        <!-- Pagination -->
-        @if($members->hasPages())
-            <div class="mt-12">
-                {{ $members->links() }}
-            </div>
-        @endif
-    </div>
-</div>
-@endsection
+    </section>
+</x-layouts.stellar>

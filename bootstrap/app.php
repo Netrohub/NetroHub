@@ -17,7 +17,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
             'kyc.verified' => \App\Http\Middleware\KycVerificationMiddleware::class,
-        'require.kyc' => \App\Http\Middleware\RequireKycVerification::class,
+            'require.kyc' => \App\Http\Middleware\RequireKycVerification::class,
+            'require.phone' => \App\Http\Middleware\RequirePhoneVerification::class,
+            'require.seller.verifications' => \App\Http\Middleware\RequireSellerVerifications::class,
+            'admin' => \App\Http\Middleware\AdminMiddleware::class,
         ]);
         
         // Add locale middleware to web group

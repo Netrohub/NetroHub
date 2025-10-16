@@ -1,6 +1,7 @@
-@extends('layouts.app')
+<x-layouts.stellar>
+    <x-slot name="title">{{ __('Order Delivery') }} - {{ config('app.name') }}</x-slot>
 
-@section('content')
+<section class="relative pt-32 pb-12">
 <div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
@@ -278,5 +279,8 @@ function copyToClipboard(dataAttr) {
 }
 </script>
 @endpush
-@endsection
+
+</section>
+
+</x-layouts.stellar>
 

@@ -1,12 +1,13 @@
-@extends('layouts.app')
+<x-layouts.stellar>
+    <x-slot name="title">{{ __('Pricing') }} - {{ config('app.name') }}</x-slot>
 
-@section('content')
-<div class="min-h-screen bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+<section class="relative pt-32 pb-12">
+<div class="py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-7xl mx-auto">
         <!-- Header -->
         <div class="text-center mb-12">
             <h1 class="text-4xl font-bold text-white mb-4">Choose Your Plan</h1>
-            <p class="text-xl text-gray-400">Unlock powerful features and grow your business</p>
+            <p class="text-xl text-gray-400">{{ __('Unlock powerful features and grow your business') }}</p>
         </div>
 
         <!-- Monthly/Annual Toggle -->
@@ -199,5 +200,8 @@ function subscribe(planSlug) {
 }
 </script>
 @endpush
-@endsection
+
+</section>
+
+</x-layouts.stellar>
 

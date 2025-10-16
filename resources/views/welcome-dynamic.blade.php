@@ -1,8 +1,7 @@
-@extends('layouts.app')
+<x-layouts.stellar>
+    <x-slot name="title">{{ \App\Models\SiteSetting::get('site_name', config('app.name')) }}</x-slot>
 
-@section('title', \App\Models\SiteSetting::get('site_name', 'NetroHub'))
-
-@section('content')
+<section class="relative pt-32 pb-12">
 @php
     $heroBlock = \App\Models\ContentBlock::getByIdentifier('homepage_hero');
     $featuresBlock = \App\Models\ContentBlock::getByIdentifier('homepage_features');
@@ -110,7 +109,7 @@
         
         <div class="text-center mt-10 scroll-fade-in">
             <a href="{{ route('products.index') }}" class="link text-lg font-semibold">
-                View all categories →
+                {{ __('View all categories') }} →
             </a>
         </div>
     </div>
@@ -122,8 +121,8 @@
 <section class="section-padding bg-dark-800/30">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12 scroll-fade-in">
-            <h2 class="text-3xl md:text-4xl font-black text-white mb-4">Featured Products</h2>
-            <p class="text-muted-400 text-lg">Handpicked premium products from top sellers</p>
+            <h2 class="text-3xl md:text-4xl font-black text-white mb-4">{{ __('Featured Products') }}</h2>
+            <p class="text-muted-400 text-lg">{{ __('Handpicked premium products from top sellers') }}</p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 scroll-stagger">
@@ -357,6 +356,6 @@
     </div>
 </section>
 
-@endsection
+</x-layouts.stellar>
 
 

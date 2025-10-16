@@ -1,159 +1,148 @@
-@extends('layouts.app')
+<x-layouts.stellar>
+    <x-slot name="title">{{ __('Products') }} - {{ config('app.name') }}</x-slot>
 
-@section('content')
-<div class="min-h-screen relative overflow-hidden bg-dark-900 py-8">
-    <!-- Gaming Background Effects -->
-    <div class="absolute inset-0">
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl animate-float"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-secondary-500/10 rounded-full blur-3xl animate-float animation-delay-2000"></div>
-        <div class="absolute top-3/4 left-1/3 w-64 h-64 bg-neon-blue/5 rounded-full blur-3xl animate-float animation-delay-4000"></div>
-    </div>
-
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Gaming Header -->
-        <div class="mb-12 text-center animate-fade-in">
-            <div class="relative inline-flex items-center justify-center w-20 h-20 bg-gaming-gradient rounded-3xl mb-8 shadow-gaming-xl group">
-                <div class="absolute inset-0 bg-gaming-gradient rounded-3xl blur-xl opacity-50 group-hover:opacity-100 transition-opacity"></div>
-                <svg class="relative w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                </svg>
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-12 md:pb-16">
+        <div class="absolute inset-0 -z-10 -mx-28 rounded-b-[3rem] pointer-events-none overflow-hidden" aria-hidden="true">
+            <div class="absolute left-1/2 -translate-x-1/2 bottom-0 -z-10">
+                <img src="{{ asset('stellar-assets/images/glow-bottom.svg') }}" class="max-w-none" width="2146" height="774" alt="Hero Illustration">
             </div>
-            <h1 class="text-5xl md:text-6xl font-black text-white mb-6 bg-gaming-gradient bg-clip-text text-transparent leading-tight">
-                Gaming Marketplace
-            </h1>
-            <p class="text-xl md:text-2xl text-muted-300 max-w-3xl mx-auto leading-relaxed">
-                Discover epic digital products from the best creators in the gaming community
-            </p>
         </div>
 
-        <!-- Gaming Search and Filters -->
-        <div class="card-glass mb-12 animate-fade-in animation-delay-200 p-6 md:p-8">
-            <form method="GET" action="{{ route('products.index') }}" class="space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Gaming Search -->
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="text-center">
+                <h1 class="h1 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60 pb-4" data-aos="fade-down">
+                    {{ __('Digital Products') }}
+                </h1>
+                <p class="text-lg text-slate-300 max-w-2xl mx-auto" data-aos="fade-down" data-aos-delay="200">
+                    {{ __('Browse our premium selection of digital products, gaming accounts, and exclusive services') }}
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters & Search -->
+    <section class="pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="bg-slate-800/50 rounded-2xl p-6 backdrop-blur-sm border border-slate-700/50">
+                <form method="GET" action="{{ route('products.index') }}" class="grid md:grid-cols-4 gap-4">
+                    <!-- Search -->
                     <div class="md:col-span-2">
-                        <label class="label">
-                            <svg class="w-4 h-4 inline mr-2 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                            </svg>
-                            Search Products
-                        </label>
-                        <div class="input-group">
-                            <svg class="input-group-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                            </svg>
-                            <input 
-                                type="text" 
-                                name="search" 
-                                value="{{ request('search') }}"
-                                placeholder="Search for gaming accounts, digital products..." 
-                                class="input input-with-icon"
-                            >
-                        </div>
+                        <input 
+                            type="search" 
+                            name="search"
+                            placeholder="{{ __('Search products...') }}" 
+                            class="form-input w-full"
+                            value="{{ request('search') }}"
+                        />
                     </div>
                     
-                    <!-- Gaming Sort -->
+                    <!-- Category Filter -->
                     <div>
-                        <label class="label">
-                            <svg class="w-4 h-4 inline mr-2 text-secondary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"/>
-                            </svg>
-                            Sort By
-                        </label>
-                        <select name="sort" onchange="this.form.submit()" class="select">
-                            <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Latest</option>
-                            <option value="popular" {{ request('sort') == 'popular' ? 'selected' : '' }}>Most Popular</option>
-                            <option value="price_low" {{ request('sort') == 'price_low' ? 'selected' : '' }}>Price: Low to High</option>
-                            <option value="price_high" {{ request('sort') == 'price_high' ? 'selected' : '' }}>Price: High to Low</option>
-                            <option value="rating" {{ request('sort') == 'rating' ? 'selected' : '' }}>Highest Rated</option>
+                        <select name="category" class="form-select w-full">
+                            <option value="">{{ __('All Categories') }}</option>
+                            @foreach($categories ?? [] as $category)
+                                <option value="{{ $category->slug }}" {{ request('category') == $category->slug ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
-                </div>
 
-                <!-- Gaming Categories -->
-                @if($categories->count() > 0)
-                <div>
-                    <label class="label">
-                        <svg class="w-4 h-4 inline mr-2 text-neon-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
-                        </svg>
-                        Categories
-                    </label>
-                    <div class="flex flex-wrap gap-2">
-                        <a href="{{ route('products.index') }}" 
-                           class="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 {{ !request('category') ? 'bg-gaming-gradient text-white shadow-gaming scale-105' : 'bg-dark-800/70 text-muted-300 hover:bg-dark-700/70 hover:text-white hover:scale-105 border border-gaming' }}">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
-                            </svg>
-                            All
-                        </a>
-                        @foreach($categories as $category)
-                            <a href="{{ route('products.index', ['category' => $category->slug]) }}" 
-                               class="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 {{ request('category') == $category->slug ? 'bg-gaming-gradient text-white shadow-gaming scale-105' : 'bg-dark-800/70 text-muted-300 hover:bg-dark-700/70 hover:text-white hover:scale-105 border border-gaming' }}">
-                                <x-platform-icon :category="$category->name" size="sm" :class="request('category') == $category->slug ? 'filter brightness-0 invert' : ''" />
-                                {{ $category->name }}
-                            </a>
-                        @endforeach
+                    <!-- Sort -->
+                    <div>
+                        <select name="sort" class="form-select w-full">
+                            <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>{{ __('Latest') }}</option>
+                            <option value="price_low" {{ request('sort') == 'price_low' ? 'selected' : '' }}>{{ __('Price: Low to High') }}</option>
+                            <option value="price_high" {{ request('sort') == 'price_high' ? 'selected' : '' }}>{{ __('Price: High to Low') }}</option>
+                            <option value="popular" {{ request('sort') == 'popular' ? 'selected' : '' }}>{{ __('Most Popular') }}</option>
+                        </select>
                     </div>
-                </div>
-                @endif
-            </form>
+
+                    <!-- Submit hidden - auto-submit on change via Alpine -->
+                    <button type="submit" class="hidden">{{ __('Filter') }}</button>
+                </form>
+            </div>
         </div>
+    </section>
 
-        <!-- Results Count -->
-        @if($products->count() > 0)
-            <div class="mb-8 flex items-center justify-between scroll-fade-in">
-                <div class="flex items-center gap-3">
-                    <div class="w-1 h-8 bg-gaming-gradient rounded-full"></div>
-                    <p class="text-muted-400 text-sm">
-                        Showing <span class="text-white font-bold">{{ $products->firstItem() }}</span> to 
-                        <span class="text-white font-bold">{{ $products->lastItem() }}</span> of 
-                        <span class="text-gradient font-bold">{{ $products->total() }}</span> results
-                    </p>
+    <!-- Products Grid -->
+    <section class="pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            @if(isset($products) && $products->count() > 0)
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    @foreach($products as $product)
+                        <div class="group relative" data-aos="fade-up" data-aos-delay="{{ ($loop->index % 8) * 50 }}">
+                            <div class="absolute inset-0 bg-gradient-to-b from-slate-800/50 to-slate-900/50 rounded-2xl -m-px opacity-0 group-hover:opacity-100 transition duration-700 ease-out"></div>
+                            <div class="relative bg-slate-800 rounded-2xl p-5 h-full flex flex-col">
+                                <!-- Product Image/Icon -->
+                                <div class="flex items-center justify-center w-16 h-16 bg-slate-700 rounded-xl mb-4 mx-auto">
+                                    <x-platform-icon :product="$product" size="lg" />
+                                </div>
+                                
+                                <!-- Product Info -->
+                                <h3 class="text-lg font-bold text-slate-100 mb-2 text-center line-clamp-1">
+                                    {{ $product->title }}
+                                </h3>
+                                <p class="text-slate-400 text-sm mb-4 text-center line-clamp-2 flex-grow">
+                                    {{ Str::limit($product->description, 80) }}
+                                </p>
+                                
+                                <!-- Price & Category -->
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="text-2xl font-bold text-white">
+                                        ${{ number_format($product->price, 2) }}
+                                    </span>
+                                    @if($product->category)
+                                        <span class="text-xs text-slate-400 bg-slate-700 px-2 py-1 rounded">
+                                            {{ $product->category->name }}
+                                        </span>
+                                    @endif
+                                </div>
+                                
+                                <!-- Seller Info -->
+                                @if($product->seller)
+                                    <div class="flex items-center text-xs text-slate-400 mb-4 pb-4 border-b border-slate-700">
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                        </svg>
+                                        {{ $product->seller->user->name }}
+                                    </div>
+                                @endif
+                                
+                                <!-- View Button -->
+                                <a href="{{ route('products.show', $product->slug) }}" 
+                                   class="btn text-slate-900 bg-gradient-to-r from-white/80 via-white to-white/80 hover:bg-white w-full transition duration-150 ease-in-out group/btn">
+                                    {{ __('View Details') }} 
+                                    <span class="tracking-normal text-purple-500 group-hover/btn:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">→</span>
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
-            </div>
-            
-            <!-- Gaming Products Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 scroll-stagger">
-                @foreach($products as $product)
-                    <x-product-card :product="$product" />
-                @endforeach
-            </div>
 
-            <!-- Gaming Pagination -->
-            <div class="mt-16 text-center">
-                {{ $products->links() }}
-            </div>
-        @else
-            <!-- Gaming Empty State -->
-            <x-ui.card variant="glass" class="text-center py-16 animate-fade-in">
-                <div class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-muted-600 to-muted-700 rounded-3xl mb-8 shadow-2xl">
-                    <svg class="w-12 h-12 text-muted-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
-                    </svg>
-                </div>
-                <h3 class="text-3xl font-bold text-white mb-4">No Products Found</h3>
-                <p class="text-lg text-muted-300 mb-8 max-w-md mx-auto">
-                    Looks like our gaming marketplace is empty! Try adjusting your search or filters to find epic digital products.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="{{ route('products.index') }}" 
-                       class="inline-flex items-center justify-center px-6 py-3 bg-gaming-gradient text-white font-semibold rounded-2xl hover:shadow-gaming transition-all">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                <!-- Pagination -->
+                @if($products->hasPages())
+                    <div class="mt-12">
+                        <div class="flex justify-center">
+                            {{ $products->links() }}
+                        </div>
+                    </div>
+                @endif
+            @else
+                <div class="text-center py-16">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-slate-800 rounded-full mb-4">
+                        <svg class="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
                         </svg>
-                        Clear Filters
-                    </a>
-                    <a href="{{ route('sell.index') }}" 
-                       class="inline-flex items-center justify-center px-6 py-3 border border-gaming text-white font-semibold rounded-2xl hover:bg-dark-700/50 transition-all">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                        </svg>
-                        Sell Your Products
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-100 mb-2">{{ __('No products found') }}</h3>
+                    <p class="text-slate-400 mb-6">{{ __('Try adjusting your search or filters') }}</p>
+                    <a href="{{ route('products.index') }}" class="btn text-slate-900 bg-gradient-to-r from-white/80 via-white to-white/80 hover:bg-white">
+                        {{ __('Clear Filters') }}
                     </a>
                 </div>
-            </x-ui.card>
-        @endif
-    </div>
-</div>
-@endsection
+            @endif
+        </div>
+    </section>
+</x-layouts.stellar>

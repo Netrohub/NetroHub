@@ -1,180 +1,161 @@
-@extends('layouts.app')
+<x-layouts.stellar>
+    <x-slot name="title">{{ __('الشروط والأحكام') }} - {{ config('app.name') }}</x-slot>
 
-@section('title', 'Terms & Conditions - NetroHub')
-@section('description', 'Read NetroHub\'s Terms & Conditions for our digital marketplace platform. Learn about our policies for buying and selling social media and gaming accounts.')
+    <section class="relative pt-32 pb-16 md:pb-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12">
+                <h1 class="h1 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60 pb-4" data-aos="fade-down">
+                    {{ __('الشروط والأحكام') }}
+                </h1>
+                <p class="text-slate-400" data-aos="fade-down" data-aos-delay="200">
+                    {{ __('آخر تحديث: :date', ['date' => now()->format('F d, Y')]) }}
+                </p>
+            </div>
 
-@section('content')
-<div class="min-h-screen relative overflow-hidden bg-dark-900 py-10">
-    <!-- Gaming Background Effects -->
-    <div class="absolute inset-0 pointer-events-none">
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl animate-float"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-secondary-500/5 rounded-full blur-3xl animate-float animation-delay-2000"></div>
-    </div>
-
-    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Header -->
-        <div class="text-center mb-12">
-            <h1 class="text-4xl font-black text-white mb-4">Terms & Conditions</h1>
-            <p class="text-muted-300 text-lg">Last updated: {{ now()->format('F d, Y') }}</p>
-        </div>
-
-        <!-- Content -->
-        <x-ui.card variant="glass" class="prose prose-invert max-w-none">
-            <div class="space-y-8">
+            <div class="bg-slate-800/50 rounded-2xl p-8 lg:p-12 border border-slate-700/50 space-y-8" data-aos="fade-up">
                 
-                <!-- Section 1 -->
+                <!-- 1: حول NetroHub -->
                 <section>
                     <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
                         <span class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">1</span>
-                        About NetroHub
+                        حول NetroHub
                     </h2>
-                    <div class="text-muted-300 leading-relaxed">
-                        <p>NetroHub is a digital marketplace that allows users across the GCC to securely buy and sell premium social media accounts and gaming accounts. We act as a trusted intermediary between buyers and sellers, providing a safe environment, secure payment processing, and a transparent transaction process.</p>
-                        <p class="mt-4">By using NetroHub, you agree to abide by the following terms and conditions.</p>
+                    <div class="text-slate-300 leading-relaxed">
+                        <p>NetroHub هو سوق رقمي يتيح للمستخدمين في دول الخليج بيع وشراء الحسابات المميزة للتواصل الاجتماعي وحسابات الألعاب بشكل آمن. نحن نعمل كوسيط موثوق بين البائعين والمشترين، ونوفر بيئة آمنة، ومعالجة دفع محمية، وآلية شفافة لإتمام المعاملات.</p>
+                        <p class="mt-4">باستخدامك لمنصتنا، فإنك توافق على الالتزام بجميع الشروط والأحكام التالية.</p>
                     </div>
                 </section>
 
-                <!-- Section 2 -->
+                <!-- 2: عرض الحسابات -->
                 <section>
                     <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
                         <span class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">2</span>
-                        Account Listings
+                        عرض الحسابات
                     </h2>
-                    <div class="text-muted-300 leading-relaxed space-y-3">
-                        <p>• Sellers must only list accounts that they legally own. Listing accounts obtained illegally or without authorization is strictly prohibited.</p>
-                        <p>• Each account may only be listed once. Duplicate listings of the same account will be removed.</p>
-                        <p>• Accounts that are banned, suspended, or disabled by their original platform cannot be listed.</p>
+                    <div class="text-slate-300 leading-relaxed space-y-3">
+                        <p>• يجب على البائعين عرض الحسابات التي يمتلكونها بشكل قانوني فقط. عرض حسابات تم الحصول عليها بطرق غير مشروعة ممنوع منعًا باتًا.</p>
+                        <p>• لا يُسمح بعرض نفس الحساب أكثر من مرة، وسيتم حذف أي عرض مكرر.</p>
+                        <p>• لا يُسمح بعرض الحسابات المحظورة أو المعطلة أو الموقوفة من قبل المنصة الأصلية.</p>
                     </div>
                 </section>
 
-                <!-- Section 3 -->
+                <!-- 3: الملكية والمسؤولية -->
                 <section>
                     <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
                         <span class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">3</span>
-                        Ownership and Responsibility
+                        الملكية والمسؤولية
                     </h2>
-                    <div class="text-muted-300 leading-relaxed space-y-3">
-                        <p>• Sellers are fully responsible for the ownership, authenticity, and legality of the accounts they list.</p>
-                        <p>• Any attempt to reclaim or recover a sold account is strictly prohibited and may lead to permanent suspension, legal action, and financial liability.</p>
+                    <div class="text-slate-300 leading-relaxed space-y-3">
+                        <p>• البائع مسؤول بالكامل عن ملكية الحساب وصحته وقانونيته.</p>
+                        <p>• محاولة استعادة الحساب بعد بيعه ممنوعة تمامًا وقد تؤدي إلى إيقاف الحساب بشكل دائم واتخاذ إجراءات قانونية ومطالبات مالية.</p>
                     </div>
                 </section>
 
-                <!-- Section 4 -->
+                <!-- 4: المعاملات والسحب -->
                 <section>
                     <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
                         <span class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">4</span>
-                        Transactions and Payouts
+                        المعاملات وعمليات السحب
                     </h2>
-                    <div class="text-muted-300 leading-relaxed space-y-3">
-                        <p>• Once a sale is completed and no dispute is raised within 12 hours, the seller's balance will be credited.</p>
-                        <p>• Withdrawals are processed within 1 to 4 business days. Users are responsible for providing accurate payout details.</p>
-                        <p>• NetroHub is not liable for any losses caused by incorrect withdrawal information.</p>
+                    <div class="text-slate-300 leading-relaxed space-y-3">
+                        <p>• يتم إضافة الرصيد للبائع بعد إتمام البيع وعدم وجود أي نزاع خلال 12 ساعة.</p>
+                        <p>• تتم معالجة طلبات السحب خلال 1 إلى 4 أيام عمل. ويقع على المستخدم مسؤولية إدخال بيانات السحب بدقة.</p>
+                        <p>• لا تتحمل NetroHub أي مسؤولية عن الخسائر الناتجة عن إدخال معلومات سحب غير صحيحة.</p>
                     </div>
                 </section>
 
-                <!-- Section 5 -->
+                <!-- 5: النزاعات وحماية المشتري -->
                 <section>
                     <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
                         <span class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">5</span>
-                        Disputes and Buyer Protection
+                        النزاعات وحماية المشتري
                     </h2>
-                    <div class="text-muted-300 leading-relaxed space-y-3">
-                        <p>• Buyers may open a dispute within 12 hours of purchase. After this window, NetroHub will not mediate disputes.</p>
-                        <p>• NetroHub's role is limited to dispute resolution within the platform. Any communication or agreements made outside of NetroHub are at the user's own risk.</p>
+                    <div class="text-slate-300 leading-relaxed space-y-3">
+                        <p>• يمكن للمشتري فتح نزاع خلال 12 ساعة من وقت الشراء. بعد انتهاء هذه المدة، لن تتدخل المنصة في النزاع.</p>
+                        <p>• دور NetroHub يقتصر على حل النزاعات التي تتم داخل المنصة. وأي تواصل أو اتفاق يتم خارج المنصة يكون على مسؤولية المستخدم.</p>
                     </div>
                 </section>
 
-                <!-- Section 6 -->
+                <!-- 6: السلوك داخل المنصة -->
                 <section>
                     <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
                         <span class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">6</span>
-                        Platform Conduct
+                        السلوك داخل المنصة
                     </h2>
-                    <div class="text-muted-300 leading-relaxed space-y-3">
-                        <p>• Abusive, harmful, or inappropriate language and behavior will result in permanent account suspension and potential balance confiscation.</p>
-                        <p>• Users must not include external contact information or links in listings, descriptions, or messages to bypass the platform.</p>
-                        <p>• Using NetroHub for currency exchange, money transfers, or any illegal activities is strictly prohibited.</p>
+                    <div class="text-slate-300 leading-relaxed space-y-3">
+                        <p>• أي استخدام لألفاظ مسيئة أو سلوك غير لائق سيؤدي إلى حظر الحساب بشكل دائم ومصادرة الرصيد.</p>
+                        <p>• يمنع إدراج معلومات التواصل الخارجية أو الروابط في العروض أو الرسائل بغرض التحايل على المنصة.</p>
+                        <p>• يُحظر استخدام NetroHub في تحويل الأموال أو تداول العملات أو أي أنشطة غير قانونية.</p>
                     </div>
                 </section>
 
-                <!-- Section 7 -->
+                <!-- 7: استخدام الحساب -->
                 <section>
                     <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
                         <span class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">7</span>
-                        Account Usage
+                        استخدام الحساب
                     </h2>
-                    <div class="text-muted-300 leading-relaxed space-y-3">
-                        <p>• Each user is allowed to create and maintain one account only. Duplicate accounts will be permanently banned, and balances may be forfeited.</p>
-                        <p>• Accounts cannot be transferred, shared, or sold outside of NetroHub.</p>
+                    <div class="text-slate-300 leading-relaxed space-y-3">
+                        <p>• يُسمح لكل مستخدم بامتلاك حساب واحد فقط. الحسابات المكررة سيتم حظرها بشكل دائم وقد تتم مصادرة الأرصدة.</p>
+                        <p>• لا يجوز نقل الحساب أو مشاركته أو بيعه خارج منصة NetroHub.</p>
                     </div>
                 </section>
 
-                <!-- Section 8 -->
+                <!-- 8: الاسترجاع والإلغاء -->
                 <section>
                     <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
                         <span class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">8</span>
-                        Refunds & Cancellations
+                        الاسترجاع والإلغاء
                     </h2>
-                    <div class="text-muted-300 leading-relaxed space-y-3">
-                        <p>• All digital sales on NetroHub are final and non-refundable.</p>
-                        <p>• Order cancellations are only possible with seller approval before the delivery is confirmed.</p>
+                    <div class="text-slate-300 leading-relaxed space-y-3">
+                        <p>• جميع المبيعات الرقمية على NetroHub نهائية وغير قابلة للاسترجاع.</p>
+                        <p>• يمكن إلغاء الطلب فقط بموافقة البائع وقبل تأكيد التسليم.</p>
                     </div>
                 </section>
 
-                <!-- Section 9 -->
+                <!-- 9: الرسوم والعمولات -->
                 <section>
                     <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
                         <span class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">9</span>
-                        Fees and Commissions
+                        الرسوم والعمولات
                     </h2>
-                    <div class="text-muted-300 leading-relaxed space-y-3">
-                        <p>• NetroHub charges a service fee ranging from 3% to 10% depending on the type of account and service.</p>
-                        <p>• The platform reserves the right to update its fees, commissions, or payout policies at any time without prior notice.</p>
+                    <div class="text-slate-300 leading-relaxed space-y-3">
+                        <p>• تفرض NetroHub رسوم خدمة تتراوح بين 3٪ و10٪ حسب نوع الحساب أو الخدمة.</p>
+                        <p>• تحتفظ المنصة بحقها في تعديل الرسوم أو العمولات أو سياسات السحب في أي وقت دون إشعار مسبق.</p>
                     </div>
                 </section>
 
-                <!-- Section 10 -->
+                <!-- 10: حقوق المنصة -->
                 <section>
                     <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
                         <span class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">10</span>
-                        Platform Rights
+                        حقوق المنصة
                     </h2>
-                    <div class="text-muted-300 leading-relaxed space-y-3">
-                        <p>• NetroHub reserves the right to refuse, remove, or reject any listing without explanation.</p>
-                        <p>• In cases of fraud, violation of local laws, or breach of terms, NetroHub may permanently suspend accounts and confiscate any remaining balance.</p>
-                        <p>• The platform also reserves the right to request additional verification documents for compliance and security purposes.</p>
+                    <div class="text-slate-300 leading-relaxed space-y-3">
+                        <p>• تحتفظ NetroHub بحقها في رفض أو إزالة أي عرض دون إبداء الأسباب.</p>
+                        <p>• في حال حدوث احتيال أو خرق للقوانين أو الشروط، يحق للمنصة إيقاف الحسابات بشكل دائم ومصادرة أي أرصدة.</p>
+                        <p>• يحق للمنصة طلب مستندات تحقق إضافية لأسباب أمنية أو تنظيمية.</p>
                     </div>
                 </section>
 
-                <!-- Section 11 -->
+                <!-- 11: قبول الشروط -->
                 <section>
                     <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
                         <span class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">11</span>
-                        Acceptance of Terms
+                        قبول الشروط
                     </h2>
-                    <div class="text-muted-300 leading-relaxed">
-                        <p>By continuing to use NetroHub after any changes to these Terms & Conditions, you automatically accept the updated terms. If you do not agree, you must stop using the platform immediately.</p>
+                    <div class="text-slate-300 leading-relaxed">
+                        <p>باستمرارك في استخدام منصة NetroHub بعد أي تحديث للشروط والأحكام، فإنك توافق تلقائيًا على الشروط الجديدة. إذا كنت لا توافق، يجب عليك التوقف عن استخدام المنصة فورًا.</p>
+                        <p class="mt-4">كما أن موافقتك على هذه الشروط تعني موافقتك على <a href="{{ route('legal.privacy') }}" class="text-primary-400 underline">سياسة الخصوصية</a> الخاصة بنا.</p>
                     </div>
                 </section>
-
             </div>
-        </x-ui.card>
 
-        <!-- Footer Actions -->
-        <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="{{ route('privacy') }}" class="inline-flex items-center px-6 py-3 bg-dark-800 border border-gaming text-muted-300 hover:text-white hover:bg-dark-700 rounded-xl transition-colors">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                </svg>
-                Privacy Policy
-            </a>
-            <a href="{{ route('home') }}" class="inline-flex items-center px-6 py-3 bg-gaming-gradient text-white rounded-xl hover:shadow-gaming transition-all">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
-                </svg>
-                Back to Home
-            </a>
+            <div class="text-center mt-8">
+                <a href="{{ route('home') }}" class="btn text-slate-900 bg-gradient-to-r from-white/80 via-white to-white/80 hover:bg-white inline-flex">
+                    {{ __('الرجوع للرئيسية') }}
+                </a>
+            </div>
         </div>
-    </div>
-</div>
-@endsection
+    </section>
+</x-layouts.stellar>

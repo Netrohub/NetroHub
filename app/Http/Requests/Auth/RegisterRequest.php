@@ -26,12 +26,24 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'min:2', 'max:60'],
-            'username' => ['required', 'string', 'min:3', 'max:24', 'regex:/^[a-zA-Z0-9_]+$/', 'unique:'.User::class],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'phone' => ['required', 'string', 'max:20'],
+            'username' => ['nullable', 'string', 'min:3', 'max:24', 'regex:/^[A-Za-z0-9_]+$/', 'unique:users,username'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
+            'country_code' => ['required', 'string', 'in:+971,+966,+965,+973,+974,+968,+1,+44,+91,+86,+81,+49,+33,+61,+20,+55,+52,+34'],
+            'phone' => [
+                'required', 
+                'string', 
+                'max:15', 
+                'regex:/^[0-9]+$/',
+                function ($attribute, $value, $fail) {
+                    $fullPhone = $this->input('country_code') . $value;
+                    if (User::where('phone_number', $fullPhone)->exists()) {
+                        $fail('This phone number is already registered.');
+                    }
+                }
+            ],
             'password' => ['required', 'string', 'confirmed', Password::defaults()],
             'terms' => ['required', 'accepted'],
-            'cf-turnstile-response' => ['required'],
+            // 'cf-turnstile-response' => ['required'], // Temporarily disabled
         ];
     }
 
@@ -43,11 +55,14 @@ class RegisterRequest extends FormRequest
      */
     public function withValidator($validator)
     {
+        // Temporarily disabled Turnstile verification
+        /*
         $validator->after(function ($validator) {
             if (! $this->verifyTurnstile()) {
                 $validator->errors()->add('cf-turnstile-response', 'Cloudflare verification failed. Please try again.');
             }
         });
+        */
     }
 
     /**
@@ -87,24 +102,27 @@ class RegisterRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Full name is required.',
-            'name.min' => 'Full name must be at least 2 characters.',
-            'name.max' => 'Full name cannot exceed 60 characters.',
-            'username.required' => 'Username is required.',
-            'username.min' => 'Username must be at least 3 characters.',
-            'username.max' => 'Username cannot exceed 24 characters.',
-            'username.regex' => 'Username can only contain letters, numbers, and underscores.',
-            'username.unique' => 'This username is already taken.',
-            'email.required' => 'Email address is required.',
-            'email.email' => 'Please enter a valid email address.',
-            'email.unique' => 'This email is already registered.',
-            'password.required' => 'Password is required.',
-            'password.confirmed' => 'Password confirmation does not match.',
-            'phone.required' => 'Phone number is required.',
-            'phone.max' => 'Phone number cannot exceed 20 characters.',
-            'terms.required' => 'You must accept the Terms & Conditions.',
-            'terms.accepted' => 'You must accept the Terms & Conditions.',
-            'cf-turnstile-response.required' => 'Please complete the security verification.',
+            'name.required' => __('الاسم مطلوب.'),
+            'name.min' => __('يجب أن يكون الاسم حرفين على الأقل.'),
+            'name.max' => __('لا يمكن أن يتجاوز الاسم 60 حرفاً.'),
+            'username.required' => __('اسم المستخدم مطلوب.'),
+            'username.min' => __('يجب أن يكون اسم المستخدم 3 أحرف على الأقل.'),
+            'username.max' => __('لا يمكن أن يتجاوز اسم المستخدم 24 حرفاً.'),
+            'username.regex' => __('يمكن أن يحتوي اسم المستخدم على أحرف وأرقام وشرطات سفلية فقط.'),
+            'username.unique' => __('اسم المستخدم هذا مستخدم مسبقاً.'),
+            'email.required' => __('عنوان البريد الإلكتروني مطلوب.'),
+            'email.email' => __('يرجى إدخال عنوان بريد إلكتروني صحيح.'),
+            'email.unique' => __('هذا البريد الإلكتروني مسجل مسبقاً.'),
+            'password.required' => __('كلمة المرور مطلوبة.'),
+            'password.confirmed' => __('تأكيد كلمة المرور غير متطابق.'),
+            'phone.required' => __('رقم الهاتف مطلوب.'),
+            'phone.max' => __('لا يمكن أن يتجاوز رقم الهاتف 15 رقم.'),
+            'phone.regex' => __('يجب أن يحتوي رقم الهاتف على أرقام فقط.'),
+            'country_code.required' => __('رمز الدولة مطلوب.'),
+            'country_code.in' => __('رمز الدولة المحدد غير صحيح.'),
+            'terms.required' => __('يجب عليك قبول الشروط والأحكام.'),
+            'terms.accepted' => __('يجب عليك قبول الشروط والأحكام.'),
+            'cf-turnstile-response.required' => __('يرجى إكمال التحقق الأمني.'),
         ];
     }
 }

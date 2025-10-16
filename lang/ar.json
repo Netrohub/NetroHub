@@ -1,363 +1,552 @@
 {
-    "Home": "الرئيسية",
-    "Social": "التواصل الاجتماعي",
-    "Games": "الألعاب",
-    "Members": "الأعضاء",
-    "Leaderboard": "لوحة الصدارة",
-    "Platform Store": "متجر المنصة",
-    "Start Selling": "ابدأ البيع",
-    "Start Selling Now": "ابدأ البيع الآن",
-    "Login": "تسجيل الدخول",
-    "Register": "التسجيل",
-    "Logout": "تسجيل الخروج",
-    "My Account": "حسابي",
-    "Orders": "الطلبات",
-    "Sales": "المبيعات",
-    "Wallet": "المحفظة",
-    "Payouts / Cashbox": "السحب / صندوق النقد",
-    "Promote Product": "ترويج المنتج",
-    "Notifications": "الإشعارات",
-    "Blocked List": "قائمة المحظورين",
-    "Fees Calculator": "حاسبة الرسوم",
-    "Identity Verification": "التحقق من الهوية",
-    "Phone Verification": "التحقق من الهاتف",
-    "Privacy Mode": "وضع الخصوصية",
-    "Challenges": "التحديات",
-    "View Profile": "عرض الملف الشخصي",
-    "Browse Products": "تصفح المنتجات",
-    "Marketplace": "السوق",
-    "Support": "الدعم",
-    "Legal": "قانوني",
-    "Terms & Conditions": "الشروط والأحكام",
-    "Privacy Policy": "سياسة الخصوصية",
-    "Refund Policy": "سياسة الاسترجاع",
-    "Help Center": "مركز المساعدة",
-    "Contact Us": "اتصل بنا",
-    "Discord Community": "مجتمع ديسكورد",
-    "All rights reserved": "جميع الحقوق محفوظة",
-    "Secure Payments": "مدفوعات آمنة",
-    "Instant Delivery": "تسليم فوري",
-    "24/7 Support": "دعم 24/7",
+  "_comment": "Core Navigation",
+  "Home": "الرئيسية",
+  "Social": "التواصل",
+  "Games": "الألعاب",
+  "Members": "الأعضاء",
+  "Leaderboard": "لوحة الصدارة",
+  "Platform Store": "متجر المنصة",
+  "Start Selling": "ابدأ البيع",
+  "Start Selling Now": "ابدأ البيع الآن 🚀",
+  "Login": "تسجيل الدخول",
+  "Register": "إنشاء حساب",
+  "Logout": "تسجيل الخروج",
+  "My Account": "حسابي",
+  "Orders": "طلباتي",
+  "Sales": "مبيعاتي",
+  "Wallet": "المحفظة",
+  "Payouts / Cashbox": "السحب / الرصيد",
+  "Promote Product": "روّج منتجك",
+  "Notifications": "الإشعارات",
+  "Blocked List": "قائمة المحظورين",
+  "Fees Calculator": "حاسبة الرسوم",
+  "Identity Verification": "التحقق من الهوية",
+  "Phone Verification": "التحقق من الهاتف",
+  "Privacy Mode": "وضع الخصوصية",
+  "Challenges": "التحديات",
+  "View Profile": "عرض الملف الشخصي",
+  "Browse Products": "تصفّح المنتجات",
+  "Marketplace": "السوق",
+  "Support": "الدعم",
+  "Legal": "قانوني",
+  "Terms & Conditions": "الشروط والأحكام",
+  "Privacy Policy": "سياسة الخصوصية",
+  "Help Center": "مركز المساعدة",
+  "Contact Us": "تواصل معنا",
+  "Discord Community": "مجتمع ديسكورد",
+  "All rights reserved": "جميع الحقوق محفوظة",
+
+  "_comment2": "Auth Pages",
+  "Sign in": "تسجيل الدخول",
+  "Sign up": "إنشاء حساب",
+  "Sign In": "تسجيل الدخول",
+  "Sign Up": "إنشاء حساب",
+  "Log out": "تسجيل الخروج",
+  "Email": "البريد الإلكتروني",
+  "Password": "كلمة المرور",
+  "Remember me": "تذكرني",
+  "Forgot password?": "نسيت كلمة المرور؟",
+  "Don't have an account?": "ما عندك حساب؟",
+  "Already have an account?": "عندك حساب مسبقًا؟",
+  "Name": "الاسم",
+  "Confirm Password": "تأكيد كلمة المرور",
+  "Username": "اسم المستخدم",
+  "Phone Number": "رقم الجوال",
+  "I agree to the": "أوافق على",
+  "and": "و",
+    "_comment3": "Home Page",
+ "API Studio is now in beta": "اختر خطتك الآن 🚀",
+    "The API Security Framework": "منصّتك الموثوقة لبيع وشراء الحسابات الرقمية 🔐",
+    "Our landing page template works on all devices, so you only have to set it up once, and get beautiful results forever.": "بيع وشراء حسابات الألعاب والتواصل الاجتماعي بكل أمان وسرعة ⚡.",
+    "Get Started": "ابدأ الآن 🚀",
+    "Read the docs": "اقرأ الوثائق",
     "Popular Categories": "الفئات الشائعة",
-    "Browse our most popular digital product categories": "تصفح فئات المنتجات الرقمية الأكثر شهرة",
+    "Explore our most popular digital product categories": "تصفح أكثر الفئات الرقمية شهرة 📂",
+    "Browse our most popular digital product categories": "تصفح أشهر فئات المنتجات الرقمية بسهولة",
     "products": "منتجات",
-    "Featured Products": "المنتجات المميزة",
-    "Discover trending digital products from verified sellers": "اكتشف المنتجات الرقمية الرائجة من البائعين الموثوقين",
+    "Premium digital products in this category": "منتجات رقمية مميزة في هذه الفئة",
+    "Featured Products": "منتجات مميزة",
+    "Discover our handpicked premium digital products": "اكتشف منتجات رقمية مختارة بعناية ✨",
+    "Discover trending digital products from verified sellers": "اكتشف المنتجات الرائجة من بائعين موثوقين 🔥",
+    "Latest Products": "أحدث المنتجات",
+    "Fresh digital products added to our marketplace": "منتجات رقمية جديدة تم إضافتها للسوق",
     "View All": "عرض الكل",
-    "NEW": "جديد",
-    "TRENDING": "رائج",
-    "TOP RATED": "الأعلى تقييماً",
-    "In Stock": "متوفر",
-    "Sold Out": "نفد من المخزون",
+    "View All Products": "عرض جميع المنتجات",
+    "View Details": "عرض التفاصيل",
     "View": "عرض",
-    "sales": "مبيعات",
-    "Name": "الاسم",
-    "Email": "البريد الإلكتروني",
-    "Password": "كلمة المرور",
-    "Confirm Password": "تأكيد كلمة المرور",
-    "Username": "اسم المستخدم",
-    "Phone": "الهاتف",
-    "I agree to the": "أوافق على",
-    "and": "و",
-    "Already have an account?": "هل لديك حساب بالفعل؟",
-    "Don't have an account?": "ليس لديك حساب؟",
-    "Sign in here": "سجل الدخول هنا",
-    "Sign up here": "سجل هنا",
-    "Remember me": "تذكرني",
-    "Forgot password?": "نسيت كلمة المرور؟",
-    "Welcome back!": "مرحباً بعودتك!",
-    "Sign in to your account": "سجل الدخول إلى حسابك",
-    "Create an account": "إنشاء حساب",
-    "Join the NetroHub community": "انضم إلى مجتمع NetroHub",
-    "Or continue with": "أو تابع مع",
-    "Google": "جوجل",
-    "Discord": "ديسكورد",
-    "Apple": "أبل",
+    "No categories available at the moment.": "لا توجد فئات متاحة حاليًا 😅",
+    "Secure Payments": "مدفوعات آمنة 🔐",
+    "Instant Delivery": "تسليم فوري ⚡",
+    "24/7 Support": "دعم على مدار الساعة",
+  
+    "_comment4": "Products",
+    "Products": "المنتجات",
+    "Digital Products": "المنتجات الرقمية",
+    "Browse our premium selection of digital products, gaming accounts, and exclusive services": "تصفح مجموعتنا المميزة من المنتجات الرقمية وحسابات الألعاب والخدمات الحصرية",
     "Search products...": "ابحث عن المنتجات...",
-    "Categories": "الفئات",
-    "All Categories": "جميع الفئات",
-    "Price Range": "نطاق السعر",
-    "Min": "الأدنى",
-    "Max": "الأقصى",
-    "Filter": "تصفية",
-    "Sort By": "ترتيب حسب",
+    "All Categories": "كل الفئات",
     "Latest": "الأحدث",
-    "Price: Low to High": "السعر: من الأقل إلى الأعلى",
-    "Price: High to Low": "السعر: من الأعلى إلى الأقل",
-    "Best Selling": "الأكثر مبيعاً",
-    "Top Rated": "الأعلى تقييماً",
-    "results found": "نتيجة",
-    "No products found": "لم يتم العثور على منتجات",
-    "Try adjusting your filters": "حاول تعديل الفلاتر",
-    "Add to Cart": "أضف إلى السلة",
-    "Buy Now": "اشتر الآن",
-    "Product Details": "تفاصيل المنتج",
-    "Description": "الوصف",
-    "Reviews": "التقييمات",
-    "Seller Information": "معلومات البائع",
-    "Member since": "عضو منذ",
-    "Verified Seller": "بائع موثوق",
-    "Contact Seller": "اتصل بالبائع",
-    "Report": "تبليغ",
-    "Share": "مشاركة",
-    "Shopping Cart": "سلة التسوق",
-    "Your cart is empty": "سلتك فارغة",
-    "Continue Shopping": "متابعة التسوق",
-    "Subtotal": "المجموع الفرعي",
-    "Total": "المجموع",
-    "Proceed to Checkout": "المتابعة للدفع",
-    "Remove": "إزالة",
-    "Success!": "نجح!",
-    "Error!": "خطأ!",
-    "Warning!": "تحذير!",
-    "Info!": "معلومة!",
-    "Loading...": "جاري التحميل...",
-    "Please wait...": "الرجاء الانتظار...",
-    "Save": "حفظ",
-    "Cancel": "إلغاء",
-    "Delete": "حذف",
-    "Edit": "تعديل",
-    "Update": "تحديث",
-    "Submit": "إرسال",
-    "Back": "رجوع",
-    "Next": "التالي",
-    "Previous": "السابق",
-    "Close": "إغلاق",
-    "Confirm": "تأكيد",
-    "Yes": "نعم",
-    "No": "لا",
-    "Select": "اختر",
-    "Choose": "اختر",
-    "Upload": "رفع",
-    "Download": "تحميل",
-    "Print": "طباعة",
-    "Export": "تصدير",
-    "Import": "استيراد",
-    "Actions": "إجراءات",
-    "Status": "الحالة",
-    "Date": "التاريخ",
-    "Amount": "المبلغ",
-    "Quantity": "الكمية",
+    "Price: Low to High": "السعر: من الأرخص للأغلى",
+    "Price: High to Low": "السعر: من الأغلى للأرخص",
+    "Most Popular": "الأكثر شهرة",
+    "Filter": "تصفية",
+    "No products found": "ما لقينا أي منتجات 😅",
+    "Try adjusting your search or filters": "جرّب تغيير كلمات البحث أو الفلاتر",
+    "Clear Filters": "مسح الفلاتر",
+    "Sort": "ترتيب",
+    "Category": "الفئة",
     "Price": "السعر",
-    "Type": "النوع",
+    "Search": "بحث",
+    "Filters": "الفلاتر",
+  
+    "_comment5": "Product Details",
+    "In Stock": "متوفر ✅",
+    "Out of Stock": "غير متوفر ❌",
+    "Save": "حفظ",
+    "What's Included": "ما الذي يتضمّنه المنتج؟",
+    "Seller Information": "معلومات البائع",
+    "Customer Reviews": "تقييمات العملاء",
+    "Add to Cart": "أضف إلى السلة 🛒",
+    "Buy Now": "اشترِ الآن 💳",
+    "Login to Purchase": "سجّل الدخول لإتمام الشراء",
+    "Stock": "المخزون",
+    "Description": "الوصف",
+    "Features": "المميزات",
     "Details": "التفاصيل",
-    "Settings": "الإعدادات",
-    "Profile": "الملف الشخصي",
-    "Security": "الأمان",
-    "Preferences": "التفضيلات",
-    "Language": "اللغة",
-    "Theme": "المظهر",
-    "Notifications Settings": "إعدادات الإشعارات",
-    "Account Settings": "إعدادات الحساب",
-    "Change Password": "تغيير كلمة المرور",
-    "Current Password": "كلمة المرور الحالية",
-    "New Password": "كلمة المرور الجديدة",
-    "Save Changes": "حفظ التغييرات",
-    "Your changes have been saved": "تم حفظ التغييرات",
-    "Something went wrong": "حدث خطأ ما",
-    "Please try again": "الرجاء المحاولة مرة أخرى",
-    "Go Home": "العودة للرئيسية",
-    "Go Back": "العودة",
-    "Try Again": "حاول مرة أخرى",
-    "Access Denied": "تم رفض الوصول",
-    "You do not have permission to access this resource.": "ليس لديك صلاحية للوصول إلى هذا المورد.",
-    "Page Not Found": "الصفحة غير موجودة",
-    "The page you're looking for doesn't exist or has been moved.": "الصفحة التي تبحث عنها غير موجودة أو تم نقلها.",
-    "Server Error": "خطأ في الخادم",
-    "Something went wrong on our end. Our team has been notified.": "حدث خطأ من جانبنا. تم إخطار فريقنا.",
-    "Welcome to NetroHub! Your account has been created.": "مرحباً بك في NetroHub! تم إنشاء حسابك.",
-    "Verification": "التحقق",
-    "Join Our Discord Community": "انضم إلى مجتمع ديسكورد",
-    "Connect with thousands of sellers and buyers, get instant support, and stay updated with the latest news and exclusive offers!": "تواصل مع آلاف البائعين والمشترين، احصل على دعم فوري، وابق على اطلاع بأحدث الأخبار والعروض الحصرية!",
-    "Join Discord Server": "انضم إلى خادم ديسكورد",
-    "Instant Support": "دعم فوري",
-    "Get help from our team and community": "احصل على المساعدة من فريقنا ومجتمعنا",
-    "Exclusive Events": "فعاليات حصرية",
-    "Join giveaways and special promotions": "شارك في الهدايا والعروض الخاصة",
-    "Active Community": "مجتمع نشط",
-    "Connect with sellers and buyers": "تواصل مع البائعين والمشترين",
-    "CURRENT": "الحالية",
-    "POPULAR": "الأكثر شعبية",
-    "Current Plan": "الخطة الحالية",
-    "Upgrade": "ترقية",
-    "Subscribe": "اشتراك",
-    "Downgrade (at period end)": "تخفيض (في نهاية الفترة)",
-    "Get Started": "ابدأ الآن",
-    "Downgrade to Free": "التخفيض إلى المجاني",
-    "Choose Your Plan": "اختر خطتك",
-    "Unlock more features and grow your business": "افتح المزيد من الميزات ونمي عملك",
-    "Monthly": "شهري",
-    "Annual": "سنوي",
-    "Save up to": "وفر حتى",
-    "/month": "/شهر",
-    "Billed annually": "يتم الدفع سنوياً",
-    "Plan Features": "ميزات الخطة",
-    "Everything in": "كل شيء في",
-    "Verify Email": "تحقق من البريد الإلكتروني",
-    "Verify Your Email": "تحقق من بريدك الإلكتروني",
-    "Thanks for signing up! Before getting started, please verify your email address by clicking the link we sent to:": "شكراً للتسجيل! قبل البدء، يرجى التحقق من عنوان بريدك الإلكتروني بالنقر على الرابط الذي أرسلناه إلى:",
-    "A new verification link has been sent to your email address.": "تم إرسال رابط تحقق جديد إلى عنوان بريدك الإلكتروني.",
-    "Resend Verification Email": "إعادة إرسال بريد التحقق",
-    "Didn't receive the email? Check your spam folder or click resend above.": "لم تستلم البريد الإلكتروني؟ تحقق من مجلد الرسائل غير المرغوب فيها أو انقر على إعادة الإرسال أعلاه.",
+    "Reviews": "التقييمات",
+    "Rating": "التقييم",
+    "Seller": "البائع",
+  
+    "_comment6": "Shopping Cart",
+    "Shopping Cart": "سلة التسوّق",
+    "Cart": "السلة",
+    "item": "منتج",
+    "items": "منتجات",
+    "in your cart": "في سلتك",
+    "Remove this item from cart?": "هل تريد إزالة هذا المنتج من السلة؟",
+    "Are you sure you want to clear your cart?": "هل أنت متأكد من أنك تريد مسح السلة؟",
+    "Clear all items": "مسح جميع المنتجات",
+    "Order Summary": "ملخص الطلب",
+    "Subtotal": "الإجمالي الفرعي",
+    "Tax": "الضريبة",
+    "Discount": "الخصم",
+    "Total": "الإجمالي الكلي",
+    "Promo code": "رمز الخصم",
+    "Apply": "تطبيق",
+    "Proceed to Checkout": "أكمل الدفع 💳",
+    "Continue Shopping": "كمل تسوّقك 🛍️",
+    "Secure Payment": "دفع آمن",
+    "Your cart is empty": "سلتك فاضية 😅",
+    "Add some products to get started!": "أضف بعض المنتجات للبدء 🛒",
+  
+    "_comment7": "Checkout",
+    "Checkout": "إتمام الطلب",
+    "Billing Information": "معلومات الفاتورة",
+    "Payment Method": "طريقة الدفع",
+    "Order Review": "مراجعة الطلب",
+    "Complete Order": "إكمال الطلب",
+    "Place Order": "تنفيذ الطلب",
+    "Payment": "الدفع",
+    "Card Number": "رقم البطاقة",
+    "Expiry Date": "تاريخ الانتهاء",
+    "CVV": "رمز الأمان CVV",
+    "Cardholder Name": "اسم صاحب البطاقة",
+    "Street Address": "عنوان الشارع",
+    "City": "المدينة",
+    "State": "الولاية / المنطقة",
+    "ZIP Code": "الرمز البريدي",
+    "Country": "الدولة",
+    "I have read and agree to the": "لقد قرأت وأوافق على",
+    "By completing this order, you agree to our": "بإكمال هذا الطلب، فأنت توافق على",
+      "_comment8": "Dashboard/Account",
+      "Dashboard": "لوحة التحكم",
+      "Account Settings": "إعدادات الحساب",
+      "Profile": "الملف الشخصي",
+      "Settings": "الإعدادات",
+      "Security": "الأمان",
+      "Billing": "الفواتير",
+      "Subscription": "الاشتراك",
+      "Your Orders": "طلباتك",
+      "Order History": "سجل الطلبات",
+      "Recent Orders": "الطلبات الأخيرة",
+      "No orders yet": "ما عندك طلبات حتى الآن",
+      "Order": "الطلب",
+      "Date": "التاريخ",
+      "Status": "الحالة",
+      "Amount": "المبلغ",
+      "Actions": "الإجراءات",
+      "Pending": "قيد الانتظار",
+      "Completed": "مكتمل",
+      "Cancelled": "ملغي ❌",
+      "Refunded": "مسترجع 💸",
+      "Processing": "جارٍ المعالجة...",
     
-    "Terms and Conditions": "الشروط والأحكام",
-    "Last Updated": "آخر تحديث",
-    "Effective Date": "تاريخ السريان",
-    "Introduction": "مقدمة",
-    "Acceptance of Terms": "قبول الشروط",
-    "By accessing or using": "بالوصول إلى أو استخدام",
-    "you agree to be bound by these Terms and Conditions.": "فإنك توافق على الالتزام بهذه الشروط والأحكام.",
-    "If you do not agree to these terms, please do not use our platform.": "إذا لم توافق على هذه الشروط، يرجى عدم استخدام منصتنا.",
-    "User Accounts": "حسابات المستخدمين",
-    "Account Registration": "تسجيل الحساب",
-    "To use certain features of our platform, you must register for an account.": "لاستخدام ميزات معينة في منصتنا، يجب عليك التسجيل للحصول على حساب.",
-    "You must provide accurate and complete information during registration.": "يجب عليك تقديم معلومات دقيقة وكاملة أثناء التسجيل.",
-    "You are responsible for maintaining the confidentiality of your account credentials.": "أنت مسؤول عن الحفاظ على سرية بيانات حسابك.",
-    "You must notify us immediately of any unauthorized use of your account.": "يجب عليك إخطارنا فوراً بأي استخدام غير مصرح به لحسابك.",
-    "Account Security": "أمان الحساب",
-    "You are solely responsible for all activity that occurs under your account.": "أنت المسؤول الوحيد عن جميع الأنشطة التي تحدث ضمن حسابك.",
-    "Use of the Platform": "استخدام المنصة",
-    "Prohibited Activities": "الأنشطة المحظورة",
-    "You agree not to engage in any of the following prohibited activities:": "توافق على عدم الانخراط في أي من الأنشطة المحظورة التالية:",
-    "Violating any applicable laws or regulations": "انتهاك أي قوانين أو لوائح معمول بها",
-    "Posting false, inaccurate, misleading, or fraudulent content": "نشر محتوى كاذب أو غير دقيق أو مضلل أو احتيالي",
-    "Impersonating any person or entity": "انتحال شخصية أي شخص أو كيان",
-    "Interfering with or disrupting the operation of the platform": "التدخل في أو تعطيل عمل المنصة",
-    "Attempting to gain unauthorized access to any part of the platform": "محاولة الحصول على وصول غير مصرح به إلى أي جزء من المنصة",
-    "Using automated systems or software to extract data from the platform": "استخدام أنظمة أو برامج آلية لاستخراج البيانات من المنصة",
-    "Intellectual Property": "الملكية الفكرية",
-    "All content, trademarks, and data on this platform are owned by NetroHub or its content providers.": "جميع المحتويات والعلامات التجارية والبيانات على هذه المنصة مملوكة لـ NetroHub أو مزودي المحتوى الخاصين بها.",
-    "You may not copy, modify, distribute, or create derivative works without explicit permission.": "لا يجوز لك نسخ أو تعديل أو توزيع أو إنشاء أعمال مشتقة دون إذن صريح.",
-    "Buying and Selling": "الشراء والبيع",
-    "Seller Obligations": "التزامات البائع",
-    "Sellers must provide accurate product descriptions and deliver products as described.": "يجب على البائعين تقديم أوصاف دقيقة للمنتجات وتسليم المنتجات كما هو موضح.",
-    "Sellers are responsible for setting their own prices.": "البائعون مسؤولون عن تحديد أسعارهم الخاصة.",
-    "Sellers must comply with all applicable laws and regulations.": "يجب على البائعين الامتثال لجميع القوانين واللوائح المعمول بها.",
-    "Buyer Obligations": "التزامات المشتري",
-    "Buyers must pay for all products they purchase.": "يجب على المشترين دفع ثمن جميع المنتجات التي يشترونها.",
-    "Buyers are responsible for reviewing product descriptions before making a purchase.": "المشترون مسؤولون عن مراجعة أوصاف المنتجات قبل إجراء عملية شراء.",
-    "Payments and Fees": "المدفوعات والرسوم",
-    "Platform Fees": "رسوم المنصة",
-    "We charge a platform fee for each transaction as outlined in our fee schedule.": "نفرض رسوم منصة على كل معاملة كما هو موضح في جدول الرسوم الخاص بنا.",
-    "Payment Processing": "معالجة الدفع",
-    "All payments are processed through secure third-party payment processors.": "تتم معالجة جميع المدفوعات من خلال معالجات دفع آمنة من طرف ثالث.",
-    "Refunds and Returns": "المرتجعات والاسترداد",
-    "Refund Policy": "سياسة الاسترداد",
-    "Our refund policy is outlined on our Refund Policy page.": "سياسة الاسترداد الخاصة بنا موضحة في صفحة سياسة الاسترداد.",
-    "Disputes between buyers and sellers should first be resolved directly.": "يجب حل النزاعات بين المشترين والبائعين مباشرة أولاً.",
-    "Limitation of Liability": "تحديد المسؤولية",
-    "NetroHub is not liable for any damages arising from the use of our platform.": "NetroHub غير مسؤول عن أي أضرار ناشئة عن استخدام منصتنا.",
-    "We do not guarantee the accuracy or quality of products listed by sellers.": "نحن لا نضمن دقة أو جودة المنتجات المدرجة من قبل البائعين.",
-    "Termination": "الإنهاء",
-    "We reserve the right to terminate or suspend your account at any time for violating these terms.": "نحتفظ بالحق في إنهاء أو تعليق حسابك في أي وقت لانتهاك هذه الشروط.",
-    "Changes to Terms": "التغييرات على الشروط",
-    "We may update these terms at any time. Continued use of the platform constitutes acceptance of the updated terms.": "قد نقوم بتحديث هذه الشروط في أي وقت. الاستمرار في استخدام المنصة يشكل قبولاً للشروط المحدثة.",
-    "Contact Information": "معلومات الاتصال",
-    "If you have any questions about these Terms and Conditions, please contact us at:": "إذا كان لديك أي أسئلة حول هذه الشروط والأحكام، يرجى الاتصال بنا على:",
+      "_comment9": "Seller Dashboard",
+      "Seller Dashboard": "لوحة البائع",
+      "My Products": "منتجاتي",
+      "Add Product": "إضافة منتج",
+      "Edit Product": "تعديل المنتج",
+      "Delete Product": "حذف المنتج",
+      "Product Title": "عنوان المنتج",
+      "Product Description": "وصف المنتج",
+      "Product Price": "سعر المنتج",
+      "Product Category": "فئة المنتج",
+      "Product Image": "صورة المنتج",
+      "Upload Image": "رفع صورة",
+      "Save Product": "حفظ المنتج",
+      "Save Changes": "حفظ التغييرات",
+      "Cancel": "إلغاء",
+      "Delete": "حذف",
+      "Edit": "تعديل",
+      "Create": "إنشاء",
+      "Update": "تحديث",
+      "Publish": "نشر",
+      "Draft": "مسودة",
+      "Active": "نشط",
+      "Inactive": "غير نشط",
+      "Approved": "مقبول",
+      "Rejected": "مرفوض",
     
-    "Privacy Policy Introduction": "في NetroHub، نأخذ خصوصيتك على محمل الجد. توضح سياسة الخصوصية هذه كيفية جمع معلوماتك واستخدامها والكشف عنها وحمايتها عند استخدام منصتنا.",
-    "Information We Collect": "المعلومات التي نجمعها",
-    "Personal Information": "المعلومات الشخصية",
-    "We collect personal information that you provide to us, including:": "نجمع المعلومات الشخصية التي تقدمها لنا، بما في ذلك:",
-    "Name, email address, and contact information": "الاسم وعنوان البريد الإلكتروني ومعلومات الاتصال",
-    "Username and password": "اسم المستخدم وكلمة المرور",
-    "Payment information": "معلومات الدفع",
-    "Identity verification documents": "مستندات التحقق من الهوية",
-    "Transaction Data": "بيانات المعاملات",
-    "We collect information about your transactions on our platform, including:": "نجمع معلومات حول معاملاتك على منصتنا، بما في ذلك:",
-    "Products purchased or sold": "المنتجات المشتراة أو المباعة",
-    "Transaction amounts and dates": "مبالغ المعاملات والتواريخ",
-    "Payment methods used": "طرق الدفع المستخدمة",
-    "Technical Data": "البيانات الفنية",
-    "We automatically collect technical information when you use our platform:": "نجمع تلقائياً معلومات فنية عند استخدام منصتنا:",
-    "IP address and device information": "عنوان IP ومعلومات الجهاز",
-    "Browser type and operating system": "نوع المتصفح ونظام التشغيل",
-    "Pages visited and time spent on pages": "الصفحات التي تمت زيارتها والوقت المستغرق في الصفحات",
-    "How We Use Your Information": "كيف نستخدم معلوماتك",
-    "We use your information to:": "نستخدم معلوماتك من أجل:",
-    "Provide and maintain our services": "توفير وصيانة خدماتنا",
-    "Process transactions and send transaction notifications": "معالجة المعاملات وإرسال إشعارات المعاملات",
-    "Verify your identity and prevent fraud": "التحقق من هويتك ومنع الاحتيال",
-    "Send you marketing communications (with your consent)": "إرسال اتصالات تسويقية إليك (بموافقتك)",
-    "Improve our platform and develop new features": "تحسين منصتنا وتطوير ميزات جديدة",
-    "Comply with legal obligations": "الامتثال للالتزامات القانونية",
-    "Information Sharing": "مشاركة المعلومات",
-    "We do not sell your personal information. We may share your information with:": "نحن لا نبيع معلوماتك الشخصية. قد نشارك معلوماتك مع:",
-    "Service providers who assist us in operating the platform": "مزودي الخدمات الذين يساعدوننا في تشغيل المنصة",
-    "Payment processors for transaction processing": "معالجات الدفع لمعالجة المعاملات",
-    "Law enforcement when required by law": "جهات إنفاذ القانون عند الحاجة القانونية",
-    "Other users (only information you choose to make public)": "مستخدمون آخرون (المعلومات التي تختار جعلها عامة فقط)",
-    "Data Security": "أمن البيانات",
-    "We implement appropriate security measures to protect your personal information.": "نطبق تدابير أمنية مناسبة لحماية معلوماتك الشخصية.",
-    "However, no method of transmission over the internet is 100% secure.": "ومع ذلك، لا توجد طريقة نقل عبر الإنترنت آمنة بنسبة 100٪.",
-    "Your Rights": "حقوقك",
-    "You have the right to:": "لديك الحق في:",
-    "Access your personal information": "الوصول إلى معلوماتك الشخصية",
-    "Correct inaccurate information": "تصحيح المعلومات غير الدقيقة",
-    "Request deletion of your information": "طلب حذف معلوماتك",
-    "Object to processing of your information": "الاعتراض على معالجة معلوماتك",
-    "Cookies": "ملفات تعريف الارتباط",
-    "We use cookies and similar technologies to enhance your experience on our platform.": "نستخدم ملفات تعريف الارتباط والتقنيات المماثلة لتحسين تجربتك على منصتنا.",
-    "You can control cookie settings in your browser.": "يمكنك التحكم في إعدادات ملفات تعريف الارتباط في متصفحك.",
-    "Children's Privacy": "خصوصية الأطفال",
-    "Our platform is not intended for users under the age of 18.": "منصتنا غير مخصصة للمستخدمين الذين تقل أعمارهم عن 18 عاماً.",
-    "We do not knowingly collect information from children.": "نحن لا نجمع معلومات من الأطفال عن قصد.",
-    "Changes to Privacy Policy": "التغييرات على سياسة الخصوصية",
-    "We may update this Privacy Policy from time to time.": "قد نقوم بتحديث سياسة الخصوصية هذه من وقت لآخر.",
-    "We will notify you of any material changes by posting the new policy on this page.": "سنخطرك بأي تغييرات جوهرية عن طريق نشر السياسة الجديدة على هذه الصفحة.",
+      "_comment10": "Pricing/Plans",
+      "Pricing": "الأسعار",
+      "Pricing Plans": "خطط الأسعار",
+      "Choose Your Plan": "اختر خطتك 💼",
+      "Monthly": "شهري",
+      "Annually": "سنوي",
+      "Free": "مجاني",
+      "Basic": "أساسي",
+      "Pro": "احترافي",
+      "Enterprise": "مؤسسي",
+      "per month": "في الشهر",
+      "per year": "في السنة",
+      "Current Plan": "خطتك الحالية",
+      "Upgrade": "ترقية",
+      "Downgrade": "تخفيض الخطة",
+      "Subscribe": "اشترك",
     
-    "Refund Policy Overview": "في NetroHub، نسعى جاهدين لضمان رضا العملاء. توضح سياسة الاسترداد هذه الشروط التي قد يتم بموجبها منح المبالغ المستردة.",
-    "Eligibility for Refunds": "الأهلية للاسترداد",
-    "Refunds may be requested under the following circumstances:": "يمكن طلب المبالغ المستردة في الظروف التالية:",
-    "Product not as described": "المنتج ليس كما هو موصوف",
-    "Product not delivered within the specified timeframe": "المنتج لم يتم تسليمه في الإطار الزمني المحدد",
-    "Product is defective or not functional": "المنتج معيب أو غير عملي",
-    "Unauthorized transaction": "معاملة غير مصرح بها",
-    "Non-Refundable Items": "العناصر غير القابلة للاسترداد",
-    "The following items are generally not eligible for refunds:": "العناصر التالية غير مؤهلة عموماً للاسترداد:",
-    "Digital products that have been accessed or downloaded": "المنتجات الرقمية التي تم الوصول إليها أو تنزيلها",
-    "Custom or personalized products": "المنتجات المخصصة أو الشخصية",
-    "Products clearly marked as non-refundable": "المنتجات المحددة بوضوح على أنها غير قابلة للاسترداد",
-    "Refund Request Process": "عملية طلب الاسترداد",
-    "To request a refund, please follow these steps:": "لطلب استرداد، يرجى اتباع هذه الخطوات:",
-    "Contact the seller directly to attempt to resolve the issue": "اتصل بالبائع مباشرة لمحاولة حل المشكلة",
-    "If unresolved, submit a dispute through your account dashboard": "إذا لم يتم الحل، قدم نزاعاً من خلال لوحة التحكم الخاصة بك",
-    "Provide detailed information and evidence supporting your claim": "قدم معلومات مفصلة وأدلة تدعم مطالبتك",
-    "Our team will review your request within 3-5 business days": "سيراجع فريقنا طلبك في غضون 3-5 أيام عمل",
-    "Refund Timeline": "الجدول الزمني للاسترداد",
-    "Once approved, refunds will be processed within:": "بمجرد الموافقة، سيتم معالجة المبالغ المستردة في غضون:",
-    "3-5 business days for wallet credit": "3-5 أيام عمل لرصيد المحفظة",
-    "7-14 business days for credit card refunds": "7-14 يوم عمل لاسترداد بطاقة الائتمان",
-    "Seller Responsibilities": "مسؤوليات البائع",
-    "Sellers are expected to honor refund requests when appropriate.": "من المتوقع أن يحترم البائعون طلبات الاسترداد عند الاقتضاء.",
-    "Repeated refund disputes may result in seller account suspension.": "قد تؤدي نزاعات الاسترداد المتكررة إلى تعليق حساب البائع.",
-    "Buyer Protection": "حماية المشتري",
-    "We offer buyer protection to ensure safe transactions:": "نقدم حماية للمشتري لضمان معاملات آمنة:",
-    "Escrow system holds funds until delivery is confirmed": "نظام الضمان يحتفظ بالأموال حتى يتم تأكيد التسليم",
-    "Dispute resolution support": "دعم حل النزاعات",
-    "Full refund if seller fails to deliver": "استرداد كامل إذا فشل البائع في التسليم",
-    "Chargebacks": "المبالغ المستردة",
-    "Filing a chargeback with your payment provider may result in account suspension.": "قد يؤدي تقديم طلب استرداد لدى مزود الدفع الخاص بك إلى تعليق الحساب.",
-    "Please use our dispute resolution system first.": "يرجى استخدام نظام حل النزاعات الخاص بنا أولاً.",
+      "_comment11": "Members",
+      "All Members": "جميع الأعضاء",
+      "Member Profile": "ملف العضو",
+      "Joined": "انضمّ في",
+      "Member Since": "عضو منذ",
+      "Products Listed": "عدد المنتجات",
+      "Total Sales": "إجمالي المبيعات",
+      "Verified Seller": "بائع موثوق ✅",
+      "Send Message": "إرسال رسالة",
+      "Follow": "متابعة",
+      "Following": "تتابع",
+      "Followers": "المتابعين",
     
-    "Switch to Arabic": "التبديل إلى العربية",
-    "Switch to English": "Switch to English",
-    "Free Plan": "الخطة المجانية",
-    "Plus Plan": "خطة بلس",
-    "Pro Plan": "الخطة الاحترافية",
-    "Dashboard": "لوحة التحكم",
-    "Admin Panel": "لوحة الإدارة",
-    "Manage Translations": "إدارة الترجمات",
-    "Translation Key": "مفتاح الترجمة",
-    "English Text": "النص الإنجليزي",
-    "Arabic Text": "النص العربي",
-    "Search translations...": "ابحث في الترجمات...",
-    "Add New Translation": "إضافة ترجمة جديدة",
-    "Edit Translation": "تعديل الترجمة",
-    "Delete Translation": "حذف الترجمة",
-    "Are you sure?": "هل أنت متأكد؟",
-    "This action cannot be undone.": "لا يمكن التراجع عن هذا الإجراء.",
-    "Translations updated successfully": "تم تحديث الترجمات بنجاح",
-    "Translation added successfully": "تمت إضافة الترجمة بنجاح",
-    "Translation deleted successfully": "تم حذف الترجمة بنجاح"
+      "_comment12": "Notifications & Messages",
+      "You have": "عندك",
+      "new notifications": "إشعارات جديدة 🔔",
+      "Mark all as read": "تحديد الكل كمقروء",
+      "No notifications": "ما في إشعارات حاليًا",
+      "Messages": "الرسائل",
+      "Inbox": "الوارد",
+      "Sent": "المرسل",
+      "Compose": "إنشاء رسالة",
+      "New Message": "رسالة جديدة",
+      "Subject": "الموضوع",
+      "Message": "الرسالة",
+      "Send": "إرسال",
+      "Reply": "رد",
+    
+      "_comment13": "Wallet & Payouts",
+      "Available Balance": "الرصيد المتاح 💰",
+      "Pending Balance": "الرصيد المعلّق",
+      "Withdraw": "سحب",
+      "Withdrawal": "عملية السحب",
+      "Request Payout": "طلب سحب",
+      "Payment History": "سجل المدفوعات",
+      "Transaction History": "سجل المعاملات",
+      "Earnings": "الأرباح",
+      "Balance": "الرصيد",
+      "Payout Method": "طريقة السحب",
+      "Bank Account": "الحساب البنكي",
+      "PayPal": "باي بال",
+      "Stripe": "سترايب",
+        "_comment20": "Verification",
+        "Email Verification": "تأكيد البريد الإلكتروني",
+        "Verify Email": "تأكيد البريد",
+        "Verify your email address": "تحقق من بريدك الإلكتروني",
+        "We've sent a verification link to": "أرسلنا رابط التحقق إلى",
+        "Click the link to verify your account": "اضغط الرابط لتفعيل حسابك",
+        "Didn't receive the email?": "ما وصلك البريد؟",
+        "Resend verification email": "إعادة إرسال رابط التحقق",
+        "Email verified successfully": "تم التحقق من البريد بنجاح ✅",
+        "Enter verification code": "أدخل رمز التحقق",
+        "Verify Code": "تحقق من الرمز",
+        "Verification Code": "رمز التحقق",
+      
+        "_comment21": "KYC",
+        "Verify your identity": "تحقق من هويتك",
+        "Upload ID": "ارفع بطاقة الهوية",
+        "Upload Selfie": "ارفع صورة سيلفي",
+        "Verification Status": "حالة التحقق",
+        "Verified": "تم التحقق ✅",
+        "Not Verified": "غير متحقق ❌",
+        "Verification Pending": "قيد المراجعة ⏳",
+        "KYC Required": "التحقق الإلزامي (KYC)",
+        "Complete KYC": "أكمل التحقق",
+      
+        "_comment22": "Reviews & Ratings",
+        "Write a Review": "اكتب تقييمك ✍️",
+        "Submit Review": "أرسل التقييم",
+        "Your Review": "تقييمك",
+        "Rate this product": "قيّم هذا المنتج",
+        "How would you rate this product?": "كيف تقيم المنتج؟",
+        "Your rating": "تقييمك",
+        "Review": "مراجعة",
+        "Helpful": "مفيد 👍",
+        "Not Helpful": "غير مفيد 👎",
+        "Report": "تبليغ",
+        "stars": "نجوم",
+        "star": "نجمة",
+      
+        "_comment23": "Challenges",
+        "Daily Challenges": "تحديات يومية",
+        "Weekly Challenges": "تحديات أسبوعية",
+        "Complete Challenge": "أكمل التحدي 💪",
+        "Claim Reward": "احصل على المكافأة 🎁",
+        "Reward": "المكافأة",
+        "Progress": "التقدّم",
+        "In Progress": "قيد التنفيذ",
+        "Not Started": "لم يبدأ بعد",
+      
+        "_comment24": "Leaderboard",
+        "Top Sellers": "أفضل البائعين 🏆",
+        "Top Buyers": "أفضل المشترين 🛍️",
+        "Rank": "الترتيب",
+        "Points": "النقاط",
+        "Score": "النتيجة",
+        "Position": "المركز",
+      
+        "_comment25": "Wallet Transactions",
+        "Transaction": "المعاملة",
+        "Type": "النوع",
+        "Reference": "المرجع",
+        "Credit": "إيداع",
+        "Debit": "سحب",
+        "Deposit": "إيداع",
+        "Purchase": "شراء",
+        "Refund": "استرجاع",
+        "Transfer": "تحويل",
+        "Fee": "رسوم",
+      
+        "_comment26": "Product Management",
+        "Stock Quantity": "كمية المخزون",
+        "SKU": "رمز المنتج (SKU)",
+        "Barcode": "الباركود",
+        "Tags": "الوسوم",
+        "Metadata": "البيانات الوصفية",
+        "Visibility": "الظهور",
+        "Public": "عام",
+        "Private": "خاص",
+        "Hidden": "مخفي",
+        "Featured": "مميز",
+        "On Sale": "معروض للبيع",
+        "New": "جديد",
+        "Trending": "رائج 🔥",
+      
+        "_comment27": "Analytics",
+        "Views": "المشاهدات",
+        "Clicks": "النقرات",
+        "Conversions": "التحويلات",
+        "Revenue": "الإيرادات",
+        "Statistics": "الإحصائيات",
+        "Analytics": "التحليلات",
+        "Performance": "الأداء",
+        "Export": "تصدير",
+        "Download": "تحميل",
+        "Print": "طباعة",
+      
+        "_comment28": "Social",
+        "Share": "مشاركة",
+        "Like": "إعجاب 👍",
+        "Comment": "تعليق 💬",
+        "Likes": "الإعجابات",
+        "Comments": "التعليقات",
+        "Shares": "المشاركات",
+        "Share on Facebook": "شارك على فيسبوك",
+        "Share on Twitter": "شارك على تويتر",
+        "Share on LinkedIn": "شارك على لينكدإن",
+        "Copy Link": "نسخ الرابط 📎",
+      
+        "_comment29": "Games",
+        "Game Accounts": "حسابات الألعاب",
+        "In-Game Items": "عناصر داخل اللعبة",
+        "Level": "المستوى",
+        "Platform": "المنصة",
+        "Server": "الخادم",
+        "Region": "المنطقة",
+        "PlayStation": "بلايستيشن",
+        "Xbox": "إكس بوكس",
+        "PC": "حاسوب",
+        "Mobile": "جوال 📱",
+        "Nintendo": "نينتندو",
+      
+        "_comment30": "Help & Support",
+        "Need Help?": "تحتاج مساعدة؟ 🤔",
+        "Contact Support": "تواصل مع الدعم",
+        "Submit a Ticket": "أرسل تذكرة دعم",
+        "Help Desk": "مكتب المساعدة",
+        "FAQs": "الأسئلة الشائعة",
+        "Knowledge Base": "قاعدة المعرفة",
+        "Tutorials": "شروحات 📚",
+        "Video Guides": "فيديوهات تعليمية 🎥",
+        "Chat with us": "تحدث معنا 💬",
+        "Call us": "اتصل بنا ☎️",
+      
+        "_comment31": "Admin",
+        "Admin Panel": "لوحة الإدارة",
+        "Manage Users": "إدارة المستخدمين",
+        "Manage Products": "إدارة المنتجات",
+        "Manage Orders": "إدارة الطلبات",
+        "Manage Categories": "إدارة الفئات",
+        "Site Settings": "إعدادات الموقع",
+        "System Logs": "سجلات النظام",
+        "Permissions": "الصلاحيات",
+        "Roles": "الأدوار",
+        "Moderator": "مشرف",
+        "Administrator": "مدير النظام",
+      
+        "_comment32": "Miscellaneous",
+        "Welcome": "أهلًا وسهلًا 👋",
+        "Welcome back": "مرحبًا بعودتك 👋",
+        "Hello": "مرحبًا",
+        "Goodbye": "إلى اللقاء 👋",
+        "Thank you": "شكرًا لك 🙏",
+        "Please": "من فضلك",
+        "Coming Soon": "قريبًا ⏳",
+        "Under Construction": "قيد الإنشاء 🛠️",
+        "Maintenance Mode": "وضع الصيانة",
+        "Beta": "تجريبي",
+        "New Feature": "ميزة جديدة ✨",
+        "Updated": "مُحدّث",
+        "or": "أو",
+        "More": "المزيد",
+        "Less": "أقل",
+        "Show more": "عرض المزيد",
+        "Show less": "عرض أقل",
+        "Read more": "اقرأ المزيد",
+        "View more": "عرض المزيد",
+        "Load more": "تحميل المزيد",
+        "See all": "عرض الكل",
+        "per": "لكل",
+        "each": "لكل قطعة",
+        "from": "من",
+        "About": "حول",
+        "Learn more": "اعرف المزيد",
+        "Get in touch": "تواصل معنا",
+        "Start now": "ابدأ الآن 🚀",
+        "Try it free": "جرّب مجانًا",
+        "No credit card required": "لا تحتاج بطاقة بنكية 💳",
+        "Wallet Balance": "رصيد المحفظة",
+        "Total Orders": "إجمالي الطلبات",
+          "Earnings to date": "الأرباح حتى الآن 💰",
+          "Available funds": "الأموال المتاحة 💼",
+          "All time purchases": "إجمالي المشتريات 🛍️",
+          "إجمالي المبيعات": "إجمالي المبيعات 📈",
+          "My Sales": "مبيعاتي",
+          "My Orders": "طلباتي",
+          "Payouts": "عمليات السحب",
+          "Log Out": "تسجيل الخروج",
+          "Discover new digital products and services": "اكتشف منتجات وخدمات رقمية جديدة ✨",
+          "View transactions and request payouts": "عرض المعاملات وطلب السحب 📜",
+          "Manage Wallet": "إدارة المحفظة",
+          "You're all caught up!": "كل شيء محدث ✅",
+          "Request New Payout": "طلب سحب جديد 💳",
+          "Available for Withdrawal": "المبلغ المتاح للسحب 💸",
+          "Payout History": "سجل عمليات السحب 📂",
+          "No payout requests yet": "لا توجد طلبات سحب حتى الآن 📭",
+          "Notes (Optional)": "ملاحظات (اختياري) 📝",
+          "No transactions yet": "لا توجد معاملات حتى الآن 📃",
+          "Recent Sales": "أحدث المبيعات 🛒",
+          "No sales yet": "لا توجد مبيعات حتى الآن 📉",
+          "Avg. Order": "متوسط قيمة الطلب",
+          "Start shopping to see your orders here": "ابدأ التسوق لعرض طلباتك هنا 🛍️",
+          "No members found": "لم يتم العثور على أعضاء 👥",
+            "Verify your identity to unlock selling features and secure your account": "قم بتوثيق هويتك لتفعيل ميزات البيع وتأمين حسابك",
+          
+            "Verification Under Review": "جاري مراجعة التوثيق",
+            "Your identity verification is currently being processed. We'll notify you once it's complete, usually within 24-48 hours.": "يتم حالياً مراجعة طلب توثيق هويتك، وسنخطرُك عند اكتماله — عادة خلال 24 إلى 48 ساعة.",
+            "Pending Review": "قيد المراجعة",
+            "Submitted": "تاريخ الإرسال",
+          
+            "Verification Declined": "تم رفض التوثيق",
+            "Unfortunately, your verification was declined. Please review the feedback and submit a new verification.": "عذرًا، تم رفض طلب التوثيق. يرجى مراجعة الملاحظات وإعادة الإرسال.",
+            "Feedback": "الملاحظات",
+            "Start New Verification": "إعادة محاولة التوثيق",
+          
+            "Identity Verified": "تم توثيق الهوية",
+            "Your identity has been successfully verified. You now have access to all platform features.": "تم التحقق من هويتك بنجاح. يمكنك الآن الوصول إلى جميع ميزات المنصة.",
+            "Verified On": "تاريخ التوثيق",
+          
+            "Secure & Private Verification": "توثيق آمن وسري",
+            "We use Persona, a trusted identity verification platform, to securely verify your identity. Your data is encrypted and protected in accordance with international data protection standards.": "نستخدم منصة Persona الموثوقة لتوثيق الهوية بشكل آمن. يتم تشفير بياناتك وحمايتها وفقًا لمعايير حماية البيانات الدولية.",
+          
+            "What You'll Need": "ما الذي ستحتاجه",
+            "Government-issued ID": "هوية حكومية سارية",
+            "Passport, driver's license, or national ID": "جواز سفر أو رخصة قيادة أو بطاقة وطنية",
+            "Smartphone or webcam": "هاتف ذكي أو كاميرا",
+            "For selfie and document photos": "لالتقاط الصور الشخصية والمستندات",
+            "5-10 minutes": "من 5 إلى 10 دقائق",
+            "The process is quick and simple": "العملية سريعة وبسيطة",
+            "Good lighting": "إضاءة جيدة",
+            "Clear photos improve approval speed": "الصور الواضحة تُسرّع الموافقة",
+          
+            "Start Verification": "بدء عملية التوثيق",
+            "By continuing, you agree to our": "بمتابعتك، فإنك توافق على",
+          
+            "Frequently Asked Questions": "الأسئلة الشائعة",
+            "Why do I need to verify my identity?": "لماذا أحتاج لتوثيق الهوية؟",
+            "Identity verification helps us maintain a safe and trusted marketplace for all users. It's required for sellers and helps prevent fraud.": "يساعد توثيق الهوية في الحفاظ على سوق آمن وموثوق لجميع المستخدمين، وهو مطلوب للبائعين ويساهم في منع الاحتيال.",
+            "How long does verification take?": "كم يستغرق وقت التوثيق؟",
+            "The verification process itself takes 5-10 minutes. Review typically completes within 24-48 hours, though most verifications are processed much faster.": "يستغرق إجراء التوثيق بين 5 و10 دقائق، وتتم المراجعة عادة خلال 24–48 ساعة (وغالبًا أسرع).",
+            "Is my data secure?": "هل بياناتي آمنة؟",
+            "Yes. We use bank-level encryption and partner with Persona, a trusted identity verification platform. Your data is never sold or shared with third parties.": "نعم. نستخدم تشفيرًا بمستويات مصرفية ونتعاون مع منصة Persona الموثوقة. لا تُباع بياناتك ولا تُشارك مع أي طرف ثالث.",
+            "What if my verification is rejected?": "ماذا لو تم رفض التوثيق؟",
+            "You'll receive feedback explaining why and can resubmit with corrected information. Common issues include blurry photos or expired documents.": "ستصلك ملاحظات توضح السبب، ويمكنك إعادة الإرسال بعد التصحيح. أكثر الأسباب شيوعًا: صور غير واضحة أو مستندات منتهية.",
+          
+            "Starting...": "جارٍ البدء...",
+            "An error occurred. Please try again.": "حدث خطأ. يرجى المحاولة مرة أخرى.",
+            "Failed to start verification. Please try again.": "تعذّر بدء عملية التوثيق. يرجى المحاولة لاحقًا.",
+            "Verify Your Identity": "تحقق من هويتك",
+"Complete identity verification to unlock selling features and build trust with buyers.": "أكمل عملية التحقق من هويتك لتفعيل ميزات البيع وكسب ثقة المشترين.",
+"Your Products": "منتجاتك 🛍️",
+"No products listed yet": "لا توجد منتجات مضافة بعد",
+"Add Your First Product": "أضف أول منتج لك",
+"Manage All": "إدارة الكل",
+"Configure seller preferences": "إعداد تفضيلات البائع",
+"Manage your product listings": "إدارة قائمة منتجاتك",
+"List a new product for sale": "أضف منتجًا جديدًا للبيع",
+"Total Revenue": "إجمالي الإيرادات",
+"Avg. Rating": "متوسط التقييم",
+"Manage your products and track your sales": "قم بإدارة منتجاتك وتتبع مبيعاتك",
+"Back to Products": "العودة إلى المنتجات",
+"Add New Product": "إضافة منتج جديد",
+"No products yet": "لا توجد منتجات بعد",
+"Start selling by adding your first product": "ابدأ البيع بإضافة أول منتج لك",
+"Basic Information": "المعلومات الأساسية",
+"Product Details": "تفاصيل المنتج",
+
+"Choose What You Want to Sell": "اختر ما تريد بيعه",
+"Select the type of digital product you want to list on our marketplace": "اختر نوع المنتج الرقمي الذي تريد عرضه في سوقنا",
+"Gaming Accounts": "حسابات الألعاب",
+"Sell game accounts, in-game items, currency, and gaming-related digital products": "بيع حسابات الألعاب والعناصر والعملات والمنتجات الرقمية المتعلقة بالألعاب",
+"Popular games & platforms": "ألعاب ومنصات شهيرة",
+"Secure account transfer": "نقل آمن للحسابات",
+"Instant delivery system": "نظام تسليم فوري",
+"Social Accounts": "حسابات التواصل الاجتماعي",
+"Sell social media accounts, followers, engagement packages, and social platform services": "بيع حسابات وسائل التواصل الاجتماعي والمتابعين وخدمات المنصات الاجتماعية",
+"All major platforms": "جميع المنصات الرئيسية",
+"Verified account transfers": "نقل حسابات موثقة",
+"Safe & protected sales": "مبيعات آمنة ومحمية",
+"Sign In Required": "تسجيل الدخول مطلوب",
+"You need to sign in or create an account to start selling on our platform": "تحتاج إلى تسجيل الدخول أو إنشاء حساب لبدء البيع على منصتنا",
+"Join Our Marketplace": "انضم إلى سوقنا",
+"Turn your digital products into profit. Join thousands of sellers earning on our platform with instant payouts and secure transactions.": "حوّل منتجاتك الرقمية إلى أرباح. انضم إلى آلاف البائعين الذين يكسبون على منصتنا مع دفعات فورية ومعاملات آمنة.",
+"Go to Dashboard": "انتقل إلى لوحة التحكم",
+"Sign Up to Start Selling": "سجّل لبدء البيع"
 }

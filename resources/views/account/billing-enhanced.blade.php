@@ -1,6 +1,7 @@
-@extends('layouts.app')
+<x-layouts.stellar>
+    <x-slot name="title">{{ __('Billing') }} - {{ config('app.name') }}</x-slot>
 
-@section('content')
+<section class="relative pt-32 pb-12">
 <div class="min-h-screen relative overflow-hidden bg-dark-900 py-10">
     <!-- Gaming Background Effects -->
     <div class="absolute inset-0 pointer-events-none">
@@ -19,11 +20,11 @@
                 </a>
                 <x-ui.breadcrumb :items="[
                     ['label' => 'Account', 'url' => route('account.index')],
-                    ['label' => 'Billing & Subscription', 'url' => '']
+                    ['label' => __('Billing & Subscription'), 'url' => '']
                 ]" />
             </div>
-            <h1 class="text-4xl font-black text-white mb-2 text-gradient">Billing & Subscription</h1>
-            <p class="text-muted-300">Manage your subscription and monitor usage limits</p>
+            <h1 class="text-4xl font-black text-white mb-2 text-gradient">{{ __('Billing & Subscription') }}</h1>
+            <p class="text-muted-300">{{ __('Manage your subscription and monitor usage limits') }}</p>
         </div>
 
         <!-- Success/Error Messages -->
@@ -71,7 +72,7 @@
                                 </div>
                                 <p class="text-muted-400 mt-1">
                                     @if($subscription->plan->isFree())
-                                        Free Plan
+                                        {{ __('Free Plan') }}
                                     @else
                                         ${{ number_format($subscription->plan->getPrice($subscription->interval), 2) }} /
                                         {{ $subscription->interval === 'yearly' ? 'year' : 'month' }}
@@ -79,14 +80,14 @@
                                 </p>
                                 @if($subscription->renews_at && !$subscription->isCancelled())
                                     <p class="text-sm text-muted-400 mt-2">
-                                        Renews on {{ $subscription->renews_at->format('F d, Y') }}
+                                        {{ __('Renews on') }} {{ $subscription->renews_at->format('F d, Y') }}
                                     </p>
                                 @elseif($subscription->cancel_at)
                                     <p class="text-sm text-yellow-400 mt-2 flex items-center gap-2">
                                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                             <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
                                         </svg>
-                                        Expires on {{ $subscription->cancel_at->format('F d, Y') }}
+                                        {{ __('Expires on') }} {{ $subscription->cancel_at->format('F d, Y') }}
                                     </p>
                                 @endif
                             </div>
@@ -104,17 +105,17 @@
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/>
                                 </svg>
-                                Change Plan
+                                {{ __('Change Plan') }}
                             </a>
 
                             @if(!$subscription->isCancelled())
                                 <form action="{{ route('subscription.cancel-auto-renew') }}" method="POST" class="inline">
                                     @csrf
-                                    <button type="submit" class="btn-danger" onclick="return confirm('Cancel auto-renewal? Your plan will expire at the end of the current period.')">
+                                    <button type="submit" class="btn-danger" onclick="return confirm('{{ __('Cancel auto-renewal? Your plan will expire at the end of the current period.') }}')">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                                         </svg>
-                                        Cancel Auto-Renew
+                                        {{ __('Cancel Auto-Renew') }}
                                     </button>
                                 </form>
                             @else
@@ -124,7 +125,7 @@
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                                         </svg>
-                                        Resume Subscription
+                                        {{ __('Resume Subscription') }}
                                     </button>
                                 </form>
                             @endif
@@ -133,7 +134,7 @@
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                                 </svg>
-                                Upgrade Now
+                                {{ __('Upgrade Now') }}
                             </a>
                         @endif
                     </div>
@@ -149,8 +150,8 @@
                             </svg>
                         </div>
                         <div>
-                            <h3 class="text-xl font-bold text-white">Usage & Limits</h3>
-                            <p class="text-sm text-muted-400">Monitor your plan usage</p>
+                            <h3 class="text-xl font-bold text-white">{{ __('Usage & Limits') }}</h3>
+                            <p class="text-sm text-muted-400">{{ __('Monitor your plan usage') }}</p>
                         </div>
                     </div>
 
@@ -218,10 +219,10 @@
                                     <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
                                 </svg>
                                 <div class="flex-1">
-                                    <p class="text-sm font-semibold text-primary-300 mb-1">Unlock More Features</p>
-                                    <p class="text-sm text-muted-300">Upgrade to Plus or Pro for more boost slots, lower fees, and priority support!</p>
+                                    <p class="text-sm font-semibold text-primary-300 mb-1">{{ __('Unlock More Features') }}</p>
+                                    <p class="text-sm text-muted-300">{{ __('Upgrade to Plus or Pro for more boost slots, lower fees, and priority support!') }}</p>
                                     <a href="{{ route('pricing') }}" class="inline-flex items-center gap-2 text-sm text-primary-400 hover:text-primary-300 font-semibold mt-2">
-                                        View Plans →
+                                        {{ __('View Plans') }} →
                                     </a>
                                 </div>
                             </div>
@@ -316,10 +317,10 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
                                 </svg>
                             </div>
-                            <h4 class="text-lg font-bold text-white mb-2">Unlock Pro Features</h4>
-                            <p class="text-sm text-muted-300 mb-4">Get the most out of NetroHub with our Pro plan</p>
+                            <h4 class="text-lg font-bold text-white mb-2">{{ __('Unlock Pro Features') }}</h4>
+                            <p class="text-sm text-muted-300 mb-4">{{ __('Get the most out of NetroHub with our Pro plan') }}</p>
                             <a href="{{ route('pricing') }}" class="btn-primary w-full">
-                                View Plans
+                                {{ __('View Plans') }}
                             </a>
                         </div>
                     </x-ui.card>
@@ -328,6 +329,8 @@
         </div>
     </div>
 </div>
-@endsection
+</section>
+
+</x-layouts.stellar>
 
 

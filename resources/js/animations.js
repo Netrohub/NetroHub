@@ -304,6 +304,8 @@ if (document.readyState === 'loading') {
 }
 
 // Export for manual initialization
+const showToast = window.showToast;
+const copyToClipboard = window.copyToClipboard;
 export { initAnimations, showToast, copyToClipboard };
 
 

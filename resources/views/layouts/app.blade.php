@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}" dir="{{ session('direction', 'ltr') }}" class="dark">
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}" class="dark">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('meta_title', \App\Models\SiteSetting::get('seo_title', config('app.name', 'NetroHub') . ' - Gaming Marketplace'))</title>
+    <title>@yield('meta_title', \App\Models\SiteSetting::get('seo_title', (\App\Models\SiteSetting::get('site_name', config('app.name', 'NetroHub')) . ' - Gaming Marketplace')))</title>
     
     <!-- SEO Meta Tags -->
     <meta name="description" content="@yield('meta_description', \App\Models\SiteSetting::get('seo_description', 'Discover and trade digital gaming goods on NetroHub - the ultimate gaming marketplace for gamers, by gamers.'))">
@@ -104,7 +104,7 @@
             <div class="flex justify-between items-center h-14 sm:h-16 md:h-18">
                 <!-- Logo -->
                 <div class="flex items-center flex-shrink-0">
-                    <a href="{{ route('home') }}" class="flex items-center space-x-2 sm:space-x-3 group">
+                    <a href="{{ route('home') }}" class="flex items-center space-x-3 sm:space-x-4 md:space-x-5 group">
                         <div class="relative w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-gaming-gradient rounded-lg sm:rounded-xl flex items-center justify-center shadow-gaming group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                             <div class="absolute inset-0 bg-gaming-gradient rounded-lg sm:rounded-xl opacity-50 blur-lg group-hover:opacity-100 transition-opacity"></div>
                             <svg class="relative w-4 h-4 sm:w-6 sm:h-6 md:w-7 md:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -145,6 +145,28 @@
                             </a>
                         @endforeach
                     </div>
+                    
+                    <!-- Auth Buttons in Center (for guests) -->
+                    @guest
+                        <div class="flex items-center gap-2 ml-6 pl-6 border-l border-gaming/30">
+                            <a href="{{ route('login') }}" class="group relative px-3 py-2 rounded-lg text-sm font-medium text-muted-300 hover:text-white transition-all duration-300 flex items-center justify-center border border-gaming/20 hover:border-gaming/50 hover:bg-dark-800/30">
+                                <svg class="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                </svg>
+                                {{ __('تسجيل الدخول') }}
+                            </a>
+                            
+                            <a href="{{ route('register') }}" class="group relative px-3 py-2 rounded-lg text-sm font-bold text-white transition-all duration-300 flex items-center justify-center bg-gradient-to-r from-primary-500 to-purple-600 hover:from-primary-400 hover:to-purple-500 shadow-lg hover:shadow-primary-500/25 transform hover:scale-105">
+                                <svg class="w-4 h-4 mr-2 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                                </svg>
+                                {{ __('إنشاء حساب') }}
+                                <svg class="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 12 12">
+                                    <path d="M4 8L8 4m0 0l4 4M8 4v8" stroke="currentColor" stroke-width="2" fill="none"/>
+                                </svg>
+                            </a>
+                        </div>
+                    @endguest
                 </div>
 
                 <!-- Right Section -->
@@ -168,25 +190,6 @@
                             <span class="absolute -top-1 -right-1 bg-gaming-gradient text-white text-xs rounded-full h-5 min-w-[20px] px-1 flex items-center justify-center font-bold shadow-gaming animate-pulse">{{ count(session('cart')) }}</span>
                         @endif
                     </a>
-
-                    <!-- Language toggle switch -->
-                    <div class="relative inline-flex items-center" x-data="{ currentLang: '{{ app()->getLocale() }}' }">
-                        <a href="{{ route('locale.switch', app()->getLocale() === 'en' ? 'ar' : 'en') }}" 
-                           class="relative inline-flex items-center gap-2 px-3 py-2 bg-dark-800/70 hover:bg-dark-700/70 border border-gaming rounded-xl transition-all duration-300 group min-h-[44px]"
-                           title="{{ app()->getLocale() === 'en' ? 'Switch to Arabic' : 'Switch to English' }}">
-                            <!-- Toggle background -->
-                            <div class="relative w-12 h-6 bg-dark-900/50 rounded-full transition-all duration-300">
-                                <!-- Slider -->
-                                <div class="absolute top-0.5 {{ app()->getLocale() === 'ar' ? 'right-0.5' : 'left-0.5' }} w-5 h-5 bg-primary-500 rounded-full transition-all duration-300 flex items-center justify-center text-xs shadow-lg">
-                                    {{ app()->getLocale() === 'ar' ? '🇸🇦' : '🇺🇸' }}
-                                </div>
-                            </div>
-                            <!-- Labels -->
-                            <span class="text-xs font-medium text-white">
-                                {{ app()->getLocale() === 'ar' ? 'عربي' : 'EN' }}
-                            </span>
-                        </a>
-                    </div>
 
                     <!-- Wallet balance -->
                     @auth
@@ -298,18 +301,94 @@
                                 </div>
                             </div>
                         </div>
-                    @else
-                        <a href="{{ route('login') }}" class="text-muted-300 hover:text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:bg-dark-800/50 min-h-[44px] flex items-center">
-                            🔐 {{ __('Login') }}
-                        </a>
-                        <a href="{{ route('register') }}" class="bg-primary-500 hover:bg-primary-600 text-white px-4 py-2 rounded-lg lg:rounded-xl text-sm font-bold transition-all duration-300 shadow-lg hover:shadow-gaming min-h-[44px] flex items-center">
-                            ⚡ {{ __('Register') }}
-                        </a>
                     @endauth
                 </div>
 
                 <!-- Mobile menu button -->
-                <div class="md:hidden flex items-center gap-2">
+                <div class="md:hidden flex items-center gap-3">
+                    <!-- User Account Info on Mobile -->
+                    @auth
+                        <div class="relative" x-data="{ accountMenuOpen: false }">
+                            <button @click="accountMenuOpen = !accountMenuOpen" class="flex items-center gap-3 px-3 py-2 rounded-xl bg-dark-800/30 border border-gaming/30 hover:bg-dark-800/50 hover:border-gaming/50 transition-all duration-300">
+                                <!-- Avatar -->
+                                <div class="w-8 h-8 rounded-lg bg-gaming-gradient p-0.5 shadow-gaming">
+                                    <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}" class="w-full h-full rounded-md object-cover">
+                                </div>
+                                <!-- User Name -->
+                                <div class="flex flex-col items-start">
+                                    <span class="text-sm font-semibold text-white">{{ auth()->user()->name }}</span>
+                                    <span class="text-xs text-muted-400">{{ auth()->user()->getPlanName() }} Plan</span>
+                                </div>
+                                <!-- Dropdown Arrow -->
+                                <svg class="w-4 h-4 text-muted-400 transition-transform duration-200" :class="{ 'rotate-180': accountMenuOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+
+                            <!-- Account Menu Dropdown -->
+                            <div x-show="accountMenuOpen" 
+                                 @click.away="accountMenuOpen = false"
+                                 x-transition:enter="transition ease-out duration-200"
+                                 x-transition:enter-start="opacity-0 scale-95 -translate-y-2"
+                                 x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                                 x-transition:leave="transition ease-in duration-150"
+                                 x-transition:leave-start="opacity-100 scale-100"
+                                 x-transition:leave-end="opacity-0 scale-95"
+                                 x-cloak
+                                 class="absolute top-full left-0 mt-2 w-72 bg-dark-800/95 backdrop-blur-xl border border-gaming rounded-2xl shadow-gaming-xl z-50 overflow-hidden">
+                                
+                                <!-- Quick Actions Header -->
+                                <div class="px-4 py-3 border-b border-gaming bg-gradient-to-r from-purple-500/10 to-blue-500/10">
+                                    <h3 class="text-sm font-semibold text-white mb-1">{{ __('Quick Actions') }}</h3>
+                                    <p class="text-xs text-muted-400">{{ __('Navigate your account') }}</p>
+                                </div>
+
+                                <!-- Account Navigation -->
+                                <div class="py-2">
+                                    <a href="{{ route('account.index') }}" class="flex items-center px-4 py-3 text-sm text-muted-300 hover:text-white hover:bg-dark-700/50 transition-all duration-200">
+                                        <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                                        </svg>
+                                        <span class="font-medium">{{ __('Dashboard') }}</span>
+                                    </a>
+                                    <a href="{{ route('account.orders') }}" class="flex items-center px-4 py-3 text-sm text-muted-300 hover:text-white hover:bg-dark-700/50 transition-all duration-200">
+                                        <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                                        </svg>
+                                        <span class="font-medium">{{ __('My Orders') }}</span>
+                                    </a>
+                                    <a href="{{ route('account.wallet') }}" class="flex items-center px-4 py-3 text-sm text-muted-300 hover:text-white hover:bg-dark-700/50 transition-all duration-200">
+                                        <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                                        </svg>
+                                        <span class="font-medium">{{ __('Wallet') }}</span>
+                                    </a>
+                                    <a href="{{ route('account.index', ['tab' => 'settings']) }}" class="flex items-center px-4 py-3 text-sm text-muted-300 hover:text-white hover:bg-dark-700/50 transition-all duration-200">
+                                        <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                        </svg>
+                                        <span class="font-medium">{{ __('Settings') }}</span>
+                                    </a>
+                                </div>
+
+                                <!-- Divider -->
+                                <div class="border-t border-gaming"></div>
+
+                                <!-- Logout -->
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="w-full flex items-center px-4 py-3 text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-all duration-200">
+                                        <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                                        </svg>
+                                        <span class="font-medium">{{ __('Log Out') }}</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    @endauth
+                    
                     <!-- Cart on mobile -->
                     <a href="{{ route('cart.index') }}" class="relative text-muted-300 hover:text-white transition-all duration-300 min-h-[44px] flex items-center">
                         <div class="p-2 rounded-lg hover:bg-dark-800/70 transition-all duration-300">
@@ -364,25 +443,6 @@
 
                 <!-- Mobile Action Buttons -->
                 <div class="pt-4 border-t border-gaming space-y-3">
-                    <!-- Language Switcher (Mobile) -->
-                    <div class="px-4">
-                        <a href="{{ route('locale.switch', app()->getLocale() === 'en' ? 'ar' : 'en') }}" 
-                           class="flex items-center justify-between w-full px-4 py-3 bg-dark-800/50 hover:bg-dark-700/70 border border-gaming rounded-xl transition-all duration-300 group">
-                            <div class="flex items-center gap-3">
-                                <div class="relative w-12 h-6 bg-dark-900/50 rounded-full">
-                                    <div class="absolute top-0.5 {{ app()->getLocale() === 'ar' ? 'right-0.5' : 'left-0.5' }} w-5 h-5 bg-primary-500 rounded-full transition-all duration-300 flex items-center justify-center text-xs">
-                                        {{ app()->getLocale() === 'ar' ? '🇸🇦' : '🇺🇸' }}
-                                    </div>
-                                </div>
-                                <span class="text-sm font-medium text-white">
-                                    {{ __('Language') }}: {{ app()->getLocale() === 'ar' ? 'العربية' : 'English' }}
-                                </span>
-                            </div>
-                            <svg class="w-5 h-5 text-muted-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
-                            </svg>
-                        </a>
-                    </div>
 
                     <a href="{{ route('sell.index') }}" class="block w-full px-4 py-3 text-center bg-gaming-gradient text-white rounded-lg font-bold shadow-gaming min-h-[44px] flex items-center justify-center gap-2">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -423,12 +483,15 @@
                             </button>
                         </form>
                     @else
-                        <a href="{{ route('login') }}" class="block w-full px-4 py-3 text-center text-muted-300 hover:text-white bg-dark-800/50 hover:bg-dark-800/70 rounded-lg font-medium transition-all duration-300 min-h-[44px] flex items-center justify-center">
-                            🔐 {{ __('Login') }}
-                        </a>
-                        <a href="{{ route('register') }}" class="block w-full px-4 py-3 text-center bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-bold transition-all duration-300 shadow-lg min-h-[44px] flex items-center justify-center">
-                            ⚡ {{ __('Register') }}
-                        </a>
+                        <!-- Mobile Auth Links -->
+                        <div class="space-y-2 pt-4 border-t border-gaming">
+                            <a href="{{ route('login') }}" class="block text-muted-300 hover:text-white text-sm transition duration-150 ease-in-out py-2">
+                                {{ __('تسجيل الدخول') }}
+                            </a>
+                            <a href="{{ route('register') }}" class="block text-primary-400 hover:text-primary-300 text-sm font-medium transition duration-150 ease-in-out py-2">
+                                {{ __('إنشاء حساب') }}
+                            </a>
+                        </div>
                     @endauth
                 </div>
             </div>
@@ -595,9 +658,9 @@
                         ⚖️ {{ __('Legal') }}
                     </h4>
                     <ul class="space-y-2 sm:space-y-3 text-sm">
-                        <li><a href="{{ route('terms') }}" class="text-muted-400 hover:text-white transition-colors duration-200">{{ __('Terms & Conditions') }}</a></li>
-                        <li><a href="{{ route('privacy') }}" class="text-muted-400 hover:text-white transition-colors duration-200">{{ __('Privacy Policy') }}</a></li>
-                        <li><a href="{{ route('refund') }}" class="text-muted-400 hover:text-white transition-colors duration-200">{{ __('Refund Policy') }}</a></li>
+                        <li><a href="{{ route('legal.terms') }}" class="text-muted-400 hover:text-white transition-colors duration-200">{{ __('Terms & Conditions') }}</a></li>
+                        <li><a href="{{ route('legal.privacy') }}" class="text-muted-400 hover:text-white transition-colors duration-200">{{ __('Privacy Policy') }}</a></li>
+                        <li><a href="{{ route('legal.refund') }}" class="text-muted-400 hover:text-white transition-colors duration-200">{{ __('Refund Policy') }}</a></li>
                     </ul>
                 </div>
             </div>

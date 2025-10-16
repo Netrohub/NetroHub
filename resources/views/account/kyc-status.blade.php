@@ -1,9 +1,8 @@
-@extends('layouts.app')
+<x-layouts.stellar>
+    <x-slot name="title">{{ __('KYC Status (OLD)') }} - {{ config('app.name') }}</x-slot>
 
-@section('title', 'KYC Status - NetroHub')
-
-@section('content')
-<div class="min-h-screen bg-dark-900 py-8">
+<section class="relative pt-32 pb-12">
+<div class="py-8">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
         <div class="text-center mb-8">
@@ -57,7 +56,7 @@
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
-                        Start Verification
+                        {{ __('Start Verification') }}
                     </a>
                 </div>
             @endif
@@ -123,23 +122,25 @@
             <h3 class="text-lg font-semibold text-white mb-3">Need Help?</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-muted-400">
                 <div>
-                    <h4 class="font-medium text-white mb-1">Document Requirements</h4>
-                    <p>Ensure your ID document is clear, readable, and not expired. Accepted formats include national ID, passport, or driver's license.</p>
+                    <h4 class="font-medium text-white mb-1">{{ __('Document Requirements') }}</h4>
+                    <p>{{ __('Ensure your ID document is clear, readable, and not expired. Accepted formats include national ID, passport, or driver\'s license.') }}</p>
                 </div>
                 <div>
-                    <h4 class="font-medium text-white mb-1">Processing Time</h4>
-                    <p>Verification typically takes 24-48 hours. You'll receive an email notification once your verification is processed.</p>
+                    <h4 class="font-medium text-white mb-1">{{ __('Processing Time') }}</h4>
+                    <p>{{ __('Verification typically takes 24-48 hours. You\'ll receive an email notification once your verification is processed.') }}</p>
                 </div>
                 <div>
-                    <h4 class="font-medium text-white mb-1">Rejected Submissions</h4>
-                    <p>If your submission is rejected, review the feedback and resubmit with corrected information.</p>
+                    <h4 class="font-medium text-white mb-1">{{ __('Rejected Submissions') }}</h4>
+                    <p>{{ __('If your submission is rejected, review the feedback and resubmit with corrected information.') }}</p>
                 </div>
                 <div>
-                    <h4 class="font-medium text-white mb-1">Contact Support</h4>
-                    <p>If you have questions about the verification process, please contact our support team.</p>
+                    <h4 class="font-medium text-white mb-1">{{ __('Contact Support') }}</h4>
+                    <p>{{ __('If you have questions about the verification process, please contact our support team.') }}</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
-@endsection
+</section>
+
+</x-layouts.stellar>

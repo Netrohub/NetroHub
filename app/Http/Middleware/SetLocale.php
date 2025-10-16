@@ -15,21 +15,15 @@ class SetLocale
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Get locale from session, query parameter, or default
-        $locale = $request->get('lang') ?? Session::get('locale') ?? config('app.locale', 'en');
-
-        // Validate locale
-        $availableLocales = ['en', 'ar'];
-        if (!in_array($locale, $availableLocales)) {
-            $locale = 'en';
-        }
+        // Always set locale to Arabic
+        $locale = 'ar';
 
         // Set locale
         App::setLocale($locale);
         Session::put('locale', $locale);
 
-        // Set text direction in session for views
-        Session::put('direction', $locale === 'ar' ? 'rtl' : 'ltr');
+        // Set text direction to RTL for Arabic
+        Session::put('direction', 'rtl');
 
         return $next($request);
     }

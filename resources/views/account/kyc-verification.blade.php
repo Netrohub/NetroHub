@@ -1,8 +1,7 @@
-@extends('layouts.app')
+<x-layouts.stellar>
+    <x-slot name="title">{{ __('Identity Verification (OLD)') }} - {{ config('app.name') }}</x-slot>
 
-@section('title', 'Identity Verification - NetroHub')
-
-@section('content')
+<section class="relative pt-32 pb-12">
 <div class="min-h-screen bg-dark-900 py-8">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
@@ -43,10 +42,10 @@
                     <h2 class="text-xl font-bold text-yellow-400">Verification Under Review</h2>
                 </div>
                 <p class="text-muted-400 mb-4">
-                    Your identity verification is currently under review. We'll notify you once it's processed, usually within 24-48 hours.
+                    {{ __('Your identity verification is currently under review. We\'ll notify you once it\'s processed, usually within 24-48 hours.') }}
                 </p>
                 <div class="bg-dark-800/50 rounded-lg p-4">
-                    <h3 class="font-semibold text-white mb-2">Submission Details:</h3>
+                    <h3 class="font-semibold text-white mb-2">{{ __('Submission Details:') }}</h3>
                     <div class="grid grid-cols-2 gap-4 text-sm">
                         <div>
                             <span class="text-muted-400">Country:</span>
@@ -77,7 +76,7 @@
                     <h2 class="text-xl font-bold text-red-400">Verification Rejected</h2>
                 </div>
                 <p class="text-muted-400 mb-4">
-                    Your identity verification was rejected. Please review the feedback and resubmit with corrected information.
+                    {{ __('Your identity verification was rejected. Please review the feedback and resubmit with corrected information.') }}
                 </p>
                 @if($latestSubmission->notes)
                     <div class="bg-dark-800/50 rounded-lg p-4 mb-4">
@@ -90,7 +89,7 @@
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
                     </svg>
-                    Resubmit Verification
+                    {{ __('Resubmit Verification') }}
                 </a>
             </div>
         @else
@@ -110,8 +109,8 @@
                         <div>
                             <h4 class="text-blue-400 font-medium mb-1">Data Protection Notice</h4>
                             <p class="text-sm text-muted-400">
-                                We collect this information for identity verification and fraud prevention in accordance with Saudi PDPL and international data protection standards. 
-                                Your documents are encrypted and stored securely.
+                                {{ __('We collect this information for identity verification and fraud prevention in accordance with Saudi PDPL and international data protection standards.') }} 
+                                {{ __('Your documents are encrypted and stored securely.') }}
                             </p>
                         </div>
                     </div>
@@ -130,39 +129,39 @@
                                     name="country_code" 
                                     class="w-full px-4 py-3 bg-dark-700/50 border border-gaming rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                                     required>
-                                <option value="">Select your country</option>
-                                <option value="SA" {{ old('country_code') == 'SA' ? 'selected' : '' }}>Saudi Arabia</option>
-                                <option value="AE" {{ old('country_code') == 'AE' ? 'selected' : '' }}>United Arab Emirates</option>
-                                <option value="KW" {{ old('country_code') == 'KW' ? 'selected' : '' }}>Kuwait</option>
-                                <option value="QA" {{ old('country_code') == 'QA' ? 'selected' : '' }}>Qatar</option>
-                                <option value="BH" {{ old('country_code') == 'BH' ? 'selected' : '' }}>Bahrain</option>
-                                <option value="OM" {{ old('country_code') == 'OM' ? 'selected' : '' }}>Oman</option>
-                                <option value="US" {{ old('country_code') == 'US' ? 'selected' : '' }}>United States</option>
-                                <option value="GB" {{ old('country_code') == 'GB' ? 'selected' : '' }}>United Kingdom</option>
-                                <option value="CA" {{ old('country_code') == 'CA' ? 'selected' : '' }}>Canada</option>
-                                <option value="AU" {{ old('country_code') == 'AU' ? 'selected' : '' }}>Australia</option>
-                                <option value="DE" {{ old('country_code') == 'DE' ? 'selected' : '' }}>Germany</option>
-                                <option value="FR" {{ old('country_code') == 'FR' ? 'selected' : '' }}>France</option>
-                                <option value="IT" {{ old('country_code') == 'IT' ? 'selected' : '' }}>Italy</option>
-                                <option value="ES" {{ old('country_code') == 'ES' ? 'selected' : '' }}>Spain</option>
-                                <option value="NL" {{ old('country_code') == 'NL' ? 'selected' : '' }}>Netherlands</option>
-                                <option value="SE" {{ old('country_code') == 'SE' ? 'selected' : '' }}>Sweden</option>
-                                <option value="NO" {{ old('country_code') == 'NO' ? 'selected' : '' }}>Norway</option>
-                                <option value="DK" {{ old('country_code') == 'DK' ? 'selected' : '' }}>Denmark</option>
-                                <option value="FI" {{ old('country_code') == 'FI' ? 'selected' : '' }}>Finland</option>
-                                <option value="JP" {{ old('country_code') == 'JP' ? 'selected' : '' }}>Japan</option>
-                                <option value="KR" {{ old('country_code') == 'KR' ? 'selected' : '' }}>South Korea</option>
-                                <option value="CN" {{ old('country_code') == 'CN' ? 'selected' : '' }}>China</option>
-                                <option value="IN" {{ old('country_code') == 'IN' ? 'selected' : '' }}>India</option>
-                                <option value="BR" {{ old('country_code') == 'BR' ? 'selected' : '' }}>Brazil</option>
-                                <option value="MX" {{ old('country_code') == 'MX' ? 'selected' : '' }}>Mexico</option>
-                                <option value="AR" {{ old('country_code') == 'AR' ? 'selected' : '' }}>Argentina</option>
-                                <option value="ZA" {{ old('country_code') == 'ZA' ? 'selected' : '' }}>South Africa</option>
-                                <option value="EG" {{ old('country_code') == 'EG' ? 'selected' : '' }}>Egypt</option>
-                                <option value="MA" {{ old('country_code') == 'MA' ? 'selected' : '' }}>Morocco</option>
-                                <option value="TR" {{ old('country_code') == 'TR' ? 'selected' : '' }}>Turkey</option>
-                                <option value="RU" {{ old('country_code') == 'RU' ? 'selected' : '' }}>Russia</option>
-                                <option value="OTHER" {{ old('country_code') == 'OTHER' ? 'selected' : '' }}>Other</option>
+                                <option value="">{{ __('Select your country') }}</option>
+                                <option value="SA" {{ old('country_code') == 'SA' ? 'selected' : '' }}>{{ __('Saudi Arabia') }}</option>
+                                <option value="AE" {{ old('country_code') == 'AE' ? 'selected' : '' }}>{{ __('United Arab Emirates') }}</option>
+                                <option value="KW" {{ old('country_code') == 'KW' ? 'selected' : '' }}>{{ __('Kuwait') }}</option>
+                                <option value="QA" {{ old('country_code') == 'QA' ? 'selected' : '' }}>{{ __('Qatar') }}</option>
+                                <option value="BH" {{ old('country_code') == 'BH' ? 'selected' : '' }}>{{ __('Bahrain') }}</option>
+                                <option value="OM" {{ old('country_code') == 'OM' ? 'selected' : '' }}>{{ __('Oman') }}</option>
+                                <option value="US" {{ old('country_code') == 'US' ? 'selected' : '' }}>{{ __('United States') }}</option>
+                                <option value="GB" {{ old('country_code') == 'GB' ? 'selected' : '' }}>{{ __('United Kingdom') }}</option>
+                                <option value="CA" {{ old('country_code') == 'CA' ? 'selected' : '' }}>{{ __('Canada') }}</option>
+                                <option value="AU" {{ old('country_code') == 'AU' ? 'selected' : '' }}>{{ __('Australia') }}</option>
+                                <option value="DE" {{ old('country_code') == 'DE' ? 'selected' : '' }}>{{ __('Germany') }}</option>
+                                <option value="FR" {{ old('country_code') == 'FR' ? 'selected' : '' }}>{{ __('France') }}</option>
+                                <option value="IT" {{ old('country_code') == 'IT' ? 'selected' : '' }}>{{ __('Italy') }}</option>
+                                <option value="ES" {{ old('country_code') == 'ES' ? 'selected' : '' }}>{{ __('Spain') }}</option>
+                                <option value="NL" {{ old('country_code') == 'NL' ? 'selected' : '' }}>{{ __('Netherlands') }}</option>
+                                <option value="SE" {{ old('country_code') == 'SE' ? 'selected' : '' }}>{{ __('Sweden') }}</option>
+                                <option value="NO" {{ old('country_code') == 'NO' ? 'selected' : '' }}>{{ __('Norway') }}</option>
+                                <option value="DK" {{ old('country_code') == 'DK' ? 'selected' : '' }}>{{ __('Denmark') }}</option>
+                                <option value="FI" {{ old('country_code') == 'FI' ? 'selected' : '' }}>{{ __('Finland') }}</option>
+                                <option value="JP" {{ old('country_code') == 'JP' ? 'selected' : '' }}>{{ __('Japan') }}</option>
+                                <option value="KR" {{ old('country_code') == 'KR' ? 'selected' : '' }}>{{ __('South Korea') }}</option>
+                                <option value="CN" {{ old('country_code') == 'CN' ? 'selected' : '' }}>{{ __('China') }}</option>
+                                <option value="IN" {{ old('country_code') == 'IN' ? 'selected' : '' }}>{{ __('India') }}</option>
+                                <option value="BR" {{ old('country_code') == 'BR' ? 'selected' : '' }}>{{ __('Brazil') }}</option>
+                                <option value="MX" {{ old('country_code') == 'MX' ? 'selected' : '' }}>{{ __('Mexico') }}</option>
+                                <option value="AR" {{ old('country_code') == 'AR' ? 'selected' : '' }}>{{ __('Argentina') }}</option>
+                                <option value="ZA" {{ old('country_code') == 'ZA' ? 'selected' : '' }}>{{ __('South Africa') }}</option>
+                                <option value="EG" {{ old('country_code') == 'EG' ? 'selected' : '' }}>{{ __('Egypt') }}</option>
+                                <option value="MA" {{ old('country_code') == 'MA' ? 'selected' : '' }}>{{ __('Morocco') }}</option>
+                                <option value="TR" {{ old('country_code') == 'TR' ? 'selected' : '' }}>{{ __('Turkey') }}</option>
+                                <option value="RU" {{ old('country_code') == 'RU' ? 'selected' : '' }}>{{ __('Russia') }}</option>
+                                <option value="OTHER" {{ old('country_code') == 'OTHER' ? 'selected' : '' }}>{{ __('Other') }}</option>
                             </select>
                             @error('country_code')
                                 <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
@@ -252,15 +251,17 @@
             <h3 class="text-lg font-semibold text-white mb-3">Need Help?</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-muted-400">
                 <div>
-                    <h4 class="font-medium text-white mb-1">Document Requirements</h4>
-                    <p>Ensure your ID document is clear, readable, and not expired. Accepted formats include national ID, passport, or driver's license.</p>
+                    <h4 class="font-medium text-white mb-1">{{ __('Document Requirements') }}</h4>
+                    <p>{{ __('Ensure your ID document is clear, readable, and not expired. Accepted formats include national ID, passport, or driver\'s license.') }}</p>
                 </div>
                 <div>
-                    <h4 class="font-medium text-white mb-1">Processing Time</h4>
-                    <p>Verification typically takes 24-48 hours. You'll receive an email notification once your verification is processed.</p>
+                    <h4 class="font-medium text-white mb-1">{{ __('Processing Time') }}</h4>
+                    <p>{{ __('Verification typically takes 24-48 hours. You\'ll receive an email notification once your verification is processed.') }}</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
-@endsection
+</section>
+
+</x-layouts.stellar>

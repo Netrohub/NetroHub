@@ -26,7 +26,8 @@ class RegisteredUserController extends Controller
                 'name' => $request->name,
                 'username' => $username,
                 'email' => $request->email,
-                'phone' => $request->phone,
+                'phone_number' => $request->country_code . $request->phone,
+                'country_code' => $request->country_code,
                 'password' => Hash::make($request->password),
                 'is_active' => true,
             ]);
@@ -34,7 +35,7 @@ class RegisteredUserController extends Controller
             // Assign default user role
             $user->assignRole('user');
 
-            event(new Registered($user));
+            event(new Registered($user)); // triggers immediate verification email
 
             Auth::login($user);
 

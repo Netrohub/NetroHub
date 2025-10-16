@@ -1,8 +1,7 @@
-@extends('layouts.app')
+<x-layouts.stellar-auth>
+    <x-slot name="title">{{ __('Sign In with Phone') }} - {{ config('app.name') }}</x-slot>
 
-@section('title', 'Sign In with Phone')
-
-@section('content')
+<section class="relative">
 <div class="min-h-screen relative overflow-hidden flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
     <!-- Gaming Background Effects -->
     <div class="absolute inset-0 bg-dark-900">
@@ -148,6 +147,10 @@
     animation-delay: 4s;
 }
 </style>
-@endsection
+@endpush
+
+</section>
+
+</x-layouts.stellar-auth>
 
 

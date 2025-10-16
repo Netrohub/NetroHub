@@ -1,9 +1,8 @@
-@extends('layouts.app')
+<x-layouts.stellar>
+    <x-slot name="title">{{ __('Phone Verification') }} - {{ config('app.name') }}</x-slot>
 
-@section('title', 'Phone Verification - NetroHub')
-
-@section('content')
-<div class="min-h-screen bg-dark-900 py-8">
+<section class="relative pt-32 pb-12">
+<div class="py-8">
     <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
         <div class="text-center mb-8">
@@ -138,6 +137,7 @@
     </div>
 </div>
 
+@push('scripts')
 <script>
 function phoneVerification() {
     return {
@@ -267,4 +267,8 @@ function phoneVerification() {
     }
 }
 </script>
-@endsection
+@endpush
+
+</section>
+
+</x-layouts.stellar>

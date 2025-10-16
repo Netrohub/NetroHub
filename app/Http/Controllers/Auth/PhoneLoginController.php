@@ -28,15 +28,17 @@ class PhoneLoginController extends Controller
         $request->validate([
             'country_code' => ['required', 'string'],
             'phone' => ['required', 'string'],
-            'cf-turnstile-response' => ['required'],
+            // 'cf-turnstile-response' => ['required'], // Temporarily disabled
         ]);
 
-        // Verify Turnstile
+        // Temporarily disabled Turnstile verification
+        /*
         if (! $this->verifyTurnstile($request)) {
             return back()->withErrors([
                 'cf-turnstile-response' => 'Security verification failed. Please try again.',
             ]);
         }
+        */
 
         // Combine phone number
         $fullPhone = $request->country_code.$request->phone;

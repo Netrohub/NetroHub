@@ -25,7 +25,7 @@ class LoginRequest extends FormRequest
         return [
             'email' => ['required', 'email'],
             'password' => ['required', 'string'],
-            'cf-turnstile-response' => ['required'],
+            // 'cf-turnstile-response' => ['required'], // Temporarily disabled
             'remember' => ['nullable', 'boolean'],
         ];
     }
@@ -38,11 +38,14 @@ class LoginRequest extends FormRequest
      */
     public function withValidator($validator)
     {
+        // Temporarily disabled Turnstile verification
+        /*
         $validator->after(function ($validator) {
             if (! $this->verifyTurnstile()) {
                 $validator->errors()->add('cf-turnstile-response', 'Cloudflare verification failed. Please try again.');
             }
         });
+        */
     }
 
     /**
@@ -82,10 +85,10 @@ class LoginRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required' => 'Email address is required.',
-            'email.email' => 'Please enter a valid email address.',
-            'password.required' => 'Password is required.',
-            'cf-turnstile-response.required' => 'Please complete the security verification.',
+            'email.required' => __('عنوان البريد الإلكتروني مطلوب.'),
+            'email.email' => __('يرجى إدخال عنوان بريد إلكتروني صحيح.'),
+            'password.required' => __('كلمة المرور مطلوبة.'),
+            'cf-turnstile-response.required' => __('يرجى إكمال التحقق الأمني.'),
         ];
     }
 }

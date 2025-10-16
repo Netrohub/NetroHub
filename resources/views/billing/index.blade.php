@@ -1,9 +1,8 @@
-@extends('layouts.app')
+<x-layouts.stellar>
+    <x-slot name="title">{{ __('Billing & Subscription') }} - {{ config('app.name') }}</x-slot>
 
-@section('title', 'Billing & Subscription')
-
-@section('content')
-<div class="min-h-screen bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+<section class="relative pt-32 pb-12">
+<div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-4xl mx-auto">
         <h1 class="text-3xl font-bold text-white mb-8">Billing & Subscription</h1>
         
@@ -41,7 +40,7 @@
                                 <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                                 </svg>
-                                Renews on {{ $subscription->renews_at->format('F j, Y') }}
+                                {{ __('Renews on') }} {{ $subscription->renews_at->format('F j, Y') }}
                             </p>
                         @endif
                         @if($subscription->cancel_at)
@@ -55,30 +54,30 @@
                     </div>
                     <div class="flex flex-col sm:flex-row gap-2">
                         <a href="{{ route('pricing.index') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-center transition-colors">
-                            Change Plan
+                            {{ __('Change Plan') }}
                         </a>
                         @if(!$plan->isFree() && !$subscription->isCancelled())
                             <form action="{{ route('subscription.cancel') }}" method="POST" class="inline">
                                 @csrf
-                                <button onclick="return confirm('Are you sure you want to cancel? Your plan will remain active until the end of the billing period.')" 
+                                <button onclick="return confirm('{{ __('Are you sure you want to cancel? Your plan will remain active until the end of the billing period.') }}')" 
                                         class="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition-colors">
-                                    Cancel Auto-Renew
+                                    {{ __('Cancel Auto-Renew') }}
                                 </button>
                             </form>
                         @elseif($subscription->isCancelled())
                             <form action="{{ route('subscription.resume') }}" method="POST" class="inline">
                                 @csrf
                                 <button class="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded transition-colors">
-                                    Resume Subscription
+                                    {{ __('Resume Subscription') }}
                                 </button>
                             </form>
                         @endif
                     </div>
                 </div>
             @else
-                <p class="text-gray-400 mb-4">No active subscription</p>
+                <p class="text-gray-400 mb-4">{{ __('No active subscription') }}</p>
                 <a href="{{ route('pricing.index') }}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded transition-colors">
-                    View Plans
+                    {{ __('View Plans') }}
                 </a>
             @endif
         </div>
@@ -113,13 +112,15 @@
         
         <!-- Need Help -->
         <div class="bg-gray-800 rounded-lg p-6 mt-6">
-            <h2 class="text-xl font-bold text-white mb-2">Need Help?</h2>
-            <p class="text-gray-400 mb-4">Have questions about your subscription or billing?</p>
+            <h2 class="text-xl font-bold text-white mb-2">{{ __('Need Help?') }}</h2>
+            <p class="text-gray-400 mb-4">{{ __('Have questions about your subscription or billing?') }}</p>
             <a href="{{ route('account.index') }}" class="text-blue-400 hover:text-blue-300">
-                Contact Support →
+                {{ __('Contact Support') }} →
             </a>
         </div>
     </div>
 </div>
-@endsection
+</section>
+
+</x-layouts.stellar>
 
