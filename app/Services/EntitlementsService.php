@@ -55,6 +55,11 @@ class EntitlementsService
      */
     public function canUse(User $user, string $key, int $amount = 1): bool
     {
+        // Owners can use any feature
+        if ($user->hasRole('owner')) {
+            return true;
+        }
+        
         $remaining = $this->get($user, $key, 0);
 
         return is_numeric($remaining) && $remaining >= $amount;
@@ -102,6 +107,11 @@ class EntitlementsService
      */
     public function getPlatformFee(User $user): float
     {
+        // Owners get 0% platform fee
+        if ($user->hasRole('owner')) {
+            return 0.0;
+        }
+        
         return (float) $this->get($user, 'platform_fee_pct', 10.0);
     }
 
@@ -251,6 +261,11 @@ class EntitlementsService
      */
     public function getBadgeType(User $user): ?string
     {
+        // Owners get a special badge
+        if ($user->hasRole('owner')) {
+            return 'owner';
+        }
+        
         if ($this->has($user, 'has_pro_badge')) {
             return 'pro';
         }
@@ -267,6 +282,11 @@ class EntitlementsService
      */
     public function hasPrioritySupport(User $user): bool
     {
+        // Owners get priority support
+        if ($user->hasRole('owner')) {
+            return true;
+        }
+        
         return $this->has($user, 'priority_support');
     }
 
@@ -275,6 +295,11 @@ class EntitlementsService
      */
     public function hasFeaturedPlacement(User $user): bool
     {
+        // Owners get featured placement
+        if ($user->hasRole('owner')) {
+            return true;
+        }
+        
         return $this->has($user, 'featured_placement');
     }
 
@@ -283,6 +308,11 @@ class EntitlementsService
      */
     public function getRemainingBoosts(User $user): int
     {
+        // Owners get unlimited boosts (represented as 9999)
+        if ($user->hasRole('owner')) {
+            return 9999;
+        }
+        
         return (int) $this->get($user, 'boost_slots', 0);
     }
 
@@ -291,6 +321,11 @@ class EntitlementsService
      */
     public function getDraftLimit(User $user): int
     {
+        // Owners have unlimited drafts
+        if ($user->hasRole('owner')) {
+            return 9999;
+        }
+        
         return (int) $this->get($user, 'draft_limit', 1);
     }
 
@@ -338,6 +373,11 @@ class EntitlementsService
      */
     public function canBoostProduct(User $user): bool
     {
+        // Owners can always boost
+        if ($user->hasRole('owner')) {
+            return true;
+        }
+        
         return $this->getRemainingBoosts($user) > 0;
     }
 
@@ -346,6 +386,11 @@ class EntitlementsService
      */
     public function useBoost(User $user): bool
     {
+        // Owners don't consume boost slots
+        if ($user->hasRole('owner')) {
+            return true;
+        }
+        
         return $this->use($user, 'boost_slots', 1);
     }
 
@@ -370,6 +415,11 @@ class EntitlementsService
      */
     public function useUsernameChange(User $user): bool
     {
+        // Owners get unlimited username changes
+        if ($user->hasRole('owner')) {
+            return true;
+        }
+        
         $subscription = $user->activeSubscription;
         
         // Free plan - unlimited changes

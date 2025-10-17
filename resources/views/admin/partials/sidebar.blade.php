@@ -111,6 +111,18 @@
                         </a>
                     </li>
 
+                    <!-- Disputes -->
+                    <li class="px-3 py-2 rounded-lg mb-0.5 last:mb-0 @if(request()->routeIs('admin.disputes.*')) bg-violet-50 dark:bg-gradient-to-r dark:from-violet-500/[0.12] dark:to-violet-500/[0.04] @endif">
+                        <a class="block text-gray-800 dark:text-gray-100 truncate transition @if(!request()->routeIs('admin.disputes.*')) hover:text-gray-900 dark:hover:text-white @endif" href="{{ route('admin.disputes.index') }}">
+                            <div class="flex items-center">
+                                <svg class="shrink-0 fill-current @if(request()->routeIs('admin.disputes.*')) text-violet-500 @else text-gray-400 dark:text-gray-500 @endif" width="16" height="16" viewBox="0 0 16 16">
+                                    <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8Zm1 12H7V7h2v5Zm0-6H7V4h2v2Z" />
+                                </svg>
+                                <span class="text-sm font-medium ml-4 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Disputes</span>
+                            </div>
+                        </a>
+                    </li>
+
                     <!-- Settings -->
                     <li class="px-3 py-2 rounded-lg mb-0.5 last:mb-0 @if(request()->routeIs('admin.settings.*')) bg-violet-50 dark:bg-gradient-to-r dark:from-violet-500/[0.12] dark:to-violet-500/[0.04] @endif">
                         <a class="block text-gray-800 dark:text-gray-100 truncate transition @if(!request()->routeIs('admin.settings.*')) hover:text-gray-900 dark:hover:text-white @endif" href="{{ route('admin.settings.index') }}">

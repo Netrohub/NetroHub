@@ -19,11 +19,12 @@ return new class extends Migration
             $table->foreignId('seller_id')->constrained('sellers');
             $table->string('reason');
             $table->text('description');
-            $table->enum('status', ['open', 'in_review', 'resolved_refund', 'resolved_upheld'])->default('open');
+            $table->enum('status', ['open', 'resolved', 'escalated', 'in_review', 'resolved_refund', 'resolved_upheld'])->default('open');
             $table->json('evidence')->nullable();
             $table->text('admin_notes')->nullable();
             $table->foreignId('resolved_by')->nullable()->constrained('users');
             $table->timestamp('resolved_at')->nullable();
+            $table->timestamp('escalated_at')->nullable();
             $table->timestamps();
         });
     }

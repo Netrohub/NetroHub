@@ -16,21 +16,66 @@
             <p class="text-gray-600 dark:text-gray-400 mt-1">Order #{{ $order->order_number }}</p>
         </div>
 
-        @if($canDispute)
-        <!-- Dispute Banner -->
-        <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4 mb-6">
-            <div class="flex items-start">
-                <svg class="w-5 h-5 text-yellow-600 dark:text-yellow-400 mr-3 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                </svg>
-                <div class="flex-1">
-                    <h3 class="text-sm font-medium text-yellow-800 dark:text-yellow-400">Dispute Window Active</h3>
-                    <p class="text-sm text-yellow-700 dark:text-yellow-500 mt-1">
-                        You have until <strong>{{ $disputeDeadline->format('M d, Y g:i A') }}</strong> to open a dispute if there are any issues with your purchase.
-                    </p>
+        <!-- Dispute Section -->
+        @php
+            $hasOpenDispute = $order->disputes()->whereIn('status', ['open', 'escalated', 'in_review'])->exists();
+            $openDispute = $hasOpenDispute ? $order->disputes()->whereIn('status', ['open', 'escalated', 'in_review'])->first() : null;
+        @endphp
+        
+        @if($hasOpenDispute)
+            <!-- Active Dispute Alert -->
+            <div class="bg-orange-50 dark:bg-orange-900/20 border-2 border-orange-400 dark:border-orange-600 rounded-2xl p-6 mb-6 shadow-lg" data-aos="fade-down">
+                <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 w-12 h-12 bg-orange-500/20 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                        </svg>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-lg font-bold text-orange-800 dark:text-orange-400 mb-2">Active Dispute</h3>
+                        <p class="text-orange-700 dark:text-orange-500 mb-4">
+                            You have an active dispute for this order. Continue communicating with the seller or escalate to moderators if needed.
+                        </p>
+                        <a href="{{ route('disputes.show', $openDispute) }}" class="inline-flex items-center px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-medium transition-colors shadow">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                            </svg>
+                            Go to Dispute
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
+        @elseif($canDispute)
+            <!-- Can Open Dispute -->
+            <div class="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border-2 border-blue-200 dark:border-blue-800 rounded-2xl p-6 mb-6 shadow-lg" data-aos="fade-down">
+                <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-lg font-bold text-blue-800 dark:text-blue-400 mb-2">📋 Having Issues with Your Order?</h3>
+                        <p class="text-blue-700 dark:text-blue-500 mb-4">
+                            If you're experiencing any problems with this order, you can open a dispute. You have until <strong class="text-blue-900 dark:text-blue-300">{{ $disputeDeadline->format('M d, Y g:i A') }}</strong> to report issues.
+                        </p>
+                        <div class="flex flex-wrap gap-3">
+                            <a href="{{ route('disputes.create', ['order_id' => $order->id]) }}" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white rounded-xl font-bold transition-all shadow-lg hover:shadow-xl transform hover:scale-105">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                                </svg>
+                                Open a Dispute
+                            </a>
+                            <div class="text-sm text-blue-600 dark:text-blue-400 flex items-center">
+                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                Safe & Fair Resolution
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         @endif
 
         <!-- Security Notice -->
@@ -163,6 +208,19 @@
                             </div>
                             @endforeach
                         </div>
+                    </div>
+                    @endif
+
+                    <!-- Quick Dispute Button per Item -->
+                    @if(!$hasOpenDispute && $canDispute)
+                    <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                        <a href="{{ route('disputes.create', ['order_id' => $order->id, 'order_item_id' => $item->id]) }}" 
+                           class="text-sm text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                            </svg>
+                            {{ __('Report Issue with This Item') }}
+                        </a>
                     </div>
                     @endif
                 </div>

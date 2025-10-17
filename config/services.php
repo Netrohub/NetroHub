@@ -81,4 +81,11 @@ return [
         'environment' => env('PERSONA_ENVIRONMENT', 'sandbox'), // 'sandbox' or 'production'
         'webhook_secret' => env('PERSONA_WEBHOOK_SECRET'),
     ],
+
+    'twilio' => [
+        'account_sid' => env('TWILIO_ACCOUNT_SID'),
+        'auth_token' => env('TWILIO_AUTH_TOKEN'),
+        'from_number' => env('TWILIO_FROM_NUMBER'),
+        'whatsapp_from' => env('TWILIO_WHATSAPP_FROM', '+14155238886'), // Twilio Sandbox number
+    ],
 ];

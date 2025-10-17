@@ -15,6 +15,14 @@
         <span class="font-medium">{{ __('My Orders') }}</span>
     </a>
 
+    <a href="{{ route('disputes.index') }}" 
+       class="flex items-center px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('disputes.*') ? 'bg-purple-500 text-white shadow-lg shadow-purple-500/25' : 'text-slate-300 hover:bg-slate-700 hover:text-white' }}">
+        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+        </svg>
+        <span class="font-medium">{{ __('Disputes') }}</span>
+    </a>
+
     <a href="{{ route('account.sales') }}" 
        class="flex items-center px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('account.sales') ? 'bg-purple-500 text-white shadow-lg shadow-purple-500/25' : 'text-slate-300 hover:bg-slate-700 hover:text-white' }}">
         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">

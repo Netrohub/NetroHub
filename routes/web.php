@@ -61,6 +61,11 @@ Route::get('/refund-policy', function () {
     return view('legal.refund');
 })->name('legal.refund');
 
+// OTP Demo Page (remove in production or protect with auth)
+Route::get('/otp-demo', function () {
+    return view('otp-demo');
+})->name('otp.demo');
+
 // Sitemap
 Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap.index');
 Route::get('/sitemap/static.xml', [App\Http\Controllers\SitemapController::class, 'static'])->name('sitemap.static');
@@ -103,6 +108,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', App\Http\Middleware\
     // Orders Management
     Route::get('/orders', [App\Http\Controllers\Admin\OrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{order}', [App\Http\Controllers\Admin\OrderController::class, 'show'])->name('orders.show');
+
+    // Disputes Management
+    Route::get('/disputes', [App\Http\Controllers\Admin\DisputeController::class, 'index'])->name('disputes.index');
+    Route::get('/disputes/{dispute}', [App\Http\Controllers\Admin\DisputeController::class, 'show'])->name('disputes.show');
+    Route::post('/disputes/{dispute}/take-action', [App\Http\Controllers\Admin\DisputeController::class, 'takeAction'])->name('disputes.take-action');
+    Route::post('/disputes/{dispute}/message', [App\Http\Controllers\Admin\DisputeController::class, 'addMessage'])->name('disputes.message');
+    Route::post('/disputes/{dispute}/resolve', [App\Http\Controllers\Admin\DisputeController::class, 'resolve'])->name('disputes.resolve');
+    Route::post('/disputes/{dispute}/internal-note', [App\Http\Controllers\Admin\DisputeController::class, 'addInternalNote'])->name('disputes.internal-note');
 
     // Site Settings
     Route::get('/settings', [App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('settings.index');
@@ -162,6 +175,17 @@ Route::middleware(['auth', 'verified'])->prefix('account')->name('account.')->gr
     Route::get('/challenges', [AccountController::class, 'challenges'])->name('challenges');
     Route::get('/billing', [AccountController::class, 'billing'])->name('billing');
     Route::post('/privacy-mode/toggle', [AccountController::class, 'togglePrivacy'])->name('privacy.toggle');
+});
+
+// Disputes (authenticated and verified)
+Route::middleware(['auth', 'verified'])->prefix('disputes')->name('disputes.')->group(function () {
+    Route::get('/', [App\Http\Controllers\DisputeController::class, 'index'])->name('index');
+    Route::get('/create', [App\Http\Controllers\DisputeController::class, 'create'])->name('create');
+    Route::post('/', [App\Http\Controllers\DisputeController::class, 'store'])->name('store');
+    Route::get('/{dispute}', [App\Http\Controllers\DisputeController::class, 'show'])->name('show');
+    Route::post('/{dispute}/message', [App\Http\Controllers\DisputeController::class, 'addMessage'])->name('message');
+    Route::post('/{dispute}/escalate', [App\Http\Controllers\DisputeController::class, 'escalate'])->name('escalate');
+    Route::post('/{dispute}/mark-resolved', [App\Http\Controllers\DisputeController::class, 'markResolved'])->name('mark-resolved');
 });
 
 // KYC Verification Routes (Legacy - redirects to Persona)

@@ -28,9 +28,12 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(\App\Models\Review::class, \App\Policies\ReviewPolicy::class);
         Gate::policy(\App\Models\Order::class, \App\Policies\OrderPolicy::class);
 
-        // Super admin gate
+        // Super admin gate - Owner and SuperAdmin bypass all gate checks
         Gate::before(function ($user, $ability) {
-            return $user->hasRole('admin') ? true : null;
+            if ($user->hasRole(['owner', 'SuperAdmin'])) {
+                return true;
+            }
+            return null;
         });
 
         // Rate limiters

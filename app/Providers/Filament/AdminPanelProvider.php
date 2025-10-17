@@ -60,9 +60,20 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
+            ->authGuard('web')
+            // Only allow admin roles to access the panel
+            ->authPasswordBroker('users')
             ->databaseNotifications()
             ->databaseNotificationsPolling('30s')
             ->sidebarCollapsibleOnDesktop()
             ->globalSearchKeyBindings(['command+k', 'ctrl+k']);
+    }
+    
+    /**
+     * Determine if the user can access the panel.
+     */
+    public function canAccessPanel(\Illuminate\Contracts\Auth\Authenticatable $user): bool
+    {
+        return $user->isAdmin();
     }
 }

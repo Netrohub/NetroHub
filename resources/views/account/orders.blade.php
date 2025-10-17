@@ -102,6 +102,28 @@
                                                     {{ __('View Items') }}
                                                 </a>
                                             @endif
+                                            
+                                            @if($order->payment_status === 'completed')
+                                                @php
+                                                    $hasOpenDispute = $order->disputes()->whereIn('status', ['open', 'escalated', 'in_review'])->exists();
+                                                @endphp
+                                                @if($hasOpenDispute)
+                                                    <a href="{{ route('disputes.show', $order->disputes()->whereIn('status', ['open', 'escalated', 'in_review'])->first()) }}" class="btn text-white bg-orange-500 hover:bg-orange-600">
+                                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                                                        </svg>
+                                                        {{ __('View Dispute') }}
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('disputes.create', ['order_id' => $order->id]) }}" class="btn text-red-400 hover:text-white bg-red-500/20 hover:bg-red-500 border border-red-500/30">
+                                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                                                        </svg>
+                                                        {{ __('Report Issue') }}
+                                                    </a>
+                                                @endif
+                                            @endif
+                                            
                                             <a href="#" class="btn text-slate-300 hover:text-white bg-slate-700 hover:bg-slate-600">
                                                 {{ __('View Receipt') }}
                                             </a>

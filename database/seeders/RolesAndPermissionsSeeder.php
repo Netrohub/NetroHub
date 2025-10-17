@@ -199,9 +199,12 @@ class RolesAndPermissionsSeeder extends Seeder
             'manage_media',
         ]);
         
+        // Owner - has all permissions (highest level access)
+        $owner = Role::create(['name' => 'owner']);
+        $owner->givePermissionTo(Permission::all());
+        
         // Regular user roles
         Role::create(['name' => 'user']);
         Role::create(['name' => 'seller']);
-        Role::create(['name' => 'owner']);
     }
 }
