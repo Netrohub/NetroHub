@@ -1,12 +1,70 @@
-<div x-data="sellFlow()" x-init="window.NetroSellFlow = { open: (flow) => { $data.flow = flow; $data.step = 'delivery'; $data.open = true; } }">
+<div x-data="{
+    open: false,
+    step: 'delivery',
+    flow: 'game',
+    showPassword: false,
+    verifyMode: 'code',
+    form: {
+        delivery_email: '',
+        delivery_password: '',
+        delivery_instructions: '',
+        extras: [{key:'', value:''}],
+        verification_code: Math.floor(100000 + Math.random()*900000).toString()
+    },
+    openModal(flow) { this.flow = flow; this.open = true; this.step = 'delivery'; },
+    closeModal() { this.open = false; },
+    continueToVerify() { this.step = 'verify'; },
+    backToDelivery() { this.step = 'delivery'; },
+    togglePassword() { this.showPassword = !this.showPassword; },
+    addExtra() { this.form.extras.push({key:'', value:''}); },
+    removeExtra(index) { this.form.extras.splice(index, 1); },
+    copyCode() { navigator.clipboard.writeText(this.form.verification_code); },
+    buildHiddenInputs(formEl) {
+        formEl.querySelectorAll('.js-flow-hidden').forEach(e=>e.remove());
+        const add = (name, value) => {
+            const input = document.createElement('input');
+            input.type = 'hidden'; input.name = name; input.value = value; input.className='js-flow-hidden';
+            formEl.appendChild(input);
+        };
+        add('delivery_email', this.form.delivery_email);
+        add('delivery_password', this.form.delivery_password);
+        add('delivery_instructions', this.form.delivery_instructions);
+        this.form.extras.forEach((row)=>{
+            const k = document.createElement('input'); k.type='hidden'; k.name='delivery_extras_key[]'; k.value=row.key; k.className='js-flow-hidden'; formEl.appendChild(k);
+            const v = document.createElement('input'); v.type='hidden'; v.name='delivery_extras_value[]'; v.value=row.value; v.className='js-flow-hidden'; formEl.appendChild(v);
+        });
+        add('verification_code', this.form.verification_code);
+        add('verification_status', this.verifyMode === 'skip' ? 'skipped_draft' : 'pending');
+    },
+    saveDraft() {
+        const formEl = document.getElementById(this.flow === 'game' ? 'game-form' : 'social-form');
+        this.buildHiddenInputs(formEl);
+        const actionInput = document.createElement('input'); actionInput.type='hidden'; actionInput.name='action'; actionInput.value='draft'; actionInput.className='js-flow-hidden'; formEl.appendChild(actionInput);
+        if (this.$refs.proof && this.$refs.proof.files[0]) {
+            this.$refs.proof.name = 'verification_proof';
+            formEl.appendChild(this.$refs.proof);
+        }
+        formEl.submit();
+    },
+    verifyAndSubmit() {
+        const formEl = document.getElementById(this.flow === 'game' ? 'game-form' : 'social-form');
+        this.buildHiddenInputs(formEl);
+        const actionInput = document.createElement('input'); actionInput.type='hidden'; actionInput.name='action'; actionInput.value='publish'; actionInput.className='js-flow-hidden'; formEl.appendChild(actionInput);
+        if (this.verifyMode === 'proof' && this.$refs.proof && this.$refs.proof.files[0]) {
+            this.$refs.proof.name = 'verification_proof';
+            formEl.appendChild(this.$refs.proof);
+        }
+        formEl.submit();
+    }
+}" x-init="window.NetroSellFlow = { open: (flow) => { $data.flow = flow; $data.step = 'delivery'; $data.open = true; } }">
     <!-- Step A: Delivery Information -->
     <template x-if="open && step === 'delivery'">
         <div class="fixed inset-0 z-50">
-            <div class="absolute inset-0 bg-black/60" @click="close()"></div>
+            <div class="absolute inset-0 bg-black/60" @click="closeModal()"></div>
             <div class="relative max-w-2xl mx-auto mt-16 bg-dark-800/90 backdrop-blur-xl border border-gaming rounded-2xl shadow-2xl overflow-hidden">
                 <div class="px-6 py-4 border-b border-gaming flex items-center justify-between">
                     <h3 class="text-xl font-bold text-white">Delivery Information</h3>
-                    <button class="text-muted-400 hover:text-white" @click="close()">✕</button>
+                    <button class="text-muted-400 hover:text-white" @click="closeModal()">✕</button>
                 </div>
                 <div class="p-6 space-y-6">
                     <p class="text-sm text-muted-300">Use a unique password. We store these encrypted and reveal them only to the buyer after purchase.</p>
@@ -42,7 +100,7 @@
                     </div>
                 </div>
                 <div class="px-6 py-4 border-t border-gaming flex items-center justify-end gap-3">
-                    <button class="px-5 py-2 rounded-xl bg-dark-900 text-muted-300 border border-gaming" @click="close()">Cancel</button>
+                    <button class="px-5 py-2 rounded-xl bg-dark-900 text-muted-300 border border-gaming" @click="closeModal()">Cancel</button>
                     <button class="px-5 py-2 rounded-xl bg-gaming-gradient text-white font-bold" @click="continueToVerify()">Continue</button>
                 </div>
             </div>
@@ -52,11 +110,11 @@
     <!-- Step B: Ownership Confirmation -->
     <template x-if="open && step === 'verify'">
         <div class="fixed inset-0 z-50">
-            <div class="absolute inset-0 bg-black/60" @click="close()"></div>
+            <div class="absolute inset-0 bg-black/60" @click="closeModal()"></div>
             <div class="relative max-w-2xl mx-auto mt-16 bg-dark-800/90 backdrop-blur-xl border border-gaming rounded-2xl shadow-2xl overflow-hidden">
                 <div class="px-6 py-4 border-b border-gaming flex items-center justify-between">
                     <h3 class="text-xl font-bold text-white">Confirm Ownership & Delivery Info</h3>
-                    <button class="text-muted-400 hover:text-white" @click="close()">✕</button>
+                    <button class="text-muted-400 hover:text-white" @click="closeModal()">✕</button>
                 </div>
                 <div class="p-6 space-y-6">
                     <div class="flex items-center gap-3">
@@ -93,66 +151,4 @@
     </template>
 </div>
 
-<script>
-function sellFlow() {
-    return {
-        open: false,
-        step: 'delivery',
-        flow: 'game',
-        showPassword: false,
-        verifyMode: 'code',
-        form: {
-            delivery_email: '',
-            delivery_password: '',
-            delivery_instructions: '',
-            extras: [{key:'', value:''}],
-            verification_code: Math.floor(100000 + Math.random()*900000).toString()
-        },
-        open(flow) { this.flow = flow; this.open = true; this.step = 'delivery'; },
-        close() { this.open = false; },
-        continueToVerify() { this.step = 'verify'; },
-        copyCode() { navigator.clipboard.writeText(this.form.verification_code); },
-        buildHiddenInputs(formEl) {
-            // Remove old
-            formEl.querySelectorAll('.js-flow-hidden').forEach(e=>e.remove());
-            const add = (name, value) => {
-                const input = document.createElement('input');
-                input.type = 'hidden'; input.name = name; input.value = value; input.className='js-flow-hidden';
-                formEl.appendChild(input);
-            };
-            add('delivery_email', this.form.delivery_email);
-            add('delivery_password', this.form.delivery_password);
-            add('delivery_instructions', this.form.delivery_instructions);
-            this.form.extras.forEach((row)=>{
-                const k = document.createElement('input'); k.type='hidden'; k.name='delivery_extras_key[]'; k.value=row.key; k.className='js-flow-hidden'; formEl.appendChild(k);
-                const v = document.createElement('input'); v.type='hidden'; v.name='delivery_extras_value[]'; v.value=row.value; v.className='js-flow-hidden'; formEl.appendChild(v);
-            });
-            add('verification_code', this.form.verification_code);
-            add('verification_status', this.verifyMode === 'skip' ? 'skipped_draft' : 'pending');
-        },
-        saveDraft() {
-            const formEl = document.getElementById(this.flow === 'game' ? 'game-form' : 'social-form');
-            this.buildHiddenInputs(formEl);
-            const actionInput = document.createElement('input'); actionInput.type='hidden'; actionInput.name='action'; actionInput.value='draft'; actionInput.className='js-flow-hidden'; formEl.appendChild(actionInput);
-            if (this.$refs.proof && this.$refs.proof.files[0]) {
-                // attach proof via standard file input name expected by controller
-                this.$refs.proof.name = 'verification_proof';
-                formEl.appendChild(this.$refs.proof);
-            }
-            formEl.submit();
-        },
-        verifyAndSubmit() {
-            // Simulated quick verification step (server will finalize)
-            const formEl = document.getElementById(this.flow === 'game' ? 'game-form' : 'social-form');
-            this.buildHiddenInputs(formEl);
-            const actionInput = document.createElement('input'); actionInput.type='hidden'; actionInput.name='action'; actionInput.value='publish'; actionInput.className='js-flow-hidden'; formEl.appendChild(actionInput);
-            if (this.verifyMode === 'proof' && this.$refs.proof && this.$refs.proof.files[0]) {
-                this.$refs.proof.name = 'verification_proof';
-                formEl.appendChild(this.$refs.proof);
-            }
-            formEl.submit();
-        }
-    }
-}
-</script>
 
