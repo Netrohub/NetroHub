@@ -306,7 +306,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 // Sell Routes (auto-creates seller profile)
-Route::middleware(['auth', 'verified', 'require.kyc', 'require.phone', 'require.seller.verifications'])->prefix('sell')->name('sell.')->group(function () {
+Route::middleware(['auth'])->prefix('sell')->name('sell.')->group(function () {
     Route::get('/', [SellController::class, 'index'])->name('index');
     Route::get('/game', [SellController::class, 'createGame'])->name('game.create');
     Route::get('/social', [SellController::class, 'createSocial'])->name('social.create');
