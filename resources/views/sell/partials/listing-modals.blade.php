@@ -1,63 +1,150 @@
 <div x-data="{
-    // Cache bust: {{ time() }}
+    // State management
     open: false,
-    step: 'delivery',
+    step: 'form', // form, delivery, verify
     flow: 'game',
-    showPassword: false,
-    verifyMode: 'code',
-    form: {
+    
+    // Form data
+    formData: {
         delivery_email: '',
         delivery_password: '',
         delivery_instructions: '',
         extras: [{key:'', value:''}],
         verification_code: Math.floor(100000 + Math.random()*900000).toString()
     },
-    openModal(flow) { this.flow = flow; this.open = true; this.step = 'delivery'; },
-    closeModal() { this.open = false; },
-    continueToVerify() { this.step = 'verify'; },
-    backToDelivery() { this.step = 'delivery'; },
-    togglePassword() { this.showPassword = !this.showPassword; },
-    addExtra() { this.form.extras.push({key:'', value:''}); },
-    removeExtra(index) { this.form.extras.splice(index, 1); },
-    copyCode() { navigator.clipboard.writeText(this.form.verification_code); },
+    
+    // UI state
+    showPassword: false,
+    verifyMode: 'code',
+    
+    // Methods
+    openModal(flow) { 
+        this.flow = flow; 
+        this.open = true; 
+        this.step = 'delivery'; 
+    },
+    
+    closeModal() { 
+        this.open = false; 
+        this.step = 'form';
+    },
+    
+    goToStep(stepName) {
+        this.step = stepName;
+    },
+    
+    continueToVerify() { 
+        this.step = 'verify'; 
+    },
+    
+    backToDelivery() { 
+        this.step = 'delivery'; 
+    },
+    
+    togglePassword() { 
+        this.showPassword = !this.showPassword; 
+    },
+    
+    addExtra() { 
+        this.formData.extras.push({key:'', value:''}); 
+    },
+    
+    removeExtra(index) { 
+        this.formData.extras.splice(index, 1); 
+    },
+    
+    copyCode() { 
+        navigator.clipboard.writeText(this.formData.verification_code); 
+    },
+    
     buildHiddenInputs(formEl) {
-        formEl.querySelectorAll('.js-flow-hidden').forEach(e=>e.remove());
-        const add = (name, value) => {
+        // Remove existing hidden inputs
+        formEl.querySelectorAll('.js-flow-hidden').forEach(e => e.remove());
+        
+        const addInput = (name, value) => {
             const input = document.createElement('input');
-            input.type = 'hidden'; input.name = name; input.value = value; input.className='js-flow-hidden';
+            input.type = 'hidden';
+            input.name = name;
+            input.value = value;
+            input.className = 'js-flow-hidden';
             formEl.appendChild(input);
         };
-        add('delivery_email', this.form.delivery_email);
-        add('delivery_password', this.form.delivery_password);
-        add('delivery_instructions', this.form.delivery_instructions);
-        this.form.extras.forEach((row)=>{
-            const k = document.createElement('input'); k.type='hidden'; k.name='delivery_extras_key[]'; k.value=row.key; k.className='js-flow-hidden'; formEl.appendChild(k);
-            const v = document.createElement('input'); v.type='hidden'; v.name='delivery_extras_value[]'; v.value=row.value; v.className='js-flow-hidden'; formEl.appendChild(v);
+        
+        // Add delivery data
+        addInput('delivery_email', this.formData.delivery_email);
+        addInput('delivery_password', this.formData.delivery_password);
+        addInput('delivery_instructions', this.formData.delivery_instructions);
+        
+        // Add extras
+        this.formData.extras.forEach((row) => {
+            if (row.key && row.value) {
+                addInput('delivery_extras_key[]', row.key);
+                addInput('delivery_extras_value[]', row.value);
+            }
         });
-        add('verification_code', this.form.verification_code);
-        add('verification_status', this.verifyMode === 'skip' ? 'skipped_draft' : 'pending');
+        
+        // Add verification data
+        addInput('verification_code', this.formData.verification_code);
+        addInput('verification_status', this.verifyMode === 'skip' ? 'skipped_draft' : 'pending');
     },
+    
     saveDraft() {
         const formEl = document.getElementById(this.flow === 'game' ? 'game-form' : 'social-form');
+        if (!formEl) {
+            console.error('Form element not found');
+            return;
+        }
+        
         this.buildHiddenInputs(formEl);
-        const actionInput = document.createElement('input'); actionInput.type='hidden'; actionInput.name='action'; actionInput.value='draft'; actionInput.className='js-flow-hidden'; formEl.appendChild(actionInput);
-        if (this.$refs.proof && this.$refs.proof.files[0]) {
+        
+        const actionInput = document.createElement('input');
+        actionInput.type = 'hidden';
+        actionInput.name = 'action';
+        actionInput.value = 'draft';
+        actionInput.className = 'js-flow-hidden';
+        formEl.appendChild(actionInput);
+        
+        if (this.$refs.proof && this.$refs.proof.files && this.$refs.proof.files[0]) {
             this.$refs.proof.name = 'verification_proof';
             formEl.appendChild(this.$refs.proof);
         }
+        
         formEl.submit();
     },
+    
     verifyAndSubmit() {
         const formEl = document.getElementById(this.flow === 'game' ? 'game-form' : 'social-form');
+        if (!formEl) {
+            console.error('Form element not found');
+            return;
+        }
+        
         this.buildHiddenInputs(formEl);
-        const actionInput = document.createElement('input'); actionInput.type='hidden'; actionInput.name='action'; actionInput.value='publish'; actionInput.className='js-flow-hidden'; formEl.appendChild(actionInput);
-        if (this.verifyMode === 'proof' && this.$refs.proof && this.$refs.proof.files[0]) {
+        
+        const actionInput = document.createElement('input');
+        actionInput.type = 'hidden';
+        actionInput.name = 'action';
+        actionInput.value = 'publish';
+        actionInput.className = 'js-flow-hidden';
+        formEl.appendChild(actionInput);
+        
+        if (this.verifyMode === 'proof' && this.$refs.proof && this.$refs.proof.files && this.$refs.proof.files[0]) {
             this.$refs.proof.name = 'verification_proof';
             formEl.appendChild(this.$refs.proof);
         }
+        
         formEl.submit();
     }
-}" x-init="window.NetroSellFlow = { open: (flow) => { $data.flow = flow; $data.step = 'delivery'; $data.open = true; } }">
+}" x-init="
+    // Initialize global access
+    window.NetroSellFlow = {
+        open: (flow) => {
+            $data.flow = flow;
+            $data.step = 'delivery';
+            $data.open = true;
+        }
+    };
+">
     <!-- Step A: Delivery Information -->
     <template x-if="open && step === 'delivery'">
         <div class="fixed inset-0 z-50">
@@ -73,12 +160,12 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-sm font-semibold text-white mb-2">Account Email</label>
-                            <input type="email" x-model="form.delivery_email" class="w-full px-4 py-3 bg-dark-900 border border-gaming rounded-xl text-white" placeholder="email@example.com">
+                            <input type="email" x-model="formData.delivery_email" class="w-full px-4 py-3 bg-dark-900 border border-gaming rounded-xl text-white" placeholder="email@example.com">
                         </div>
                         <div>
                             <label class="block text-sm font-semibold text-white mb-2">Account Password</label>
                             <div class="relative">
-                                <input :type="showPassword ? 'text' : 'password'" x-model="form.delivery_password" class="w-full px-4 py-3 bg-dark-900 border border-gaming rounded-xl text-white pr-10" placeholder="••••••••">
+                                <input :type="showPassword ? 'text' : 'password'" x-model="formData.delivery_password" class="w-full px-4 py-3 bg-dark-900 border border-gaming rounded-xl text-white pr-10" placeholder="••••••••">
                                 <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-300" @click="showPassword = !showPassword">Show</button>
                             </div>
                         </div>
@@ -86,18 +173,18 @@
 
                     <div>
                         <label class="block text-sm font-semibold text-white mb-2">Additional Data</label>
-                        <template x-for="(row, idx) in form.extras" :key="idx">
+                        <template x-for="(row, idx) in formData.extras" :key="idx">
                             <div class="grid grid-cols-2 gap-3 mb-2">
                                 <input x-model="row.key" class="px-3 py-2 bg-dark-900 border border-gaming rounded-xl text-white" placeholder="Key (e.g., 2FA recovery)">
                                 <input x-model="row.value" class="px-3 py-2 bg-dark-900 border border-gaming rounded-xl text-white" placeholder="Value">
                             </div>
                         </template>
-                        <button type="button" class="mt-2 text-primary-400 font-semibold" @click="form.extras.push({key:'',value:''})">+ Add Extra Data</button>
+                        <button type="button" class="mt-2 text-primary-400 font-semibold" @click="addExtra()">+ Add Extra Data</button>
                     </div>
 
                     <div>
                         <label class="block text-sm font-semibold text-white mb-2">Delivery Instructions for Buyer</label>
-                        <textarea x-model="form.delivery_instructions" rows="4" class="w-full px-4 py-3 bg-dark-900 border border-gaming rounded-xl text-white" placeholder="Any steps the buyer should follow after purchase"></textarea>
+                        <textarea x-model="formData.delivery_instructions" rows="4" class="w-full px-4 py-3 bg-dark-900 border border-gaming rounded-xl text-white" placeholder="Any steps the buyer should follow after purchase"></textarea>
                     </div>
                 </div>
                 <div class="px-6 py-4 border-t border-gaming flex items-center justify-end gap-3">
@@ -119,7 +206,7 @@
                 </div>
                 <div class="p-6 space-y-6">
                     <div class="flex items-center gap-3">
-                        <input type="text" x-model="form.verification_code" readonly class="px-4 py-3 bg-dark-900 border border-gaming rounded-xl text-white w-40">
+                        <input type="text" x-model="formData.verification_code" readonly class="px-4 py-3 bg-dark-900 border border-gaming rounded-xl text-white w-40">
                         <button type="button" class="px-4 py-2 rounded-xl bg-dark-900 text-primary-400 border border-gaming" @click="copyCode()">Copy</button>
                     </div>
                     <p class="text-sm text-muted-300">Place this code in the profile bio or a pinned area, then click Verify Ownership.</p>
