@@ -191,6 +191,105 @@
                         </div>
                     </div>
 
+                    <!-- Whiteout Survival Checklist -->
+                    <div id="whiteout-survival-checklist" class="hidden bg-slate-800/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 shadow-2xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center mr-3">
+                                <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <h2 class="text-2xl font-bold text-slate-100">Whiteout Survival Checklist</h2>
+                        </div>
+                        <p class="text-slate-400 text-sm mb-6">Additional checklist items specific to Whiteout Survival game accounts</p>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-4 bg-slate-700/30 rounded-xl border border-slate-600/30">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
+                                        <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-slate-200 font-medium">مربوط بالفيس بوك؟</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <label class="flex items-center">
+                                        <input type="radio" name="whiteout_survival_checklist[linked_to_facebook]" value="yes" class="form-radio text-green-500">
+                                        <span class="ml-2 text-green-400">نعم</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="radio" name="whiteout_survival_checklist[linked_to_facebook]" value="no" class="form-radio text-red-500">
+                                        <span class="ml-2 text-red-400">لا</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between p-4 bg-slate-700/30 rounded-xl border border-slate-600/30">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
+                                        <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-slate-200 font-medium">مربوط بقوقل؟</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <label class="flex items-center">
+                                        <input type="radio" name="whiteout_survival_checklist[linked_to_google]" value="yes" class="form-radio text-green-500">
+                                        <span class="ml-2 text-green-400">نعم</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="radio" name="whiteout_survival_checklist[linked_to_google]" value="no" class="form-radio text-red-500">
+                                        <span class="ml-2 text-red-400">لا</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between p-4 bg-slate-700/30 rounded-xl border border-slate-600/30">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
+                                        <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-slate-200 font-medium">مربوط بأبل؟</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <label class="flex items-center">
+                                        <input type="radio" name="whiteout_survival_checklist[linked_to_apple]" value="yes" class="form-radio text-green-500">
+                                        <span class="ml-2 text-green-400">نعم</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="radio" name="whiteout_survival_checklist[linked_to_apple]" value="no" class="form-radio text-red-500">
+                                        <span class="ml-2 text-red-400">لا</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between p-4 bg-slate-700/30 rounded-xl border border-slate-600/30">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
+                                        <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                        </svg>
+                                    </div>
+                                    <span class="text-slate-200 font-medium">مربوط بقيم سنتر؟</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <label class="flex items-center">
+                                        <input type="radio" name="whiteout_survival_checklist[linked_to_game_center]" value="yes" class="form-radio text-green-500">
+                                        <span class="ml-2 text-green-400">نعم</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="radio" name="whiteout_survival_checklist[linked_to_game_center]" value="no" class="form-radio text-red-500">
+                                        <span class="ml-2 text-red-400">لا</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Enhanced Images Card -->
                     <div class="bg-slate-800/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 shadow-2xl">
                         <div class="flex items-center mb-6">
@@ -501,6 +600,22 @@ document.addEventListener('DOMContentLoaded', function() {
         if (gameIcon) gameIcon.src = gameIconMap[key] || gameIconMap['others'];
     }
     if (gameSelect) { updateGameIcon(); gameSelect.addEventListener('change', updateGameIcon); }
+    
+    // Whiteout Survival Checklist Toggle
+    const whiteoutChecklist = document.getElementById('whiteout-survival-checklist');
+    function toggleWhiteoutChecklist() {
+        const selectedCategory = gameSelect ? gameSelect.value : '';
+        if (selectedCategory === 'whiteout_survival') {
+            whiteoutChecklist.classList.remove('hidden');
+        } else {
+            whiteoutChecklist.classList.add('hidden');
+        }
+    }
+    
+    if (gameSelect) {
+        gameSelect.addEventListener('change', toggleWhiteoutChecklist);
+        toggleWhiteoutChecklist(); // Check on page load
+    }
 });
 </script>
 @endpush

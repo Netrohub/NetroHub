@@ -154,13 +154,6 @@
                                 </div>
                             </div>
 
-                            <!-- Enhanced Niche Input -->
-                            <div class="group">
-                                <label for="niche" class="block text-sm font-semibold text-slate-300 mb-3">Category / Niche</label>
-                                <input type="text" name="niche" id="niche" value="{{ old('niche') }}"
-                                    placeholder="Gaming, Tech, Lifestyle, Beauty, Travel, etc."
-                                    class="w-full px-5 py-4 bg-slate-900/60 border-2 border-slate-700/60 rounded-xl text-white placeholder-slate-400 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300 group-hover:border-slate-600">
-                            </div>
 
                             <!-- Enhanced Title Input -->
                             <div class="group">
@@ -204,40 +197,6 @@
                                 @enderror
                             </div>
 
-                            <!-- Enhanced Stats Grid -->
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div class="group">
-                                    <label for="monetization_status" class="block text-sm font-semibold text-slate-300 mb-3">Monetization</label>
-                                    <div class="relative">
-                                        <select name="monetization_status" id="monetization_status"
-                                            class="w-full px-5 py-4 bg-slate-900/60 border-2 border-slate-700/60 rounded-xl text-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300 appearance-none group-hover:border-slate-600">
-                                            <option value="">Select status</option>
-                                            <option value="Not monetized" {{ old('monetization_status') == 'Not monetized' ? 'selected' : '' }}>❌ Not monetized</option>
-                                            <option value="Eligible" {{ old('monetization_status') == 'Eligible' ? 'selected' : '' }}>⏳ Eligible</option>
-                                            <option value="Monetized" {{ old('monetization_status') == 'Monetized' ? 'selected' : '' }}>✅ Monetized</option>
-                                        </select>
-                                        <div class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="group">
-                                    <label for="followers" class="block text-sm font-semibold text-slate-300 mb-3">Followers</label>
-                                    <input type="number" name="followers" id="followers" value="{{ old('followers') }}" min="0"
-                                        placeholder="50000"
-                                        class="w-full px-5 py-4 bg-slate-900/60 border-2 border-slate-700/60 rounded-xl text-white placeholder-slate-400 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300 group-hover:border-slate-600">
-                                </div>
-
-                                <div class="group">
-                                    <label for="engagement_rate" class="block text-sm font-semibold text-slate-300 mb-3">Engagement %</label>
-                                    <input type="number" name="engagement_rate" id="engagement_rate" value="{{ old('engagement_rate') }}" step="0.01" min="0" max="100"
-                                        placeholder="5.25"
-                                        class="w-full px-5 py-4 bg-slate-900/60 border-2 border-slate-700/60 rounded-xl text-white placeholder-slate-400 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300 group-hover:border-slate-600">
-                                </div>
-                            </div>
 
                             <!-- Enhanced Price Input -->
                             <div class="group">
@@ -258,36 +217,151 @@
                         </div>
                     </div>
 
-                    <!-- Enhanced Images Card -->
+                    <!-- Social Account Verification Section -->
                     <div class="bg-slate-800/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 shadow-2xl">
                         <div class="flex items-center mb-6">
-                            <div class="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center mr-3">
-                                <svg class="w-5 h-5 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            <div class="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center mr-3">
+                                <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                                 </svg>
                             </div>
-                            <h2 class="text-2xl font-bold text-slate-100">Account Screenshots</h2>
+                            <h2 class="text-2xl font-bold text-slate-100">Account Ownership Verification</h2>
                         </div>
+                        <p class="text-slate-400 text-sm mb-6">To ensure account security, we need to verify that you own this social media account.</p>
                         
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-300 mb-4">Upload Screenshots (Max 6, 5MB each)</label>
-                            <div class="relative border-2 border-dashed border-slate-700/50 rounded-2xl p-12 text-center hover:border-purple-500/50 transition-all duration-300 cursor-pointer group bg-slate-900/40" onclick="document.getElementById('images').click()">
-                                <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-indigo-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                <svg class="mx-auto h-16 w-16 text-gray-500 mb-4 group-hover:text-pink-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                                </svg>
-                                <p class="text-white text-lg font-medium mb-2">Click to upload or drag and drop</p>
-                                <p class="text-gray-400">JPG, PNG or WebP • Maximum 5MB per file</p>
+                        <div id="verification_step_1" class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
+                                        <span class="text-blue-400 font-bold text-sm">1</span>
+                                    </div>
+                                    <span class="text-slate-200 font-medium">Start Verification</span>
+                                </div>
+                                <button type="button" id="start_verification_btn" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-sm font-medium transition-colors">
+                                    Start
+                                </button>
                             </div>
-                            <input type="file" name="images[]" id="images" multiple accept="image/jpeg,image/png,image/webp" class="hidden" onchange="previewImages(event)">
-                            
-                            <div id="image-previews" class="grid grid-cols-3 gap-4 mt-6"></div>
-                            
-                            @error('images.*')
-                                <p class="mt-3 text-sm text-red-400">{{ $message }}</p>
-                            @enderror
+                        </div>
+
+                        <div id="verification_step_2" class="hidden space-y-4">
+                            <div class="bg-slate-900/50 rounded-lg p-4 border border-slate-700/50">
+                                <div class="flex items-center mb-3">
+                                    <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
+                                        <span class="text-blue-400 font-bold text-sm">2</span>
+                                    </div>
+                                    <span class="text-slate-200 font-medium">Add Token to Bio</span>
+                                </div>
+                                
+                                <div class="bg-slate-800/50 rounded-lg p-4 mb-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-slate-300 text-sm">Your verification token:</span>
+                                        <div class="flex items-center gap-2">
+                                            <span id="verification_token" class="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-lg font-mono text-lg font-bold"></span>
+                                            <button type="button" id="copy_token_btn" class="p-1 text-slate-400 hover:text-blue-400 transition-colors">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <p class="text-slate-400 text-xs mb-3">Copy this token and add it to your account bio/description. You can remove it after verification.</p>
+                                    
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center text-sm text-slate-400">
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                            </svg>
+                                            <span>Time remaining:</span>
+                                            <span id="countdown_timer" class="ml-1 font-mono text-blue-400"></span>
+                                        </div>
+                                        <a id="account_link" href="#" target="_blank" class="text-blue-400 hover:text-blue-300 text-sm flex items-center">
+                                            Open Account
+                                            <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
+                                            <span class="text-blue-400 font-bold text-sm">3</span>
+                                        </div>
+                                        <span class="text-slate-200 font-medium">Verify Ownership</span>
+                                    </div>
+                                    <button type="button" id="verify_ownership_btn" class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg text-sm font-medium transition-colors">
+                                        Verify
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="verification_success" class="hidden">
+                            <div class="bg-green-500/10 border border-green-500/20 rounded-lg p-4">
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    <span class="text-green-400 font-medium">Account verified successfully!</span>
+                                </div>
+                                <p class="text-green-300 text-sm mt-1">You can now proceed with creating your product listing.</p>
+                            </div>
+                        </div>
+
+                        <div id="verification_error" class="hidden">
+                            <div class="bg-red-500/10 border border-red-500/20 rounded-lg p-4">
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-red-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    <span class="text-red-400 font-medium">Verification failed</span>
+                                </div>
+                                <p id="verification_error_message" class="text-red-300 text-sm mt-1"></p>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- Social Media Account Legal Agreement -->
+                    <div class="bg-slate-800/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 shadow-2xl">
+                        <div class="flex items-center mb-6">
+                            <div class="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center mr-3">
+                                <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                </svg>
+                            </div>
+                            <h2 class="text-2xl font-bold text-slate-100">Legal Agreement</h2>
+                        </div>
+                        
+                        <div class="bg-slate-900/50 rounded-lg p-4 mb-4">
+                            <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                                أتعهد بأن وصف المنتج خالٍ تمامًا من أي وسيلة تواصل خارج المنصة بأي شكلٍ كان، سواء بشكل مباشر أو غير مباشر.
+                                وأقرّ بتحملي كامل المسؤولية القانونية عن أي نشاط أو محتوى أو تصرف صدر من الحساب المعروض منذ تاريخ إنشائه أو شرائه وحتى تاريخ بيعه عبر منصة نيترو، وأتعهد بخلوه من أي مخالفات أو جرائم إلكترونية.
+                            </p>
+                            
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input type="checkbox" 
+                                           id="legal_agreement" 
+                                           name="legal_agreement" 
+                                           class="w-4 h-4 text-amber-500 bg-slate-800 border-slate-600 rounded focus:ring-amber-500 focus:ring-2">
+                                </div>
+                                <label for="legal_agreement" class="mr-3 text-sm text-slate-300 leading-relaxed cursor-pointer">
+                                    I agree to the above terms and conditions
+                                </label>
+                            </div>
+                            
+                            <div id="legal_agreement_error" class="hidden mt-2">
+                                <p class="text-red-400 text-sm flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    يجب الموافقة على التعهد قبل عرض الحساب.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
 
                     <!-- Enhanced Agreements Card -->
                     <div class="bg-slate-800/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 shadow-2xl">
@@ -372,7 +446,6 @@
 
                             <!-- Handle & Platform -->
                             <div>
-                                <p id="preview-handle" class="text-2xl font-bold text-transparent bg-gradient-to-r from-purple-300 to-indigo-300 bg-clip-text mb-2">@yourhandle</p>
                                 <div class="flex items-center space-x-2">
                                     <span id="preview-platform" class="text-sm px-3 py-1 bg-purple-500/20 text-purple-200 rounded-full font-medium">Instagram</span>
                                 </div>
@@ -383,17 +456,6 @@
                                 <h4 id="preview-title" class="text-lg font-semibold text-white leading-tight">Your listing title will appear here</h4>
                             </div>
 
-                            <!-- Stats Grid -->
-                            <div class="grid grid-cols-2 gap-3 pt-4 border-t border-white/10">
-                                <div class="bg-gray-900/50 rounded-xl p-3 border border-gray-700/50">
-                                    <p class="text-xs text-gray-400 mb-1">Followers</p>
-                                    <p id="preview-followers" class="text-xl font-bold text-white">0</p>
-                                </div>
-                                <div class="bg-gray-900/50 rounded-xl p-3 border border-gray-700/50">
-                                    <p class="text-xs text-gray-400 mb-1">Engagement</p>
-                                    <p id="preview-engagement" class="text-xl font-bold text-white">0%</p>
-                                </div>
-                            </div>
 
                             <!-- Seller Info -->
                             <div class="flex items-center space-x-3 pt-4 border-t border-white/10">
@@ -450,35 +512,7 @@ document.getElementById('platform').addEventListener('change', function(e) {
     }, 100);
 });
 
-document.getElementById('handle').addEventListener('input', function(e) {
-    const previewElement = document.getElementById('preview-handle');
-    previewElement.style.opacity = '0.5';
-    setTimeout(() => {
-        const handle = e.target.value || 'yourhandle';
-        previewElement.textContent = handle.startsWith('@') ? handle : '@' + handle;
-        previewElement.style.opacity = '1';
-    }, 100);
-});
 
-document.getElementById('followers').addEventListener('input', function(e) {
-    const previewElement = document.getElementById('preview-followers');
-    previewElement.style.opacity = '0.5';
-    setTimeout(() => {
-        const followers = parseInt(e.target.value) || 0;
-        previewElement.textContent = followers.toLocaleString();
-        previewElement.style.opacity = '1';
-    }, 100);
-});
-
-document.getElementById('engagement_rate').addEventListener('input', function(e) {
-    const previewElement = document.getElementById('preview-engagement');
-    previewElement.style.opacity = '0.5';
-    setTimeout(() => {
-        const rate = parseFloat(e.target.value) || 0;
-        previewElement.textContent = rate.toFixed(1) + '%';
-        previewElement.style.opacity = '1';
-    }, 100);
-});
 
 document.getElementById('price').addEventListener('input', function(e) {
     const previewElement = document.getElementById('preview-price');
@@ -490,45 +524,9 @@ document.getElementById('price').addEventListener('input', function(e) {
     }, 100);
 });
 
-// Enhanced image preview
-function previewImages(event) {
-    const files = event.target.files;
-    const previewContainer = document.getElementById('image-previews');
-    previewContainer.innerHTML = '';
-    
-    if (files.length > 6) {
-        alert('⚠️ Maximum 6 images allowed');
-        event.target.value = '';
-        return;
-    }
-    
-    Array.from(files).forEach((file, index) => {
-        if (file.size > 5242880) {
-            alert(`⚠️ ${file.name} is too large. Maximum size is 5MB.`);
-            return;
-        }
-        
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const div = document.createElement('div');
-            div.className = 'relative group animate-fade-in';
-            div.innerHTML = `
-                <div class="relative overflow-hidden rounded-xl border-2 border-gray-700/50 group-hover:border-pink-500/50 transition-all duration-300">
-                    <img src="${e.target.result}" class="w-full h-32 object-cover transform group-hover:scale-110 transition-transform duration-300">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                    <div class="absolute bottom-2 left-2 px-3 py-1 ${index === 0 ? 'bg-pink-600' : 'bg-red-600'} text-white text-xs font-bold rounded-full shadow-lg">
-                        ${index === 0 ? '⭐ Thumbnail' : `Image ${index + 1}`}
-                    </div>
-                </div>
-            `;
-            previewContainer.appendChild(div);
-        };
-        reader.readAsDataURL(file);
-    });
-}
 
 // Add transition styles
-document.querySelectorAll('#preview-title, #preview-platform, #preview-handle, #preview-followers, #preview-engagement, #preview-price').forEach(el => {
+document.querySelectorAll('#preview-title, #preview-platform, #preview-price').forEach(el => {
     el.style.transition = 'opacity 0.3s ease';
 });
 </script>
@@ -618,6 +616,217 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     updateIcon();
     select.addEventListener('change', updateIcon);
+    
+    // Social Account Verification
+    const startVerificationBtn = document.getElementById('start_verification_btn');
+    const verifyOwnershipBtn = document.getElementById('verify_ownership_btn');
+    const copyTokenBtn = document.getElementById('copy_token_btn');
+    const verificationToken = document.getElementById('verification_token');
+    const countdownTimer = document.getElementById('countdown_timer');
+    const accountLink = document.getElementById('account_link');
+    const verificationStep1 = document.getElementById('verification_step_1');
+    const verificationStep2 = document.getElementById('verification_step_2');
+    const verificationSuccess = document.getElementById('verification_success');
+    const verificationError = document.getElementById('verification_error');
+    const verificationErrorMessage = document.getElementById('verification_error_message');
+    
+    let currentVerification = null;
+    let countdownInterval = null;
+    
+    // Verification event listeners
+    if (startVerificationBtn) {
+        startVerificationBtn.addEventListener('click', startVerification);
+    }
+    
+    if (verifyOwnershipBtn) {
+        verifyOwnershipBtn.addEventListener('click', verifyOwnership);
+    }
+    
+    if (copyTokenBtn) {
+        copyTokenBtn.addEventListener('click', copyToken);
+    }
+    
+    // Verification functions
+    function startVerification() {
+        const platform = document.getElementById('platform').value;
+        const handle = document.getElementById('handle').value;
+        
+        if (!platform || !handle) {
+            showError('Please select a platform and enter a handle first.');
+            return;
+        }
+        
+        startVerificationBtn.disabled = true;
+        startVerificationBtn.textContent = 'Starting...';
+        
+        fetch('{{ route("seller.social-verification.start") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+                platform: platform,
+                username: handle
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                if (data.already_verified) {
+                    showSuccess('This account is already verified!');
+                    return;
+                }
+                
+                currentVerification = data.verification;
+                showVerificationStep2();
+                startCountdown();
+            } else {
+                showError(data.message || 'Failed to start verification.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showError('An error occurred. Please try again.');
+        })
+        .finally(() => {
+            startVerificationBtn.disabled = false;
+            startVerificationBtn.textContent = 'Start';
+        });
+    }
+    
+    function verifyOwnership() {
+        if (!currentVerification) {
+            showError('No active verification found.');
+            return;
+        }
+        
+        verifyOwnershipBtn.disabled = true;
+        verifyOwnershipBtn.textContent = 'Verifying...';
+        
+        fetch('{{ route("seller.social-verification.verify") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+                verification_id: currentVerification.id
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showSuccess('Account verified successfully!');
+                clearCountdown();
+            } else {
+                showError(data.message || 'Verification failed. Please make sure the token is in your bio and try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showError('An error occurred. Please try again.');
+        })
+        .finally(() => {
+            verifyOwnershipBtn.disabled = false;
+            verifyOwnershipBtn.textContent = 'Verify';
+        });
+    }
+    
+    function copyToken() {
+        if (currentVerification && currentVerification.token) {
+            navigator.clipboard.writeText(currentVerification.token).then(() => {
+                copyTokenBtn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>';
+                setTimeout(() => {
+                    copyTokenBtn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>';
+                }, 2000);
+            });
+        }
+    }
+    
+    function showVerificationStep2() {
+        if (!currentVerification) return;
+        
+        verificationStep1.classList.add('hidden');
+        verificationStep2.classList.remove('hidden');
+        verificationToken.textContent = currentVerification.token;
+        accountLink.href = currentVerification.account_url;
+        
+        hideError();
+        hideSuccess();
+    }
+    
+    function showSuccess(message) {
+        verificationStep1.classList.add('hidden');
+        verificationStep2.classList.add('hidden');
+        verificationSuccess.classList.remove('hidden');
+        hideError();
+    }
+    
+    function showError(message) {
+        verificationErrorMessage.textContent = message;
+        verificationError.classList.remove('hidden');
+        hideSuccess();
+    }
+    
+    function hideError() {
+        verificationError.classList.add('hidden');
+    }
+    
+    function hideSuccess() {
+        verificationSuccess.classList.add('hidden');
+    }
+    
+    function startCountdown() {
+        if (!currentVerification) return;
+        
+        const expiresAt = new Date(currentVerification.expires_at);
+        
+        function updateCountdown() {
+            const now = new Date();
+            const timeLeft = expiresAt - now;
+            
+            if (timeLeft <= 0) {
+                clearCountdown();
+                showError('Verification token has expired. Please start a new verification.');
+                return;
+            }
+            
+            const minutes = Math.floor(timeLeft / 60000);
+            const seconds = Math.floor((timeLeft % 60000) / 1000);
+            
+            countdownTimer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        updateCountdown();
+        countdownInterval = setInterval(updateCountdown, 1000);
+    }
+    
+    function clearCountdown() {
+        if (countdownInterval) {
+            clearInterval(countdownInterval);
+            countdownInterval = null;
+        }
+    }
+    
+    // Form validation
+    const form = document.querySelector('form');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            const legalAgreementCheckbox = document.getElementById('legal_agreement');
+            const legalAgreementError = document.getElementById('legal_agreement_error');
+            
+            // Check if legal agreement is required
+            if (!legalAgreementCheckbox.checked) {
+                e.preventDefault();
+                legalAgreementError.classList.remove('hidden');
+                legalAgreementCheckbox.focus();
+                return false;
+            } else {
+                legalAgreementError.classList.add('hidden');
+            }
+        });
+    }
 });
  </script>
 @endpush
