@@ -55,6 +55,10 @@ TURNSTILE_SECRET_KEY=your_secret_key_here
 
 ## Troubleshooting
 
+### Error 300030 (Widget Hung)
+- **Cause**: Widget initialization timeout or network issues
+- **Solution**: The new implementation automatically retries and resets hung widgets
+
 ### Error 300031 (Widget Crashed)
 - **Cause**: Usually due to invalid site key or domain mismatch
 - **Solution**: Verify your site key and ensure the domain in Cloudflare matches your actual domain
@@ -67,23 +71,72 @@ TURNSTILE_SECRET_KEY=your_secret_key_here
 - **Cause**: The domain in Cloudflare doesn't match your current domain
 - **Solution**: Update the domain in your Cloudflare Turnstile configuration
 
+### Error 300034 (Widget Expired)
+- **Cause**: Widget session expired
+- **Solution**: The new implementation automatically resets expired widgets
+
+### Error 300035 (Widget Already Rendered)
+- **Cause**: Multiple widget initializations
+- **Solution**: The new implementation prevents multiple initializations
+
 ### Widget Not Loading
 - **Cause**: Missing environment variables or network issues
 - **Solution**: 
   1. Check if `TURNSTILE_SITE_KEY` is set in `.env`
   2. Clear browser cache
   3. Check browser console for errors
+  4. Verify CSP headers allow Cloudflare scripts
 
 ## Features Implemented
 
 The updated Turnstile implementation includes:
 
-- ✅ **Automatic error handling** for all common error codes
-- ✅ **Auto-reset functionality** for crashed widgets (error 300031)
-- ✅ **User-friendly error messages** in both English and Arabic
-- ✅ **Retry mechanism** with automatic refresh
+- ✅ **Comprehensive error handling** for all common error codes (300030-300035)
+- ✅ **Automatic retry mechanism** with configurable retry limits
+- ✅ **Widget state management** to prevent multiple initializations
+- ✅ **Alpine.js modal compatibility** with IntersectionObserver
+- ✅ **Manual initialization functions** for custom scenarios
+- ✅ **CSP header compatibility** with Cloudflare domains
+- ✅ **User-friendly error messages** with retry indicators
 - ✅ **Visual error indicators** with styled error messages
-- ✅ **Console logging** for debugging
+- ✅ **Console logging** for debugging and monitoring
+- ✅ **Timeout handling** for hung widgets (error 300030)
+- ✅ **Automatic widget reset** for crashed/expired widgets
+
+## Alpine.js Integration
+
+The new implementation is fully compatible with Alpine.js modals:
+
+### For Login Page
+```javascript
+// Manual initialization in Alpine.js
+window.initTurnstile();
+
+// Manual reset
+window.resetTurnstile();
+```
+
+### For Register Page
+```javascript
+// Manual initialization in Alpine.js
+window.initTurnstileRegister();
+
+// Manual reset
+window.resetTurnstileRegister();
+```
+
+### Modal Integration Example
+```html
+<div x-data="{ showModal: false }" x-init="
+    $watch('showModal', value => {
+        if (value) {
+            setTimeout(() => window.initTurnstile(), 100);
+        }
+    })
+">
+    <!-- Modal content with Turnstile -->
+</div>
+```
 
 ## Testing
 
@@ -93,6 +146,8 @@ After configuration, test the following scenarios:
 2. **Expired widget** - Should auto-reset and show appropriate message
 3. **Network issues** - Should show helpful error message
 4. **Invalid credentials** - Should still show Turnstile validation errors
+5. **Modal visibility** - Widget should initialize when modal becomes visible
+6. **Error recovery** - Widget should automatically retry on errors 300030, 300031, 300034
 
 ## Support
 

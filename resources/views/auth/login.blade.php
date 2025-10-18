@@ -73,15 +73,9 @@
                 <!-- Cloudflare Turnstile -->
                 @if(env('TURNSTILE_SITE_KEY'))
                 <div class="flex justify-center">
-                    <div class="cf-turnstile" 
-                         data-sitekey="{{ env('TURNSTILE_SITE_KEY') }}" 
-                         data-theme="dark" 
-                         data-callback="onTurnstileSuccess" 
-                         data-expired-callback="onTurnstileExpired" 
-                         data-error-callback="onTurnstileError"
-                         data-retry="auto"
-                         data-retry-interval="8000"
-                         data-refresh-expired="auto"></div>
+                    <div id="turnstile-container" class="turnstile-container">
+                        <!-- Turnstile widget will be rendered here -->
+                    </div>
                 </div>
                 @error('cf-turnstile-response')
                     <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
@@ -103,105 +97,247 @@
     <!-- Turnstile Scripts -->
     @if(env('TURNSTILE_SITE_KEY'))
     <script>
-        console.log('Loading Turnstile script...');
-        
-        // Global Turnstile callback functions
-        window.onTurnstileSuccess = function(token) {
-            console.log('Turnstile verification successful, token:', token ? 'received' : 'missing');
-            // Clear any previous error messages
-            const errorElement = document.querySelector('.turnstile-error');
-            if (errorElement) {
-                errorElement.style.display = 'none';
-            }
-        };
-        
-        window.onTurnstileExpired = function() {
-            console.log('Turnstile verification expired - please complete again');
-            showTurnstileError('Verification expired. Please complete the challenge again.');
-        };
-        
-        window.onTurnstileError = function(error) {
-            console.log('Turnstile error:', error);
+        // Global Turnstile state management
+        window.TurnstileManager = {
+            isInitialized: false,
+            isRendered: false,
+            currentWidgetId: null,
+            siteKey: '{{ env('TURNSTILE_SITE_KEY') }}',
+            containerId: 'turnstile-container',
+            retryCount: 0,
+            maxRetries: 3,
             
-            // Handle specific error codes
-            let errorMessage = 'Verification failed. Please try again.';
-            
-            switch(error) {
-                case '300031':
-                    errorMessage = 'Widget crashed. Attempting to reset...';
-                    // Auto-reset the widget for crash errors
-                    setTimeout(() => {
-                        resetTurnstileWidget();
-                    }, 1000);
-                    break;
-                case '300032':
-                    errorMessage = 'Invalid site key. Please contact support.';
-                    break;
-                case '300033':
-                    errorMessage = 'Invalid domain. Please contact support.';
-                    break;
-                case '300034':
-                    errorMessage = 'Widget expired. Attempting to reset...';
-                    // Auto-reset for expired widgets
-                    setTimeout(() => {
-                        resetTurnstileWidget();
-                    }, 1000);
-                    break;
-                case '300035':
-                    errorMessage = 'Widget already rendered. Please refresh the page.';
-                    break;
-                default:
-                    errorMessage = `Verification error (${error}). Please try again.`;
-            }
-            
-            showTurnstileError(errorMessage);
-        };
-        
-        function showTurnstileError(message) {
-            // Remove existing error message
-            const existingError = document.querySelector('.turnstile-error');
-            if (existingError) {
-                existingError.remove();
-            }
-            
-            // Create new error message
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'turnstile-error mt-2 p-3 bg-red-500/20 border border-red-500/30 rounded-md text-red-400 text-sm';
-            errorDiv.textContent = message;
-            
-            // Insert after the Turnstile widget
-            const turnstileWidget = document.querySelector('.cf-turnstile');
-            if (turnstileWidget && turnstileWidget.parentNode) {
-                turnstileWidget.parentNode.insertBefore(errorDiv, turnstileWidget.nextSibling);
-            }
-        }
-        
-        function resetTurnstileWidget() {
-            const turnstileWidget = document.querySelector('.cf-turnstile');
-            if (turnstileWidget && window.turnstile) {
-                try {
-                    window.turnstile.reset(turnstileWidget);
-                    console.log('Turnstile widget reset successfully');
-                } catch (error) {
-                    console.log('Failed to reset Turnstile widget:', error);
+            // Initialize Turnstile widget
+            init: function() {
+                if (this.isInitialized || this.isRendered) {
+                    console.log('Turnstile already initialized or rendered');
+                    return;
                 }
-            }
-        }
-        
-        // Check if Turnstile loaded properly
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                console.log('Turnstile widget status:', document.querySelector('.cf-turnstile') ? 'found' : 'not found');
-                console.log('Turnstile API available:', typeof window.turnstile !== 'undefined' ? 'yes' : 'no');
                 
-                // If widget is not found after 5 seconds, show error
-                if (!document.querySelector('.cf-turnstile')) {
-                    showTurnstileError('Security widget failed to load. Please refresh the page.');
+                console.log('Initializing Turnstile...');
+                this.isInitialized = true;
+                
+                // Load Turnstile script if not already loaded
+                if (typeof window.turnstile === 'undefined') {
+                    this.loadScript();
+                } else {
+                    this.renderWidget();
                 }
-            }, 5000);
+            },
+            
+            // Load Turnstile script
+            loadScript: function() {
+                const script = document.createElement('script');
+                script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+                script.async = true;
+                script.defer = true;
+                script.onload = () => {
+                    console.log('Turnstile script loaded');
+                    this.renderWidget();
+                };
+                script.onerror = () => {
+                    console.error('Failed to load Turnstile script');
+                    this.showError('Failed to load security widget. Please refresh the page.');
+                };
+                document.head.appendChild(script);
+            },
+            
+            // Render the widget
+            renderWidget: function() {
+                if (this.isRendered || typeof window.turnstile === 'undefined') {
+                    return;
+                }
+                
+                const container = document.getElementById(this.containerId);
+                if (!container) {
+                    console.error('Turnstile container not found');
+                    return;
+                }
+                
+                try {
+                    this.currentWidgetId = window.turnstile.render(container, {
+                        sitekey: this.siteKey,
+                        theme: 'dark',
+                        callback: this.onSuccess.bind(this),
+                        'expired-callback': this.onExpired.bind(this),
+                        'error-callback': this.onError.bind(this),
+                        'timeout-callback': this.onTimeout.bind(this),
+                        retry: 'auto',
+                        'retry-interval': 8000,
+                        'refresh-expired': 'auto'
+                    });
+                    
+                    this.isRendered = true;
+                    console.log('Turnstile widget rendered with ID:', this.currentWidgetId);
+                } catch (error) {
+                    console.error('Failed to render Turnstile widget:', error);
+                    this.handleError('300030', 'Widget initialization failed');
+                }
+            },
+            
+            // Reset and re-render widget
+            reset: function() {
+                if (this.currentWidgetId && window.turnstile) {
+                    try {
+                        window.turnstile.reset(this.currentWidgetId);
+                        console.log('Turnstile widget reset');
+                    } catch (error) {
+                        console.error('Failed to reset Turnstile widget:', error);
+                        this.reRender();
+                    }
+                } else {
+                    this.reRender();
+                }
+            },
+            
+            // Re-render widget from scratch
+            reRender: function() {
+                this.isRendered = false;
+                this.currentWidgetId = null;
+                this.clearError();
+                
+                const container = document.getElementById(this.containerId);
+                if (container) {
+                    container.innerHTML = '';
+                }
+                
+                setTimeout(() => {
+                    this.renderWidget();
+                }, 1000);
+            },
+            
+            // Success callback
+            onSuccess: function(token) {
+                console.log('Turnstile verification successful');
+                this.clearError();
+                this.retryCount = 0;
+            },
+            
+            // Expired callback
+            onExpired: function() {
+                console.log('Turnstile verification expired');
+                this.showError('Verification expired. Please complete the challenge again.');
+                this.reset();
+            },
+            
+            // Timeout callback
+            onTimeout: function() {
+                console.log('Turnstile verification timed out');
+                this.handleError('300030', 'Verification timed out. Please try again.');
+            },
+            
+            // Error callback
+            onError: function(error) {
+                console.log('Turnstile error:', error);
+                this.handleError(error, this.getErrorMessage(error));
+            },
+            
+            // Handle errors with retry logic
+            handleError: function(errorCode, message) {
+                if (this.retryCount < this.maxRetries && this.shouldRetry(errorCode)) {
+                    this.retryCount++;
+                    console.log(`Retrying Turnstile (attempt ${this.retryCount}/${this.maxRetries})`);
+                    this.showError(`${message} Retrying... (${this.retryCount}/${this.maxRetries})`);
+                    
+                    setTimeout(() => {
+                        this.reset();
+                    }, 2000);
+                } else {
+                    this.showError(message);
+                }
+            },
+            
+            // Determine if error should trigger retry
+            shouldRetry: function(errorCode) {
+                const retryableErrors = ['300030', '300031', '300034'];
+                return retryableErrors.includes(errorCode);
+            },
+            
+            // Get user-friendly error message
+            getErrorMessage: function(error) {
+                const errorMessages = {
+                    '300030': 'Widget hung. Please try again.',
+                    '300031': 'Widget crashed. Please try again.',
+                    '300032': 'Invalid site key. Please contact support.',
+                    '300033': 'Invalid domain. Please contact support.',
+                    '300034': 'Widget expired. Please try again.',
+                    '300035': 'Widget already rendered. Please refresh the page.'
+                };
+                
+                return errorMessages[error] || `Verification error (${error}). Please try again.`;
+            },
+            
+            // Show error message
+            showError: function(message) {
+                this.clearError();
+                
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'turnstile-error mt-2 p-3 bg-red-500/20 border border-red-500/30 rounded-md text-red-400 text-sm';
+                errorDiv.textContent = message;
+                
+                const container = document.getElementById(this.containerId);
+                if (container && container.parentNode) {
+                    container.parentNode.insertBefore(errorDiv, container.nextSibling);
+                }
+            },
+            
+            // Clear error message
+            clearError: function() {
+                const existingError = document.querySelector('.turnstile-error');
+                if (existingError) {
+                    existingError.remove();
+                }
+            },
+            
+            // Check if widget is visible (for Alpine.js compatibility)
+            isVisible: function() {
+                const container = document.getElementById(this.containerId);
+                if (!container) return false;
+                
+                const rect = container.getBoundingClientRect();
+                return rect.width > 0 && rect.height > 0 && rect.top >= 0 && rect.left >= 0;
+            }
+        };
+        
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wait a bit to ensure the page is fully loaded
+            setTimeout(() => {
+                if (window.TurnstileManager.isVisible()) {
+                    window.TurnstileManager.init();
+                } else {
+                    // If not visible (e.g., in a modal), wait for visibility
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting && !window.TurnstileManager.isRendered) {
+                                window.TurnstileManager.init();
+                                observer.disconnect();
+                            }
+                        });
+                    });
+                    
+                    const container = document.getElementById('turnstile-container');
+                    if (container) {
+                        observer.observe(container);
+                    }
+                }
+            }, 100);
         });
+        
+        // Global function for manual initialization (Alpine.js compatibility)
+        window.initTurnstile = function() {
+            if (window.TurnstileManager) {
+                window.TurnstileManager.init();
+            }
+        };
+        
+        // Global function for resetting (Alpine.js compatibility)
+        window.resetTurnstile = function() {
+            if (window.TurnstileManager) {
+                window.TurnstileManager.reset();
+            }
+        };
     </script>
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     @else
     <script>
         console.log('TURNSTILE_SITE_KEY is not set in environment');
