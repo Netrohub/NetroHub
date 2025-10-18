@@ -561,8 +561,7 @@
   "You are solely responsible for any claims or disputes arising from the sale.": "أنت وحدك تتحمّل المسؤولية القانونية عن أي مطالبات أو نزاعات تنشأ نتيجة عملية البيع.",
 
   "Account Information": "معلومات الحساب",
-  "Platform": "المنصة",
-  "Username / Handle": "اسم المستخدم / المعرف",
+  "Username / Handle": "اليوزر",
   "Listing Title": "عنوان العرض",
   "Account Description": "وصف الحساب",
   "Min. 50 characters": "الحد الأدنى: 50 حرفًا",
@@ -578,8 +577,7 @@
 
   "List Account": "عرض الحساب",
   "Save as Draft": "حفظ كمسودة",
-  "yourhandle": "اسم_المستخدم",
+  "yourhandle": "اليوزر",
   "e.g., 50K Instagram Gaming Account • High Engagement": "مثال: حساب إنستجرام 50 ألف متابع • تفاعل عالي"
 }
 
-}
