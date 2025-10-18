@@ -73,7 +73,15 @@
                 <!-- Cloudflare Turnstile -->
                 @if(env('TURNSTILE_SITE_KEY'))
                 <div class="flex justify-center">
-                    <div class="cf-turnstile" data-sitekey="{{ env('TURNSTILE_SITE_KEY') }}" data-theme="dark" data-callback="onTurnstileSuccess" data-expired-callback="onTurnstileExpired" data-error-callback="onTurnstileError"></div>
+                    <div class="cf-turnstile" 
+                         data-sitekey="{{ env('TURNSTILE_SITE_KEY') }}" 
+                         data-theme="dark" 
+                         data-callback="onTurnstileSuccess" 
+                         data-expired-callback="onTurnstileExpired" 
+                         data-error-callback="onTurnstileError"
+                         data-retry="auto"
+                         data-retry-interval="8000"
+                         data-refresh-expired="auto"></div>
                 </div>
                 @error('cf-turnstile-response')
                     <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
@@ -93,18 +101,91 @@
     </div>
 
     <!-- Turnstile Scripts -->
+    @if(env('TURNSTILE_SITE_KEY'))
     <script>
-        // Turnstile callback functions
-        function onTurnstileSuccess(token) {
+        console.log('Loading Turnstile script...');
+        
+        // Global Turnstile callback functions
+        window.onTurnstileSuccess = function(token) {
             console.log('Turnstile verification successful, token:', token ? 'received' : 'missing');
-        }
+            // Clear any previous error messages
+            const errorElement = document.querySelector('.turnstile-error');
+            if (errorElement) {
+                errorElement.style.display = 'none';
+            }
+        };
         
-        function onTurnstileExpired() {
+        window.onTurnstileExpired = function() {
             console.log('Turnstile verification expired - please complete again');
+            showTurnstileError('Verification expired. Please complete the challenge again.');
+        };
+        
+        window.onTurnstileError = function(error) {
+            console.log('Turnstile error:', error);
+            
+            // Handle specific error codes
+            let errorMessage = 'Verification failed. Please try again.';
+            
+            switch(error) {
+                case '300031':
+                    errorMessage = 'Widget crashed. Attempting to reset...';
+                    // Auto-reset the widget for crash errors
+                    setTimeout(() => {
+                        resetTurnstileWidget();
+                    }, 1000);
+                    break;
+                case '300032':
+                    errorMessage = 'Invalid site key. Please contact support.';
+                    break;
+                case '300033':
+                    errorMessage = 'Invalid domain. Please contact support.';
+                    break;
+                case '300034':
+                    errorMessage = 'Widget expired. Attempting to reset...';
+                    // Auto-reset for expired widgets
+                    setTimeout(() => {
+                        resetTurnstileWidget();
+                    }, 1000);
+                    break;
+                case '300035':
+                    errorMessage = 'Widget already rendered. Please refresh the page.';
+                    break;
+                default:
+                    errorMessage = `Verification error (${error}). Please try again.`;
+            }
+            
+            showTurnstileError(errorMessage);
+        };
+        
+        function showTurnstileError(message) {
+            // Remove existing error message
+            const existingError = document.querySelector('.turnstile-error');
+            if (existingError) {
+                existingError.remove();
+            }
+            
+            // Create new error message
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'turnstile-error mt-2 p-3 bg-red-500/20 border border-red-500/30 rounded-md text-red-400 text-sm';
+            errorDiv.textContent = message;
+            
+            // Insert after the Turnstile widget
+            const turnstileWidget = document.querySelector('.cf-turnstile');
+            if (turnstileWidget && turnstileWidget.parentNode) {
+                turnstileWidget.parentNode.insertBefore(errorDiv, turnstileWidget.nextSibling);
+            }
         }
         
-        function onTurnstileError(error) {
-            console.log('Turnstile verification error:', error);
+        function resetTurnstileWidget() {
+            const turnstileWidget = document.querySelector('.cf-turnstile');
+            if (turnstileWidget && window.turnstile) {
+                try {
+                    window.turnstile.reset(turnstileWidget);
+                    console.log('Turnstile widget reset successfully');
+                } catch (error) {
+                    console.log('Failed to reset Turnstile widget:', error);
+                }
+            }
         }
         
         // Check if Turnstile loaded properly
@@ -112,28 +193,15 @@
             setTimeout(function() {
                 console.log('Turnstile widget status:', document.querySelector('.cf-turnstile') ? 'found' : 'not found');
                 console.log('Turnstile API available:', typeof window.turnstile !== 'undefined' ? 'yes' : 'no');
-            }, 3000);
+                
+                // If widget is not found after 5 seconds, show error
+                if (!document.querySelector('.cf-turnstile')) {
+                    showTurnstileError('Security widget failed to load. Please refresh the page.');
+                }
+            }, 5000);
         });
     </script>
-    
-    @if(env('TURNSTILE_SITE_KEY'))
-    <script>
-        console.log('Loading Turnstile script...');
-    </script>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-    <script>
-        function onTurnstileSuccess(token) {
-            console.log('Turnstile success:', token);
-        }
-        
-        function onTurnstileExpired() {
-            console.log('Turnstile expired');
-        }
-        
-        function onTurnstileError(error) {
-            console.log('Turnstile error:', error);
-        }
-    </script>
     @else
     <script>
         console.log('TURNSTILE_SITE_KEY is not set in environment');
