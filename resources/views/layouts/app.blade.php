@@ -619,6 +619,22 @@
                     </ul>
                 </div>
 
+                <!-- Company -->
+                <div>
+                    <h4 class="font-bold text-white mb-4 sm:mb-6 flex items-center text-sm sm:text-base">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
+                        🏢 {{ __('Company') }}
+                    </h4>
+                    <ul class="space-y-2 sm:space-y-3 text-sm">
+                        <li><a href="{{ route('about') }}" class="text-muted-400 hover:text-white transition-colors duration-200">{{ __('About Us') }}</a></li>
+                        <li><a href="#" class="text-muted-400 hover:text-white transition-colors duration-200">{{ __('Our Team') }}</a></li>
+                        <li><a href="#" class="text-muted-400 hover:text-white transition-colors duration-200">{{ __('Careers') }}</a></li>
+                        <li><a href="#" class="text-muted-400 hover:text-white transition-colors duration-200">{{ __('Press') }}</a></li>
+                    </ul>
+                </div>
+
                 <!-- Support -->
                 <div>
                     <h4 class="font-bold text-white mb-4 sm:mb-6 flex items-center text-sm sm:text-base">
@@ -663,7 +679,6 @@
                         ⚖️ {{ __('Legal') }}
                     </h4>
                     <ul class="space-y-2 sm:space-y-3 text-sm">
-                        <li><a href="{{ route('about') }}" class="text-muted-400 hover:text-white transition-colors duration-200">{{ __('About Us') }}</a></li>
                         <li><a href="{{ route('legal.terms') }}" class="text-muted-400 hover:text-white transition-colors duration-200">{{ __('Terms & Conditions') }}</a></li>
                         <li><a href="{{ route('legal.privacy') }}" class="text-muted-400 hover:text-white transition-colors duration-200">{{ __('Privacy Policy') }}</a></li>
                         <li><a href="{{ route('legal.refund') }}" class="text-muted-400 hover:text-white transition-colors duration-200">{{ __('Refund Policy') }}</a></li>
