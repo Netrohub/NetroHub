@@ -28,7 +28,7 @@ class PhoneLoginController extends Controller
         $request->validate([
             'country_code' => ['required', 'string'],
             'phone' => ['required', 'string'],
-            'cf-turnstile-response' => ['required'],
+            'cf-turnstile-response' => ['nullable'], // Changed from required to nullable
         ]);
 
         if (! $this->verifyTurnstile($request)) {

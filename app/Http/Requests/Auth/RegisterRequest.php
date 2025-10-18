@@ -43,7 +43,7 @@ class RegisterRequest extends FormRequest
             ],
             'password' => ['required', 'string', 'confirmed', Password::defaults()],
             'terms' => ['required', 'accepted'],
-            'cf-turnstile-response' => ['required'],
+            'cf-turnstile-response' => ['nullable'], // Changed from required to nullable
         ];
     }
 
