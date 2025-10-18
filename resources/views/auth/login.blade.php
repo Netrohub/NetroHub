@@ -46,7 +46,7 @@
             <div class="space-y-4">
                 <div>
                     <label class="block text-sm text-slate-300 font-medium mb-1" for="email">{{ __('Email') }}</label>
-                    <input id="email" name="email" class="form-input w-full" type="email" value="{{ old('email') }}" required autofocus />
+                    <input id="email" name="email" class="form-input w-full" type="email" value="{{ old('email') }}" autocomplete="email" required autofocus />
                     @error('email')
                         <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
                     @enderror
@@ -93,27 +93,26 @@
     </div>
 
 
-    <!-- Inline JavaScript Test - Bypassing @push system -->
+    <!-- ULTRA BASIC JavaScript Test -->
     <script>
-        console.log('=== INLINE JAVASCRIPT TEST ===');
-        console.log('Basic JavaScript is working');
-        console.log('TURNSTILE_SITE_KEY from env():', '{{ env('TURNSTILE_SITE_KEY') }}');
-        console.log('Current URL:', window.location.href);
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded');
-            console.log('Turnstile widget element:', document.querySelector('.cf-turnstile'));
-            console.log('All form elements:', document.querySelectorAll('input, button'));
-            
-            // Test form submission
-            const form = document.querySelector('form');
-            if (form) {
-                form.addEventListener('submit', function(e) {
-                    console.log('Form submitted!');
-                    console.log('Form data:', new FormData(form));
-                });
-            }
-        });
+        alert('JavaScript is working!');
+        console.log('=== ULTRA BASIC TEST ===');
+        console.log('JavaScript is working');
+    </script>
+    
+    <!-- Test if console exists -->
+    <script>
+        if (typeof console !== 'undefined') {
+            console.log('Console exists');
+        } else {
+            alert('Console does not exist!');
+        }
+    </script>
+    
+    <!-- Test environment variables -->
+    <script>
+        console.log('TURNSTILE_SITE_KEY:', '{{ env('TURNSTILE_SITE_KEY') }}');
+        console.log('APP_NAME:', '{{ config('app.name') }}');
     </script>
     
     @if(env('TURNSTILE_SITE_KEY'))
