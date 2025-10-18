@@ -26,7 +26,7 @@ class LoginRequest extends FormRequest
             'email' => ['required', 'email'],
             'password' => ['required', 'string'],
             'cf-turnstile-response' => ['nullable'], // Temporarily disabled for debugging
-            'remember' => ['nullable', 'in:0,1,true,false'],
+            'remember' => ['nullable', 'boolean'],
         ];
     }
 
@@ -105,7 +105,7 @@ class LoginRequest extends FormRequest
             'email.required' => __('عنوان البريد الإلكتروني مطلوب.'),
             'email.email' => __('يرجى إدخال عنوان بريد إلكتروني صحيح.'),
             'password.required' => __('كلمة المرور مطلوبة.'),
-            'remember.in' => __('تذكرني يجب أن يكون صحيح أو خطأ.'),
+            'remember.boolean' => __('تذكرني يجب أن يكون صحيح أو خطأ.'),
             'cf-turnstile-response.required' => __('يرجى إكمال التحقق الأمني.'),
         ];
     }

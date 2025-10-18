@@ -66,7 +66,7 @@
 
                 <!-- Remember Me -->
                 <div class="flex items-center">
-                    <input id="remember" name="remember" type="checkbox" value="1" class="form-checkbox text-purple-500" {{ old('remember') ? 'checked' : '' }} />
+                    <input id="remember" name="remember" type="checkbox" class="form-checkbox text-purple-500" {{ old('remember') ? 'checked' : '' }} />
                     <label for="remember" class="text-sm text-slate-300 ml-2">{{ __('Remember me') }}</label>
                 </div>
 
@@ -103,10 +103,16 @@
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM loaded');
             const form = document.querySelector('form');
+            const rememberCheckbox = document.querySelector('#remember');
+            
             if (form) {
                 console.log('Form found:', form);
+                console.log('Remember checkbox:', rememberCheckbox);
+                console.log('Remember checkbox checked:', rememberCheckbox ? rememberCheckbox.checked : 'not found');
+                
                 form.addEventListener('submit', function(e) {
                     console.log('Form submitted!');
+                    console.log('Remember checkbox value on submit:', rememberCheckbox ? rememberCheckbox.checked : 'not found');
                 });
             } else {
                 console.log('Form not found!');
