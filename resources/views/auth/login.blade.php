@@ -94,7 +94,25 @@
 
 
     @push('scripts')
+    <script>
+        // Basic JavaScript test
+        console.log('=== DEBUGGING START ===');
+        console.log('Basic JavaScript is working');
+        console.log('TURNSTILE_SITE_KEY from env():', '{{ env('TURNSTILE_SITE_KEY') }}');
+        console.log('TURNSTILE_SITE_KEY from config():', '{{ config('app.name') }}');
+        console.log('Current URL:', window.location.href);
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded');
+            console.log('Turnstile widget element:', document.querySelector('.cf-turnstile'));
+            console.log('All form elements:', document.querySelectorAll('input, button'));
+        });
+    </script>
+    
     @if(env('TURNSTILE_SITE_KEY'))
+    <script>
+        console.log('Loading Turnstile script...');
+    </script>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script>
         function onTurnstileSuccess(token) {
@@ -109,11 +127,14 @@
             console.log('Turnstile error:', error);
         }
         
-        // Debug: Check if Turnstile is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('TURNSTILE_SITE_KEY:', '{{ env('TURNSTILE_SITE_KEY') }}');
-            console.log('Turnstile widget element:', document.querySelector('.cf-turnstile'));
-        });
+        // Check if Turnstile loaded
+        setTimeout(function() {
+            console.log('Turnstile window object:', typeof window.turnstile);
+        }, 2000);
+    </script>
+    @else
+    <script>
+        console.log('TURNSTILE_SITE_KEY is not set in environment');
     </script>
     @endif
     @endpush

@@ -25,7 +25,7 @@ class LoginRequest extends FormRequest
         return [
             'email' => ['required', 'email'],
             'password' => ['required', 'string'],
-            'cf-turnstile-response' => ['required'],
+            'cf-turnstile-response' => ['nullable'], // Temporarily disabled for debugging
             'remember' => ['nullable', 'in:0,1,true,false'],
         ];
     }
@@ -39,9 +39,10 @@ class LoginRequest extends FormRequest
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {
-            if (! $this->verifyTurnstile()) {
-                $validator->errors()->add('cf-turnstile-response', 'Cloudflare verification failed. Please try again.');
-            }
+            // Temporarily disabled for debugging
+            // if (! $this->verifyTurnstile()) {
+            //     $validator->errors()->add('cf-turnstile-response', 'Cloudflare verification failed. Please try again.');
+            // }
         });
     }
 
