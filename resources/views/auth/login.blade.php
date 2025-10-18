@@ -93,19 +93,26 @@
     </div>
 
 
-    @push('scripts')
+    <!-- Inline JavaScript Test - Bypassing @push system -->
     <script>
-        // Basic JavaScript test
-        console.log('=== DEBUGGING START ===');
+        console.log('=== INLINE JAVASCRIPT TEST ===');
         console.log('Basic JavaScript is working');
         console.log('TURNSTILE_SITE_KEY from env():', '{{ env('TURNSTILE_SITE_KEY') }}');
-        console.log('TURNSTILE_SITE_KEY from config():', '{{ config('app.name') }}');
         console.log('Current URL:', window.location.href);
         
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM loaded');
             console.log('Turnstile widget element:', document.querySelector('.cf-turnstile'));
             console.log('All form elements:', document.querySelectorAll('input, button'));
+            
+            // Test form submission
+            const form = document.querySelector('form');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    console.log('Form submitted!');
+                    console.log('Form data:', new FormData(form));
+                });
+            }
         });
     </script>
     
@@ -137,6 +144,5 @@
         console.log('TURNSTILE_SITE_KEY is not set in environment');
     </script>
     @endif
-    @endpush
 
 </x-layouts.stellar-auth>
