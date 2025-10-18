@@ -36,10 +36,18 @@ class SubscriptionController extends Controller
         }
 
         try {
-            $checkoutSession = $this->paddleService->createCheckoutSession($user, $plan, $interval);
+            $charge = $this->tapService->createSubscription($user, $plan, $interval);
 
-            return redirect($checkoutSession['checkout_url'] ?? $checkoutSession['url']);
+            // Redirect to Tap checkout
+            return redirect($charge['url'] ?? $charge['redirect']['url']);
         } catch (\Exception $e) {
+            \Log::error('Subscription creation failed', [
+                'user_id' => $user->id,
+                'plan_id' => $plan->id,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+            
             return back()->with('error', 'Failed to create checkout session: ' . $e->getMessage());
         }
     }
