@@ -230,7 +230,7 @@
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="400">
                 @auth
-                    @if(auth()->user()->hasVerifiedEmail() && auth()->user()->kyc_verified && auth()->user()->phone_verified)
+                    @if(auth()->user()->hasVerifiedEmail() && auth()->user()->is_verified && auth()->user()->phone_verified_at)
                         <a href="{{ route('sell.index') }}" class="btn text-white bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 px-8 py-3 rounded-xl font-bold transition-all duration-300 shadow-lg hover:shadow-xl">
                             {{ __('Start Selling') }} 🚀
                         </a>

@@ -45,10 +45,10 @@
                 <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                 </svg>
-                {{ __('أقرا الوثائق') }}
+                {{ __('🛒 تصفح المنتجات') }}
             </a>
             @auth
-                @if(auth()->user()->hasVerifiedEmail() && auth()->user()->kyc_verified && auth()->user()->phone_verified)
+                @if(auth()->user()->hasVerifiedEmail() && auth()->user()->is_verified && auth()->user()->phone_verified_at)
                     <a href="{{ route('sell.index') }}" 
                        class="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-bold bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 hover:from-purple-500 hover:via-purple-600 hover:to-purple-700 text-white rounded-xl transition-all duration-300 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 min-h-[48px] group">
                         <svg class="w-5 h-5 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
