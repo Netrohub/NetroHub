@@ -121,11 +121,13 @@
                 <div class="hidden md:flex items-center justify-center flex-1">
                     @php($nav=[
                         ['label'=>__('Home'),'route'=>route('home')],
+                        ['label'=>__('Products'),'route'=>route('products.index')],
                         ['label'=>__('Social'),'route'=>'/social'],
                         ['label'=>__('Games'),'route'=>'/games'],
                         ['label'=>__('Members'),'route'=>'/members'],
                         ['label'=>__('Leaderboard'),'route'=>'/leaderboard'],
                         ['label'=>__('Platform Store'),'route'=>route('pricing.index')],
+                        ['label'=>__('About Us'),'route'=>route('about')],
                     ])
                     <div class="flex items-center gap-1">
                         @foreach($nav as $link)
@@ -661,6 +663,7 @@
                         ⚖️ {{ __('Legal') }}
                     </h4>
                     <ul class="space-y-2 sm:space-y-3 text-sm">
+                        <li><a href="{{ route('about') }}" class="text-muted-400 hover:text-white transition-colors duration-200">{{ __('About Us') }}</a></li>
                         <li><a href="{{ route('legal.terms') }}" class="text-muted-400 hover:text-white transition-colors duration-200">{{ __('Terms & Conditions') }}</a></li>
                         <li><a href="{{ route('legal.privacy') }}" class="text-muted-400 hover:text-white transition-colors duration-200">{{ __('Privacy Policy') }}</a></li>
                         <li><a href="{{ route('legal.refund') }}" class="text-muted-400 hover:text-white transition-colors duration-200">{{ __('Refund Policy') }}</a></li>
