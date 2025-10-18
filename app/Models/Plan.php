@@ -95,4 +95,12 @@ class Plan extends Model
 
         return (int) round(($savings / $yearlyTotal) * 100);
     }
+
+    /**
+     * Get the route key for the model.
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 }
