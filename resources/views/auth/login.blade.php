@@ -73,11 +73,15 @@
                 <!-- Cloudflare Turnstile -->
                 @if(env('TURNSTILE_SITE_KEY'))
                 <div class="flex justify-center">
-                    <div class="cf-turnstile" data-sitekey="{{ env('TURNSTILE_SITE_KEY') }}" data-theme="dark"></div>
+                    <div class="cf-turnstile" data-sitekey="{{ env('TURNSTILE_SITE_KEY') }}" data-theme="dark" data-callback="onTurnstileSuccess" data-expired-callback="onTurnstileExpired" data-error-callback="onTurnstileError"></div>
                 </div>
                 @error('cf-turnstile-response')
                     <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
                 @enderror
+                @else
+                <div class="text-center text-yellow-400 text-sm">
+                    Turnstile not configured (TURNSTILE_SITE_KEY missing)
+                </div>
                 @endif
             </div>
             <div class="mt-6">
@@ -92,6 +96,25 @@
     @push('scripts')
     @if(env('TURNSTILE_SITE_KEY'))
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script>
+        function onTurnstileSuccess(token) {
+            console.log('Turnstile success:', token);
+        }
+        
+        function onTurnstileExpired() {
+            console.log('Turnstile expired');
+        }
+        
+        function onTurnstileError(error) {
+            console.log('Turnstile error:', error);
+        }
+        
+        // Debug: Check if Turnstile is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('TURNSTILE_SITE_KEY:', '{{ env('TURNSTILE_SITE_KEY') }}');
+            console.log('Turnstile widget element:', document.querySelector('.cf-turnstile'));
+        });
+    </script>
     @endif
     @endpush
 

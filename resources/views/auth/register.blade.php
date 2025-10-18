@@ -129,10 +129,10 @@
     </div>
 
 
-    {{-- @push('scripts')
+    @push('scripts')
     @if(env('TURNSTILE_SITE_KEY'))
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     @endif
-    @endpush --}}
+    @endpush
 
 </x-layouts.stellar-auth>
