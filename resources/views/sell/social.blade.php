@@ -838,12 +838,14 @@ document.addEventListener('DOMContentLoaded', function() {
             // For List Account button, show verification modal
             if (e.submitter && e.submitter.id === 'btn-list-social') {
                 e.preventDefault();
+                console.log('List Account button clicked, preventing default submission');
                 
                 const legalAgreementCheckbox = document.getElementById('legal_agreement');
                 const legalAgreementError = document.getElementById('legal_agreement_error');
                 
                 // Check if legal agreement is required
                 if (!legalAgreementCheckbox || !legalAgreementCheckbox.checked) {
+                    console.log('Legal agreement not checked, showing error');
                     if (legalAgreementError) {
                         legalAgreementError.classList.remove('hidden');
                     }
@@ -852,12 +854,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     return false;
                 } else {
+                    console.log('Legal agreement checked, hiding error');
                     if (legalAgreementError) {
                         legalAgreementError.classList.add('hidden');
                     }
                 }
                 
                 // Show verification modal
+                console.log('Showing verification modal');
                 showVerificationModal();
                 return false;
             }
@@ -873,10 +877,18 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (proceedToSubmitBtn) {
         proceedToSubmitBtn.addEventListener('click', function() {
+            console.log('Proceed to submit button clicked');
             hideVerificationModal();
             // Submit the form
-            form.submit();
+            console.log('Submitting form');
+            if (form) {
+                form.submit();
+            } else {
+                console.error('Form element not found');
+            }
         });
+    } else {
+        console.error('Proceed to submit button not found');
     }
     
     // Close modal when clicking outside
@@ -889,16 +901,23 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function showVerificationModal() {
+        console.log('showVerificationModal called');
         if (verificationModal) {
+            console.log('Showing verification modal');
             verificationModal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
+        } else {
+            console.error('Verification modal element not found');
         }
     }
     
     function hideVerificationModal() {
-        verificationModal.classList.add('hidden');
-        document.body.style.overflow = 'auto';
-        resetVerificationState();
+        console.log('hideVerificationModal called');
+        if (verificationModal) {
+            verificationModal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            resetVerificationState();
+        }
     }
     
     function resetVerificationState() {
