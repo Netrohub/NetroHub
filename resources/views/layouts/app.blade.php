@@ -425,18 +425,21 @@
             <div class="px-4 py-6 space-y-4">
                 <!-- Mobile Navigation Links -->
                 @php($nav=[
-                    ['label'=>__('Home'),'route'=>route('home')],
-                    ['label'=>__('Social'),'route'=>'/social'],
-                    ['label'=>__('Games'),'route'=>'/games'],
-                    ['label'=>__('Members'),'route'=>'/members'],
-                    ['label'=>__('Leaderboard'),'route'=>'/leaderboard'],
-                    ['label'=>__('Platform Store'),'route'=>route('pricing.index')],
+                    ['label'=>__('Home'),'route'=>route('home'),'icon'=>'🏠'],
+                    ['label'=>__('Products'),'route'=>route('products.index'),'icon'=>'📦'],
+                    ['label'=>__('Social'),'route'=>'/social','icon'=>'👥'],
+                    ['label'=>__('Games'),'route'=>'/games','icon'=>'🎮'],
+                    ['label'=>__('Members'),'route'=>'/members','icon'=>'👤'],
+                    ['label'=>__('Leaderboard'),'route'=>'/leaderboard','icon'=>'🏆'],
+                    ['label'=>__('Platform Store'),'route'=>route('pricing.index'),'icon'=>'💰'],
+                    ['label'=>__('About Us'),'route'=>route('about'),'icon'=>'ℹ️'],
                 ])
                 @foreach($nav as $link)
                     @php($active = url()->current() === $link['route'])
                     <a href="{{ $link['route'] }}" 
-                       class="block px-4 py-3 rounded-lg text-base font-semibold transition-all duration-300 min-h-[44px] flex items-center
-                              {{ $active ? 'text-white bg-dark-800/70 shadow-gaming' : 'text-muted-300 hover:text-white hover:bg-dark-800/50' }}">
+                       class="block px-4 py-4 rounded-lg text-base font-semibold transition-all duration-300 min-h-[48px] flex items-center
+                              {{ $active ? 'text-white bg-dark-800/70 shadow-gaming' : 'text-muted-300 hover:text-white hover:bg-dark-800/50 hover:scale-105' }}">
+                        <div class="text-2xl mr-4">{{ $link['icon'] }}</div>
                         {{ $link['label'] }}
                     </a>
                 @endforeach
@@ -444,7 +447,7 @@
                 <!-- Mobile Action Buttons -->
                 <div class="pt-4 border-t border-gaming space-y-3">
 
-                    <a href="{{ route('sell.index') }}" class="block w-full px-4 py-3 text-center bg-gaming-gradient text-white rounded-lg font-bold shadow-gaming min-h-[44px] flex items-center justify-center gap-2">
+                    <a href="{{ route('sell.index') }}" class="block w-full px-4 py-4 text-center bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-lg font-bold shadow-lg min-h-[48px] flex items-center justify-center gap-2 hover:scale-105 transition-all duration-300">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                         </svg>

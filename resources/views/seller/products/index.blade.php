@@ -8,7 +8,7 @@
                 <h1 class="h2 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60">
                     {{ __('My Products') }}
                 </h1>
-                <a href="{{ route('seller.products.create') }}" class="btn text-white bg-purple-500 hover:bg-purple-600">
+                <a href="{{ route('sell.index') }}" class="btn text-white bg-purple-500 hover:bg-purple-600">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                     </svg>

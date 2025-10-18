@@ -40,20 +40,40 @@
         
         <!-- CTAs -->
         <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center scroll-fade-in animation-delay-200 max-w-lg mx-auto sm:max-w-none">
-            <a href="{{ $heroBlock->metadata['cta_primary_link'] ?? '/products' }}" 
-               class="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-bold bg-dark-800/70 hover:bg-dark-700/70 text-white rounded-xl transition-all duration-300 shadow-lg hover:shadow-gaming min-h-[48px] group">
+            <a href="{{ route('products.index') }}" 
+               class="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-bold bg-slate-700/50 hover:bg-slate-600/50 text-white rounded-xl transition-all duration-300 shadow-lg min-h-[48px] group">
                 <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                 </svg>
-                {{ __($heroBlock->metadata['cta_primary_text'] ?? 'Browse Products') }}
+                {{ __('أقرا الوثائق') }}
             </a>
-            <a href="{{ $heroBlock->metadata['cta_secondary_link'] ?? '/sell' }}" 
-               class="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-bold bg-gaming-gradient text-white rounded-xl transition-all duration-300 shadow-gaming hover:shadow-gaming-lg min-h-[48px] group">
-                <svg class="w-5 h-5 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                </svg>
-                {{ __($heroBlock->metadata['cta_secondary_text'] ?? 'Start Selling Now') }}
-            </a>
+            @auth
+                @if(auth()->user()->hasVerifiedEmail() && auth()->user()->kyc_verified && auth()->user()->phone_verified)
+                    <a href="{{ route('sell.index') }}" 
+                       class="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-bold bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 hover:from-purple-500 hover:via-purple-600 hover:to-purple-700 text-white rounded-xl transition-all duration-300 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 min-h-[48px] group">
+                        <svg class="w-5 h-5 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                        {{ __('ابدأ الآن') }} 🚀
+                    </a>
+                @else
+                    <a href="{{ route('account.verification.checklist') }}" 
+                       class="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-bold bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 hover:from-purple-500 hover:via-purple-600 hover:to-purple-700 text-white rounded-xl transition-all duration-300 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 min-h-[48px] group">
+                        <svg class="w-5 h-5 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                        {{ __('ابدأ الآن') }} 🚀
+                    </a>
+                @endif
+            @else
+                <a href="{{ route('register') }}" 
+                   class="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-bold bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 hover:from-purple-500 hover:via-purple-600 hover:to-purple-700 text-white rounded-xl transition-all duration-300 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 min-h-[48px] group">
+                    <svg class="w-5 h-5 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                    {{ __('ابدأ الآن') }} 🚀
+                </a>
+            @endauth
         </div>
     </div>
 </section>

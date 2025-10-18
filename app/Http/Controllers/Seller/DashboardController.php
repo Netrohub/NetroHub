@@ -38,30 +38,4 @@ class DashboardController extends Controller
         return view('seller.dashboard', compact('seller', 'stats', 'recentSales', 'topProducts'));
     }
 
-    public function settings()
-    {
-        $seller = auth()->user()->seller;
-
-        if (! $seller) {
-            return redirect()->route('sell.entry');
-        }
-
-        return view('seller.settings', compact('seller'));
-    }
-
-    public function updateSettings(Request $request)
-    {
-        $seller = auth()->user()->seller;
-
-        $validated = $request->validate([
-            'display_name' => 'required|string|max:255',
-            'bio' => 'nullable|string|max:1000',
-            'payout_method' => 'nullable|string',
-            'payout_details' => 'nullable|array',
-        ]);
-
-        $seller->update($validated);
-
-        return back()->with('success', 'Settings updated successfully!');
-    }
 }

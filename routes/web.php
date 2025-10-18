@@ -61,6 +61,11 @@ Route::get('/refund-policy', function () {
     return view('legal.refund');
 })->name('legal.refund');
 
+// About Page
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
 // OTP Demo Page (remove in production or protect with auth)
 Route::get('/otp-demo', function () {
     return view('otp-demo');
@@ -328,9 +333,6 @@ Route::middleware(['auth', 'verified', 'require.kyc', 'require.phone', 'require.
     Route::get('/payouts/create', [PayoutController::class, 'create'])->name('payouts.create');
     Route::post('/payouts', [PayoutController::class, 'store'])->name('payouts.store');
 
-    // Settings
-    Route::get('/settings', [SellerDashboardController::class, 'settings'])->name('settings');
-    Route::put('/settings', [SellerDashboardController::class, 'updateSettings'])->name('settings.update');
 });
 
 // Impersonation routes (admin only)

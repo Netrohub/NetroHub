@@ -11,7 +11,7 @@
                     </h1>
                     <p class="text-slate-400">{{ __('Manage your products and track your sales') }}</p>
                 </div>
-                <a href="{{ route('seller.products.create') }}" class="btn text-white bg-purple-500 hover:bg-purple-600">
+                <a href="{{ route('sell.index') }}" class="btn text-white bg-purple-500 hover:bg-purple-600">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                     </svg>
@@ -72,7 +72,7 @@
 
             <!-- Quick Actions -->
             <div class="grid md:grid-cols-3 gap-6 mb-8">
-                <a href="{{ route('seller.products.create') }}" class="bg-gradient-to-br from-purple-500/10 to-purple-600/10 rounded-2xl p-6 border border-purple-500/30 hover:border-purple-500/50 transition-all group" data-aos="fade-up">
+                <a href="{{ route('sell.index') }}" class="bg-gradient-to-br from-purple-500/10 to-purple-600/10 rounded-2xl p-6 border border-purple-500/30 hover:border-purple-500/50 transition-all group" data-aos="fade-up">
                     <div class="flex items-center justify-between mb-3">
                         <h3 class="text-lg font-bold text-slate-100">{{ __('Add Product') }}</h3>
                         <svg class="w-6 h-6 text-purple-500 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -92,16 +92,6 @@
                     <p class="text-slate-400 text-sm">{{ __('Manage your product listings') }}</p>
                 </a>
 
-                <a href="{{ route('seller.settings') }}" class="bg-gradient-to-br from-green-500/10 to-green-600/10 rounded-2xl p-6 border border-green-500/30 hover:border-green-500/50 transition-all group" data-aos="fade-up" data-aos-delay="200">
-                    <div class="flex items-center justify-between mb-3">
-                        <h3 class="text-lg font-bold text-slate-100">{{ __('Settings') }}</h3>
-                        <svg class="w-6 h-6 text-green-500 group-hover:rotate-90 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                        </svg>
-                    </div>
-                    <p class="text-slate-400 text-sm">{{ __('Configure seller preferences') }}</p>
-                </a>
             </div>
 
             <!-- Recent Sales -->
