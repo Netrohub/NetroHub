@@ -40,17 +40,17 @@
                     <div>
                         @auth
                             @if(auth()->user()->hasVerifiedEmail() && auth()->user()->is_verified && auth()->user()->phone_verified_at)
-                                <a class="btn text-white bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 hover:from-purple-500 hover:via-purple-600 hover:to-purple-700 w-full transition duration-150 ease-in-out group shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40" href="{{ route('sell.index') }}">
-                                    {{ __('ابدأ الآن') }} 🚀 <span class="tracking-normal text-white group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span>
+                                <a class="btn text-white bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 hover:from-purple-500 hover:via-purple-600 hover:to-purple-700 w-full transition duration-150 ease-in-out group shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 border border-purple-400/50 hover:border-purple-300/70" href="{{ route('sell.index') }}">
+                                    🚀 {{ __('ابدأ البيع الآن') }} <span class="tracking-normal text-white group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span>
                                 </a>
                             @else
-                                <a class="btn text-white bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 hover:from-purple-500 hover:via-purple-600 hover:to-purple-700 w-full transition duration-150 ease-in-out group shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40" href="{{ route('account.verification.checklist') }}">
-                                    {{ __('ابدأ الآن') }} 🚀 <span class="tracking-normal text-white group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span>
+                                <a class="btn text-white bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 hover:from-purple-500 hover:via-purple-600 hover:to-purple-700 w-full transition duration-150 ease-in-out group shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 border border-purple-400/50 hover:border-purple-300/70" href="{{ route('account.verification.checklist') }}">
+                                    🚀 {{ __('ابدأ البيع الآن') }} <span class="tracking-normal text-white group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span>
                                 </a>
                             @endif
                         @else
-                            <a class="btn text-white bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 hover:from-purple-500 hover:via-purple-600 hover:to-purple-700 w-full transition duration-150 ease-in-out group shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40" href="{{ route('register') }}">
-                                {{ __('ابدأ الآن') }} 🚀 <span class="tracking-normal text-white group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span>
+                            <a class="btn text-white bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 hover:from-purple-500 hover:via-purple-600 hover:to-purple-700 w-full transition duration-150 ease-in-out group shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 border border-purple-400/50 hover:border-purple-300/70" href="{{ route('register') }}">
+                                🚀 {{ __('ابدأ البيع الآن') }} <span class="tracking-normal text-white group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span>
                             </a>
                         @endauth
                     </div>
