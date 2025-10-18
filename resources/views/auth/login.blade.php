@@ -96,16 +96,24 @@
     <script>
         // Turnstile callback functions
         function onTurnstileSuccess(token) {
-            console.log('Turnstile verification successful');
+            console.log('Turnstile verification successful, token:', token ? 'received' : 'missing');
         }
         
         function onTurnstileExpired() {
-            console.log('Turnstile verification expired');
+            console.log('Turnstile verification expired - please complete again');
         }
         
         function onTurnstileError(error) {
             console.log('Turnstile verification error:', error);
         }
+        
+        // Check if Turnstile loaded properly
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                console.log('Turnstile widget status:', document.querySelector('.cf-turnstile') ? 'found' : 'not found');
+                console.log('Turnstile API available:', typeof window.turnstile !== 'undefined' ? 'yes' : 'no');
+            }, 3000);
+        });
     </script>
     
     @if(env('TURNSTILE_SITE_KEY'))
