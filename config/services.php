@@ -71,7 +71,7 @@ return [
         'webhook_secret' => env('TAP_WEBHOOK_SECRET'),
         'sandbox' => env('TAP_SANDBOX', true),
         'api_url' => env('TAP_SANDBOX', true) 
-            ? 'https://api.tap.company/v2' 
+            ? 'https://api-sandbox.tap.company/v2' 
             : 'https://api.tap.company/v2',
     ],
 

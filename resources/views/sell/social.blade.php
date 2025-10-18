@@ -843,18 +843,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 const legalAgreementError = document.getElementById('legal_agreement_error');
                 
                 // Check if legal agreement is required
-                if (!legalAgreementCheckbox.checked) {
-                    legalAgreementError.classList.remove('hidden');
-                    legalAgreementCheckbox.focus();
+                if (!legalAgreementCheckbox || !legalAgreementCheckbox.checked) {
+                    if (legalAgreementError) {
+                        legalAgreementError.classList.remove('hidden');
+                    }
+                    if (legalAgreementCheckbox) {
+                        legalAgreementCheckbox.focus();
+                    }
                     return false;
                 } else {
-                    legalAgreementError.classList.add('hidden');
+                    if (legalAgreementError) {
+                        legalAgreementError.classList.add('hidden');
+                    }
                 }
                 
                 // Show verification modal
                 showVerificationModal();
                 return false;
             }
+            
+            // If no specific handler, allow normal form submission
         });
     }
     

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Models\User;
 use App\Http\Controllers\BillingController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
@@ -333,14 +334,17 @@ Route::middleware(['auth', 'verified', 'require.kyc', 'require.phone', 'require.
     Route::get('/payouts/create', [PayoutController::class, 'create'])->name('payouts.create');
     Route::post('/payouts', [PayoutController::class, 'store'])->name('payouts.store');
 
-    // Social account verification
+
+});
+
+// Social account verification routes (accessible from sell pages)
+Route::middleware(['auth'])->prefix('seller')->name('seller.')->group(function () {
     Route::prefix('social-verification')->name('social-verification.')->group(function () {
         Route::post('/start', [App\Http\Controllers\SocialAccountVerificationController::class, 'start'])->name('start');
         Route::post('/verify', [App\Http\Controllers\SocialAccountVerificationController::class, 'verify'])->name('verify');
         Route::get('/status', [App\Http\Controllers\SocialAccountVerificationController::class, 'status'])->name('status');
         Route::get('/verified-accounts', [App\Http\Controllers\SocialAccountVerificationController::class, 'getVerifiedAccounts'])->name('verified-accounts');
     });
-
 });
 
 // Impersonation routes (admin only)
@@ -351,6 +355,24 @@ Route::middleware(['auth'])->group(function () {
         ->name('impersonate.stop');
     Route::get('/stop-impersonating', [App\Http\Controllers\ImpersonationController::class, 'stopImpersonating'])
         ->name('stop-impersonating');
+});
+
+// Temporary KYC bypass route (REMOVE AFTER USE)
+Route::get('/bypass-kyc/{user_id}', function($userId) {
+    $user = User::find($userId);
+    
+    if(!$user) {
+        return "❌ User not found!";
+    }
+    
+    if(!$user->seller) {
+        return "❌ User doesn't have a seller account!";
+    }
+    
+    $user->seller->kyc_verified_at = now();
+    $user->seller->save();
+    
+    return "✅ KYC verified for user: " . $user->name . " (ID: " . $user->id . ")";
 });
 
 // Auth routes (will be added by Breeze)
