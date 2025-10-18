@@ -159,6 +159,18 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->phone_verified_at !== null;
     }
 
+    public function generatePhoneVerificationCode(): string
+    {
+        $code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+        
+        $this->update([
+            'phone_verification_code' => $code,
+            'phone_verification_code_expires_at' => now()->addMinutes(10),
+        ]);
+        
+        return $code;
+    }
+
     public function canSell(): bool
     {
         return $this->is_verified;

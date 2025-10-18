@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 use App\Notifications\PhoneVerifiedNotification;
 
 class PhoneVerificationController extends Controller
@@ -69,19 +70,39 @@ class PhoneVerificationController extends Controller
             // Update user's phone number
             $user->update(['phone_number' => $phoneNumber]);
 
-            // In production, send SMS here
-            // For now, we'll log it
-            Log::info('Phone OTP sent', [
-                'user_id' => $user->id,
-                'phone' => $phoneNumber,
-                'otp' => $otpCode, // Remove this in production
-            ]);
+            // Send OTP via Twilio WhatsApp
+            try {
+                $this->sendWhatsAppOtp($phoneNumber, $otpCode);
+                
+                Log::info('Phone OTP sent via WhatsApp', [
+                    'user_id' => $user->id,
+                    'phone' => $phoneNumber,
+                ]);
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Verification code sent to ' . $phoneNumber,
-                'otp' => $otpCode, // Remove this in production - only for testing
-            ]);
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Verification code sent to ' . $phoneNumber . ' via WhatsApp',
+                ]);
+            } catch (\Exception $e) {
+                Log::error('Failed to send WhatsApp OTP', [
+                    'user_id' => $user->id,
+                    'phone' => $phoneNumber,
+                    'error' => $e->getMessage(),
+                ]);
+
+                // Fallback: log the OTP for testing
+                Log::info('Phone OTP (fallback)', [
+                    'user_id' => $user->id,
+                    'phone' => $phoneNumber,
+                    'otp' => $otpCode,
+                ]);
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Verification code sent to ' . $phoneNumber,
+                    'otp' => config('app.debug') ? $otpCode : null, // Only show in debug mode
+                ]);
+            }
 
         } catch (\Exception $e) {
             Log::error('Failed to send phone OTP', [
@@ -185,5 +206,41 @@ class PhoneVerificationController extends Controller
         }
 
         return $this->sendCode($request);
+    }
+
+    /**
+     * Send WhatsApp message via Twilio API
+     */
+    protected function sendWhatsAppOtp($phone, $otp)
+    {
+        $accountSid = config('services.twilio.account_sid');
+        $authToken = config('services.twilio.auth_token');
+        $fromNumber = config('services.twilio.whatsapp_from');
+        
+        if (!$accountSid || !$authToken || !$fromNumber) {
+            throw new \Exception('Twilio credentials not configured');
+        }
+
+        // WhatsApp message content with formatting
+        $message = "🔐 *NetroHub Verification*\n\nYour verification code is:\n\n*{$otp}*\n\nThis code will expire in 10 minutes.\n\n_Please do not share this code with anyone._";
+
+        // Using Twilio WhatsApp API
+        $response = Http::withBasicAuth($accountSid, $authToken)
+            ->asForm()
+            ->post("https://api.twilio.com/2010-04-01/Accounts/{$accountSid}/Messages.json", [
+                'To' => 'whatsapp:' . $phone,
+                'From' => 'whatsapp:' . $fromNumber,
+                'Body' => $message,
+            ]);
+
+        if (!$response->successful()) {
+            Log::error('Twilio WhatsApp API error', [
+                'response' => $response->json(),
+                'status' => $response->status(),
+            ]);
+            throw new \Exception('Failed to send WhatsApp message via Twilio');
+        }
+
+        return $response->json();
     }
 }

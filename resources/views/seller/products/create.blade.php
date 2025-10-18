@@ -911,6 +911,7 @@
                         showVerificationModal();
                         return false;
                     }
+                    // For non-social accounts (like gaming), allow normal submission
                 });
             }
             

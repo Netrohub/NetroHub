@@ -360,7 +360,7 @@
 
                     <!-- Enhanced Action Buttons -->
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <button type="button" id="btn-list-game" 
+                        <button type="submit" id="btn-list-game" 
                             data-flow="game"
                             class="flex-1 group relative overflow-hidden bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold py-5 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg shadow-indigo-500/40">
                             <span class="relative z-10 flex items-center justify-center text-lg">

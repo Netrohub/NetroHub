@@ -297,7 +297,7 @@
 
                     <!-- Enhanced Action Buttons -->
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <button type="button" id="btn-list-social" data-flow="social"
+                        <button type="submit" id="btn-list-social" data-flow="social"
                             class="flex-1 group relative overflow-hidden bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold py-5 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg shadow-purple-500/40">
                             <span class="relative z-10 flex items-center justify-center text-lg">
                                 <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -832,25 +832,35 @@ document.addEventListener('DOMContentLoaded', function() {
     const verificationModal = document.getElementById('verification-modal');
     const closeModalBtn = document.getElementById('close-verification-modal');
     const proceedToSubmitBtn = document.getElementById('proceed-to-submit');
+    const listAccountBtn = document.getElementById('btn-list-social');
     
     if (form) {
         form.addEventListener('submit', function(e) {
-            const legalAgreementCheckbox = document.getElementById('legal_agreement');
-            const legalAgreementError = document.getElementById('legal_agreement_error');
-            
-            // Check if legal agreement is required
-            if (!legalAgreementCheckbox.checked) {
-                e.preventDefault();
-                legalAgreementError.classList.remove('hidden');
-                legalAgreementCheckbox.focus();
-                return false;
-            } else {
-                legalAgreementError.classList.add('hidden');
+            // Only prevent default if it's not the draft action
+            if (e.submitter && e.submitter.value === 'draft') {
+                return; // Allow draft submission
             }
             
-            // Show verification modal instead of submitting
-            e.preventDefault();
-            showVerificationModal();
+            // For List Account button, show verification modal
+            if (e.submitter && e.submitter.id === 'btn-list-social') {
+                e.preventDefault();
+                
+                const legalAgreementCheckbox = document.getElementById('legal_agreement');
+                const legalAgreementError = document.getElementById('legal_agreement_error');
+                
+                // Check if legal agreement is required
+                if (!legalAgreementCheckbox.checked) {
+                    legalAgreementError.classList.remove('hidden');
+                    legalAgreementCheckbox.focus();
+                    return false;
+                } else {
+                    legalAgreementError.classList.add('hidden');
+                }
+                
+                // Show verification modal
+                showVerificationModal();
+                return false;
+            }
         });
     }
     
