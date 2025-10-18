@@ -1,4 +1,5 @@
 <div x-data="{
+    // Cache bust: {{ time() }}
     open: false,
     step: 'delivery',
     flow: 'game',
