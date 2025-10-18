@@ -29,12 +29,12 @@ class SecurityHeaders
         if (!config('app.debug')) {
             $response->headers->set('Content-Security-Policy', 
                 "default-src 'self'; " .
-                "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.bunny.net https://www.googletagmanager.com https://challenges.cloudflare.com; " .
-                "style-src 'self' 'unsafe-inline' https://fonts.bunny.net; " .
-                "img-src 'self' data: https:; " .
+                "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.bunny.net https://www.googletagmanager.com https://challenges.cloudflare.com https://*.cloudflare.com; " .
+                "style-src 'self' 'unsafe-inline' https://fonts.bunny.net https://*.cloudflare.com; " .
+                "img-src 'self' data: https: https://*.cloudflare.com; " .
                 "font-src 'self' https://fonts.bunny.net; " .
-                "connect-src 'self' https://challenges.cloudflare.com; " .
-                "frame-src 'self' https://challenges.cloudflare.com; " .
+                "connect-src 'self' https://challenges.cloudflare.com https://*.cloudflare.com; " .
+                "frame-src 'self' https://challenges.cloudflare.com https://*.cloudflare.com; " .
                 "frame-ancestors 'self';"
             );
         }

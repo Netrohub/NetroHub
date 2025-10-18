@@ -56,41 +56,13 @@ class RegisterRequest extends FormRequest
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {
-            if (! $this->verifyTurnstile()) {
-                $validator->errors()->add('cf-turnstile-response', 'Cloudflare verification failed. Please try again.');
+            $turnstileService = app(\App\Services\TurnstileService::class);
+            $token = $this->input('cf-turnstile-response');
+            
+            if (!$turnstileService->verify($token, $this->ip())) {
+                $validator->errors()->add('cf-turnstile-response', 'Human verification failed. Please try again.');
             }
         });
-    }
-
-    /**
-     * Verify Turnstile token with Cloudflare
-     */
-    protected function verifyTurnstile(): bool
-    {
-        $token = $this->input('cf-turnstile-response');
-        $secretKey = env('TURNSTILE_SECRET_KEY');
-
-        if (! $secretKey) {
-            // If Turnstile is not configured, allow the request
-            return true;
-        }
-
-        try {
-            $response = Http::asForm()->post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
-                'secret' => $secretKey,
-                'response' => $token,
-                'remoteip' => $this->ip(),
-            ]);
-
-            $result = $response->json();
-
-            return $result['success'] ?? false;
-        } catch (\Exception $e) {
-            // Log the error and allow the request (fail open for better UX)
-            \Log::error('Turnstile verification error: '.$e->getMessage());
-
-            return true;
-        }
     }
 
     /**

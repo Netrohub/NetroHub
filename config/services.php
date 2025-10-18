@@ -88,4 +88,9 @@ return [
         'from_number' => env('TWILIO_FROM_NUMBER'),
         'whatsapp_from' => env('TWILIO_WHATSAPP_FROM', '+14155238886'), // Twilio Sandbox number
     ],
+
+    'turnstile' => [
+        'site_key' => env('TURNSTILE_SITE_KEY'),
+        'secret_key' => env('TURNSTILE_SECRET_KEY'),
+    ],
 ];
