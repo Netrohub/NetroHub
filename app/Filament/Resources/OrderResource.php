@@ -18,7 +18,7 @@ class OrderResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-shopping-cart';
 
-    protected static string $navigationGroup = 'Order Management';
+    protected static ?string $navigationGroup = 'Order Management';
 
     protected static ?int $navigationSort = 3;
 
