@@ -492,6 +492,128 @@
         </div>
     </section>
 
+    <!-- Account Verification Modal -->
+    <div id="verification-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-slate-800/95 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center mr-3">
+                            <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                            </svg>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-100">Account Ownership Verification</h2>
+                    </div>
+                    <button type="button" id="close-verification-modal" class="text-slate-400 hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <p class="text-slate-400 text-sm mb-6">To ensure account security, we need to verify that you own this social media account before listing it.</p>
+                
+                <div id="verification_step_1" class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
+                                <span class="text-blue-400 font-bold text-sm">1</span>
+                            </div>
+                            <span class="text-slate-200 font-medium">Start Verification</span>
+                        </div>
+                        <button type="button" id="start_verification_btn" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-sm font-medium transition-colors">
+                            Start
+                        </button>
+                    </div>
+                </div>
+
+                <div id="verification_step_2" class="hidden space-y-4">
+                    <div class="bg-slate-900/50 rounded-lg p-4 border border-slate-700/50">
+                        <div class="flex items-center mb-3">
+                            <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
+                                <span class="text-blue-400 font-bold text-sm">2</span>
+                            </div>
+                            <span class="text-slate-200 font-medium">Add Token to Bio</span>
+                        </div>
+                        
+                        <div class="bg-slate-800/50 rounded-lg p-4 mb-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-slate-300 text-sm">Your verification token:</span>
+                                <div class="flex items-center gap-2">
+                                    <span id="verification_token" class="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-lg font-mono text-lg font-bold"></span>
+                                    <button type="button" id="copy_token_btn" class="p-1 text-slate-400 hover:text-blue-400 transition-colors">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="text-slate-400 text-xs mb-3">Copy this token and add it to your account bio/description. You can remove it after verification.</p>
+                            
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center text-sm text-slate-400">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    <span>Time remaining:</span>
+                                    <span id="countdown_timer" class="ml-1 font-mono text-blue-400"></span>
+                                </div>
+                                <a id="account_link" href="#" target="_blank" class="text-blue-400 hover:text-blue-300 text-sm flex items-center">
+                                    Open Account
+                                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
+                                    <span class="text-blue-400 font-bold text-sm">3</span>
+                                </div>
+                                <span class="text-slate-200 font-medium">Verify Ownership</span>
+                            </div>
+                            <button type="button" id="verify_ownership_btn" class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg text-sm font-medium transition-colors">
+                                Verify
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="verification_success" class="hidden">
+                    <div class="bg-green-500/10 border border-green-500/20 rounded-lg p-4">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span class="text-green-400 font-medium">Account verified successfully!</span>
+                        </div>
+                        <p class="text-green-300 text-sm mt-1">You can now proceed with creating your product listing.</p>
+                    </div>
+                    <div class="mt-4 flex justify-end">
+                        <button type="button" id="proceed-to-submit" class="px-6 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg font-medium transition-colors">
+                            Continue to Submit
+                        </button>
+                    </div>
+                </div>
+
+                <div id="verification_error" class="hidden">
+                    <div class="bg-red-500/10 border border-red-500/20 rounded-lg p-4">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-red-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span class="text-red-400 font-medium">Verification failed</span>
+                        </div>
+                        <p id="verification_error_message" class="text-red-300 text-sm mt-1"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const categorySelect = document.querySelector('select[name="category_id"]');
@@ -783,8 +905,50 @@
                         } else {
                             legalAgreementError.classList.add('hidden');
                         }
+                        
+                        // Show verification modal instead of submitting for social accounts
+                        e.preventDefault();
+                        showVerificationModal();
+                        return false;
                     }
                 });
+            }
+            
+            // Modal controls for main form
+            const verificationModal = document.getElementById('verification-modal');
+            const closeModalBtn = document.getElementById('close-verification-modal');
+            const proceedToSubmitBtn = document.getElementById('proceed-to-submit');
+            
+            if (closeModalBtn) {
+                closeModalBtn.addEventListener('click', hideVerificationModal);
+            }
+            
+            if (proceedToSubmitBtn) {
+                proceedToSubmitBtn.addEventListener('click', function() {
+                    hideVerificationModal();
+                    // Submit the form
+                    form.submit();
+                });
+            }
+            
+            // Close modal when clicking outside
+            if (verificationModal) {
+                verificationModal.addEventListener('click', function(e) {
+                    if (e.target === verificationModal) {
+                        hideVerificationModal();
+                    }
+                });
+            }
+            
+            function showVerificationModal() {
+                verificationModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function hideVerificationModal() {
+                verificationModal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+                resetVerificationState();
             }
         });
     </script>
