@@ -46,7 +46,7 @@
             <div class="space-y-4">
                 <div>
                     <label class="block text-sm text-slate-300 font-medium mb-1" for="email">{{ __('Email') }}</label>
-                    <input id="email" name="email" class="form-input w-full" type="email" value="{{ old('email') }}" autocomplete="email" required autofocus />
+                    <input id="email" name="email" class="form-input w-full" type="email" value="{{ old('email') }}" autocomplete="username" required autofocus />
                     @error('email')
                         <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
                     @enderror
@@ -92,27 +92,26 @@
         </form>
     </div>
 
-
-    <!-- ULTRA BASIC JavaScript Test -->
+    <!-- JavaScript Test - Right before closing layout -->
     <script>
-        alert('JavaScript is working!');
-        console.log('=== ULTRA BASIC TEST ===');
-        console.log('JavaScript is working');
-    </script>
-    
-    <!-- Test if console exists -->
-    <script>
-        if (typeof console !== 'undefined') {
-            console.log('Console exists');
-        } else {
-            alert('Console does not exist!');
-        }
-    </script>
-    
-    <!-- Test environment variables -->
-    <script>
+        console.log('=== JAVASCRIPT TEST START ===');
+        console.log('JavaScript is working!');
         console.log('TURNSTILE_SITE_KEY:', '{{ env('TURNSTILE_SITE_KEY') }}');
         console.log('APP_NAME:', '{{ config('app.name') }}');
+        
+        // Test form
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded');
+            const form = document.querySelector('form');
+            if (form) {
+                console.log('Form found:', form);
+                form.addEventListener('submit', function(e) {
+                    console.log('Form submitted!');
+                });
+            } else {
+                console.log('Form not found!');
+            }
+        });
     </script>
     
     @if(env('TURNSTILE_SITE_KEY'))
@@ -132,11 +131,6 @@
         function onTurnstileError(error) {
             console.log('Turnstile error:', error);
         }
-        
-        // Check if Turnstile loaded
-        setTimeout(function() {
-            console.log('Turnstile window object:', typeof window.turnstile);
-        }, 2000);
     </script>
     @else
     <script>
