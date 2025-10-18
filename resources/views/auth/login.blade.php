@@ -106,6 +106,8 @@
             containerId: 'turnstile-container',
             retryCount: 0,
             maxRetries: 3,
+            debounceTimer: null,
+            lastErrorTime: 0,
             
             // Initialize Turnstile widget
             init: function() {
@@ -190,20 +192,30 @@
                 }
             },
             
-            // Re-render widget from scratch
+            // Re-render widget from scratch (optimized)
             reRender: function() {
                 this.isRendered = false;
                 this.currentWidgetId = null;
                 this.clearError();
                 
-                const container = document.getElementById(this.containerId);
-                if (container) {
-                    container.innerHTML = '';
-                }
-                
-                setTimeout(() => {
-                    this.renderWidget();
-                }, 1000);
+                // Use requestAnimationFrame for DOM manipulation
+                requestAnimationFrame(() => {
+                    const container = document.getElementById(this.containerId);
+                    if (container) {
+                        container.innerHTML = '';
+                    }
+                    
+                    // Use requestIdleCallback if available, otherwise setTimeout
+                    if (window.requestIdleCallback) {
+                        requestIdleCallback(() => {
+                            this.renderWidget();
+                        }, { timeout: 1000 });
+                    } else {
+                        setTimeout(() => {
+                            this.renderWidget();
+                        }, 1000);
+                    }
+                });
             },
             
             // Success callback
@@ -226,22 +238,42 @@
                 this.handleError('300030', 'Verification timed out. Please try again.');
             },
             
-            // Error callback
+            // Error callback (with debouncing)
             onError: function(error) {
                 console.log('Turnstile error:', error);
-                this.handleError(error, this.getErrorMessage(error));
+                
+                // Debounce error handling to prevent excessive processing
+                const now = Date.now();
+                if (now - this.lastErrorTime < 1000) {
+                    console.log('Error handling debounced');
+                    return;
+                }
+                this.lastErrorTime = now;
+                
+                // Clear any existing debounce timer
+                if (this.debounceTimer) {
+                    clearTimeout(this.debounceTimer);
+                }
+                
+                // Debounce the error handling
+                this.debounceTimer = setTimeout(() => {
+                    this.handleError(error, this.getErrorMessage(error));
+                }, 100);
             },
             
-            // Handle errors with retry logic
+            // Handle errors with retry logic (optimized for performance)
             handleError: function(errorCode, message) {
                 if (this.retryCount < this.maxRetries && this.shouldRetry(errorCode)) {
                     this.retryCount++;
                     console.log(`Retrying Turnstile (attempt ${this.retryCount}/${this.maxRetries})`);
                     this.showError(`${message} Retrying... (${this.retryCount}/${this.maxRetries})`);
                     
-                    setTimeout(() => {
-                        this.reset();
-                    }, 2000);
+                    // Use requestAnimationFrame for better performance
+                    requestAnimationFrame(() => {
+                        setTimeout(() => {
+                            this.reset();
+                        }, 2000);
+                    });
                 } else {
                     this.showError(message);
                 }
@@ -299,21 +331,28 @@
             }
         };
         
-        // Initialize when DOM is ready
+        // Optimized initialization with performance considerations
         document.addEventListener('DOMContentLoaded', function() {
-            // Wait a bit to ensure the page is fully loaded
-            setTimeout(() => {
+            // Use requestAnimationFrame for better performance
+            requestAnimationFrame(() => {
                 if (window.TurnstileManager.isVisible()) {
                     window.TurnstileManager.init();
                 } else {
                     // If not visible (e.g., in a modal), wait for visibility
                     const observer = new IntersectionObserver((entries) => {
-                        entries.forEach(entry => {
-                            if (entry.isIntersecting && !window.TurnstileManager.isRendered) {
-                                window.TurnstileManager.init();
-                                observer.disconnect();
-                            }
+                        // Use requestAnimationFrame to prevent blocking
+                        requestAnimationFrame(() => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting && !window.TurnstileManager.isRendered) {
+                                    window.TurnstileManager.init();
+                                    observer.disconnect();
+                                }
+                            });
                         });
+                    }, {
+                        // Optimize observer options
+                        rootMargin: '50px',
+                        threshold: 0.1
                     });
                     
                     const container = document.getElementById('turnstile-container');
@@ -321,7 +360,7 @@
                         observer.observe(container);
                     }
                 }
-            }, 100);
+            });
         });
         
         // Global function for manual initialization (Alpine.js compatibility)

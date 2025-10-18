@@ -102,6 +102,10 @@ The updated Turnstile implementation includes:
 - ✅ **Console logging** for debugging and monitoring
 - ✅ **Timeout handling** for hung widgets (error 300030)
 - ✅ **Automatic widget reset** for crashed/expired widgets
+- ✅ **Performance optimizations** to prevent browser violations
+- ✅ **Debounced error handling** to reduce excessive processing
+- ✅ **RequestAnimationFrame usage** for smooth DOM operations
+- ✅ **RequestIdleCallback support** for non-blocking operations
 
 ## Alpine.js Integration
 
@@ -138,6 +142,30 @@ window.resetTurnstileRegister();
 </div>
 ```
 
+## Performance Optimizations
+
+The implementation includes several performance optimizations to prevent browser violations:
+
+### **RequestAnimationFrame Usage**
+- DOM manipulations are scheduled using `requestAnimationFrame`
+- Prevents blocking the main thread during widget operations
+- Ensures smooth animations and interactions
+
+### **Debounced Error Handling**
+- Error callbacks are debounced to prevent excessive processing
+- 1-second cooldown between error handling attempts
+- Reduces CPU usage during error scenarios
+
+### **RequestIdleCallback Support**
+- Non-critical operations use `requestIdleCallback` when available
+- Falls back to `setTimeout` for older browsers
+- Ensures operations don't interfere with user interactions
+
+### **Optimized IntersectionObserver**
+- Uses `rootMargin: '50px'` and `threshold: 0.1` for better performance
+- Prevents unnecessary widget initializations
+- Reduces memory usage and CPU cycles
+
 ## Testing
 
 After configuration, test the following scenarios:
@@ -148,6 +176,8 @@ After configuration, test the following scenarios:
 4. **Invalid credentials** - Should still show Turnstile validation errors
 5. **Modal visibility** - Widget should initialize when modal becomes visible
 6. **Error recovery** - Widget should automatically retry on errors 300030, 300031, 300034
+7. **Performance** - No browser violation warnings in console
+8. **Smooth interactions** - No UI blocking during widget operations
 
 ## Support
 
