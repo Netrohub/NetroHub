@@ -92,32 +92,20 @@
         </form>
     </div>
 
-    <!-- JavaScript Test - Right before closing layout -->
+    <!-- Turnstile Scripts -->
     <script>
-        console.log('=== JAVASCRIPT TEST START ===');
-        console.log('JavaScript is working!');
-        console.log('TURNSTILE_SITE_KEY:', '{{ env('TURNSTILE_SITE_KEY') }}');
-        console.log('APP_NAME:', '{{ config('app.name') }}');
+        // Turnstile callback functions
+        function onTurnstileSuccess(token) {
+            console.log('Turnstile verification successful');
+        }
         
-        // Test form
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded');
-            const form = document.querySelector('form');
-            const rememberCheckbox = document.querySelector('#remember');
-            
-            if (form) {
-                console.log('Form found:', form);
-                console.log('Remember checkbox:', rememberCheckbox);
-                console.log('Remember checkbox checked:', rememberCheckbox ? rememberCheckbox.checked : 'not found');
-                
-                form.addEventListener('submit', function(e) {
-                    console.log('Form submitted!');
-                    console.log('Remember checkbox value on submit:', rememberCheckbox ? rememberCheckbox.checked : 'not found');
-                });
-            } else {
-                console.log('Form not found!');
-            }
-        });
+        function onTurnstileExpired() {
+            console.log('Turnstile verification expired');
+        }
+        
+        function onTurnstileError(error) {
+            console.log('Turnstile verification error:', error);
+        }
     </script>
     
     @if(env('TURNSTILE_SITE_KEY'))
