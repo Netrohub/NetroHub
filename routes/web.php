@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AccountController;
-use App\Models\User;
 use App\Http\Controllers\BillingController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
@@ -355,24 +354,6 @@ Route::middleware(['auth'])->group(function () {
         ->name('impersonate.stop');
     Route::get('/stop-impersonating', [App\Http\Controllers\ImpersonationController::class, 'stopImpersonating'])
         ->name('stop-impersonating');
-});
-
-// Temporary KYC bypass route (REMOVE AFTER USE)
-Route::get('/bypass-kyc/{user_id}', function($userId) {
-    $user = User::find($userId);
-    
-    if(!$user) {
-        return "❌ User not found!";
-    }
-    
-    if(!$user->seller) {
-        return "❌ User doesn't have a seller account!";
-    }
-    
-    $user->seller->kyc_verified_at = now();
-    $user->seller->save();
-    
-    return "✅ KYC verified for user: " . $user->name . " (ID: " . $user->id . ")";
 });
 
 // Auth routes (will be added by Breeze)
