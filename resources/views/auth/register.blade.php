@@ -110,12 +110,15 @@
                     </label>
                 </div>
 
-                <!-- Cloudflare Turnstile - Temporarily disabled -->
-                {{-- @if(env('TURNSTILE_SITE_KEY'))
+                <!-- Cloudflare Turnstile -->
+                @if(env('TURNSTILE_SITE_KEY'))
                 <div class="flex justify-center">
                     <div class="cf-turnstile" data-sitekey="{{ env('TURNSTILE_SITE_KEY') }}" data-theme="dark"></div>
                 </div>
-                @endif --}}
+                @error('cf-turnstile-response')
+                    <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
+                @enderror
+                @endif
             </div>
             <div class="mt-6">
                 <button type="submit" class="btn text-sm text-white bg-purple-500 hover:bg-purple-600 w-full shadow-xs group">

@@ -607,14 +607,7 @@ document.querySelectorAll('#preview-title, #preview-platform, #preview-price').f
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const btn = document.getElementById('btn-list-social');
-    if (btn) btn.addEventListener('click', function() {
-        if (window.NetroSellFlow && typeof window.NetroSellFlow.open === 'function') {
-            window.NetroSellFlow.open('social');
-        } else {
-            setTimeout(() => window.NetroSellFlow && window.NetroSellFlow.open('social'), 100);
-        }
-    });
+    // Removed conflicting JavaScript - verification modal is handled below
     // Platform icon mapping
     const iconMap = {
         'Instagram': 'https://cdn.simpleicons.org/instagram/ffffff',
@@ -834,6 +827,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const proceedToSubmitBtn = document.getElementById('proceed-to-submit');
     const listAccountBtn = document.getElementById('btn-list-social');
     
+    
     if (form) {
         form.addEventListener('submit', function(e) {
             // Only prevent default if it's not the draft action
@@ -887,14 +881,29 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function showVerificationModal() {
-        verificationModal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
+        if (verificationModal) {
+            verificationModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
     }
     
     function hideVerificationModal() {
         verificationModal.classList.add('hidden');
         document.body.style.overflow = 'auto';
         resetVerificationState();
+    }
+    
+    function resetVerificationState() {
+        // Reset verification modal to step 1
+        const verificationStep1 = document.getElementById('verification_step_1');
+        const verificationStep2 = document.getElementById('verification_step_2');
+        const verificationSuccess = document.getElementById('verification_success');
+        const verificationError = document.getElementById('verification_error');
+        
+        if (verificationStep1) verificationStep1.classList.remove('hidden');
+        if (verificationStep2) verificationStep2.classList.add('hidden');
+        if (verificationSuccess) verificationSuccess.classList.add('hidden');
+        if (verificationError) verificationError.classList.add('hidden');
     }
 });
  </script>

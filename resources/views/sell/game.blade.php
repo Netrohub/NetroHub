@@ -578,15 +578,7 @@ document.querySelectorAll('#preview-title, #preview-platform, #preview-price').f
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const btn = document.getElementById('btn-list-game');
-    if (btn) btn.addEventListener('click', function() {
-        if (window.NetroSellFlow && typeof window.NetroSellFlow.open === 'function') {
-            window.NetroSellFlow.open('game');
-        } else {
-            // Fallback: ensure component exists then retry shortly
-            setTimeout(() => window.NetroSellFlow && window.NetroSellFlow.open('game'), 100);
-        }
-    });
+    // Removed conflicting JavaScript - game accounts go directly to delivery modal
     // Game category icon mapping
     const gameIconMap = {
         'fortnite': 'https://cdn.simpleicons.org/fortnite/ffffff',

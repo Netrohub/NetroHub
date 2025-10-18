@@ -43,7 +43,7 @@ class RegisterRequest extends FormRequest
             ],
             'password' => ['required', 'string', 'confirmed', Password::defaults()],
             'terms' => ['required', 'accepted'],
-            // 'cf-turnstile-response' => ['required'], // Temporarily disabled
+            'cf-turnstile-response' => ['required'],
         ];
     }
 
@@ -55,14 +55,11 @@ class RegisterRequest extends FormRequest
      */
     public function withValidator($validator)
     {
-        // Temporarily disabled Turnstile verification
-        /*
         $validator->after(function ($validator) {
             if (! $this->verifyTurnstile()) {
                 $validator->errors()->add('cf-turnstile-response', 'Cloudflare verification failed. Please try again.');
             }
         });
-        */
     }
 
     /**

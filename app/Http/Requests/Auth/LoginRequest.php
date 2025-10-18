@@ -25,7 +25,7 @@ class LoginRequest extends FormRequest
         return [
             'email' => ['required', 'email'],
             'password' => ['required', 'string'],
-            // 'cf-turnstile-response' => ['required'], // Temporarily disabled
+            'cf-turnstile-response' => ['required'],
             'remember' => ['nullable', 'boolean'],
         ];
     }
@@ -38,14 +38,11 @@ class LoginRequest extends FormRequest
      */
     public function withValidator($validator)
     {
-        // Temporarily disabled Turnstile verification
-        /*
         $validator->after(function ($validator) {
             if (! $this->verifyTurnstile()) {
                 $validator->errors()->add('cf-turnstile-response', 'Cloudflare verification failed. Please try again.');
             }
         });
-        */
     }
 
     /**
