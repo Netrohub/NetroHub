@@ -66,7 +66,7 @@
 
                 <!-- Remember Me -->
                 <div class="flex items-center">
-                    <input id="remember" name="remember" type="checkbox" class="form-checkbox text-purple-500" {{ old('remember') ? 'checked' : '' }} />
+                    <input id="remember" name="remember" type="checkbox" value="1" class="form-checkbox text-purple-500" {{ old('remember') ? 'checked' : '' }} />
                     <label for="remember" class="text-sm text-slate-300 ml-2">{{ __('Remember me') }}</label>
                 </div>
 

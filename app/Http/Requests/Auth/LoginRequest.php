@@ -53,9 +53,22 @@ class LoginRequest extends FormRequest
         $token = $this->input('cf-turnstile-response');
         $secretKey = env('TURNSTILE_SECRET_KEY');
 
+        // Debug logging
+        \Log::info('Turnstile verification attempt', [
+            'has_token' => !empty($token),
+            'has_secret_key' => !empty($secretKey),
+            'token_length' => strlen($token ?? ''),
+        ]);
+
         if (! $secretKey) {
             // If Turnstile is not configured, allow the request
+            \Log::info('Turnstile not configured, allowing request');
             return true;
+        }
+
+        if (empty($token)) {
+            \Log::warning('Turnstile token is empty');
+            return false;
         }
 
         try {
@@ -66,6 +79,12 @@ class LoginRequest extends FormRequest
             ]);
 
             $result = $response->json();
+            
+            \Log::info('Turnstile verification response', [
+                'success' => $result['success'] ?? false,
+                'error_codes' => $result['error-codes'] ?? [],
+                'response' => $result
+            ]);
 
             return $result['success'] ?? false;
         } catch (\Exception $e) {
@@ -85,6 +104,7 @@ class LoginRequest extends FormRequest
             'email.required' => __('عنوان البريد الإلكتروني مطلوب.'),
             'email.email' => __('يرجى إدخال عنوان بريد إلكتروني صحيح.'),
             'password.required' => __('كلمة المرور مطلوبة.'),
+            'remember.boolean' => __('تذكرني يجب أن يكون صحيح أو خطأ.'),
             'cf-turnstile-response.required' => __('يرجى إكمال التحقق الأمني.'),
         ];
     }
