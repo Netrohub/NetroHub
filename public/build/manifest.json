@@ -1,68 +1,78 @@
 {
+  "_alpine-DfaEbejj.js": {
+    "file": "assets/alpine-DfaEbejj.js",
+    "name": "alpine"
+  },
+  "_aos-B5LL9sPA.js": {
+    "file": "assets/aos-B5LL9sPA.js",
+    "name": "aos"
+  },
   "_bootstrap-Bj43h_rG.js": {
     "file": "assets/bootstrap-Bj43h_rG.js",
     "name": "bootstrap"
   },
-  "_module.esm-DfaEbejj.js": {
-    "file": "assets/module.esm-DfaEbejj.js",
-    "name": "module.esm"
+  "_chart-D1O48M4d.js": {
+    "file": "assets/chart-D1O48M4d.js",
+    "name": "chart"
   },
   "resources/css/admin.css": {
-    "file": "assets/admin-BWEuVNMx.css",
+    "file": "assets/admin-B25SSPrw.css",
     "src": "resources/css/admin.css",
     "isEntry": true
   },
   "resources/css/app.css": {
-    "file": "assets/app-dOMd0Ek1.css",
+    "file": "assets/app-BWbSI4By.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/css/mosaic.css": {
-    "file": "assets/mosaic-CwxFwQwh.css",
+    "file": "assets/mosaic-CqJe0rvb.css",
     "src": "resources/css/mosaic.css",
     "isEntry": true
   },
   "resources/css/stellar.css": {
-    "file": "assets/stellar-Bw3V63Ag.css",
+    "file": "assets/stellar-DpNCQYPx.css",
     "src": "resources/css/stellar.css",
     "isEntry": true
   },
   "resources/js/admin.js": {
-    "file": "assets/admin-BDmDQT5V.js",
+    "file": "assets/admin-mmQ23YYg.js",
     "name": "admin",
     "src": "resources/js/admin.js",
     "isEntry": true,
     "imports": [
       "_bootstrap-Bj43h_rG.js",
-      "_module.esm-DfaEbejj.js"
+      "_alpine-DfaEbejj.js",
+      "_chart-D1O48M4d.js"
     ]
   },
   "resources/js/app.js": {
-    "file": "assets/app-AkintVWz.js",
+    "file": "assets/app-BV5MjAlY.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "imports": [
       "_bootstrap-Bj43h_rG.js",
-      "_module.esm-DfaEbejj.js"
+      "_alpine-DfaEbejj.js"
     ]
   },
   "resources/js/mosaic.js": {
-    "file": "assets/mosaic-DJm01c2X.js",
+    "file": "assets/mosaic-Cul5TPDj.js",
     "name": "mosaic",
     "src": "resources/js/mosaic.js",
     "isEntry": true,
     "imports": [
-      "_module.esm-DfaEbejj.js"
+      "_alpine-DfaEbejj.js"
     ]
   },
   "resources/js/stellar.js": {
-    "file": "assets/stellar-Dd0MFfFK.js",
+    "file": "assets/stellar-BcusU32V.js",
     "name": "stellar",
     "src": "resources/js/stellar.js",
     "isEntry": true,
     "imports": [
-      "_module.esm-DfaEbejj.js"
+      "_alpine-DfaEbejj.js",
+      "_aos-B5LL9sPA.js"
     ],
     "css": [
       "assets/stellar-DvB2Xm2x.css"
