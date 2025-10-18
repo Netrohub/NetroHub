@@ -549,5 +549,37 @@
 "Turn your digital products into profit. Join thousands of sellers earning on our platform with instant payouts and secure transactions.": "حوّل منتجاتك الرقمية إلى أرباح. انضم إلى آلاف البائعين الذين يكسبون على منصتنا مع دفعات فورية ومعاملات آمنة.",
 "Go to Dashboard": "انتقل إلى لوحة التحكم",
 "Sign Up to Start Selling": "سجّل لبدء البيع",
+  "Back to product types": "العودة إلى أنواع المنتجات",
+  "Sell a Social Account": "بيع حساب تواصل اجتماعي",
+  "List your social media account and monetize your influence": "قم بعرض حسابك على منصات التواصل الاجتماعي وابدأ بتحقيق الدخل من تأثيرك",
+
+  "⚠️ Important Selling Rules & Policy": "⚠️ قواعد وسياسات البيع المهمة",
+  "You may NOT sell accounts with illegal content, stolen credentials, or that violate platform ToS.": "يُمنع بيع أي حساب يحتوي على محتوى غير قانوني أو تم الاستيلاء عليه أو ينتهك شروط استخدام المنصة.",
+  "You may NOT impersonate others or misrepresent account ownership or authenticity.": "يُمنع انتحال شخصية الآخرين أو تقديم معلومات مضلّلة عن ملكية الحساب أو أصالته.",
+  "All accounts must comply with the original platform's policies and local laws.": "يجب أن يلتزم كل حساب بسياسات المنصة الأصلية والقوانين المحلية.",
+  "Provide accurate information about followers, engagement, monetization, and account access.": "عليك تقديم معلومات دقيقة حول عدد المتابعين، نسبة التفاعل، طرق الربح، وطريقة الوصول إلى الحساب.",
+  "You are solely responsible for any claims or disputes arising from the sale.": "أنت وحدك تتحمّل المسؤولية القانونية عن أي مطالبات أو نزاعات تنشأ نتيجة عملية البيع.",
+
+  "Account Information": "معلومات الحساب",
+  "Platform": "المنصة",
+  "Username / Handle": "اسم المستخدم / المعرف",
+  "Listing Title": "عنوان العرض",
+  "Account Description": "وصف الحساب",
+  "Min. 50 characters": "الحد الأدنى: 50 حرفًا",
+  "Describe the account, its content, engagement, and what makes it valuable...": "صف الحساب، نوع المحتوى، نسب التفاعل، وما الذي يجعله ذا قيمة...",
+  "Do not add external contact details in the description.": "❌ لا تضف أي وسيلة تواصل خارجية في الوصف.",
+  "Price (USD)": "السعر (دولار أمريكي)",
+
+  "Legal Agreement": "الاتفاقية القانونية",
+  "I agree to the above terms and conditions": "أوافق على الشروط والأحكام المذكورة أعلاه",
+  "Terms & Agreements": "الشروط والأحكام",
+  "I will not include external contact information in the listing.": "أتعهد بعدم إدراج أي معلومات تواصل خارجية في العرض.",
+  "I accept full legal responsibility for the content and confirm compliance with platform rules and local laws.": "أتحمل كامل المسؤولية القانونية عن محتوى الحساب وأؤكد التزامي بسياسات المنصة والقوانين المحلية.",
+
+  "List Account": "عرض الحساب",
+  "Save as Draft": "حفظ كمسودة",
+  "yourhandle": "اسم_المستخدم",
+  "e.g., 50K Instagram Gaming Account • High Engagement": "مثال: حساب إنستجرام 50 ألف متابع • تفاعل عالي"
+}
 
 }
