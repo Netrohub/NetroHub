@@ -110,6 +110,12 @@ class PlatformIcon
             'color' => 'text-yellow-500',
             'bg' => 'bg-yellow-500/10',
         ],
+        'psn' => [
+            'icon' => 'https://cdn.simpleicons.org/playstation/003791',
+            'name' => 'PSN',
+            'color' => 'text-blue-700',
+            'bg' => 'bg-blue-700/10',
+        ],
         'others' => [
             'icon' => 'https://cdn.simpleicons.org/gamepad/667EEA',
             'name' => 'Other Games',

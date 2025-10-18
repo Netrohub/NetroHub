@@ -333,6 +333,14 @@ Route::middleware(['auth', 'verified', 'require.kyc', 'require.phone', 'require.
     Route::get('/payouts/create', [PayoutController::class, 'create'])->name('payouts.create');
     Route::post('/payouts', [PayoutController::class, 'store'])->name('payouts.store');
 
+    // Social account verification
+    Route::prefix('social-verification')->name('social-verification.')->group(function () {
+        Route::post('/start', [App\Http\Controllers\SocialAccountVerificationController::class, 'start'])->name('start');
+        Route::post('/verify', [App\Http\Controllers\SocialAccountVerificationController::class, 'verify'])->name('verify');
+        Route::get('/status', [App\Http\Controllers\SocialAccountVerificationController::class, 'status'])->name('status');
+        Route::get('/verified-accounts', [App\Http\Controllers\SocialAccountVerificationController::class, 'getVerifiedAccounts'])->name('verified-accounts');
+    });
+
 });
 
 // Impersonation routes (admin only)

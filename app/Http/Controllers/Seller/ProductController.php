@@ -67,6 +67,7 @@ class ProductController extends Controller
             'type' => 'required|in:social_account,game_account,digital_product,service',
             'game_title' => 'required_if:type,game_account|nullable|string|max:255',
             'platform' => 'required_if:type,social_account|nullable|string|max:100',
+            'social_username' => 'required_if:type,social_account|nullable|string|max:255|regex:/^[a-zA-Z0-9._-]+$/',
             'price' => 'required|numeric|min:0',
             'delivery_type' => 'required|in:file,code,hybrid',
             'features' => 'nullable|array',
@@ -84,7 +85,29 @@ class ProductController extends Controller
             'is_unique_credential' => 'nullable|boolean',
             // Metadata fields
             'metadata' => 'nullable|array',
+            // Checklist fields
+            'general_checklist' => 'nullable|array',
+            'whiteout_survival_checklist' => 'nullable|array',
+            'legal_agreement' => 'required_if:type,social_account|accepted',
+        ], [
+            'legal_agreement.required_if' => 'يجب الموافقة على التعهد قبل عرض الحساب.',
+            'legal_agreement.accepted' => 'يجب الموافقة على التعهد قبل عرض الحساب.',
         ]);
+
+        // Check social account verification for social media accounts
+        if ($validated['type'] === 'social_account') {
+            $verification = \App\Models\SocialAccountVerification::where('user_id', auth()->id())
+                ->where('platform', $validated['platform'])
+                ->where('username', $validated['social_username'])
+                ->where('is_verified', true)
+                ->first();
+
+            if (!$verification) {
+                return back()->withErrors([
+                    'social_username' => 'This social media account must be verified before listing. Please complete the verification process first.'
+                ])->withInput();
+            }
+        }
 
         // Prepare credential data if provided
         $credentialData = null;
@@ -156,11 +179,14 @@ class ProductController extends Controller
             'type' => $validated['type'],
             'game_title' => $validated['game_title'] ?? null,
             'platform' => $validated['platform'] ?? null,
+            'social_username' => $validated['social_username'] ?? null,
             'price' => $validated['price'],
             'delivery_type' => $validated['delivery_type'],
             'features' => $validated['features'] ?? [],
             'tags' => $validated['tags'] ?? [],
             'metadata' => $metadata,
+            'general_checklist' => $validated['general_checklist'] ?? [],
+            'whiteout_survival_checklist' => $validated['whiteout_survival_checklist'] ?? [],
             'delivery_credentials' => $credentialData,
             'is_unique_credential' => $request->filled('is_unique_credential') ? true : false,
             'verification_status' => 'pending',

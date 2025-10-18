@@ -20,12 +20,15 @@ class Product extends Model
         'type',
         'game_title',
         'platform',
+        'social_username',
         'title',
         'slug',
         'description',
         'features',
         'tags',
         'metadata',
+        'general_checklist',
+        'whiteout_survival_checklist',
         'price',
         'delivery_type',
         'delivery_credentials',
@@ -51,6 +54,8 @@ class Product extends Model
             'features' => 'array',
             'tags' => 'array',
             'metadata' => 'array',
+            'general_checklist' => 'array',
+            'whiteout_survival_checklist' => 'array',
             'gallery_urls' => 'array',
             'delivery_credentials' => 'encrypted:array',
             'is_unique_credential' => 'boolean',
@@ -215,5 +220,49 @@ class Product extends Model
                 'stock_count' => 0,
             ]);
         }
+    }
+
+    /**
+     * Get social media URL for the account
+     */
+    public function getSocialMediaUrl(): ?string
+    {
+        if (!$this->platform || !$this->social_username) {
+            return null;
+        }
+
+        $urls = [
+            'Instagram' => 'https://www.instagram.com/',
+            'TikTok' => 'https://www.tiktok.com/@',
+            'X (Twitter)' => 'https://x.com/',
+            'YouTube' => 'https://www.youtube.com/@',
+            'Discord' => 'https://discord.com/users/',
+            'Facebook' => 'https://www.facebook.com/',
+            'Snapchat' => 'https://www.snapchat.com/add/',
+            'Twitch' => 'https://www.twitch.tv/',
+            'LinkedIn' => 'https://www.linkedin.com/in/',
+            'Reddit' => 'https://www.reddit.com/user/',
+        ];
+
+        $baseUrl = $urls[$this->platform] ?? null;
+        
+        if (!$baseUrl) {
+            return null;
+        }
+
+        // Handle special cases
+        if ($this->platform === 'Reddit') {
+            return $baseUrl . $this->social_username;
+        }
+
+        return $baseUrl . $this->social_username;
+    }
+
+    /**
+     * Check if this product has social media information
+     */
+    public function hasSocialMedia(): bool
+    {
+        return !empty($this->platform) && !empty($this->social_username);
     }
 }

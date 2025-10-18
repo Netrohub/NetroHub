@@ -157,6 +157,177 @@
                             </div>
                         </div>
                     @endif
+
+                    <!-- Social Media Link -->
+                    @if($product->hasSocialMedia())
+                        <div class="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50 mt-8" data-aos="fade-up" data-aos-delay="550">
+                            <h3 class="text-lg font-bold text-slate-100 mb-4 flex items-center">
+                                <svg class="w-5 h-5 text-blue-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+                                </svg>
+                                {{ __('Visit Account') }}
+                            </h3>
+                            <p class="text-slate-400 text-sm mb-4">{{ __('Click the button below to visit this social media account') }}</p>
+                            
+                            <a href="{{ $product->getSocialMediaUrl() }}" 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               class="inline-flex items-center justify-center w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                                <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mr-3">
+                                    <x-platform-icon :platform="$product->platform" size="sm" />
+                                </div>
+                                <div class="text-left">
+                                    <div class="text-sm font-medium">{{ __('Visit') }} {{ $product->platform }}</div>
+                                    <div class="text-xs opacity-90">@{{ $product->social_username }}</div>
+                                </div>
+                                <svg class="w-5 h-5 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                </svg>
+                            </a>
+                            
+                            <div class="mt-4 p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+                                <div class="flex items-start">
+                                    <svg class="w-4 h-4 text-blue-400 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    <div class="text-xs text-blue-300">
+                                        <strong>{{ __('Note:') }}</strong> {{ __('This link will open in a new tab. You can verify the account details before purchasing.') }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    <!-- Product Checklist -->
+                    @if(($product->general_checklist && count($product->general_checklist) > 0) || ($product->whiteout_survival_checklist && count($product->whiteout_survival_checklist) > 0))
+                        <div class="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50 mt-8" data-aos="fade-up" data-aos-delay="600">
+                            <h3 class="text-lg font-bold text-slate-100 mb-6 flex items-center">
+                                <svg class="w-5 h-5 text-blue-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                {{ __('Product Information') }}
+                            </h3>
+                            
+                            <!-- General Checklist -->
+                            @if($product->general_checklist && count($product->general_checklist) > 0)
+                                <div class="space-y-3 mb-6">
+                                    @foreach($product->general_checklist as $key => $value)
+                                        @if($value)
+                                            <div class="flex items-center justify-between p-3 bg-slate-700/30 rounded-lg border border-slate-600/30">
+                                                <div class="flex items-center">
+                                                    <div class="w-6 h-6 bg-blue-500/20 rounded-md flex items-center justify-center mr-3">
+                                                        <svg class="w-3 h-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                                        </svg>
+                                                    </div>
+                                                    <span class="text-slate-200 text-sm font-medium">
+                                                        @switch($key)
+                                                            @case('auto_delivery')
+                                                                {{ __('تسليم تلقائي؟') }}
+                                                                @break
+                                                            @case('with_original_email')
+                                                                {{ __('مع الأيميل الأساسي؟') }}
+                                                                @break
+                                                            @case('with_current_email')
+                                                                {{ __('مع الأيميل الحالي؟') }}
+                                                                @break
+                                                            @case('linked_to_number')
+                                                                {{ __('مربوط برقم؟') }}
+                                                                @break
+                                                            @case('owner_verified')
+                                                                {{ __('صاحب المنتج موثق بهوية؟') }}
+                                                                @break
+                                                            @default
+                                                                {{ ucwords(str_replace('_', ' ', $key)) }}
+                                                        @endswitch
+                                                    </span>
+                                                </div>
+                                                <div class="flex items-center">
+                                                    @if($value === 'yes')
+                                                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-500/20 text-green-400 border border-green-500/30">
+                                                            <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                                            </svg>
+                                                            {{ __('نعم') }}
+                                                        </span>
+                                                    @else
+                                                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-500/20 text-red-400 border border-red-500/30">
+                                                            <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                                            </svg>
+                                                            {{ __('لا') }}
+                                                        </span>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            @endif
+
+                            <!-- Whiteout Survival Checklist -->
+                            @if($product->whiteout_survival_checklist && count($product->whiteout_survival_checklist) > 0)
+                                <div class="border-t border-slate-700/50 pt-6">
+                                    <h4 class="text-md font-bold text-slate-100 mb-4 flex items-center">
+                                        <svg class="w-4 h-4 text-blue-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                                        </svg>
+                                        {{ __('Whiteout Survival Specific') }}
+                                    </h4>
+                                    <div class="space-y-3">
+                                        @foreach($product->whiteout_survival_checklist as $key => $value)
+                                            @if($value)
+                                                <div class="flex items-center justify-between p-3 bg-slate-700/30 rounded-lg border border-slate-600/30">
+                                                    <div class="flex items-center">
+                                                        <div class="w-6 h-6 bg-blue-500/20 rounded-md flex items-center justify-center mr-3">
+                                                            <svg class="w-3 h-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                                            </svg>
+                                                        </div>
+                                                        <span class="text-slate-200 text-sm font-medium">
+                                                            @switch($key)
+                                                                @case('linked_to_facebook')
+                                                                    {{ __('مربوط بالفيس بوك؟') }}
+                                                                    @break
+                                                                @case('linked_to_google')
+                                                                    {{ __('مربوط بقوقل؟') }}
+                                                                    @break
+                                                                @case('linked_to_apple')
+                                                                    {{ __('مربوط بأبل؟') }}
+                                                                    @break
+                                                                @case('linked_to_game_center')
+                                                                    {{ __('مربوط بقيم سنتر؟') }}
+                                                                    @break
+                                                                @default
+                                                                    {{ ucwords(str_replace('_', ' ', $key)) }}
+                                                            @endswitch
+                                                        </span>
+                                                    </div>
+                                                    <div class="flex items-center">
+                                                        @if($value === 'yes')
+                                                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-500/20 text-green-400 border border-green-500/30">
+                                                                <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                                                </svg>
+                                                                {{ __('نعم') }}
+                                                            </span>
+                                                        @else
+                                                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-500/20 text-red-400 border border-red-500/30">
+                                                                <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                                                </svg>
+                                                                {{ __('لا') }}
+                                                            </span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                    @endif
                 </div>
             </div>
 

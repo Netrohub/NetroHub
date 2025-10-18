@@ -31,7 +31,7 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="text-3xl font-bold text-yellow-400">{{ number_format($stats['open']) }}</div>
+                    <div class="text-3xl font-bold text-yellow-400">{{ number_format($stats['between_parties']) }}</div>
                 </a>
 
                 <a href="?status=in_review" class="bg-gradient-to-br from-blue-500/10 to-blue-500/5 rounded-2xl p-6 border border-blue-500/30 hover:border-blue-500/50 transition-colors">
@@ -43,7 +43,7 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="text-3xl font-bold text-blue-400">{{ number_format($stats['in_review']) }}</div>
+                    <div class="text-3xl font-bold text-blue-400">{{ number_format($stats['escalated']) }}</div>
                 </a>
 
                 <a href="?status=resolved" class="bg-gradient-to-br from-green-500/10 to-green-500/5 rounded-2xl p-6 border border-green-500/30 hover:border-green-500/50 transition-colors">
@@ -117,7 +117,7 @@
                                             <div class="text-xs text-slate-400">{{ $dispute->buyer->email }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-slate-200">{{ $dispute->seller->business_name }}</div>
+                                            <div class="text-sm text-slate-200">{{ $dispute->seller->display_name ?? 'N/A' }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             @php
