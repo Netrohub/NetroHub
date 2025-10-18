@@ -94,7 +94,6 @@
 </div>
 
 <script>
-window.sellFlow = function() { return sellFlow(); };
 function sellFlow() {
     return {
         open: false,
@@ -155,9 +154,5 @@ function sellFlow() {
         }
     }
 }
-window.NetroSellFlow = { open: (flow) => {
-    const root = document.querySelector('[x-data^="sellFlow"]');
-    if (root && root.__x) { root.__x.$data.open(flow); } else { console.warn('sellFlow not initialized'); }
-}};
 </script>
 
