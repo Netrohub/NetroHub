@@ -40,17 +40,17 @@
                     <div>
                         @auth
                             @if(auth()->user()->hasVerifiedEmail() && auth()->user()->is_verified && auth()->user()->phone_verified_at)
-                                <a class="btn text-white bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 hover:from-orange-400 hover:via-red-400 hover:to-pink-400 w-full transition duration-150 ease-in-out group shadow-xl shadow-orange-500/30 hover:shadow-orange-500/50 border-2 border-orange-400/80 hover:border-orange-300 transform hover:scale-105 font-bold text-lg px-8 py-4 rounded-xl" href="{{ route('sell.index') }}">
-                                    🚀 {{ __('ابدأ البيع الآن') }} <span class="tracking-normal text-white group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span>
+                                <a class="btn text-white bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 hover:from-purple-500 hover:via-purple-600 hover:to-purple-700 w-full transition duration-150 ease-in-out group shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40" href="{{ route('sell.index') }}">
+                                    {{ __('ابدأ الآن') }} 🚀 <span class="tracking-normal text-white group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span>
                                 </a>
                             @else
-                                <a class="btn text-white bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 hover:from-orange-400 hover:via-red-400 hover:to-pink-400 w-full transition duration-150 ease-in-out group shadow-xl shadow-orange-500/30 hover:shadow-orange-500/50 border-2 border-orange-400/80 hover:border-orange-300 transform hover:scale-105 font-bold text-lg px-8 py-4 rounded-xl" href="{{ route('account.verification.checklist') }}">
-                                    🚀 {{ __('ابدأ البيع الآن') }} <span class="tracking-normal text-white group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span>
+                                <a class="btn text-white bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 hover:from-purple-500 hover:via-purple-600 hover:to-purple-700 w-full transition duration-150 ease-in-out group shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40" href="{{ route('account.verification.checklist') }}">
+                                    {{ __('ابدأ الآن') }} 🚀 <span class="tracking-normal text-white group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span>
                                 </a>
                             @endif
                         @else
-                            <a class="btn text-white bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 hover:from-orange-400 hover:via-red-400 hover:to-pink-400 w-full transition duration-150 ease-in-out group shadow-xl shadow-orange-500/30 hover:shadow-orange-500/50 border-2 border-orange-400/80 hover:border-orange-300 transform hover:scale-105 font-bold text-lg px-8 py-4 rounded-xl" href="{{ route('register') }}">
-                                🚀 {{ __('ابدأ البيع الآن') }} <span class="tracking-normal text-white group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span>
+                            <a class="btn text-white bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 hover:from-purple-500 hover:via-purple-600 hover:to-purple-700 w-full transition duration-150 ease-in-out group shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40" href="{{ route('register') }}">
+                                {{ __('ابدأ الآن') }} 🚀 <span class="tracking-normal text-white group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span>
                             </a>
                         @endauth
                     </div>
