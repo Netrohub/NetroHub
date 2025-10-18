@@ -16,7 +16,10 @@ class OrderResource extends Resource
 {
     protected static ?string $model = Order::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-shopping-cart';
+    public static function getNavigationIcon(): ?string
+    {
+        return 'heroicon-o-shopping-cart';
+    }
 
     public static function getNavigationGroup(): ?string
     {

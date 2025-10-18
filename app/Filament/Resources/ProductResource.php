@@ -16,7 +16,10 @@ class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
+    public static function getNavigationIcon(): ?string
+    {
+        return 'heroicon-o-shopping-bag';
+    }
 
     public static function getNavigationGroup(): ?string
     {
