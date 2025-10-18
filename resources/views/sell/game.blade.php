@@ -608,6 +608,24 @@ document.addEventListener('DOMContentLoaded', function() {
         gameSelect.addEventListener('change', toggleWhiteoutChecklist);
         toggleWhiteoutChecklist(); // Check on page load
     }
+    
+    // Form submission handling
+    const form = document.querySelector('form');
+    const listAccountBtn = document.getElementById('btn-list-game');
+    
+    if (form && listAccountBtn) {
+        form.addEventListener('submit', function(e) {
+            // Only prevent default if it's the List Account button
+            if (e.submitter && e.submitter.id === 'btn-list-game') {
+                // For game accounts, we can submit directly without verification modal
+                // Just allow the form to submit normally
+                return true;
+            }
+            
+            // For other buttons (like draft), allow normal submission
+            return true;
+        });
+    }
 });
 </script>
 @endpush
