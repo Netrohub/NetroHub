@@ -21,6 +21,15 @@ class AuthenticatedSessionController extends Controller
             'password' => $request->password,
         ];
 
+        // Log login attempt for debugging
+        \Log::info('Login attempt', [
+            'email' => $request->email,
+            'ip' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+            'turnstile_configured' => config('services.turnstile.secret_key') ? 'yes' : 'no',
+            'turnstile_token' => $request->input('cf-turnstile-response') ? 'present' : 'missing'
+        ]);
+
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
 
@@ -29,8 +38,19 @@ class AuthenticatedSessionController extends Controller
             // Track analytics
             app(\App\Services\AnalyticsService::class)->trackUserLogin(auth()->user(), 'email');
 
+            \Log::info('Login successful', [
+                'user_id' => auth()->id(),
+                'email' => $request->email
+            ]);
+
             return redirect()->intended(route('home'));
         }
+
+        \Log::warning('Login failed', [
+            'email' => $request->email,
+            'ip' => $request->ip(),
+            'reason' => 'Invalid credentials'
+        ]);
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',

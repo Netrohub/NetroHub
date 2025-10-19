@@ -43,7 +43,8 @@ class RegisterRequest extends FormRequest
             ],
             'password' => ['required', 'string', 'confirmed', Password::defaults()],
             'terms' => ['required', 'accepted'],
-            'cf-turnstile-response' => ['required'],
+            // Only require Turnstile if it's configured
+            ...(config('services.turnstile.secret_key') ? ['cf-turnstile-response' => ['required']] : []),
         ];
     }
 
@@ -56,11 +57,14 @@ class RegisterRequest extends FormRequest
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {
-            $turnstileService = app(\App\Services\TurnstileService::class);
-            $token = $this->input('cf-turnstile-response');
-            
-            if (!$turnstileService->verify($token, $this->ip())) {
-                $validator->errors()->add('cf-turnstile-response', 'Human verification failed. Please try again.');
+            // Only validate Turnstile if it's configured
+            if (config('services.turnstile.secret_key')) {
+                $turnstileService = app(\App\Services\TurnstileService::class);
+                $token = $this->input('cf-turnstile-response');
+                
+                if (!$turnstileService->verify($token, $this->ip())) {
+                    $validator->errors()->add('cf-turnstile-response', 'Human verification failed. Please try again.');
+                }
             }
         });
     }

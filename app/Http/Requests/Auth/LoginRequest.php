@@ -22,12 +22,18 @@ class LoginRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'email' => ['required', 'email'],
             'password' => ['required', 'string'],
-            'cf-turnstile-response' => ['required', 'string'],
             'remember' => ['nullable', 'boolean'],
         ];
+
+        // Only require Turnstile if it's configured
+        if (config('services.turnstile.secret_key')) {
+            $rules['cf-turnstile-response'] = ['required', 'string'];
+        }
+
+        return $rules;
     }
 
     /**
@@ -39,11 +45,14 @@ class LoginRequest extends FormRequest
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {
-            $turnstileService = app(TurnstileService::class);
-            $token = $this->input('cf-turnstile-response');
-            
-            if (!$turnstileService->verify($token, $this->ip())) {
-                $validator->errors()->add('cf-turnstile-response', 'Human verification failed. Please try again.');
+            // Only validate Turnstile if it's configured
+            if (config('services.turnstile.secret_key')) {
+                $turnstileService = app(TurnstileService::class);
+                $token = $this->input('cf-turnstile-response');
+                
+                if (!$turnstileService->verify($token, $this->ip())) {
+                    $validator->errors()->add('cf-turnstile-response', 'Human verification failed. Please try again.');
+                }
             }
         });
     }
