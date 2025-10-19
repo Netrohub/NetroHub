@@ -14,7 +14,7 @@
 
             <div class="bg-slate-800/50 rounded-2xl p-8 lg:p-12 border border-slate-700/50 space-y-8" data-aos="fade-up">
                 
-                <!-- 1: حول NetroHub -->
+                <!-- 1: حول NXO -->
                 <section>
                     <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
                         <span class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-sm font-bold mr-3">1</span>

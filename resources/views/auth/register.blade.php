@@ -6,7 +6,7 @@
         <!-- Logo -->
         <div class="mb-6">
             <div class="relative flex items-center justify-center w-16 h-16 border border-transparent rounded-2xl shadow-2xl mx-auto [background:linear-gradient(var(--color-slate-900),var(--color-slate-900))_padding-box,conic-gradient(var(--color-slate-400),var(--color-slate-700)_25%,var(--color-slate-700)_75%,var(--color-slate-400)_100%)_border-box] before:absolute before:inset-0 before:bg-slate-800/30 before:rounded-2xl">
-                <img class="relative" src="{{ asset('stellar-assets/images/logo.svg') }}" width="42" height="42" alt="{{ \App\Models\SiteSetting::get('site_name', 'NetroHub') }}">
+                <img class="relative" src="{{ asset('stellar-assets/images/logo.svg') }}" width="42" height="42" alt="{{ \App\Models\SiteSetting::get('site_name', 'NXO') }}">
             </div>
         </div>
         <!-- Page title -->
