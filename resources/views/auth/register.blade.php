@@ -151,9 +151,13 @@
             document.getElementById('ts-response-register').value = token;
         };
         
-        window.onTsErrorRegister = function () {
-            // Reset to get a fresh token
-            if (window.turnstile) window.turnstile.reset();
+        window.onTsErrorRegister = function (error) {
+            console.warn('Turnstile error callback triggered:', error);
+            // Clear the token input on error
+            const tokenInput = document.getElementById('ts-response-register');
+            if (tokenInput) {
+                tokenInput.value = '';
+            }
         };
         
         window.onTsExpiredRegister = function () {

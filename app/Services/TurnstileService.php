@@ -56,9 +56,13 @@ class TurnstileService
             // Log detailed error information if verification fails
             if (!($result['success'] ?? false)) {
                 $errorCodes = $result['error-codes'] ?? [];
+                $errorMessages = array_map(function($code) {
+                    return $this->getErrorMessage($code);
+                }, $errorCodes);
+                
                 \Log::warning('Turnstile verification failed with errors', [
                     'error_codes' => $errorCodes,
-                    'error_messages' => array_map([$this, 'getErrorMessage'], $errorCodes),
+                    'error_messages' => $errorMessages,
                     'token_length' => strlen($token),
                     'token_preview' => substr($token, 0, 20) . '...',
                     'remote_ip' => $remoteIp ?? request()->ip(),
@@ -86,9 +90,9 @@ class TurnstileService
     }
 
     /**
-     * Get error message for specific error codes
+     * Get error message for specific error code
      */
-    public function getErrorMessage(array $errorCodes): string
+    public function getErrorMessage(string $errorCode): string
     {
         $messages = [
             'missing-input-secret' => 'The secret parameter is missing.',
@@ -100,7 +104,6 @@ class TurnstileService
             'internal-error' => 'An internal error happened while validating the response.',
         ];
 
-        $firstError = $errorCodes[0] ?? 'unknown-error';
-        return $messages[$firstError] ?? 'Verification failed. Please try again.';
+        return $messages[$errorCode] ?? 'Verification failed. Please try again.';
     }
 }

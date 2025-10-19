@@ -119,7 +119,11 @@
         
         window.onTsError = function (error) {
             console.warn('Turnstile error callback triggered:', error);
-            // Don't reset on error to avoid infinite loops
+            // Clear the token input on error
+            const tokenInput = document.getElementById('ts-response');
+            if (tokenInput) {
+                tokenInput.value = '';
+            }
         };
         
         window.onTsExpired = function () {

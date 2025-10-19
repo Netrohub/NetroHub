@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Turnstile Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #1a1a1a; color: white; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .status { padding: 15px; margin: 10px 0; border-radius: 8px; }
+        .success { background: #10b981; }
+        .error { background: #ef4444; }
+        .info { background: #3b82f6; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Turnstile Test</h1>
+        
+        <div class="status info">
+            <h3>Test Turnstile Widget</h3>
+            <p>If this works, Turnstile is properly configured.</p>
+            
+            <div class="cf-turnstile" 
+                 data-sitekey="0x4AAAAAAB7dFU6VMLmS-CiV" 
+                 data-callback="onTsSuccess"
+                 data-error-callback="onTsError"
+                 data-expired-callback="onTsExpired"
+                 data-size="normal"
+                 data-theme="auto">
+            </div>
+            
+            <div id="result" class="status info" style="margin-top: 20px;">
+                <h3>Results</h3>
+                <p id="status-text">Waiting for Turnstile...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let resultDiv = document.getElementById('result');
+        let statusText = document.getElementById('status-text');
+        
+        window.onTsSuccess = function (token) {
+            resultDiv.className = 'status success';
+            statusText.innerHTML = '✅ SUCCESS! Token: ' + token.substring(0, 20) + '...';
+        };
+        
+        window.onTsError = function (error) {
+            resultDiv.className = 'status error';
+            statusText.innerHTML = '❌ ERROR: ' + error;
+        };
+        
+        window.onTsExpired = function () {
+            resultDiv.className = 'status error';
+            statusText.innerHTML = '⏰ EXPIRED';
+        };
+    </script>
+    
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</body>
+</html>
