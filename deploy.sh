@@ -11,7 +11,7 @@ fi
 
 SERVER=$1
 WEB_PATH=$2
-PROJECT_NAME="nxo"
+PROJECT_NAME="NetroHub"
 
 echo "🚀 Starting NXO deployment to $SERVER:$WEB_PATH"
 

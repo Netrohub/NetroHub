@@ -41,7 +41,7 @@
             </div>
         @endif
 
-        <form id="auth-form" method="POST" action="{{ route('login') }}" x-data="authForm()" @submit.prevent="onSubmit">
+        <form id="loginForm" method="POST" action="{{ route('login') }}">
             @csrf
             <div class="space-y-4">
                 <div>
@@ -70,16 +70,18 @@
                     <label for="remember" class="text-sm text-slate-300 ml-2">{{ __('Remember me') }}</label>
                 </div>
 
-                <!-- Cloudflare Turnstile Managed Widget -->
+                <!-- Turnstile Token (Hidden) -->
+                <input type="hidden" name="cf-turnstile-response" id="ts-response">
+
+                <!-- Cloudflare Turnstile Widget -->
                 @if(config('services.turnstile.site_key'))
                 <div class="flex justify-center">
                     <div class="cf-turnstile"
                          data-sitekey="{{ config('services.turnstile.site_key') }}"
-                         data-theme="auto"
-                         data-callback="onTsDone"
+                         data-callback="onTsSuccess"
                          data-error-callback="onTsError"
-                         data-expired-callback="onTsExpired">
-                    </div>
+                         data-expired-callback="onTsExpired"
+                         data-theme="auto"></div>
                 </div>
                 @error('cf-turnstile-response')
                     <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
@@ -91,9 +93,8 @@
                 @endif
             </div>
             <div class="mt-6">
-                <button type="submit" id="submit-btn" class="btn text-sm text-white bg-purple-500 hover:bg-purple-600 w-full shadow-xs group" :disabled="submitting">
-                    <span x-show="!submitting">{{ __('Sign In') }} <span class="tracking-normal text-purple-300 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span></span>
-                    <span x-show="submitting">{{ __('Signing in...') }}</span>
+                <button type="submit" id="submit-btn" class="btn text-sm text-white bg-purple-500 hover:bg-purple-600 w-full shadow-xs group">
+                    {{ __('Sign In') }} <span class="tracking-normal text-purple-300 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span>
                 </button>
             </div>
         </form>
@@ -102,41 +103,20 @@
     <!-- Turnstile Scripts -->
     @if(config('services.turnstile.site_key'))
     <script>
-        // Turnstile callback functions
-        function onTsDone(token) {
-            console.log('Turnstile token:', token);
-            // Token is automatically added to hidden input named "cf-turnstile-response"
-        }
-
-        function onTsError(code) {
-            console.warn('Turnstile error:', code);
-            // Managed widget handles retry automatically
-        }
-
-        function onTsExpired() {
-            console.log('Turnstile expired');
-            // Managed widget shows checkbox to retry automatically
-        }
-
-        // Alpine.js form component
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('authForm', () => ({
-                submitting: false,
-                async onSubmit(e) {
-                    if (this.submitting) return;
-                    
-                    // Ensure Turnstile token exists
-                    const tokenInput = document.querySelector('input[name="cf-turnstile-response"]');
-                    if (!tokenInput || !tokenInput.value) {
-                        alert('Please verify you are human.');
-                        return;
-                    }
-                    
-                    this.submitting = true;
-                    e.target.submit();
-                }
-            }));
-        });
+        // Turnstile callback functions - minimal, correct implementation
+        window.onTsSuccess = function (token) {
+            // Put token in hidden input so it is POSTed with the form
+            document.getElementById('ts-response').value = token;
+        };
+        
+        window.onTsError = function () {
+            // Reset to get a fresh token
+            if (window.turnstile) turnstile.reset();
+        };
+        
+        window.onTsExpired = function () {
+            if (window.turnstile) turnstile.reset();
+        };
     </script>
     
     <!-- Load Turnstile once per page -->

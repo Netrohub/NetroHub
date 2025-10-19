@@ -9,7 +9,7 @@ param(
     [string]$WebPath
 )
 
-$ProjectName = "nxo"
+$ProjectName = "NetroHub"
 
 Write-Host "🚀 Starting NXO deployment to $Server`:$WebPath" -ForegroundColor Green
 
