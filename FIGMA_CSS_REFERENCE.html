@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NXO Design System - Figma Reference</title>
+    <style>
+        :root {
+            /* Colors */
+            --primary-purple: #8B5CF6;
+            --primary-blue: #3B82F6;
+            --primary-cyan: #06B6D4;
+            --bg-primary: #0F172A;
+            --bg-secondary: #1E293B;
+            --bg-tertiary: #334155;
+            --text-primary: #FFFFFF;
+            --text-secondary: #E2E8F0;
+            --text-muted: #94A3B8;
+            --border-primary: #475569;
+            --border-gaming: #8B5CF6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Color Palette */
+        .color-palette {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .color-swatch {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .color-box {
+            width: 100%;
+            height: 60px;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .color-primary { background: var(--primary-purple); }
+        .color-blue { background: var(--primary-blue); }
+        .color-cyan { background: var(--primary-cyan); }
+        .color-bg-primary { background: var(--bg-primary); }
+        .color-bg-secondary { background: var(--bg-secondary); }
+        .color-bg-tertiary { background: var(--bg-tertiary); }
+
+        /* Typography */
+        .typography-examples {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .text-sample {
+            margin-bottom: 1rem;
+        }
+
+        .text-h1 { font-size: 3.75rem; font-weight: 900; }
+        .text-h2 { font-size: 3rem; font-weight: bold; }
+        .text-h3 { font-size: 2.25rem; font-weight: bold; }
+        .text-h4 { font-size: 1.875rem; font-weight: bold; }
+        .text-h5 { font-size: 1.5rem; font-weight: bold; }
+        .text-body { font-size: 1rem; font-weight: normal; }
+        .text-small { font-size: 0.875rem; font-weight: normal; color: var(--text-muted); }
+
+        /* Buttons */
+        .button-examples {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-blue));
+            color: white;
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background: #374151;
+            color: var(--text-secondary);
+            border: 1px solid #4B5563;
+        }
+
+        .btn-secondary:hover {
+            background: #4B5563;
+            border-color: #6B7280;
+        }
+
+        /* Form Elements */
+        .form-examples {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid var(--border-primary);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            min-height: 44px;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-purple);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: #64748B;
+        }
+
+        /* Cards */
+        .card-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary-purple);
+        }
+
+        .card-product {
+            overflow: hidden;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-blue));
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-description {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .card-price {
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Glass Card */
+        .card-glass {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Logo Examples */
+        .logo-examples {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.5rem;
+        }
+
+        .logo-primary {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-blue));
+            border-radius: 50%;
+            color: white;
+        }
+
+        .logo-horizontal {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-blue));
+            border-radius: 12px;
+            color: white;
+            font-size: 1.25rem;
+        }
+
+        /* Spacing Examples */
+        .spacing-examples {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .spacing-box {
+            background: var(--primary-purple);
+            border-radius: 4px;
+        }
+
+        .spacing-4 { width: 16px; height: 16px; }
+        .spacing-8 { width: 32px; height: 32px; }
+        .spacing-12 { width: 48px; height: 48px; }
+        .spacing-16 { width: 64px; height: 64px; }
+        .spacing-24 { width: 96px; height: 96px; }
+
+        /* Responsive Grid */
+        .grid-examples {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .grid-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.875rem;
+        }
+
+        .grid-1 { grid-column: span 1; }
+        .grid-2 { grid-column: span 2; }
+        .grid-3 { grid-column: span 3; }
+        .grid-4 { grid-column: span 4; }
+        .grid-6 { grid-column: span 6; }
+        .grid-12 { grid-column: span 12; }
+
+        /* Code Blocks */
+        .code-block {
+            background: #1a1a1a;
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.875rem;
+            color: #e2e8f0;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .code-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align: center; margin-bottom: 3rem; font-size: 3rem; background: linear-gradient(135deg, var(--primary-purple), var(--primary-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            NXO Design System
+        </h1>
+
+        <!-- Color Palette -->
+        <div class="section">
+            <h2 class="section-title">Color Palette</h2>
+            <div class="color-palette">
+                <div class="color-swatch">
+                    <div class="color-box color-primary"></div>
+                    <div>Primary Purple</div>
+                    <div class="code-block">#8B5CF6</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-box color-blue"></div>
+                    <div>Primary Blue</div>
+                    <div class="code-block">#3B82F6</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-box color-cyan"></div>
+                    <div>Primary Cyan</div>
+                    <div class="code-block">#06B6D4</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-box color-bg-primary"></div>
+                    <div>Background Primary</div>
+                    <div class="code-block">#0F172A</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-box color-bg-secondary"></div>
+                    <div>Background Secondary</div>
+                    <div class="code-block">#1E293B</div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-box color-bg-tertiary"></div>
+                    <div>Background Tertiary</div>
+                    <div class="code-block">#334155</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Typography -->
+        <div class="section">
+            <h2 class="section-title">Typography</h2>
+            <div class="typography-examples">
+                <div class="text-sample">
+                    <div class="code-title">H1 - Poppins, 60px, Black</div>
+                    <div class="text-h1">Digital Marketplace</div>
+                </div>
+                <div class="text-sample">
+                    <div class="code-title">H2 - Poppins, 48px, Bold</div>
+                    <div class="text-h2">Gaming Platform</div>
+                </div>
+                <div class="text-sample">
+                    <div class="code-title">H3 - Poppins, 36px, Bold</div>
+                    <div class="text-h3">Product Categories</div>
+                </div>
+                <div class="text-sample">
+                    <div class="code-title">H4 - Poppins, 30px, Bold</div>
+                    <div class="text-h4">Featured Products</div>
+                </div>
+                <div class="text-sample">
+                    <div class="code-title">H5 - Poppins, 24px, Bold</div>
+                    <div class="text-h5">Product Title</div>
+                </div>
+                <div class="text-sample">
+                    <div class="code-title">Body - Inter, 16px, Regular</div>
+                    <div class="text-body">This is body text that provides information about the product or service. It should be easy to read and provide clear context.</div>
+                </div>
+                <div class="text-sample">
+                    <div class="code-title">Small - Inter, 14px, Regular, Muted</div>
+                    <div class="text-small">This is small text used for captions, labels, and secondary information.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="section">
+            <h2 class="section-title">Buttons</h2>
+            <div class="button-examples">
+                <button class="btn btn-primary">Primary Button</button>
+                <button class="btn btn-secondary">Secondary Button</button>
+                <button class="btn btn-primary" style="width: 200px;">Full Width Button</button>
+            </div>
+            <div class="code-block">
+.btn-primary {
+    background: linear-gradient(135deg, #8B5CF6, #3B82F6);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.25);
+}
+            </div>
+        </div>
+
+        <!-- Form Elements -->
+        <div class="section">
+            <h2 class="section-title">Form Elements</h2>
+            <div class="form-examples">
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-input" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" placeholder="Enter your password">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Select Platform</label>
+                    <select class="form-input">
+                        <option>Choose a platform</option>
+                        <option>Steam</option>
+                        <option>PlayStation</option>
+                        <option>Xbox</option>
+                    </select>
+                </div>
+            </div>
+            <div class="code-block">
+.form-input {
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid #475569;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    color: #E2E8F0;
+    min-height: 44px;
+}
+            </div>
+        </div>
+
+        <!-- Cards -->
+        <div class="section">
+            <h2 class="section-title">Cards</h2>
+            <div class="card-examples">
+                <div class="card card-product">
+                    <div class="card-image">Product Image</div>
+                    <div class="card-title">Premium Gaming Account</div>
+                    <div class="card-description">High-level account with rare items and achievements.</div>
+                    <div class="card-price">$99.99</div>
+                </div>
+                <div class="card card-glass">
+                    <div class="card-title">Glass Card</div>
+                    <div class="card-description">This card uses a glass morphism effect with backdrop blur.</div>
+                </div>
+            </div>
+            <div class="code-block">
+.card {
+    background: #1E293B;
+    border: 1px solid #334155;
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+            </div>
+        </div>
+
+        <!-- Logos -->
+        <div class="section">
+            <h2 class="section-title">Logo Variations</h2>
+            <div class="logo-examples">
+                <div class="logo logo-primary">NXO</div>
+                <div class="logo logo-horizontal">NXO MARKETPLACE</div>
+            </div>
+        </div>
+
+        <!-- Spacing -->
+        <div class="section">
+            <h2 class="section-title">Spacing Scale</h2>
+            <div class="spacing-examples">
+                <div class="spacing-box spacing-4"></div>
+                <div class="spacing-box spacing-8"></div>
+                <div class="spacing-box spacing-12"></div>
+                <div class="spacing-box spacing-16"></div>
+                <div class="spacing-box spacing-24"></div>
+            </div>
+            <div class="code-block">
+4px, 8px, 12px, 16px, 24px, 32px, 40px, 48px, 64px, 80px
+            </div>
+        </div>
+
+        <!-- Grid System -->
+        <div class="section">
+            <h2 class="section-title">Grid System</h2>
+            <div class="grid-examples">
+                <div class="grid-item grid-1">1</div>
+                <div class="grid-item grid-2">2</div>
+                <div class="grid-item grid-3">3</div>
+                <div class="grid-item grid-6">6</div>
+                <div class="grid-item grid-4">4</div>
+                <div class="grid-item grid-4">4</div>
+                <div class="grid-item grid-4">4</div>
+                <div class="grid-item grid-12">12</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
