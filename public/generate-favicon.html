@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate NXO Favicon</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #1a1a1a; color: white; }
+        .favicon-preview { display: inline-block; margin: 10px; }
+        canvas { border: 1px solid #333; }
+        .instructions { background: #2a2a2a; padding: 15px; border-radius: 8px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <h1>NXO Favicon Generator</h1>
+    
+    <div class="instructions">
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Right-click on the 32x32 canvas below</li>
+            <li>Select "Save image as..."</li>
+            <li>Save as "favicon.ico" in the public folder</li>
+            <li>Or use an online converter to convert PNG to ICO</li>
+        </ol>
+    </div>
+    
+    <div class="favicon-preview">
+        <h3>32x32 Favicon:</h3>
+        <canvas id="favicon32" width="32" height="32"></canvas>
+    </div>
+    
+    <div class="favicon-preview">
+        <h3>64x64 Favicon:</h3>
+        <canvas id="favicon64" width="64" height="64"></canvas>
+    </div>
+
+    <script>
+        function drawFavicon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            
+            // Create gradient
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#8B5CF6');
+            gradient.addColorStop(0.5, '#3B82F6');
+            gradient.addColorStop(1, '#06B6D4');
+            
+            // Draw background circle
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(size/2, size/2, size/2, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Draw NXO text
+            ctx.fillStyle = 'white';
+            ctx.font = `bold ${size/3}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('NXO', size/2, size/2);
+        }
+        
+        // Generate favicons
+        drawFavicon(document.getElementById('favicon32'), 32);
+        drawFavicon(document.getElementById('favicon64'), 64);
+    </script>
+</body>
+</html>

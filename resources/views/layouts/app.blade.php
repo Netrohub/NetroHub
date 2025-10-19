@@ -17,18 +17,23 @@
     <meta property="og:description" content="@yield('og_description', 'Discover and trade digital gaming goods on NXO - the ultimate gaming marketplace for gamers, by gamers.')">
     <meta property="og:type" content="@yield('og_type', 'website')">
     <meta property="og:url" content="{{ request()->url() }}">
-    <meta property="og:image" content="@yield('og_image', asset('img/nxo-og.png'))">
+    <meta property="og:image" content="@yield('og_image', asset('img/nxo-og.svg'))">
     <meta property="og:site_name" content="{{ config('app.name', 'NXO') }}">
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="@yield('twitter_card', 'summary_large_image')">
     <meta name="twitter:title" content="@yield('twitter_title', config('app.name', 'NXO') . ' - Gaming Marketplace')">
     <meta name="twitter:description" content="@yield('twitter_description', 'Discover and trade digital gaming goods on NXO - the ultimate gaming marketplace for gamers, by gamers.')">
-    <meta name="twitter:image" content="@yield('twitter_image', asset('img/nxo-og.png'))">
+    <meta name="twitter:image" content="@yield('twitter_image', asset('img/nxo-og.svg'))">
     
     <!-- Additional SEO -->
     <link rel="canonical" href="{{ request()->url() }}">
     <meta name="robots" content="@yield('robots', 'index, follow')">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <link rel="apple-touch-icon" href="{{ asset('favicon.svg') }}">
     
     <!-- Google Analytics (GA4) - Production Only -->
     @if(config('services.google_analytics.enabled') && config('services.google_analytics.measurement_id') && app()->environment('production'))
