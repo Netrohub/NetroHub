@@ -173,7 +173,7 @@
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     @else
     <script>
-        console.log('TURNSTILE_SITE_KEY is not set in environment');
+        console.log('TURNSTILE_SITE_KEY is not set in environment - Turnstile disabled');
     </script>
     @endif
 
