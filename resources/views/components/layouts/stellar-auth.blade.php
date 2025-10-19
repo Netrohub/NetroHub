@@ -8,7 +8,8 @@
     <title>{{ $title ?? config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet" />
 
     <!-- Scripts -->
@@ -60,7 +61,7 @@
 
         <!-- Right side illustration -->
         <div class="hidden md:block absolute top-0 bottom-0 right-0 md:w-1/2 z-0" aria-hidden="true">
-            <img class="object-cover object-center w-full h-full" src="{{ asset('stellar-assets/images/auth-illustration.svg') }}" width="760" height="1024" alt="Authentication" />
+            <img class="object-cover object-center w-full h-full" src="{{ asset('stellar-assets/images/auth-illustration.svg') }}" width="760" height="1024" alt="Authentication" loading="lazy" />
             <div class="absolute inset-0 bg-gradient-to-r from-slate-900 to-transparent"></div>
         </div>
 

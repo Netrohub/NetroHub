@@ -2,108 +2,111 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\Http;
-use Illuminate\Validation\ValidationException;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Exception\TransferException;
 
 class TurnstileService
 {
-    /**
-     * Verify Turnstile token with Cloudflare
-     */
-    public function verify(?string $token, ?string $remoteIp = null): bool
+    private Client $client;
+
+    public function __construct()
     {
-        $secretKey = config('services.turnstile.secret_key');
-        
-        if (!$secretKey) {
-            // If Turnstile is not configured, allow the request
-            return true;
+        $this->client = new Client([
+            'timeout' => 3, // Total timeout
+            'connect_timeout' => 2, // Connection timeout
+            'read_timeout' => 3, // Read timeout
+        ]);
+    }
+
+    public function verifyToken(?string $token, string $ip = null): bool
+    {
+        if (empty($token)) {
+            \Log::warning('Turnstile verification failed: empty token', [
+                'ip' => $ip,
+                'has_token' => false
+            ]);
+            return false;
         }
 
-        if (empty($token)) {
-            \Log::warning('Turnstile verification failed - empty token', [
-                'token' => $token,
-                'ip' => $remoteIp ?? request()->ip()
+        $secret = config('services.turnstile.secret_key');
+        if (empty($secret)) {
+            \Log::warning('Turnstile verification failed: secret not configured', [
+                'ip' => $ip,
+                'has_secret' => false
             ]);
             return false;
         }
 
         try {
-            $response = Http::asForm()->timeout(10)->post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
-                'secret' => $secretKey,
-                'response' => $token,
-                'remoteip' => $remoteIp ?? request()->ip(),
+            $response = $this->client->post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
+                'form_params' => [
+                    'secret' => $secret,
+                    'response' => $token,
+                    'remoteip' => $ip,
+                ],
+                'headers' => [
+                    'User-Agent' => 'NXO-Marketplace/1.0',
+                ],
             ]);
 
-            if (!$response->ok()) {
-                \Log::warning('Turnstile verification failed - HTTP error', [
-                    'status' => $response->status(),
-                    'body' => $response->body()
+            $statusCode = $response->getStatusCode();
+            if ($statusCode !== 200) {
+                \Log::warning('Turnstile verification failed: non-200 response', [
+                    'ip' => $ip,
+                    'status_code' => $statusCode,
+                    'response_body' => $response->getBody()->getContents()
                 ]);
                 return false;
             }
 
-            $result = $response->json();
-            
-            \Log::info('Turnstile verification response', [
-                'success' => $result['success'] ?? false,
-                'error_codes' => $result['error-codes'] ?? [],
-                'challenge_ts' => $result['challenge_ts'] ?? null,
-                'hostname' => $result['hostname'] ?? null,
-                'action' => $result['action'] ?? null,
-                'cdata' => $result['cdata'] ?? null,
-            ]);
+            $json = json_decode($response->getBody()->getContents(), true);
+            $success = (bool)($json['success'] ?? false);
 
-            // Log detailed error information if verification fails
-            if (!($result['success'] ?? false)) {
-                $errorCodes = $result['error-codes'] ?? [];
-                $errorMessages = array_map(function($code) {
-                    return $this->getErrorMessage($code);
-                }, $errorCodes);
-                
-                \Log::warning('Turnstile verification failed with errors', [
-                    'error_codes' => $errorCodes,
-                    'error_messages' => $errorMessages,
-                    'token_length' => strlen($token),
-                    'token_preview' => substr($token, 0, 20) . '...',
-                    'remote_ip' => $remoteIp ?? request()->ip(),
-                    'request_hostname' => request()->getHost(),
+            if (!$success) {
+                \Log::warning('Turnstile verification failed: API returned success=false', [
+                    'ip' => $ip,
+                    'response' => $json,
+                    'error_codes' => $json['error-codes'] ?? []
                 ]);
             }
 
-            return $result['success'] ?? false;
+            return $success;
+
+        } catch (ConnectException $e) {
+            \Log::warning('Turnstile verification failed: connection error', [
+                'ip' => $ip,
+                'error' => $e->getMessage(),
+                'error_code' => $e->getCode()
+            ]);
+            return false;
+
+        } catch (RequestException $e) {
+            \Log::warning('Turnstile verification failed: request error', [
+                'ip' => $ip,
+                'error' => $e->getMessage(),
+                'error_code' => $e->getCode(),
+                'response' => $e->hasResponse() ? $e->getResponse()->getBody()->getContents() : null
+            ]);
+            return false;
+
+        } catch (TransferException $e) {
+            \Log::warning('Turnstile verification failed: transfer error', [
+                'ip' => $ip,
+                'error' => $e->getMessage(),
+                'error_code' => $e->getCode()
+            ]);
+            return false;
+
         } catch (\Exception $e) {
-            \Log::error('Turnstile verification error: ' . $e->getMessage());
+            \Log::warning('Turnstile verification failed: unexpected error', [
+                'ip' => $ip,
+                'error' => $e->getMessage(),
+                'error_code' => $e->getCode(),
+                'trace' => $e->getTraceAsString()
+            ]);
             return false;
         }
-    }
-
-    /**
-     * Verify Turnstile token and throw validation exception on failure
-     */
-    public function verifyOrFail(?string $token, ?string $remoteIp = null): void
-    {
-        if (!$this->verify($token, $remoteIp)) {
-            throw ValidationException::withMessages([
-                'cf-turnstile-response' => 'Human verification failed. Please try again.',
-            ]);
-        }
-    }
-
-    /**
-     * Get error message for specific error code
-     */
-    public function getErrorMessage(string $errorCode): string
-    {
-        $messages = [
-            'missing-input-secret' => 'The secret parameter is missing.',
-            'invalid-input-secret' => 'The secret parameter is invalid or malformed.',
-            'missing-input-response' => 'The response parameter is missing.',
-            'invalid-input-response' => 'The response parameter is invalid or malformed.',
-            'bad-request' => 'The request is invalid or malformed.',
-            'timeout-or-duplicate' => 'The response is no longer valid: either is too old or has been used previously.',
-            'internal-error' => 'An internal error happened while validating the response.',
-        ];
-
-        return $messages[$errorCode] ?? 'Verification failed. Please try again.';
     }
 }

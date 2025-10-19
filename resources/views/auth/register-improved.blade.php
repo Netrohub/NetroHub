@@ -488,10 +488,10 @@
 </div>
 
 <!-- Turnstile Script -->
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script nonce="{{ csp_nonce() }}" src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 <!-- Country Dropdown JavaScript -->
-<script>
+<script nonce="{{ csp_nonce() }}">
 // Country dropdown functionality
 function toggleCountryDropdown() {
     const dropdown = document.getElementById('country-dropdown');

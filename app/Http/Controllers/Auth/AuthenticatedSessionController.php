@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Services\TurnstileService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,8 +15,18 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login');
     }
 
-    public function store(LoginRequest $request)
+    public function store(LoginRequest $request, TurnstileService $ts)
     {
+        $request->validate([
+            'cf-turnstile-response' => 'required|string',
+        ], [
+            'cf-turnstile-response.required' => __('Please complete the verification challenge.'),
+        ]);
+
+        if (! $ts->verifyToken($request->input('cf-turnstile-response'), $request->ip())) {
+            return back()->withErrors(['turnstile' => __('Verification failed. Please try again.')])->withInput();
+        }
+
         $credentials = [
             'email' => $request->email,
             'password' => $request->password,

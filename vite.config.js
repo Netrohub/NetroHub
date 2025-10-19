@@ -32,10 +32,25 @@ export default defineConfig({
                     'alpine': ['alpinejs'],
                     'aos': ['aos'],
                     'chart': ['chart.js'],
+                    'vendor': ['axios'],
                 },
+                // Optimize chunk names for better caching
+                chunkFileNames: 'assets/[name]-[hash].js',
+                entryFileNames: 'assets/[name]-[hash].js',
+                assetFileNames: 'assets/[name]-[hash].[ext]',
             },
         },
         chunkSizeWarningLimit: 1000,
+        // Enable source maps for production debugging
+        sourcemap: false,
+        // Optimize for production
+        minify: 'terser',
+        terserOptions: {
+            compress: {
+                drop_console: true,
+                drop_debugger: true,
+            },
+        },
     },
     server: {
         hmr: {

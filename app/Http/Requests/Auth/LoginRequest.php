@@ -57,7 +57,7 @@ class LoginRequest extends FormRequest
                     'ip' => $this->ip()
                 ]);
                 
-                if (!$turnstileService->verify($token, $this->ip())) {
+                if (!$turnstileService->verifyToken($token, $this->ip())) {
                     $validator->errors()->add('cf-turnstile-response', 'Human verification failed. Please try again.');
                 }
             }

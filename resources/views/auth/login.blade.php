@@ -33,12 +33,13 @@
 
         @if ($errors->any())
             <div class="bg-red-500/10 border border-red-500/50 text-red-300 px-4 py-3 rounded-lg">
-                <ul class="list-disc list-inside text-sm">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
+                {{ __('Please fix the highlighted fields.') }}
             </div>
+        @endif
+
+        {{-- Error summary (server) --}}
+        @if ($errors->has('turnstile'))
+          <div class="bg-red-500/10 border border-red-500/50 text-red-300 px-4 py-3 rounded-lg mb-3">{{ $errors->first('turnstile') }}</div>
         @endif
 
         <form id="loginForm" method="POST" action="{{ route('login') }}">
@@ -71,19 +72,11 @@
                 </div>
 
                 <!-- Turnstile Token (Hidden) -->
-                <input type="hidden" name="cf-turnstile-response" id="ts-response">
+                <input type="hidden" name="cf-turnstile-response" id="cf-turnstile-response">
 
                 <!-- Cloudflare Turnstile Widget -->
                 @if(config('services.turnstile.site_key'))
-                <div class="flex justify-center">
-                    <div class="cf-turnstile"
-                         data-sitekey="{{ config('services.turnstile.site_key') }}"
-                         data-callback="onTsSuccess"
-                         data-error-callback="onTsError"
-                         data-expired-callback="onTsExpired"
-                         data-size="normal"
-                         data-theme="auto"></div>
-                </div>
+                <div class="mt-4" id="cf-turnstile-container"></div>
                 @error('cf-turnstile-response')
                     <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
                 @enderror
@@ -94,8 +87,9 @@
                 @endif
             </div>
             <div class="mt-6">
-                <button type="submit" id="submit-btn" class="btn text-sm text-white bg-purple-500 hover:bg-purple-600 w-full shadow-xs group">
-                    {{ __('Sign In') }} <span class="tracking-normal text-purple-300 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span>
+                <button type="submit" id="submit-btn" x-data="{busy:false}" @click="busy=true" :disabled="busy" class="btn text-sm text-white bg-purple-500 hover:bg-purple-600 w-full shadow-xs group">
+                    <span x-show="!busy">{{ __('Sign In') }} <span class="tracking-normal text-purple-300 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span></span>
+                    <span x-show="busy">{{ __('Processing…') }}</span>
                 </button>
             </div>
         </form>
@@ -103,76 +97,37 @@
 
     <!-- Turnstile Scripts -->
     @if(config('services.turnstile.site_key'))
-    <script>
-        // Turnstile callback functions - minimal, correct implementation
-        window.onTsSuccess = function (token) {
-            console.log('Turnstile success callback triggered with token:', token ? token.substring(0, 20) + '...' : 'null');
-            // Put token in hidden input so it is POSTed with the form
-            const tokenInput = document.getElementById('ts-response');
-            if (tokenInput) {
-                tokenInput.value = token;
-                console.log('Token set in hidden input:', tokenInput.value ? tokenInput.value.substring(0, 20) + '...' : 'empty');
-            } else {
-                console.error('Token input element not found!');
-            }
-        };
-        
-        window.onTsError = function (error) {
-            console.warn('Turnstile error callback triggered:', error);
-            // Clear the token input on error
-            const tokenInput = document.getElementById('ts-response');
-            if (tokenInput) {
-                tokenInput.value = '';
-            }
-        };
-        
-        window.onTsExpired = function () {
-            console.log('Turnstile expired callback triggered');
-            // Reset only on expiration, not on errors
-            if (window.turnstile) window.turnstile.reset();
-        };
+    <script nonce="{{ csp_nonce() }}" src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script nonce="{{ csp_nonce() }}">
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.turnstile || document.getElementById('cf-turnstile-container').dataset.mounted) return;
 
-        // Handle SPA/Alpine transitions that hide/show the form
-        document.addEventListener('visibilitychange', () => {
-            if (document.visibilityState === 'visible' && window.turnstile) {
-                window.turnstile.reset();
-            }
-        });
+      document.getElementById('cf-turnstile-container').dataset.mounted = '1';
 
-        // Add form submission handler to check token
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('loginForm');
-            if (form) {
-                form.addEventListener('submit', function(e) {
-                    const tokenInput = document.getElementById('ts-response');
-                    const token = tokenInput ? tokenInput.value : null;
-                    
-                    console.log('Form submission - Token check:', {
-                        tokenPresent: !!token,
-                        tokenLength: token ? token.length : 0,
-                        tokenPreview: token ? token.substring(0, 20) + '...' : 'null'
-                    });
-                    
-                    if (!token) {
-                        console.warn('No Turnstile token found on form submission');
-                        // Don't prevent submission - let the server handle validation
-                    }
-                });
-            }
-            
-            // Add timeout handling for Turnstile
-            setTimeout(() => {
-                if (typeof window.turnstile === 'undefined') {
-                    console.warn('Turnstile failed to load within 10 seconds');
-                }
-            }, 10000);
-        });
+      const siteKey = @json(config('services.turnstile.site_key'));
+      const hidden = document.getElementById('cf-turnstile-response');
+
+      window.turnstile.render('#cf-turnstile-container', {
+        sitekey: siteKey,
+        callback: function(token) {
+          hidden.value = token;
+        },
+        'error-callback': function() {
+          hidden.value = '';
+        },
+        'expired-callback': function() {
+          hidden.value = '';
+          try { window.turnstile.reset(); } catch(e){}
+        },
+        'timeout-callback': function() {
+          hidden.value = '';
+          try { window.turnstile.reset(); } catch(e){}
+        },
+      });
+    });
     </script>
-    
-    <!-- Load Turnstile once per page -->
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     @else
-    <script>
+    <script nonce="{{ csp_nonce() }}">
         console.log('TURNSTILE_SITE_KEY is not set in environment - Turnstile disabled');
     </script>
     @endif

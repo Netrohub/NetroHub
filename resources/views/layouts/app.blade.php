@@ -37,8 +37,8 @@
     
     <!-- Google Analytics (GA4) - Production Only -->
     @if(config('services.google_analytics.enabled') && config('services.google_analytics.measurement_id') && app()->environment('production'))
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ config('services.google_analytics.measurement_id') }}"></script>
-    <script>
+    <script async defer src="https://www.googletagmanager.com/gtag/js?id={{ config('services.google_analytics.measurement_id') }}"></script>
+    <script nonce="{{ csp_nonce() }}" defer>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
@@ -51,7 +51,7 @@
     
     <!-- PostHog -->
     @if(config('services.posthog.api_key'))
-    <script>
+    <script nonce="{{ csp_nonce() }}" defer>
         // Polyfill for modern storage API to prevent deprecation warnings
         if (!window.navigator.storage) {
             window.navigator.storage = {
@@ -98,7 +98,8 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.bunny.net">
     @if(app()->getLocale() === 'ar')
     <link href="https://fonts.bunny.net/css?family=tajawal:400,500,600,700,800,900&family=cairo:400,500,600,700,800,900&display=swap" rel="stylesheet" />
     @else
@@ -244,7 +245,7 @@
                         <div class="relative" x-data="{ open: false }">
                             <button @click="open = !open" class="flex items-center gap-2 px-2 py-2 rounded-xl text-muted-300 hover:text-white hover:bg-dark-800/50 transition-all duration-300 group">
                                 <div class="w-9 h-9 rounded-xl bg-gaming-gradient p-0.5 shadow-gaming group-hover:scale-110 transition-transform">
-                                    <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}" class="w-full h-full rounded-lg object-cover">
+                                    <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}" class="w-full h-full rounded-lg object-cover" loading="lazy" width="36" height="36">
                                 </div>
                                 <svg class="w-4 h-4 group-hover:rotate-180 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -346,7 +347,7 @@
                             <button @click="accountMenuOpen = !accountMenuOpen" class="flex items-center gap-3 px-3 py-2 rounded-xl bg-dark-800/30 border border-gaming/30 hover:bg-dark-800/50 hover:border-gaming/50 transition-all duration-300">
                                 <!-- Avatar -->
                                 <div class="w-8 h-8 rounded-lg bg-gaming-gradient p-0.5 shadow-gaming">
-                                    <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}" class="w-full h-full rounded-md object-cover">
+                                    <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}" class="w-full h-full rounded-md object-cover" loading="lazy" width="32" height="32">
                                 </div>
                                 <!-- User Name -->
                                 <div class="flex flex-col items-start">
@@ -502,7 +503,7 @@
                         <!-- User Profile Link -->
                         <a href="{{ route('account.index') }}" class="block w-full px-4 py-3 rounded-lg text-base font-medium text-muted-300 hover:text-white hover:bg-dark-800/50 transition-all duration-300 min-h-[44px] flex items-center gap-3">
                             <div class="w-8 h-8 rounded-lg bg-gaming-gradient p-0.5">
-                                <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}" class="w-full h-full rounded-md object-cover">
+                                <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}" class="w-full h-full rounded-md object-cover" loading="lazy" width="32" height="32">
                             </div>
                             <div class="flex-1 text-{{ app()->getLocale() === 'ar' ? 'right' : 'left' }}">
                                 <p class="font-semibold text-white text-sm">{{ auth()->user()->name }}</p>

@@ -40,6 +40,15 @@ class PhoneLoginController extends Controller
         // Combine phone number
         $fullPhone = $request->country_code.$request->phone;
 
+        // Check cooldown period (45 seconds between sends per phone)
+        $cooldownKey = 'phone_otp_cooldown_'.md5($fullPhone);
+        if (Cache::has($cooldownKey)) {
+            $remaining = Cache::get($cooldownKey) - now()->timestamp;
+            return back()->withErrors([
+                'phone' => "Please wait {$remaining} seconds before requesting another code.",
+            ]);
+        }
+
         // Throttle: max 3 attempts per 10 minutes per phone
         $throttleKey = 'phone_otp_'.md5($fullPhone);
         $attempts = Cache::get($throttleKey, 0);
@@ -53,9 +62,13 @@ class PhoneLoginController extends Controller
         // Generate 6-digit OTP
         $otp = random_int(100000, 999999);
 
-        // Store OTP in cache for 10 minutes
-        $otpKey = 'phone_otp_code_'.md5($fullPhone);
+        // Store OTP in cache for 10 minutes with session binding
+        $sessionId = session()->getId();
+        $otpKey = 'phone_otp_code_'.md5($fullPhone.'_'.$sessionId);
         Cache::put($otpKey, $otp, now()->addMinutes(10));
+
+        // Set cooldown period (45 seconds)
+        Cache::put($cooldownKey, now()->addSeconds(45)->timestamp, now()->addSeconds(45));
 
         // Increment attempts
         Cache::put($throttleKey, $attempts + 1, now()->addMinutes(10));
@@ -99,8 +112,9 @@ class PhoneLoginController extends Controller
                 ->withErrors(['otp' => 'Session expired. Please request a new code.']);
         }
 
-        // Get stored OTP
-        $otpKey = 'phone_otp_code_'.md5($phone);
+        // Get stored OTP with session binding
+        $sessionId = session()->getId();
+        $otpKey = 'phone_otp_code_'.md5($phone.'_'.$sessionId);
         $storedOtp = Cache::get($otpKey);
 
         if (! $storedOtp) {
@@ -136,7 +150,7 @@ class PhoneLoginController extends Controller
             }
         }
 
-        // Clear OTP from cache
+        // Immediately delete the OTP from cache after successful verification
         Cache::forget($otpKey);
         session()->forget('phone_verify');
 
@@ -174,27 +188,7 @@ class PhoneLoginController extends Controller
      */
     protected function verifyTurnstile(Request $request): bool
     {
-        $token = $request->input('cf-turnstile-response');
-        $secretKey = env('TURNSTILE_SECRET_KEY');
-
-        if (! $secretKey) {
-            return true;
-        }
-
-        try {
-            $response = Http::asForm()->post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
-                'secret' => $secretKey,
-                'response' => $token,
-                'remoteip' => $request->ip(),
-            ]);
-
-            $result = $response->json();
-
-            return $result['success'] ?? false;
-        } catch (\Exception $e) {
-            \Log::error('Turnstile verification error: '.$e->getMessage());
-
-            return true;
-        }
+        $turnstileService = app(\App\Services\TurnstileService::class);
+        return $turnstileService->verifyToken($request->input('cf-turnstile-response'), $request->ip());
     }
 }

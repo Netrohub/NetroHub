@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
+use App\Services\TurnstileService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -16,8 +17,18 @@ class RegisteredUserController extends Controller
         return view('auth.register');
     }
 
-    public function store(RegisterRequest $request)
+    public function store(RegisterRequest $request, TurnstileService $ts)
     {
+        $request->validate([
+            'cf-turnstile-response' => 'required|string',
+        ], [
+            'cf-turnstile-response.required' => __('Please complete the verification challenge.'),
+        ]);
+
+        if (! $ts->verifyToken($request->input('cf-turnstile-response'), $request->ip())) {
+            return back()->withErrors(['turnstile' => __('Verification failed. Please try again.')])->withInput();
+        }
+
         try {
             // Generate username if not provided
             $username = $request->username ?? $this->generateUsername($request->name);

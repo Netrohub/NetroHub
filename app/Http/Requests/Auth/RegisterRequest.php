@@ -71,7 +71,7 @@ class RegisterRequest extends FormRequest
                 $turnstileService = app(\App\Services\TurnstileService::class);
                 $token = $this->input('cf-turnstile-response');
                 
-                if (!$turnstileService->verify($token, $this->ip())) {
+                if (!$turnstileService->verifyToken($token, $this->ip())) {
                     $validator->errors()->add('cf-turnstile-response', 'Human verification failed. Please try again.');
                 }
             }

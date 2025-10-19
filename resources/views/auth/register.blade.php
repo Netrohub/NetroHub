@@ -31,12 +31,13 @@
 
         @if ($errors->any())
             <div class="bg-red-500/10 border border-red-500/50 text-red-300 px-4 py-3 rounded-lg">
-                <ul class="list-disc list-inside text-sm">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
+                {{ __('Please fix the highlighted fields.') }}
             </div>
+        @endif
+
+        {{-- Error summary (server) --}}
+        @if ($errors->has('turnstile'))
+          <div class="bg-red-500/10 border border-red-500/50 text-red-300 px-4 py-3 rounded-lg mb-3">{{ $errors->first('turnstile') }}</div>
         @endif
 
         <form id="registerForm" method="POST" action="{{ route('register') }}">
@@ -111,19 +112,11 @@
                 </div>
 
                 <!-- Turnstile Token (Hidden) -->
-                <input type="hidden" name="cf-turnstile-response" id="ts-response-register">
+                <input type="hidden" name="cf-turnstile-response" id="cf-turnstile-response">
 
                 <!-- Cloudflare Turnstile Widget -->
                 @if(config('services.turnstile.site_key'))
-                <div class="flex justify-center">
-                    <div class="cf-turnstile"
-                         data-sitekey="{{ config('services.turnstile.site_key') }}"
-                         data-callback="onTsSuccessRegister"
-                         data-error-callback="onTsErrorRegister"
-                         data-expired-callback="onTsExpiredRegister"
-                         data-size="normal"
-                         data-theme="auto"></div>
-                </div>
+                <div class="mt-4" id="cf-turnstile-container"></div>
                 @error('cf-turnstile-response')
                     <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
                 @enderror
@@ -134,8 +127,9 @@
                 @endif
             </div>
             <div class="mt-6">
-                <button type="submit" id="submit-btn" class="btn text-sm text-white bg-purple-500 hover:bg-purple-600 w-full shadow-xs group">
-                    {{ __('Sign Up') }} <span class="tracking-normal text-purple-300 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span>
+                <button type="submit" id="submit-btn" x-data="{busy:false}" @click="busy=true" :disabled="busy" class="btn text-sm text-white bg-purple-500 hover:bg-purple-600 w-full shadow-xs group">
+                    <span x-show="!busy">{{ __('Sign Up') }} <span class="tracking-normal text-purple-300 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span></span>
+                    <span x-show="busy">{{ __('Processing…') }}</span>
                 </button>
             </div>
         </form>
@@ -144,38 +138,37 @@
 
     <!-- Turnstile Scripts -->
     @if(config('services.turnstile.site_key'))
-    <script>
-        // Turnstile callback functions for register - minimal, correct implementation
-        window.onTsSuccessRegister = function (token) {
-            // Put token in hidden input so it is POSTed with the form
-            document.getElementById('ts-response-register').value = token;
-        };
-        
-        window.onTsErrorRegister = function (error) {
-            console.warn('Turnstile error callback triggered:', error);
-            // Clear the token input on error
-            const tokenInput = document.getElementById('ts-response-register');
-            if (tokenInput) {
-                tokenInput.value = '';
-            }
-        };
-        
-        window.onTsExpiredRegister = function () {
-            if (window.turnstile) window.turnstile.reset();
-        };
+    <script nonce="{{ csp_nonce() }}" src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script nonce="{{ csp_nonce() }}">
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.turnstile || document.getElementById('cf-turnstile-container').dataset.mounted) return;
 
-        // Handle SPA/Alpine transitions that hide/show the form
-        document.addEventListener('visibilitychange', () => {
-            if (document.visibilityState === 'visible' && window.turnstile) {
-                window.turnstile.reset();
-            }
-        });
+      document.getElementById('cf-turnstile-container').dataset.mounted = '1';
+
+      const siteKey = @json(config('services.turnstile.site_key'));
+      const hidden = document.getElementById('cf-turnstile-response');
+
+      window.turnstile.render('#cf-turnstile-container', {
+        sitekey: siteKey,
+        callback: function(token) {
+          hidden.value = token;
+        },
+        'error-callback': function() {
+          hidden.value = '';
+        },
+        'expired-callback': function() {
+          hidden.value = '';
+          try { window.turnstile.reset(); } catch(e){}
+        },
+        'timeout-callback': function() {
+          hidden.value = '';
+          try { window.turnstile.reset(); } catch(e){}
+        },
+      });
+    });
     </script>
-    
-    <!-- Load Turnstile once per page -->
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     @else
-    <script>
+    <script nonce="{{ csp_nonce() }}">
         console.log('TURNSTILE_SITE_KEY is not set in environment - Turnstile disabled');
     </script>
     @endif

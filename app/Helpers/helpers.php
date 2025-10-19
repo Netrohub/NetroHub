@@ -123,3 +123,12 @@ if (! function_exists('payoutDiscount')) {
     }
 }
 
+if (! function_exists('csp_nonce')) {
+    /**
+     * Get the CSP nonce for the current request
+     */
+    function csp_nonce(): string {
+        return \App\Http\Middleware\CspHeaders::nonce();
+    }
+}
+
