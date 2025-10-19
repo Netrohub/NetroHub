@@ -25,9 +25,9 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'min:2', 'max:60'],
+            'name' => ['required', 'string', 'max:255'],
             'username' => ['nullable', 'string', 'min:3', 'max:24', 'regex:/^[A-Za-z0-9_]+$/', 'unique:users,username'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
+            'email' => ['required', 'email:rfc,dns', 'unique:users,email'],
             'country_code' => ['required', 'string', 'in:+971,+966,+965,+973,+974,+968,+1,+44,+91,+86,+81,+49,+33,+61,+20,+55,+52,+34'],
             'phone' => [
                 'required', 
@@ -41,7 +41,16 @@ class RegisterRequest extends FormRequest
                     }
                 }
             ],
-            'password' => ['required', 'string', 'confirmed', Password::defaults()],
+            'password' => [
+                'required', 
+                'string', 
+                'confirmed',
+                Password::min(8)
+                    ->letters()
+                    ->mixedCase()
+                    ->numbers()
+                    ->symbols()
+            ],
             'terms' => ['required', 'accepted'],
             // Only require Turnstile if it's configured
             ...(config('services.turnstile.secret_key') ? ['cf-turnstile-response' => ['required']] : []),

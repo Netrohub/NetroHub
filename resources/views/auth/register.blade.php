@@ -55,7 +55,7 @@
                     <label class="block text-sm text-slate-300 font-medium mb-1" for="email">
                         {{ __('Email') }} <span class="text-red-400">*</span>
                     </label>
-                    <input id="email" name="email" class="form-input w-full" type="email" value="{{ old('email') }}" required />
+                    <input id="email" name="email" class="form-input w-full" type="email" value="{{ old('email') }}" autocomplete="email" required />
                     @error('email')
                         <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
                     @enderror

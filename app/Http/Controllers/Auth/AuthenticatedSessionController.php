@@ -30,21 +30,6 @@ class AuthenticatedSessionController extends Controller
             'turnstile_token' => $request->input('cf-turnstile-response') ? 'present' : 'missing'
         ]);
 
-        // Check if user exists
-        $user = \App\Models\User::where('email', $request->email)->first();
-        if ($user) {
-            \Log::info('User found', [
-                'user_id' => $user->id,
-                'email' => $user->email,
-                'is_active' => $user->is_active,
-                'email_verified_at' => $user->email_verified_at
-            ]);
-        } else {
-            \Log::warning('User not found', [
-                'email' => $request->email
-            ]);
-        }
-
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
 
@@ -59,27 +44,18 @@ class AuthenticatedSessionController extends Controller
             ]);
 
             return redirect()->intended(route('home'));
-        } else {
-            // Log detailed failure information
-            \Log::warning('Login failed - Auth::attempt returned false', [
-                'email' => $request->email,
-                'ip' => $request->ip(),
-                'user_agent' => $request->userAgent(),
-                'credentials_provided' => [
-                    'email' => $request->email,
-                    'password_length' => strlen($request->password)
-                ]
-            ]);
         }
 
+        // Log failed login attempt
         \Log::warning('Login failed', [
             'email' => $request->email,
             'ip' => $request->ip(),
             'reason' => 'Invalid credentials'
         ]);
 
+        // Generic error message without revealing whether email exists
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => __('The provided credentials do not match our records.'),
         ])->onlyInput('email');
     }
 

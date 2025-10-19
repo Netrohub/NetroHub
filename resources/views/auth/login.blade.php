@@ -46,7 +46,7 @@
             <div class="space-y-4">
                 <div>
                     <label class="block text-sm text-slate-300 font-medium mb-1" for="email">{{ __('Email') }}</label>
-                    <input id="email" name="email" class="form-input w-full" type="email" value="{{ old('email') }}" autocomplete="username" required autofocus />
+                    <input id="email" name="email" class="form-input w-full" type="email" value="{{ old('email') }}" autocomplete="email" required autofocus />
                     @error('email')
                         <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
                     @enderror

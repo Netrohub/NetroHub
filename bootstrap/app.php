@@ -21,6 +21,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'require.phone' => \App\Http\Middleware\RequirePhoneVerification::class,
             'require.seller.verifications' => \App\Http\Middleware\RequireSellerVerifications::class,
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
+            'auth.csp' => \App\Http\Middleware\AuthCspMiddleware::class,
         ]);
         
         // Add locale middleware to web group

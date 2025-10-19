@@ -37,8 +37,6 @@ class RegisteredUserController extends Controller
 
             event(new Registered($user)); // triggers immediate verification email
 
-            Auth::login($user);
-
             // Track analytics
             try {
                 app(\App\Services\AnalyticsService::class)->trackUserRegistration($user);
@@ -51,7 +49,8 @@ class RegisteredUserController extends Controller
 
             \App\Models\ActivityLog::log('user_registered', $user, 'User successfully registered');
 
-            return redirect()->route('home')->with('success', 'Welcome to NXO! Your account has been created.');
+            // Redirect to email verification notice instead of auto-login
+            return redirect()->route('verification.notice')->with('success', __('Please check your email and click the verification link to complete your registration.'));
         } catch (\Exception $e) {
             \Log::error('Registration failed', [
                 'error' => $e->getMessage(),
