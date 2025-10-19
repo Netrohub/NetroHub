@@ -24,6 +24,7 @@ return [
             "'unsafe-eval'",   // Required for some JavaScript frameworks
             'https://fonts.bunny.net',
             'https://www.googletagmanager.com',
+            'https://www.google-analytics.com',
             'https://challenges.cloudflare.com',
             'https://*.cloudflare.com',
         ],
@@ -53,6 +54,7 @@ return [
         // Connect sources for AJAX/fetch requests
         'connect-src' => [
             "'self'",
+            'https://www.google-analytics.com',
             'https://challenges.cloudflare.com',
             'https://*.cloudflare.com',
         ],
