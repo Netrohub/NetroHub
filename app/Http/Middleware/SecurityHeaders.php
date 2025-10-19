@@ -25,18 +25,29 @@ class SecurityHeaders
         $response->headers->remove('X-Powered-By');
         $response->headers->remove('Server');
 
-        // Content Security Policy (adjust based on your needs)
-        if (!config('app.debug')) {
-            $response->headers->set('Content-Security-Policy', 
-                "default-src 'self'; " .
-                "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.bunny.net https://www.googletagmanager.com https://challenges.cloudflare.com https://*.cloudflare.com; " .
-                "style-src 'self' 'unsafe-inline' https://fonts.bunny.net https://*.cloudflare.com; " .
-                "img-src 'self' data: https: https://*.cloudflare.com; " .
-                "font-src 'self' https://fonts.bunny.net; " .
-                "connect-src 'self' https://challenges.cloudflare.com https://*.cloudflare.com; " .
-                "frame-src 'self' https://challenges.cloudflare.com https://*.cloudflare.com; " .
-                "frame-ancestors 'self';"
-            );
+        // Content Security Policy - explicit directives to prevent fallback warnings
+        if (config('csp.enabled', true)) {
+            $cspDirectives = [];
+            $directives = config('csp.directives', []);
+            
+            foreach ($directives as $directive => $sources) {
+                if (is_array($sources)) {
+                    $cspDirectives[] = $directive . ' ' . implode(' ', $sources);
+                } else {
+                    $cspDirectives[] = $directive . ' ' . $sources;
+                }
+            }
+            
+            $cspHeader = implode('; ', $cspDirectives);
+            
+            // Add report-uri if configured
+            if (config('csp.report-uri')) {
+                $cspHeader .= '; report-uri ' . config('csp.report-uri');
+            }
+            
+            // Use Report-Only mode if configured
+            $headerName = config('csp.report-only', false) ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy';
+            $response->headers->set($headerName, $cspHeader);
         }
 
         // Strict-Transport-Security (HSTS) - only if using HTTPS
