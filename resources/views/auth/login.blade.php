@@ -119,12 +119,12 @@
         
         window.onTsError = function (error) {
             console.warn('Turnstile error callback triggered:', error);
-            // Reset to get a fresh token
-            if (window.turnstile) window.turnstile.reset();
+            // Don't reset on error to avoid infinite loops
         };
         
         window.onTsExpired = function () {
             console.log('Turnstile expired callback triggered');
+            // Reset only on expiration, not on errors
             if (window.turnstile) window.turnstile.reset();
         };
 

@@ -55,9 +55,10 @@ class TurnstileService
 
             // Log detailed error information if verification fails
             if (!($result['success'] ?? false)) {
+                $errorCodes = $result['error-codes'] ?? [];
                 \Log::warning('Turnstile verification failed with errors', [
-                    'error_codes' => $result['error-codes'] ?? [],
-                    'error_messages' => array_map([$this, 'getErrorMessage'], [$result['error-codes'] ?? []]),
+                    'error_codes' => $errorCodes,
+                    'error_messages' => array_map([$this, 'getErrorMessage'], $errorCodes),
                     'token_length' => strlen($token),
                     'token_preview' => substr($token, 0, 20) . '...',
                     'remote_ip' => $remoteIp ?? request()->ip(),
