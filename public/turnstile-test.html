@@ -46,7 +46,11 @@
         
         window.onTsError = function (error) {
             resultDiv.className = 'status error';
-            statusText.innerHTML = '❌ ERROR: ' + error;
+            if (error === '300031') {
+                statusText.innerHTML = '❌ ERROR 300031: Widget timeout. This usually means network issues or slow loading.';
+            } else {
+                statusText.innerHTML = '❌ ERROR: ' + error;
+            }
         };
         
         window.onTsExpired = function () {

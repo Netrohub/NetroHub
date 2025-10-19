@@ -155,9 +155,17 @@
                     
                     if (!token) {
                         console.warn('No Turnstile token found on form submission');
+                        // Don't prevent submission - let the server handle validation
                     }
                 });
             }
+            
+            // Add timeout handling for Turnstile
+            setTimeout(() => {
+                if (typeof window.turnstile === 'undefined') {
+                    console.warn('Turnstile failed to load within 10 seconds');
+                }
+            }, 10000);
         });
     </script>
     
