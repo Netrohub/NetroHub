@@ -36,7 +36,7 @@
                     <svg class="w-8 h-8 fill-current text-violet-500" viewBox="0 0 32 32">
                         <path d="M16 0C7.163 0 0 7.163 0 16s7.163 16 16 16 16-7.163 16-16S24.837 0 16 0zm6.5 25.5h-13v-19h13v19z"/>
                     </svg>
-                    <span class="ml-4 text-lg font-bold text-gray-800 dark:text-white lg:sidebar-expanded:block 2xl:block hidden">NetroHub</span>
+                    <span class="ml-4 text-lg font-bold text-gray-800 dark:text-white lg:sidebar-expanded:block 2xl:block hidden">NXO</span>
                 </div>
             </a>
         </div>

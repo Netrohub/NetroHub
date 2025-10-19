@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminSetupSeeder::class);
 
         // Create owner user (if doesn't exist)
-        $ownerEmail = env('ADMIN_EMAIL', 'admin@netrohub.com');
+        $ownerEmail = env('ADMIN_EMAIL', 'admin@nxo.com');
         $owner = User::where('email', $ownerEmail)->first();
         
         if (!$owner) {
@@ -48,7 +48,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Setting::firstOrCreate(['key' => 'platform_name'], [
-            'value' => 'NetroHub',
+            'value' => 'NXO',
             'type' => 'string',
             'description' => 'Platform name',
         ]);

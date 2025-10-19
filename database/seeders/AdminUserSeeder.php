@@ -21,7 +21,7 @@ class AdminUserSeeder extends Seeder
 
         // Create or find admin user
         $admin = User::firstOrCreate(
-            ['email' => 'admin@netrohub.com'],
+            ['email' => 'admin@nxo.com'],
             [
                 'name' => 'Admin User',
                 'password' => bcrypt('password'), // Change this!
@@ -35,7 +35,7 @@ class AdminUserSeeder extends Seeder
         }
 
         $this->command->info('Admin user created successfully!');
-        $this->command->info('Email: admin@netrohub.com');
+        $this->command->info('Email: admin@nxo.com');
         $this->command->info('Password: password (please change this!)');
     }
 }

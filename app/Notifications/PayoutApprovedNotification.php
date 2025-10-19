@@ -28,6 +28,6 @@ class PayoutApprovedNotification extends Notification implements ShouldQueue
             ->line('Amount: $'.number_format($this->payoutRequest->amount, 2))
             ->line('The funds should arrive within 3-5 business days.')
             ->action('View Payouts', route('seller.payouts.index'))
-            ->line('Thank you for being part of NetroHub!');
+            ->line('Thank you for being part of NXO!');
     }
 }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>403 - {{ __('Access Denied') }} | NetroHub</title>
+    <title>403 - {{ __('Access Denied') }} | NXO</title>
     @vite(['resources/css/app.css'])
     <link rel="preconnect" href="https://fonts.bunny.net">
     @if(app()->getLocale() === 'ar')

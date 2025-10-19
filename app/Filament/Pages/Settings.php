@@ -34,7 +34,7 @@ class Settings extends Page
     public function mount(): void
     {
         $this->form->fill([
-            'site_name' => \App\Models\SiteSetting::get('site_name', 'NetroHub'),
+            'site_name' => \App\Models\SiteSetting::get('site_name', 'NXO'),
             'site_description' => \App\Models\SiteSetting::get('site_description', 'The ultimate gaming marketplace'),
             'admin_theme' => \App\Models\SiteSetting::get('admin_theme', 'system'),
             'enable_dark_mode' => \App\Models\SiteSetting::get('enable_dark_mode', true),

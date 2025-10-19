@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>500 - {{ __('Server Error') }} | NetroHub</title>
+    <title>500 - {{ __('Server Error') }} | NXO</title>
     @vite(['resources/css/app.css'])
     <link rel="preconnect" href="https://fonts.bunny.net">
     @if(app()->getLocale() === 'ar')

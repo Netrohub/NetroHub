@@ -1,5 +1,5 @@
 /**
- * NetroHub Interactive Enhancements
+ * NXO Interactive Enhancements
  * Adds premium micro-interactions and animations
  */
 
@@ -178,5 +178,5 @@ if (header) {
     });
 }
 
-console.log('✨ NetroHub Interactive Enhancements Loaded');
+console.log('✨ NXO Interactive Enhancements Loaded');
 

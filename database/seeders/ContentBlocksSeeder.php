@@ -42,7 +42,7 @@ class ContentBlocksSeeder extends Seeder
                 'section' => 'features',
                 'order' => 2,
                 'type' => 'grid',
-                'title' => 'Why Choose NetroHub?',
+                'title' => 'Why Choose NXO?',
                 'content' => 'Everything you need to succeed in digital commerce',
                 'metadata' => [
                     'features' => [
@@ -110,7 +110,7 @@ class ContentBlocksSeeder extends Seeder
                 'section' => 'how_it_works',
                 'order' => 4,
                 'type' => 'steps',
-                'title' => 'How NetroHub Works',
+                'title' => 'How NXO Works',
                 'content' => 'Get started in three simple steps',
                 'metadata' => [
                     'steps' => [
@@ -151,14 +151,14 @@ class ContentBlocksSeeder extends Seeder
                             'role' => 'Game Developer',
                             'avatar' => '/images/avatars/avatar1.jpg',
                             'rating' => 5,
-                            'content' => 'NetroHub made it incredibly easy to sell my game assets. The automated delivery is a game-changer!',
+                            'content' => 'NXO made it incredibly easy to sell my game assets. The automated delivery is a game-changer!',
                         ],
                         [
                             'name' => 'Sarah Miller',
                             'role' => 'Digital Artist',
                             'avatar' => '/images/avatars/avatar2.jpg',
                             'rating' => 5,
-                            'content' => 'I\'ve been using NetroHub for 6 months and made over $10,000. The platform is intuitive and reliable.',
+                            'content' => 'I\'ve been using NXO for 6 months and made over $10,000. The platform is intuitive and reliable.',
                         ],
                         [
                             'name' => 'James Wilson',
@@ -181,7 +181,7 @@ class ContentBlocksSeeder extends Seeder
                 'order' => 6,
                 'type' => 'cta',
                 'title' => 'Ready to Start Selling?',
-                'content' => 'Join thousands of sellers who trust NetroHub with their digital products',
+                'content' => 'Join thousands of sellers who trust NXO with their digital products',
                 'metadata' => [
                     'cta_text' => 'Create Free Account',
                     'cta_link' => '/register',

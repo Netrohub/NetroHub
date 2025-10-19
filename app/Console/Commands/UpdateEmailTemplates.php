@@ -72,12 +72,12 @@ class UpdateEmailTemplates extends Command
                 'key' => 'verification_email',
                 'name' => 'Email Verification',
                 'description' => 'Email verification link',
-                'subject' => 'Verify your email - NetroHub',
+                'subject' => 'Verify your email - NXO',
                 'body' => '<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
-  <title>Verify your email - NetroHub</title>
+  <title>Verify your email - NXO</title>
 </head>
 <body style="background-color:#f5f7fa; font-family: Arial, sans-serif; padding: 0; margin: 0;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f5f7fa; padding: 40px 0;">
@@ -86,7 +86,7 @@ class UpdateEmailTemplates extends Command
         <table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
           <tr>
             <td style="background-color:#0f172a; padding: 20px; text-align:center;">
-              <h1 style="color:#ffffff; margin:0; font-size:24px;">NetroHub</h1>
+              <h1 style="color:#ffffff; margin:0; font-size:24px;">NXO</h1>
             </td>
           </tr>
           <tr>
@@ -94,7 +94,7 @@ class UpdateEmailTemplates extends Command
               <h2 style="margin-top: 0;">Verify your email address</h2>
               <p style="font-size: 16px; line-height: 1.5; color: #334155;">
                 Hello 👋,<br><br>
-                Thank you for signing up to <strong>NetroHub</strong>!  
+                Thank you for signing up to <strong>NXO</strong>!  
                 Please verify your email address to complete your registration and activate your account.
               </p>
               <p style="font-size: 16px; margin: 30px 0;">
@@ -112,13 +112,13 @@ class UpdateEmailTemplates extends Command
                 {{verification_url}}
               </p>
               <p style="font-size: 14px; color: #94a3b8; margin-top: 30px;">
-                If you didn\'t create an account with NetroHub, you can safely ignore this email.
+                If you didn\'t create an account with NXO, you can safely ignore this email.
               </p>
             </td>
           </tr>
           <tr>
             <td style="background-color:#f1f5f9; text-align:center; padding: 15px; font-size: 12px; color:#94a3b8;">
-              © {{year}} NetroHub. All rights reserved.
+              © {{year}} NXO. All rights reserved.
             </td>
           </tr>
         </table>

@@ -318,7 +318,7 @@
                                 </svg>
                             </div>
                             <h4 class="text-lg font-bold text-white mb-2">{{ __('Unlock Pro Features') }}</h4>
-                            <p class="text-sm text-muted-300 mb-4">{{ __('Get the most out of NetroHub with our Pro plan') }}</p>
+                            <p class="text-sm text-muted-300 mb-4">{{ __('Get the most out of NXO with our Pro plan') }}</p>
                             <a href="{{ route('pricing') }}" class="btn-primary w-full">
                                 {{ __('View Plans') }}
                             </a>

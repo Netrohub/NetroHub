@@ -37,13 +37,13 @@ class PhoneVerifiedNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->subject('📱 Phone Number Verified - NetroHub')
+                    ->subject('📱 Phone Number Verified - NXO')
                     ->greeting('Hello!')
                     ->line('Your phone number has been successfully verified.')
                     ->line('Phone number: **' . $this->phoneNumber . '**')
                     ->line('This adds an extra layer of security to your account and enables additional features.')
                     ->line('Thank you for securing your account!')
-                    ->salutation('The NetroHub Team');
+                    ->salutation('The NXO Team');
     }
 
     /**

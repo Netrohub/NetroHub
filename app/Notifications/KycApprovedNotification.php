@@ -37,16 +37,16 @@ class KycApprovedNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->subject('🎉 Identity Verification Approved - NetroHub')
+                    ->subject('🎉 Identity Verification Approved - NXO')
                     ->greeting('Congratulations!')
                     ->line('Your identity verification has been approved by our team.')
                     ->line('You can now:')
-                    ->line('• List and sell products on NetroHub')
+                    ->line('• List and sell products on NXO')
                     ->line('• Access all seller features')
                     ->line('• Request payouts')
                     ->action('Start Selling', url('/sell'))
                     ->line('Thank you for completing the verification process!')
-                    ->salutation('The NetroHub Team');
+                    ->salutation('The NXO Team');
     }
 
     /**
@@ -58,7 +58,7 @@ class KycApprovedNotification extends Notification
     {
         return [
             'title' => 'Identity Verification Approved',
-            'message' => 'Your identity verification has been approved. You can now start selling on NetroHub.',
+            'message' => 'Your identity verification has been approved. You can now start selling on NXO.',
             'type' => 'success',
             'action_url' => '/sell',
             'action_text' => 'Start Selling',

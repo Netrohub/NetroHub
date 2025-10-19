@@ -29,11 +29,11 @@ class MakeAdmin extends Command
      */
     public function handle(): int
     {
-        $this->info('🔧 NetroHub Admin Account Creator');
+        $this->info('🔧 NXO Admin Account Creator');
         $this->newLine();
 
         // Get or prompt for details
-        $email = $this->argument('email') ?: $this->ask('Email address', 'admin@netrohub.com');
+        $email = $this->argument('email') ?: $this->ask('Email address', 'admin@nxo.com');
         $username = $this->option('username') ?: $this->ask('Username', 'admin');
         $name = $this->option('name') ?: $this->ask('Name', 'Administrator');
         $password = $this->option('password') ?: $this->secret('Password (leave empty for auto-generated)');

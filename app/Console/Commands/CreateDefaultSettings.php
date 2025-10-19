@@ -24,7 +24,7 @@ class CreateDefaultSettings extends Command
             ],
             [
                 'key' => 'platform_name',
-                'value' => 'NetroHub',
+                'value' => 'NXO',
                 'type' => 'string',
                 'description' => 'Platform name',
             ],

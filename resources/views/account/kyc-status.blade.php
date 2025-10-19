@@ -37,7 +37,7 @@
                         <span class="text-green-400 font-semibold">Account Verified</span>
                     </div>
                     <p class="text-muted-400">
-                        Your identity has been verified. You can now list products and start selling on NetroHub.
+                        Your identity has been verified. You can now list products and start selling on NXO.
                     </p>
                 </div>
             @else
@@ -49,7 +49,7 @@
                         <span class="text-yellow-400 font-semibold">Verification Required</span>
                     </div>
                     <p class="text-muted-400 mb-3">
-                        You need to verify your identity before you can start selling on NetroHub.
+                        You need to verify your identity before you can start selling on NXO.
                     </p>
                     <a href="{{ route('account.kyc.show') }}" 
                        class="inline-flex items-center px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-semibold transition-colors">

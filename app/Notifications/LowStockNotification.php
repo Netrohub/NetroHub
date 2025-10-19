@@ -31,7 +31,7 @@ class LowStockNotification extends Notification implements ShouldQueue
             ->line('Available codes: '.$this->availableCount)
             ->action('Manage Product', route('seller.products.edit', $this->product))
             ->line('Consider adding more codes to avoid losing sales.')
-            ->salutation('Best regards, NetroHub Team');
+            ->salutation('Best regards, NXO Team');
     }
 
     public function toArray($notifiable): array

@@ -7,7 +7,7 @@
         <!-- Header -->
         <div class="text-center mb-8">
             <h1 class="text-3xl font-bold text-white mb-2">Identity Verification</h1>
-            <p class="text-muted-400">Verify your identity to unlock selling features on NetroHub</p>
+            <p class="text-muted-400">Verify your identity to unlock selling features on NXO</p>
         </div>
 
         @if(session('success'))

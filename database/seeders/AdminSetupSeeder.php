@@ -16,7 +16,7 @@ class AdminSetupSeeder extends Seeder
         // Create SuperAdmin user
         $admin = User::create([
             'name' => 'Super Admin',
-            'email' => 'admin@netrohub.com',
+            'email' => 'admin@nxo.com',
             'password' => Hash::make('Admin@123456'),
             'email_verified_at' => now(),
             'is_active' => true,
@@ -35,7 +35,7 @@ class AdminSetupSeeder extends Seeder
         $this->createEmailTemplates();
 
         $this->command->info('Admin user created:');
-        $this->command->info('Email: admin@netrohub.com');
+        $this->command->info('Email: admin@nxo.com');
         $this->command->info('Password: Admin@123456');
     }
 
@@ -45,42 +45,42 @@ class AdminSetupSeeder extends Seeder
             [
                 'slug' => 'terms-of-service',
                 'title' => 'Terms of Service',
-                'content' => '<h1>Terms of Service</h1><p>Welcome to NetroHub. By using our platform, you agree to these terms...</p>',
+                'content' => '<h1>Terms of Service</h1><p>Welcome to NXO. By using our platform, you agree to these terms...</p>',
                 'status' => 'published',
-                'meta_title' => 'Terms of Service - NetroHub',
-                'meta_description' => 'Read our terms of service for using the NetroHub marketplace.',
+                'meta_title' => 'Terms of Service - NXO',
+                'meta_description' => 'Read our terms of service for using the NXO marketplace.',
             ],
             [
                 'slug' => 'privacy-policy',
                 'title' => 'Privacy Policy',
                 'content' => '<h1>Privacy Policy</h1><p>Your privacy is important to us. This policy explains how we collect and use your data...</p>',
                 'status' => 'published',
-                'meta_title' => 'Privacy Policy - NetroHub',
-                'meta_description' => 'Learn about how NetroHub protects your privacy.',
+                'meta_title' => 'Privacy Policy - NXO',
+                'meta_description' => 'Learn about how NXO protects your privacy.',
             ],
             [
                 'slug' => 'refund-policy',
                 'title' => 'Refund & Dispute Policy',
                 'content' => '<h1>Refund & Dispute Policy</h1><p>We want you to be satisfied with your purchase. Here\'s our refund policy...</p>',
                 'status' => 'published',
-                'meta_title' => 'Refund Policy - NetroHub',
+                'meta_title' => 'Refund Policy - NXO',
                 'meta_description' => 'Understand our refund and dispute resolution process.',
             ],
             [
                 'slug' => 'seller-agreement',
                 'title' => 'Seller Agreement',
-                'content' => '<h1>Seller Agreement</h1><p>As a seller on NetroHub, you agree to the following terms...</p>',
+                'content' => '<h1>Seller Agreement</h1><p>As a seller on NXO, you agree to the following terms...</p>',
                 'status' => 'published',
-                'meta_title' => 'Seller Agreement - NetroHub',
-                'meta_description' => 'Terms and conditions for sellers on NetroHub.',
+                'meta_title' => 'Seller Agreement - NXO',
+                'meta_description' => 'Terms and conditions for sellers on NXO.',
             ],
             [
                 'slug' => 'about',
-                'title' => 'About NetroHub',
-                'content' => '<h1>About Us</h1><p>NetroHub is a digital marketplace connecting buyers and sellers...</p>',
+                'title' => 'About NXO',
+                'content' => '<h1>About Us</h1><p>NXO is a digital marketplace connecting buyers and sellers...</p>',
                 'status' => 'published',
-                'meta_title' => 'About NetroHub',
-                'meta_description' => 'Learn more about NetroHub and our mission.',
+                'meta_title' => 'About NXO',
+                'meta_description' => 'Learn more about NXO and our mission.',
             ],
         ];
 
@@ -98,7 +98,7 @@ class AdminSetupSeeder extends Seeder
                 'key' => 'order_receipt',
                 'name' => 'Order Receipt',
                 'description' => 'Sent to buyer after successful purchase',
-                'subject' => 'Your Order #{{order_id}} - NetroHub',
+                'subject' => 'Your Order #{{order_id}} - NXO',
                 'body' => '<h2>Thank you for your purchase!</h2><p>Hi {{user_name}},</p><p>Your order #{{order_id}} has been completed.</p><p><strong>Total:</strong> ${{total}}</p><p>You can view your order details and download your items here: <a href="{{order_url}}">View Order</a></p>',
                 'available_variables' => ['user_name', 'order_id', 'total', 'order_url'],
                 'is_active' => true,
@@ -134,12 +134,12 @@ class AdminSetupSeeder extends Seeder
                 'key' => 'verification_email',
                 'name' => 'Email Verification',
                 'description' => 'Email verification link',
-                'subject' => 'Verify your email - NetroHub',
+                'subject' => 'Verify your email - NXO',
                 'body' => '<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
-  <title>Verify your email - NetroHub</title>
+  <title>Verify your email - NXO</title>
 </head>
 <body style="background-color:#f5f7fa; font-family: Arial, sans-serif; padding: 0; margin: 0;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f5f7fa; padding: 40px 0;">
@@ -148,7 +148,7 @@ class AdminSetupSeeder extends Seeder
         <table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
           <tr>
             <td style="background-color:#0f172a; padding: 20px; text-align:center;">
-              <h1 style="color:#ffffff; margin:0; font-size:24px;">NetroHub</h1>
+              <h1 style="color:#ffffff; margin:0; font-size:24px;">NXO</h1>
             </td>
           </tr>
           <tr>
@@ -156,7 +156,7 @@ class AdminSetupSeeder extends Seeder
               <h2 style="margin-top: 0;">Verify your email address</h2>
               <p style="font-size: 16px; line-height: 1.5; color: #334155;">
                 Hello 👋,<br><br>
-                Thank you for signing up to <strong>NetroHub</strong>!  
+                Thank you for signing up to <strong>NXO</strong>!  
                 Please verify your email address to complete your registration and activate your account.
               </p>
               <p style="font-size: 16px; margin: 30px 0;">
@@ -174,13 +174,13 @@ class AdminSetupSeeder extends Seeder
                 {{verification_url}}
               </p>
               <p style="font-size: 14px; color: #94a3b8; margin-top: 30px;">
-                If you didn\'t create an account with NetroHub, you can safely ignore this email.
+                If you didn\'t create an account with NXO, you can safely ignore this email.
               </p>
             </td>
           </tr>
           <tr>
             <td style="background-color:#f1f5f9; text-align:center; padding: 15px; font-size: 12px; color:#94a3b8;">
-              © {{year}} NetroHub. All rights reserved.
+              © {{year}} NXO. All rights reserved.
             </td>
           </tr>
         </table>

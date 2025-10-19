@@ -40,7 +40,7 @@ class PersonaKycService
                     'attributes' => [
                         'inquiry-template-id' => $this->templateId,
                         'reference-id' => 'user-' . $user->id,
-                        'note' => 'KYC verification for NetroHub user',
+                        'note' => 'KYC verification for NXO user',
                         'fields' => [
                             'name_first' => $user->name,
                             'email_address' => $user->email,

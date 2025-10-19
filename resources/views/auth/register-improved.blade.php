@@ -19,7 +19,7 @@
                 </svg>
             </div>
             <h2 class="text-4xl font-black text-white mb-2 bg-gradient-to-r from-secondary-500 to-neon-pink bg-clip-text text-transparent">
-                Join NetroHub
+                Join NXO
             </h2>
             <p class="text-muted-300">
                 Create your gaming marketplace account

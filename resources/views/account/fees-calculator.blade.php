@@ -82,7 +82,7 @@
                                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>
                                 </svg>
                                 <div class="hidden group-hover:block absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-3 bg-dark-800 border border-gaming rounded-xl text-xs text-muted-300 z-10">
-                                    {{ __('NetroHub charges a platform fee to cover hosting, support, and payment processing') }}
+                                    {{ __('NXO charges a platform fee to cover hosting, support, and payment processing') }}
                                 </div>
                             </div>
                         </div>

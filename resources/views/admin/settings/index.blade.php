@@ -50,7 +50,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="form-label">Twitter</label>
-                        <input type="text" name="twitter_handle" class="form-input w-full" placeholder="@netrohub" value="{{ old('twitter_handle', $social['twitter_handle']) }}">
+                        <input type="text" name="twitter_handle" class="form-input w-full" placeholder="@nxo" value="{{ old('twitter_handle', $social['twitter_handle']) }}">
                     </div>
                     <div>
                         <label class="form-label">Facebook URL</label>

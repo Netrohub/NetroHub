@@ -185,7 +185,7 @@ class OtpVerificationController extends Controller
         }
 
         // WhatsApp message content with formatting
-        $message = "🔐 *NetroHub Verification*\n\nYour verification code is:\n\n*{$otp}*\n\nThis code will expire in 5 minutes.\n\n_Please do not share this code with anyone._";
+        $message = "🔐 *NXO Verification*\n\nYour verification code is:\n\n*{$otp}*\n\nThis code will expire in 5 minutes.\n\n_Please do not share this code with anyone._";
 
         // Using Twilio WhatsApp API
         $response = Http::withBasicAuth($accountSid, $authToken)

@@ -30,7 +30,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->brandName('NetroHub Admin')
+            ->brandName('NXO Admin')
             ->favicon(asset('images/favicon.ico'))
             ->colors([
                 'primary' => [

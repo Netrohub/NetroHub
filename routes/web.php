@@ -248,7 +248,7 @@ Route::middleware(['auth'])->prefix('admin/kyc')->name('admin.kyc.')->group(func
         }
         
         // Check if user is admin (temporarily more permissive for testing)
-        if (!auth()->user()->hasRole('admin') && !auth()->user()->hasRole('super-admin') && auth()->user()->email !== 'admin@netrohub.com') {
+        if (!auth()->user()->hasRole('admin') && !auth()->user()->hasRole('super-admin') && auth()->user()->email !== 'admin@nxo.com') {
             abort(403, 'Unauthorized access');
         }
         

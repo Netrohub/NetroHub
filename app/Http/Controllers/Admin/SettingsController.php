@@ -11,12 +11,12 @@ class SettingsController extends Controller
     public function index()
     {
         $general = [
-            'site_name' => SiteSetting::get('site_name', config('app.name', 'NetroHub')),
-            'company_name' => SiteSetting::get('company_name', 'NetroHub'),
+            'site_name' => SiteSetting::get('site_name', config('app.name', 'NXO')),
+            'company_name' => SiteSetting::get('company_name', 'NXO'),
         ];
 
         $seo = [
-            'seo_title' => SiteSetting::get('seo_title', config('app.name', 'NetroHub')),
+            'seo_title' => SiteSetting::get('seo_title', config('app.name', 'NXO')),
             'seo_description' => SiteSetting::get('seo_description', ''),
             'seo_keywords' => SiteSetting::get('seo_keywords', ''),
         ];

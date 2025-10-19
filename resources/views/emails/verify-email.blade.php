@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verify Your Email - NetroHub</title>
+    <title>Verify Your Email - NXO</title>
 </head>
 <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #0f1318; color: #e5e7eb;">
     <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #0f1318; padding: 40px 20px;">
@@ -13,7 +13,7 @@
                     <!-- Header -->
                     <tr>
                         <td style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 30px; text-align: center;">
-                            <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 900;">Welcome to NetroHub!</h1>
+                            <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 900;">Welcome to NXO!</h1>
                         </td>
                     </tr>
                     
@@ -25,7 +25,7 @@
                             </p>
                             
                             <p style="margin: 0 0 20px; color: #9ca3af; font-size: 15px; line-height: 1.6;">
-                                Thank you for creating an account with NetroHub. To get started, please verify your email address by clicking the button below:
+                                Thank you for creating an account with NXO. To get started, please verify your email address by clicking the button below:
                             </p>
                             
                             <!-- Button -->
@@ -63,7 +63,7 @@
                     <tr>
                         <td style="padding: 30px; background-color: #0f1318; text-align: center; border-top: 1px solid #2d3748;">
                             <p style="margin: 0 0 10px; color: #6b7280; font-size: 13px;">
-                                © {{ now()->year }} NetroHub. All rights reserved.
+                                © {{ now()->year }} NXO. All rights reserved.
                             </p>
                             <p style="margin: 0; color: #6b7280; font-size: 12px;">
                                 Empowering gamers worldwide.

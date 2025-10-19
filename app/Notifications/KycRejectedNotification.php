@@ -37,7 +37,7 @@ class KycRejectedNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         $mailMessage = (new MailMessage)
-                    ->subject('⚠️ Identity Verification Requires Attention - NetroHub')
+                    ->subject('⚠️ Identity Verification Requires Attention - NXO')
                     ->greeting('Hello!')
                     ->line('Your identity verification submission requires additional attention.')
                     ->line('Please review the feedback below and resubmit your verification:');
@@ -53,7 +53,7 @@ class KycRejectedNotification extends Notification
                     ->line('• Incomplete document coverage')
                     ->action('Resubmit Verification', url('/account/kyc'))
                     ->line('If you have questions, please contact our support team.')
-                    ->salutation('The NetroHub Team');
+                    ->salutation('The NXO Team');
 
         return $mailMessage;
     }
