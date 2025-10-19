@@ -49,7 +49,21 @@ class TurnstileService
                 'error_codes' => $result['error-codes'] ?? [],
                 'challenge_ts' => $result['challenge_ts'] ?? null,
                 'hostname' => $result['hostname'] ?? null,
+                'action' => $result['action'] ?? null,
+                'cdata' => $result['cdata'] ?? null,
             ]);
+
+            // Log detailed error information if verification fails
+            if (!($result['success'] ?? false)) {
+                \Log::warning('Turnstile verification failed with errors', [
+                    'error_codes' => $result['error-codes'] ?? [],
+                    'error_messages' => array_map([$this, 'getErrorMessage'], [$result['error-codes'] ?? []]),
+                    'token_length' => strlen($token),
+                    'token_preview' => substr($token, 0, 20) . '...',
+                    'remote_ip' => $remoteIp ?? request()->ip(),
+                    'request_hostname' => request()->getHost(),
+                ]);
+            }
 
             return $result['success'] ?? false;
         } catch (\Exception $e) {

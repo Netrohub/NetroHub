@@ -50,6 +50,7 @@
 
         <button onclick="clearLog()">Clear Log</button>
         <button onclick="testTurnstileAPI()">Test Turnstile API</button>
+        <button onclick="testBackendValidation()">Test Backend Validation</button>
     </div>
 
     <script>
@@ -157,6 +158,49 @@
             } else {
                 log('❌ Turnstile API not available');
             }
+        }
+
+        // Test backend validation
+        function testBackendValidation() {
+            const tokenInput = document.getElementById('ts-response');
+            const token = tokenInput ? tokenInput.value : null;
+            
+            if (!token) {
+                log('❌ No token available for backend test');
+                updateStatus('❌ No token available for backend test', 'error');
+                return;
+            }
+            
+            log('🧪 Testing backend validation...');
+            log(`   Token length: ${token.length}`);
+            log(`   Token preview: ${token.substring(0, 20)}...`);
+            
+            const formData = new FormData();
+            formData.append('cf-turnstile-response', token);
+            
+            fetch('/test-turnstile.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                log('📡 Backend validation response:');
+                log(`   Success: ${data.success}`);
+                log(`   Error codes: ${JSON.stringify(data.error_codes || [])}`);
+                log(`   Hostname: ${data.hostname || 'N/A'}`);
+                log(`   Challenge TS: ${data.challenge_ts || 'N/A'}`);
+                
+                if (data.success) {
+                    updateStatus('✅ Backend validation successful!', 'success');
+                } else {
+                    updateStatus('❌ Backend validation failed', 'error');
+                    log(`   Error details: ${JSON.stringify(data, null, 2)}`);
+                }
+            })
+            .catch(error => {
+                log(`❌ Backend test error: ${error.message}`);
+                updateStatus('❌ Backend test failed', 'error');
+            });
         }
 
         // Initialize when page loads
