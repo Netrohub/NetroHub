@@ -26,6 +26,18 @@ return [
             'https://www.googletagmanager.com',
             'https://www.google-analytics.com',
             'https://challenges.cloudflare.com',
+            'https://static.cloudflareinsights.com',
+            'https://*.cloudflare.com',
+        ],
+
+        // Script sources for script elements (more specific than script-src)
+        'script-src-elem' => [
+            "'self'",
+            "'unsafe-inline'", // Required for inline scripts
+            'https://challenges.cloudflare.com',
+            'https://www.googletagmanager.com',
+            'https://www.google-analytics.com',
+            'https://static.cloudflareinsights.com',
             'https://*.cloudflare.com',
         ],
 
@@ -56,6 +68,7 @@ return [
             "'self'",
             'https://www.google-analytics.com',
             'https://challenges.cloudflare.com',
+            'https://cloudflareinsights.com',
             'https://*.cloudflare.com',
         ],
 

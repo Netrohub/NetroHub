@@ -19,11 +19,12 @@ class AuthCspMiddleware
         if ($request->is('login', 'register', 'forgot-password', 'reset-password/*')) {
             $cspDirectives = [
                 "default-src 'self'",
-                "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com https://www.googletagmanager.com https://www.google-analytics.com",
+                "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com",
+                "script-src-elem 'self' 'unsafe-inline' https://challenges.cloudflare.com https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com",
                 "style-src 'self' 'unsafe-inline' https://fonts.bunny.net https://*.cloudflare.com",
                 "img-src 'self' data: https: https://www.google-analytics.com",
                 "font-src 'self' https://fonts.bunny.net",
-                "connect-src 'self' https://www.google-analytics.com https://challenges.cloudflare.com https://*.cloudflare.com",
+                "connect-src 'self' https://www.google-analytics.com https://challenges.cloudflare.com https://*.cloudflare.com https://cloudflareinsights.com",
                 "frame-src 'self' https://challenges.cloudflare.com https://*.cloudflare.com",
                 "frame-ancestors 'self'",
                 "object-src 'none'",
