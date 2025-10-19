@@ -75,7 +75,7 @@ class SiteSettingsSeeder extends Seeder
             [
                 'key' => 'logo_url',
                 'group' => 'branding',
-                'value' => '/images/logo.png',
+                'value' => '/stellar-assets/images/logo.svg',
                 'type' => 'image',
                 'description' => 'Main logo displayed in header',
                 'is_public' => true,
@@ -83,7 +83,7 @@ class SiteSettingsSeeder extends Seeder
             [
                 'key' => 'logo_dark_url',
                 'group' => 'branding',
-                'value' => '/images/logo-dark.png',
+                'value' => '/stellar-assets/images/logo.svg',
                 'type' => 'image',
                 'description' => 'Dark mode logo',
                 'is_public' => true,
@@ -141,7 +141,7 @@ class SiteSettingsSeeder extends Seeder
             [
                 'key' => 'og_image',
                 'group' => 'seo',
-                'value' => '/images/og-image.jpg',
+                'value' => '/img/nxo-og.png',
                 'type' => 'image',
                 'description' => 'Open Graph image for social sharing (1200x630)',
                 'is_public' => true,
