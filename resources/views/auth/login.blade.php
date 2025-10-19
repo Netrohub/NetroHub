@@ -106,16 +106,25 @@
     <script>
         // Turnstile callback functions - minimal, correct implementation
         window.onTsSuccess = function (token) {
+            console.log('Turnstile success callback triggered with token:', token ? token.substring(0, 20) + '...' : 'null');
             // Put token in hidden input so it is POSTed with the form
-            document.getElementById('ts-response').value = token;
+            const tokenInput = document.getElementById('ts-response');
+            if (tokenInput) {
+                tokenInput.value = token;
+                console.log('Token set in hidden input:', tokenInput.value ? tokenInput.value.substring(0, 20) + '...' : 'empty');
+            } else {
+                console.error('Token input element not found!');
+            }
         };
         
-        window.onTsError = function () {
+        window.onTsError = function (error) {
+            console.warn('Turnstile error callback triggered:', error);
             // Reset to get a fresh token
             if (window.turnstile) window.turnstile.reset();
         };
         
         window.onTsExpired = function () {
+            console.log('Turnstile expired callback triggered');
             if (window.turnstile) window.turnstile.reset();
         };
 
@@ -123,6 +132,27 @@
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState === 'visible' && window.turnstile) {
                 window.turnstile.reset();
+            }
+        });
+
+        // Add form submission handler to check token
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('loginForm');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    const tokenInput = document.getElementById('ts-response');
+                    const token = tokenInput ? tokenInput.value : null;
+                    
+                    console.log('Form submission - Token check:', {
+                        tokenPresent: !!token,
+                        tokenLength: token ? token.length : 0,
+                        tokenPreview: token ? token.substring(0, 20) + '...' : 'null'
+                    });
+                    
+                    if (!token) {
+                        console.warn('No Turnstile token found on form submission');
+                    }
+                });
             }
         });
     </script>

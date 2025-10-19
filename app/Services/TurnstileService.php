@@ -10,7 +10,7 @@ class TurnstileService
     /**
      * Verify Turnstile token with Cloudflare
      */
-    public function verify(string $token, ?string $remoteIp = null): bool
+    public function verify(?string $token, ?string $remoteIp = null): bool
     {
         $secretKey = config('services.turnstile.secret_key');
         
@@ -20,6 +20,10 @@ class TurnstileService
         }
 
         if (empty($token)) {
+            \Log::warning('Turnstile verification failed - empty token', [
+                'token' => $token,
+                'ip' => $remoteIp ?? request()->ip()
+            ]);
             return false;
         }
 
@@ -57,7 +61,7 @@ class TurnstileService
     /**
      * Verify Turnstile token and throw validation exception on failure
      */
-    public function verifyOrFail(string $token, ?string $remoteIp = null): void
+    public function verifyOrFail(?string $token, ?string $remoteIp = null): void
     {
         if (!$this->verify($token, $remoteIp)) {
             throw ValidationException::withMessages([

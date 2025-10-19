@@ -50,6 +50,13 @@ class LoginRequest extends FormRequest
                 $turnstileService = app(TurnstileService::class);
                 $token = $this->input('cf-turnstile-response');
                 
+                // Log the token for debugging
+                \Log::info('Turnstile validation attempt', [
+                    'token_present' => !empty($token),
+                    'token_length' => $token ? strlen($token) : 0,
+                    'ip' => $this->ip()
+                ]);
+                
                 if (!$turnstileService->verify($token, $this->ip())) {
                     $validator->errors()->add('cf-turnstile-response', 'Human verification failed. Please try again.');
                 }
