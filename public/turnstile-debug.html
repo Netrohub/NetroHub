@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turnstile Debug Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #1a1a1a; color: white; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .status { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .success { background: #10b981; }
+        .error { background: #ef4444; }
+        .warning { background: #f59e0b; }
+        .info { background: #3b82f6; }
+        .cf-turnstile { margin: 20px 0; }
+        button { padding: 10px 20px; background: #8b5cf6; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #7c3aed; }
+        #log { background: #2d2d2d; padding: 15px; border-radius: 5px; margin: 20px 0; font-family: monospace; white-space: pre-wrap; max-height: 300px; overflow-y: auto; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Turnstile Debug Test</h1>
+        
+        <div id="status" class="status info">
+            Initializing Turnstile test...
+        </div>
+
+        <h2>Configuration Check</h2>
+        <div id="config-status"></div>
+
+        <h2>Turnstile Widget Test</h2>
+        <form id="testForm">
+            <div class="cf-turnstile" 
+                 data-sitekey="YOUR_ACTUAL_SITE_KEY_HERE" 
+                 data-callback="onTsSuccess"
+                 data-error-callback="onTsError"
+                 data-expired-callback="onTsExpired"
+                 data-size="normal"
+                 data-theme="auto">
+            </div>
+            
+            <input type="hidden" name="cf-turnstile-response" id="ts-response">
+            
+            <button type="submit">Test Form Submission</button>
+        </form>
+
+        <h2>Debug Log</h2>
+        <div id="log"></div>
+
+        <button onclick="clearLog()">Clear Log</button>
+        <button onclick="testTurnstileAPI()">Test Turnstile API</button>
+    </div>
+
+    <script>
+        let logDiv = document.getElementById('log');
+        let statusDiv = document.getElementById('status');
+        let configDiv = document.getElementById('config-status');
+
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${message}\n`;
+            logDiv.textContent += logEntry;
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(message);
+        }
+
+        function updateStatus(message, type = 'info') {
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+        }
+
+        function clearLog() {
+            logDiv.textContent = '';
+        }
+
+        // Check if Turnstile is configured
+        function checkConfiguration() {
+            log('🔧 Checking Turnstile configuration...');
+            
+            // Check if we're on the right domain
+            const domain = window.location.hostname;
+            log(`📍 Current domain: ${domain}`);
+            
+            // Check if Turnstile script is loaded
+            if (typeof window.turnstile !== 'undefined') {
+                log('✅ Turnstile API is available');
+                configDiv.innerHTML += '<div class="status success">✅ Turnstile API loaded</div>';
+            } else {
+                log('❌ Turnstile API not loaded');
+                configDiv.innerHTML += '<div class="status error">❌ Turnstile API not loaded</div>';
+            }
+        }
+
+        // Turnstile callbacks
+        window.onTsSuccess = function (token) {
+            log(`✅ Turnstile Success: Token received (${token ? token.length : 0} chars)`);
+            log(`🔑 Token preview: ${token ? token.substring(0, 20) + '...' : 'null'}`);
+            
+            const tokenInput = document.getElementById('ts-response');
+            if (tokenInput) {
+                tokenInput.value = token;
+                log('✅ Token set in hidden input');
+            } else {
+                log('❌ Token input element not found!');
+            }
+            
+            updateStatus('✅ Turnstile token received successfully!', 'success');
+        };
+
+        window.onTsError = function (error) {
+            log(`❌ Turnstile Error: ${JSON.stringify(error)}`);
+            updateStatus('❌ Turnstile error occurred', 'error');
+            
+            if (window.turnstile) {
+                log('🔄 Attempting to reset Turnstile...');
+                window.turnstile.reset();
+            }
+        };
+
+        window.onTsExpired = function () {
+            log('⏰ Turnstile token expired');
+            updateStatus('⏰ Turnstile token expired', 'warning');
+            
+            if (window.turnstile) {
+                log('🔄 Resetting Turnstile...');
+                window.turnstile.reset();
+            }
+        };
+
+        // Form submission handler
+        document.getElementById('testForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const tokenInput = document.getElementById('ts-response');
+            const token = tokenInput ? tokenInput.value : null;
+            
+            log('📤 Form submission attempt:');
+            log(`   Token present: ${!!token}`);
+            log(`   Token length: ${token ? token.length : 0}`);
+            log(`   Token preview: ${token ? token.substring(0, 20) + '...' : 'null'}`);
+            
+            if (token) {
+                updateStatus('✅ Form submitted with valid token!', 'success');
+            } else {
+                updateStatus('❌ Form submitted without token!', 'error');
+            }
+        });
+
+        // Test Turnstile API directly
+        function testTurnstileAPI() {
+            log('🧪 Testing Turnstile API directly...');
+            
+            if (typeof window.turnstile !== 'undefined') {
+                log('✅ Turnstile API is available');
+                log(`   Available methods: ${Object.keys(window.turnstile).join(', ')}`);
+            } else {
+                log('❌ Turnstile API not available');
+            }
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            log('🚀 Page loaded, initializing debug test...');
+            checkConfiguration();
+            
+            // Check if Turnstile loads after a delay
+            setTimeout(() => {
+                if (typeof window.turnstile !== 'undefined') {
+                    log('✅ Turnstile loaded after delay');
+                    updateStatus('✅ Turnstile is working!', 'success');
+                } else {
+                    log('❌ Turnstile still not loaded after delay');
+                    updateStatus('❌ Turnstile failed to load', 'error');
+                }
+            }, 3000);
+        });
+
+        // Monitor for Turnstile script loading
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'childList') {
+                    mutation.addedNodes.forEach(function(node) {
+                        if (node.tagName === 'SCRIPT' && node.src && node.src.includes('turnstile')) {
+                            log('📜 Turnstile script detected in DOM');
+                        }
+                    });
+                }
+            });
+        });
+
+        observer.observe(document.head, { childList: true, subtree: true });
+    </script>
+
+    <!-- Load Turnstile -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</body>
+</html>
