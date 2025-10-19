@@ -121,6 +121,7 @@
                          data-callback="onTsSuccessRegister"
                          data-error-callback="onTsErrorRegister"
                          data-expired-callback="onTsExpiredRegister"
+                         data-size="normal"
                          data-theme="auto"></div>
                 </div>
                 @error('cf-turnstile-response')
@@ -152,12 +153,19 @@
         
         window.onTsErrorRegister = function () {
             // Reset to get a fresh token
-            if (window.turnstile) turnstile.reset();
+            if (window.turnstile) window.turnstile.reset();
         };
         
         window.onTsExpiredRegister = function () {
-            if (window.turnstile) turnstile.reset();
+            if (window.turnstile) window.turnstile.reset();
         };
+
+        // Handle SPA/Alpine transitions that hide/show the form
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible' && window.turnstile) {
+                window.turnstile.reset();
+            }
+        });
     </script>
     
     <!-- Load Turnstile once per page -->

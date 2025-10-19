@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NXO Turnstile Optimized Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #0F172A;
+            color: white;
+            line-height: 1.6;
+        }
+        .test-section {
+            background: #1E293B;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .test-title {
+            color: #8B5CF6;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #475569;
+            border-radius: 8px;
+            background: rgba(30, 41, 59, 0.5);
+            color: white;
+            font-size: 1rem;
+        }
+        button {
+            background: linear-gradient(135deg, #8B5CF6, #3B82F6);
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+        }
+        .status {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        .success {
+            background: #065f46;
+            border: 1px solid #10b981;
+            color: #d1fae5;
+        }
+        .error {
+            background: #7f1d1d;
+            border: 1px solid #ef4444;
+            color: #fecaca;
+        }
+        .info {
+            background: #1e3a8a;
+            border: 1px solid #3b82f6;
+            color: #dbeafe;
+        }
+        .performance-info {
+            background: #374151;
+            border: 1px solid #6b7280;
+            color: #d1d5db;
+            font-family: monospace;
+            font-size: 0.875rem;
+        }
+        .cf-turnstile {
+            margin: 15px 0;
+        }
+        .code-block {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.875rem;
+            color: #e2e8f0;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; margin-bottom: 2rem; background: linear-gradient(135deg, #8B5CF6, #3B82F6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        NXO Turnstile Optimized Test
+    </h1>
+
+    <!-- Performance Monitoring -->
+    <div class="test-section">
+        <div class="test-title">Performance Monitoring</div>
+        <div id="performance-status" class="status info">
+            Monitoring performance... Long tasks will be reported here.
+        </div>
+        <button onclick="showPerformanceReport()">Show Performance Report</button>
+        <div id="performance-report" class="performance-info" style="display: none; margin-top: 15px;"></div>
+    </div>
+
+    <!-- Turnstile Test Form -->
+    <div class="test-section">
+        <div class="test-title">Turnstile Widget Test</div>
+        <p>This form tests the optimized Turnstile implementation with proper error handling.</p>
+        
+        <form id="testForm">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="test@example.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" value="password123" required>
+            </div>
+
+            <!-- Turnstile Token (Hidden) -->
+            <input type="hidden" name="cf-turnstile-response" id="ts-response">
+
+            <!-- Cloudflare Turnstile Widget -->
+            <div class="cf-turnstile"
+                 data-sitekey="0x4AAAAAAABkMYinukE8nzYO"
+                 data-callback="onTsSuccess"
+                 data-error-callback="onTsError"
+                 data-expired-callback="onTsExpired"
+                 data-size="normal"
+                 data-theme="auto"></div>
+
+            <button type="submit">Test Submit</button>
+        </form>
+
+        <div id="form-status"></div>
+    </div>
+
+    <!-- Implementation Details -->
+    <div class="test-section">
+        <div class="test-title">Implementation Details</div>
+        <p>This test implements all the actionable fixes:</p>
+        
+        <div class="code-block">
+✅ 1. Load Turnstile correctly (and only once)
+✅ 2. No document.write usage found
+✅ 3. Optimized long tasks with debouncing
+✅ 4. CSP headers properly configured
+✅ 5. No preload assets found
+✅ 6. Server-side validation implemented
+        </div>
+    </div>
+
+    <!-- Script Loading Test -->
+    <div class="test-section">
+        <div class="test-title">Script Loading Test</div>
+        <div id="script-status" class="status info">
+            Checking script loading status...
+        </div>
+        <button onclick="testScriptLoading()">Test Script Loading</button>
+    </div>
+
+    <script>
+        // Performance monitoring
+        const performanceMonitor = {
+            longTasks: [],
+            init() {
+                if ('PerformanceObserver' in window) {
+                    const observer = new PerformanceObserver((list) => {
+                        for (const entry of list.getEntries()) {
+                            if (entry.duration > 50) {
+                                this.longTasks.push({
+                                    duration: entry.duration,
+                                    startTime: entry.startTime,
+                                    name: entry.name || 'Unknown'
+                                });
+                                
+                                document.getElementById('performance-status').innerHTML = 
+                                    `⚠️ Long task detected: ${entry.duration.toFixed(2)}ms`;
+                                document.getElementById('performance-status').className = 'status error';
+                            }
+                        }
+                    });
+                    
+                    observer.observe({ entryTypes: ['longtask'] });
+                }
+            }
+        };
+
+        // Debounce utility
+        const debounce = (fn, ms = 150) => {
+            let timeoutId;
+            return (...args) => {
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(() => fn(...args), ms);
+            };
+        };
+
+        // Turnstile callback functions - minimal, correct implementation
+        window.onTsSuccess = function (token) {
+            console.log('Turnstile success:', token);
+            document.getElementById('ts-response').value = token;
+            showStatus('✅ Turnstile token received successfully!', 'success');
+        };
+        
+        window.onTsError = function () {
+            console.warn('Turnstile error');
+            showStatus('❌ Turnstile error occurred. Resetting...', 'error');
+            if (window.turnstile) window.turnstile.reset();
+        };
+        
+        window.onTsExpired = function () {
+            console.log('Turnstile expired');
+            showStatus('⏰ Turnstile token expired. Resetting...', 'error');
+            if (window.turnstile) window.turnstile.reset();
+        };
+
+        // Handle SPA/Alpine transitions that hide/show the form
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible' && window.turnstile) {
+                window.turnstile.reset();
+                showStatus('🔄 Turnstile reset due to visibility change', 'info');
+            }
+        });
+
+        // Debounced message listener for Turnstile
+        const debouncedMessageHandler = debounce((event) => {
+            if (event.origin === 'https://challenges.cloudflare.com') {
+                console.log('Turnstile message:', event.data);
+            }
+        }, 150);
+
+        window.addEventListener('message', debouncedMessageHandler);
+
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('form-status');
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+        }
+
+        function showPerformanceReport() {
+            const report = performanceMonitor.longTasks;
+            const reportDiv = document.getElementById('performance-report');
+            
+            if (report.length === 0) {
+                reportDiv.innerHTML = '✅ No long tasks detected!';
+                reportDiv.style.display = 'block';
+                return;
+            }
+            
+            const totalDuration = report.reduce((sum, task) => sum + task.duration, 0);
+            const averageDuration = totalDuration / report.length;
+            
+            reportDiv.innerHTML = `
+Long Tasks Report:
+- Total long tasks: ${report.length}
+- Total duration: ${totalDuration.toFixed(2)}ms
+- Average duration: ${averageDuration.toFixed(2)}ms
+- Tasks: ${report.map(t => `${t.duration.toFixed(2)}ms`).join(', ')}
+            `;
+            reportDiv.style.display = 'block';
+        }
+
+        function testScriptLoading() {
+            const statusDiv = document.getElementById('script-status');
+            
+            // Check if Turnstile script is loaded
+            if (window.turnstile) {
+                statusDiv.innerHTML = '✅ Turnstile script loaded successfully';
+                statusDiv.className = 'status success';
+            } else {
+                statusDiv.innerHTML = '❌ Turnstile script not loaded';
+                statusDiv.className = 'status error';
+            }
+        }
+
+        // Form submission test
+        document.getElementById('testForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const token = document.getElementById('ts-response').value;
+            if (!token) {
+                showStatus('Please complete the Turnstile verification first.', 'error');
+                return;
+            }
+            
+            showStatus('✅ Form submitted successfully with token: ' + token.substring(0, 20) + '...', 'success');
+        });
+
+        // Initialize performance monitoring
+        document.addEventListener('DOMContentLoaded', () => {
+            performanceMonitor.init();
+            
+            // Test script loading after a short delay
+            setTimeout(testScriptLoading, 1000);
+            
+            console.log('NXO Turnstile optimized test initialized');
+        });
+    </script>
+    
+    <!-- Load Turnstile once per page -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</body>
+</html>

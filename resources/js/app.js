@@ -1,4 +1,5 @@
 import './bootstrap';
+import './performance';
 import './animations';
 import './interactions';
 import './nav';
