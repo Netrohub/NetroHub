@@ -50,9 +50,9 @@ return new class extends Migration
             if (Schema::hasTable($table)) {
                 try {
                     DB::statement("ALTER TABLE `{$table}` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
-                    $this->command->info("Converted table {$table} to utf8mb4");
+                    echo "Converted table {$table} to utf8mb4\n";
                 } catch (Exception $e) {
-                    $this->command->warn("Could not convert table {$table}: " . $e->getMessage());
+                    echo "Could not convert table {$table}: " . $e->getMessage() . "\n";
                 }
             }
         }
@@ -242,9 +242,9 @@ return new class extends Migration
                 if (!in_array('orders_user_id_foreign', $foreignKeys)) {
                     try {
                         $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
-                        $this->command->info("Added foreign key: orders.user_id -> users.id");
+                        echo "Added foreign key: orders.user_id -> users.id\n";
                     } catch (Exception $e) {
-                        $this->command->warn("Could not add foreign key orders.user_id: " . $e->getMessage());
+                        echo "Could not add foreign key orders.user_id: " . $e->getMessage() . "\n";
                     }
                 }
             });
@@ -258,27 +258,27 @@ return new class extends Migration
                 if (!in_array('order_items_order_id_foreign', $foreignKeys)) {
                     try {
                         $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-                        $this->command->info("Added foreign key: order_items.order_id -> orders.id");
+                        echo "Added foreign key: order_items.order_id -> orders.id\n";
                     } catch (Exception $e) {
-                        $this->command->warn("Could not add foreign key order_items.order_id: " . $e->getMessage());
+                        echo "Could not add foreign key order_items.order_id: " . $e->getMessage() . "\n";
                     }
                 }
                 
                 if (!in_array('order_items_product_id_foreign', $foreignKeys)) {
                     try {
                         $table->foreign('product_id')->references('id')->on('products')->onDelete('restrict');
-                        $this->command->info("Added foreign key: order_items.product_id -> products.id");
+                        echo "Added foreign key: order_items.product_id -> products.id\n";
                     } catch (Exception $e) {
-                        $this->command->warn("Could not add foreign key order_items.product_id: " . $e->getMessage());
+                        echo "Could not add foreign key order_items.product_id: " . $e->getMessage() . "\n";
                     }
                 }
                 
                 if (!in_array('order_items_seller_id_foreign', $foreignKeys)) {
                     try {
                         $table->foreign('seller_id')->references('id')->on('sellers')->onDelete('restrict');
-                        $this->command->info("Added foreign key: order_items.seller_id -> sellers.id");
+                        echo "Added foreign key: order_items.seller_id -> sellers.id\n";
                     } catch (Exception $e) {
-                        $this->command->warn("Could not add foreign key order_items.seller_id: " . $e->getMessage());
+                        echo "Could not add foreign key order_items.seller_id: " . $e->getMessage() . "\n";
                     }
                 }
             });
@@ -292,27 +292,27 @@ return new class extends Migration
                 if (!in_array('disputes_order_id_foreign', $foreignKeys)) {
                     try {
                         $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-                        $this->command->info("Added foreign key: disputes.order_id -> orders.id");
+                        echo "Added foreign key: disputes.order_id -> orders.id\n";
                     } catch (Exception $e) {
-                        $this->command->warn("Could not add foreign key disputes.order_id: " . $e->getMessage());
+                        echo "Could not add foreign key disputes.order_id: " . $e->getMessage() . "\n";
                     }
                 }
                 
                 if (!in_array('disputes_buyer_id_foreign', $foreignKeys)) {
                     try {
                         $table->foreign('buyer_id')->references('id')->on('users')->onDelete('restrict');
-                        $this->command->info("Added foreign key: disputes.buyer_id -> users.id");
+                        echo "Added foreign key: disputes.buyer_id -> users.id\n";
                     } catch (Exception $e) {
-                        $this->command->warn("Could not add foreign key disputes.buyer_id: " . $e->getMessage());
+                        echo "Could not add foreign key disputes.buyer_id: " . $e->getMessage() . "\n";
                     }
                 }
                 
                 if (!in_array('disputes_seller_id_foreign', $foreignKeys)) {
                     try {
                         $table->foreign('seller_id')->references('id')->on('sellers')->onDelete('restrict');
-                        $this->command->info("Added foreign key: disputes.seller_id -> sellers.id");
+                        echo "Added foreign key: disputes.seller_id -> sellers.id\n";
                     } catch (Exception $e) {
-                        $this->command->warn("Could not add foreign key disputes.seller_id: " . $e->getMessage());
+                        echo "Could not add foreign key disputes.seller_id: " . $e->getMessage() . "\n";
                     }
                 }
             });
@@ -326,9 +326,9 @@ return new class extends Migration
                 if (!in_array('product_files_product_id_foreign', $foreignKeys)) {
                     try {
                         $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-                        $this->command->info("Added foreign key: product_files.product_id -> products.id");
+                        echo "Added foreign key: product_files.product_id -> products.id\n";
                     } catch (Exception $e) {
-                        $this->command->warn("Could not add foreign key product_files.product_id: " . $e->getMessage());
+                        echo "Could not add foreign key product_files.product_id: " . $e->getMessage() . "\n";
                     }
                 }
             });
@@ -346,7 +346,7 @@ return new class extends Migration
                 $table->softDeletes();
                 $table->index('deleted_at');
             });
-            $this->command->info("Added soft deletes to disputes table");
+            echo "Added soft deletes to disputes table\n";
         }
 
         // Add soft deletes to reviews table if it doesn't exist
@@ -355,7 +355,7 @@ return new class extends Migration
                 $table->softDeletes();
                 $table->index('deleted_at');
             });
-            $this->command->info("Added soft deletes to reviews table");
+            echo "Added soft deletes to reviews table\n";
         }
 
         // Add soft deletes to sellers table if it doesn't exist
@@ -364,7 +364,7 @@ return new class extends Migration
                 $table->softDeletes();
                 $table->index('deleted_at');
             });
-            $this->command->info("Added soft deletes to sellers table");
+            echo "Added soft deletes to sellers table\n";
         }
     }
 

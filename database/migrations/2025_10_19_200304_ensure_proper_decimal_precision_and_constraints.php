@@ -34,9 +34,9 @@ return new class extends Migration
         if (Schema::hasTable('products') && Schema::hasColumn('products', 'price')) {
             try {
                 DB::statement('ALTER TABLE `products` MODIFY COLUMN `price` DECIMAL(12,2) NOT NULL');
-                $this->command->info("Updated products.price to DECIMAL(12,2)");
+                echo "Updated products.price to DECIMAL(12,2)\n";
             } catch (Exception $e) {
-                $this->command->warn("Could not update products.price: " . $e->getMessage());
+                echo "Could not update products.price: " . $e->getMessage() . "\n";
             }
         }
 
@@ -47,9 +47,9 @@ return new class extends Migration
                 if (Schema::hasColumn('orders', $field)) {
                     try {
                         DB::statement("ALTER TABLE `orders` MODIFY COLUMN `{$field}` DECIMAL(12,2) NOT NULL");
-                        $this->command->info("Updated orders.{$field} to DECIMAL(12,2)");
+                        echo "Updated orders.{$field} to DECIMAL(12,2)\n";
                     } catch (Exception $e) {
-                        $this->command->warn("Could not update orders.{$field}: " . $e->getMessage());
+                        echo "Could not update orders.{$field}: " . $e->getMessage() . "\n";
                     }
                 }
             }
@@ -62,9 +62,9 @@ return new class extends Migration
                 if (Schema::hasColumn('order_items', $field)) {
                     try {
                         DB::statement("ALTER TABLE `order_items` MODIFY COLUMN `{$field}` DECIMAL(12,2) NOT NULL");
-                        $this->command->info("Updated order_items.{$field} to DECIMAL(12,2)");
+                        echo "Updated order_items.{$field} to DECIMAL(12,2)\n";
                     } catch (Exception $e) {
-                        $this->command->warn("Could not update order_items.{$field}: " . $e->getMessage());
+                        echo "Could not update order_items.{$field}: " . $e->getMessage() . "\n";
                     }
                 }
             }
@@ -74,9 +74,9 @@ return new class extends Migration
         if (Schema::hasTable('wallet_transactions') && Schema::hasColumn('wallet_transactions', 'amount')) {
             try {
                 DB::statement('ALTER TABLE `wallet_transactions` MODIFY COLUMN `amount` DECIMAL(12,2) NOT NULL');
-                $this->command->info("Updated wallet_transactions.amount to DECIMAL(12,2)");
+                echo "Updated wallet_transactions.amount to DECIMAL(12,2)\n";
             } catch (Exception $e) {
-                $this->command->warn("Could not update wallet_transactions.amount: " . $e->getMessage());
+                echo "Could not update wallet_transactions.amount: " . $e->getMessage() . "\n";
             }
         }
 
@@ -84,9 +84,9 @@ return new class extends Migration
         if (Schema::hasTable('payout_requests') && Schema::hasColumn('payout_requests', 'amount')) {
             try {
                 DB::statement('ALTER TABLE `payout_requests` MODIFY COLUMN `amount` DECIMAL(12,2) NOT NULL');
-                $this->command->info("Updated payout_requests.amount to DECIMAL(12,2)");
+                echo "Updated payout_requests.amount to DECIMAL(12,2)\n";
             } catch (Exception $e) {
-                $this->command->warn("Could not update payout_requests.amount: " . $e->getMessage());
+                echo "Could not update payout_requests.amount: " . $e->getMessage() . "\n";
             }
         }
 
@@ -94,9 +94,9 @@ return new class extends Migration
         if (Schema::hasTable('refunds') && Schema::hasColumn('refunds', 'amount')) {
             try {
                 DB::statement('ALTER TABLE `refunds` MODIFY COLUMN `amount` DECIMAL(12,2) NOT NULL');
-                $this->command->info("Updated refunds.amount to DECIMAL(12,2)");
+                echo "Updated refunds.amount to DECIMAL(12,2)\n";
             } catch (Exception $e) {
-                $this->command->warn("Could not update refunds.amount: " . $e->getMessage());
+                echo "Could not update refunds.amount: " . $e->getMessage() . "\n";
             }
         }
     }
@@ -111,25 +111,25 @@ return new class extends Migration
             try {
                 // Ensure price is positive
                 DB::statement('ALTER TABLE `products` ADD CONSTRAINT `products_price_positive` CHECK (`price` >= 0)');
-                $this->command->info("Added check constraint: products.price >= 0");
+                echo "Added check constraint: products.price >= 0\n";
             } catch (Exception $e) {
-                $this->command->warn("Could not add price constraint to products: " . $e->getMessage());
+                echo "Could not add price constraint to products: " . $e->getMessage() . "\n";
             }
 
             try {
                 // Ensure stock_count is non-negative
                 DB::statement('ALTER TABLE `products` ADD CONSTRAINT `products_stock_non_negative` CHECK (`stock_count` IS NULL OR `stock_count` >= 0)');
-                $this->command->info("Added check constraint: products.stock_count >= 0");
+                echo "Added check constraint: products.stock_count >= 0\n";
             } catch (Exception $e) {
-                $this->command->warn("Could not add stock constraint to products: " . $e->getMessage());
+                echo "Could not add stock constraint to products: " . $e->getMessage() . "\n";
             }
 
             try {
                 // Ensure rating is between 0 and 5
                 DB::statement('ALTER TABLE `products` ADD CONSTRAINT `products_rating_range` CHECK (`rating` >= 0 AND `rating` <= 5)');
-                $this->command->info("Added check constraint: products.rating between 0 and 5");
+                echo "Added check constraint: products.rating between 0 and 5\n";
             } catch (Exception $e) {
-                $this->command->warn("Could not add rating constraint to products: " . $e->getMessage());
+                echo "Could not add rating constraint to products: " . $e->getMessage() . "\n";
             }
         }
 
@@ -140,9 +140,9 @@ return new class extends Migration
                 DB::statement('ALTER TABLE `orders` ADD CONSTRAINT `orders_subtotal_positive` CHECK (`subtotal` >= 0)');
                 DB::statement('ALTER TABLE `orders` ADD CONSTRAINT `orders_platform_fee_positive` CHECK (`platform_fee` >= 0)');
                 DB::statement('ALTER TABLE `orders` ADD CONSTRAINT `orders_total_positive` CHECK (`total` >= 0)');
-                $this->command->info("Added monetary constraints to orders table");
+                echo "Added monetary constraints to orders table\n";
             } catch (Exception $e) {
-                $this->command->warn("Could not add monetary constraints to orders: " . $e->getMessage());
+                echo "Could not add monetary constraints to orders: " . $e->getMessage() . "\n";
             }
         }
 
@@ -157,9 +157,9 @@ return new class extends Migration
                 // Ensure quantity is positive
                 DB::statement('ALTER TABLE `order_items` ADD CONSTRAINT `order_items_quantity_positive` CHECK (`quantity` > 0)');
                 
-                $this->command->info("Added constraints to order_items table");
+                echo "Added constraints to order_items table\n";
             } catch (Exception $e) {
-                $this->command->warn("Could not add constraints to order_items: " . $e->getMessage());
+                echo "Could not add constraints to order_items: " . $e->getMessage() . "\n";
             }
         }
 
@@ -168,9 +168,9 @@ return new class extends Migration
             try {
                 // Ensure is_active is boolean
                 DB::statement('ALTER TABLE `users` ADD CONSTRAINT `users_is_active_boolean` CHECK (`is_active` IN (0, 1))');
-                $this->command->info("Added boolean constraint to users.is_active");
+                echo "Added boolean constraint to users.is_active\n";
             } catch (Exception $e) {
-                $this->command->warn("Could not add boolean constraint to users: " . $e->getMessage());
+                echo "Could not add boolean constraint to users: " . $e->getMessage() . "\n";
             }
         }
 
@@ -183,9 +183,9 @@ return new class extends Migration
                 // Ensure verified is boolean
                 DB::statement('ALTER TABLE `otp_verifications` ADD CONSTRAINT `otp_verifications_verified_boolean` CHECK (`verified` IN (0, 1))');
                 
-                $this->command->info("Added constraints to otp_verifications table");
+                echo "Added constraints to otp_verifications table\n";
             } catch (Exception $e) {
-                $this->command->warn("Could not add constraints to otp_verifications: " . $e->getMessage());
+                echo "Could not add constraints to otp_verifications: " . $e->getMessage() . "\n";
             }
         }
     }

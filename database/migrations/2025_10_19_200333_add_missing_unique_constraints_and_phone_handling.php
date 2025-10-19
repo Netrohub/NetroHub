@@ -44,11 +44,11 @@ return new class extends Migration
                 ");
 
                 if (count($duplicates) > 0) {
-                    $this->command->warn("Found duplicate phone numbers in users table:");
+                    echo "Found duplicate phone numbers in users table:\n";
                     foreach ($duplicates as $duplicate) {
-                        $this->command->warn("  Phone: {$duplicate->phone_number}, Count: {$duplicate->count}");
+                        echo "  Phone: {$duplicate->phone_number}, Count: {$duplicate->count}\n";
                     }
-                    $this->command->warn("Skipping unique constraint on phone_number due to duplicates");
+                    echo "Skipping unique constraint on phone_number due to duplicates\n";
                 } else {
                     // Add unique index on phone_number if no duplicates
                     try {
@@ -56,10 +56,10 @@ return new class extends Migration
                             Schema::table('users', function (Blueprint $table) {
                                 $table->unique('phone_number', 'users_phone_number_unique');
                             });
-                            $this->command->info("Added unique constraint on users.phone_number");
+                            echo "Added unique constraint on users.phone_number\n";
                         }
                     } catch (Exception $e) {
-                        $this->command->warn("Could not add unique constraint on phone_number: " . $e->getMessage());
+                        echo "Could not add unique constraint on phone_number: " . $e->getMessage() . "\n";
                     }
                 }
             }
@@ -76,11 +76,11 @@ return new class extends Migration
                 ");
 
                 if (count($duplicates) > 0) {
-                    $this->command->warn("Found duplicate phone numbers in users.phone column:");
+                    echo "Found duplicate phone numbers in users.phone column:\n";
                     foreach ($duplicates as $duplicate) {
-                        $this->command->warn("  Phone: {$duplicate->phone}, Count: {$duplicate->count}");
+                        echo "  Phone: {$duplicate->phone}, Count: {$duplicate->count}\n";
                     }
-                    $this->command->warn("Skipping unique constraint on phone due to duplicates");
+                    echo "Skipping unique constraint on phone due to duplicates\n";
                 } else {
                     // Add unique index on phone if no duplicates
                     try {
@@ -88,10 +88,10 @@ return new class extends Migration
                             Schema::table('users', function (Blueprint $table) {
                                 $table->unique('phone', 'users_phone_unique');
                             });
-                            $this->command->info("Added unique constraint on users.phone");
+                            echo "Added unique constraint on users.phone\n";
                         }
                     } catch (Exception $e) {
-                        $this->command->warn("Could not add unique constraint on phone: " . $e->getMessage());
+                        echo "Could not add unique constraint on phone: " . $e->getMessage() . "\n";
                     }
                 }
             }
@@ -110,10 +110,10 @@ return new class extends Migration
                     Schema::table('products', function (Blueprint $table) {
                         $table->unique('slug', 'products_slug_unique');
                     });
-                    $this->command->info("Added unique constraint on products.slug");
+                    echo "Added unique constraint on products.slug\n";
                 }
             } catch (Exception $e) {
-                $this->command->warn("Could not add unique constraint on products.slug: " . $e->getMessage());
+                echo "Could not add unique constraint on products.slug: " . $e->getMessage() . "\n";
             }
         }
 
@@ -124,10 +124,10 @@ return new class extends Migration
                     Schema::table('orders', function (Blueprint $table) {
                         $table->unique('order_number', 'orders_order_number_unique');
                     });
-                    $this->command->info("Added unique constraint on orders.order_number");
+                    echo "Added unique constraint on orders.order_number\n";
                 }
             } catch (Exception $e) {
-                $this->command->warn("Could not add unique constraint on orders.order_number: " . $e->getMessage());
+                echo "Could not add unique constraint on orders.order_number: " . $e->getMessage() . "\n";
             }
         }
 
@@ -138,10 +138,10 @@ return new class extends Migration
                     Schema::table('users', function (Blueprint $table) {
                         $table->unique('username', 'users_username_unique');
                     });
-                    $this->command->info("Added unique constraint on users.username");
+                    echo "Added unique constraint on users.username\n";
                 }
             } catch (Exception $e) {
-                $this->command->warn("Could not add unique constraint on users.username: " . $e->getMessage());
+                echo "Could not add unique constraint on users.username: " . $e->getMessage() . "\n";
             }
         }
 
@@ -152,10 +152,10 @@ return new class extends Migration
                     Schema::table('sellers', function (Blueprint $table) {
                         $table->unique('user_id', 'sellers_user_id_unique');
                     });
-                    $this->command->info("Added unique constraint on sellers.user_id");
+                    echo "Added unique constraint on sellers.user_id\n";
                 }
             } catch (Exception $e) {
-                $this->command->warn("Could not add unique constraint on sellers.user_id: " . $e->getMessage());
+                echo "Could not add unique constraint on sellers.user_id: " . $e->getMessage() . "\n";
             }
         }
     }
@@ -171,7 +171,7 @@ return new class extends Migration
                 $table->timestamp('email_verified_at')->nullable()->after('email');
                 $table->index('email_verified_at');
             });
-            $this->command->info("Added email_verified_at column to users table");
+            echo "Added email_verified_at column to users table\n";
         }
 
         // Users table - ensure phone_verified_at exists
@@ -180,7 +180,7 @@ return new class extends Migration
                 $table->timestamp('phone_verified_at')->nullable()->after('phone');
                 $table->index('phone_verified_at');
             });
-            $this->command->info("Added phone_verified_at column to users table");
+            echo "Added phone_verified_at column to users table\n";
         }
     }
 
