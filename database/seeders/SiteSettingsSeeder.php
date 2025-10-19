@@ -17,7 +17,7 @@ class SiteSettingsSeeder extends Seeder
             [
                 'key' => 'site_name',
                 'group' => 'general',
-                'value' => 'NetroHub',
+                'value' => 'NXO',
                 'type' => 'text',
                 'description' => 'The name of your marketplace',
                 'is_public' => true,
@@ -41,7 +41,7 @@ class SiteSettingsSeeder extends Seeder
             [
                 'key' => 'contact_email',
                 'group' => 'general',
-                'value' => 'support@netrohub.com',
+                'value' => 'support@nxo.com',
                 'type' => 'text',
                 'description' => 'Main contact email address',
                 'is_public' => true,
@@ -49,7 +49,7 @@ class SiteSettingsSeeder extends Seeder
             [
                 'key' => 'support_email',
                 'group' => 'general',
-                'value' => 'help@netrohub.com',
+                'value' => 'help@nxo.com',
                 'type' => 'text',
                 'description' => 'Customer support email',
                 'is_public' => true,
@@ -117,7 +117,7 @@ class SiteSettingsSeeder extends Seeder
             [
                 'key' => 'seo_title',
                 'group' => 'seo',
-                'value' => 'NetroHub - Premium Digital Marketplace',
+                'value' => 'NXO - Premium Digital Marketplace',
                 'type' => 'text',
                 'description' => 'Default page title for SEO',
                 'is_public' => true,
@@ -125,7 +125,7 @@ class SiteSettingsSeeder extends Seeder
             [
                 'key' => 'seo_description',
                 'group' => 'seo',
-                'value' => 'Buy and sell premium digital products, gaming accounts, and social media services on NetroHub.',
+                'value' => 'Buy and sell premium digital products, gaming accounts, and social media services on NXO.',
                 'type' => 'textarea',
                 'description' => 'Default meta description',
                 'is_public' => true,
@@ -159,7 +159,7 @@ class SiteSettingsSeeder extends Seeder
             [
                 'key' => 'twitter_handle',
                 'group' => 'social',
-                'value' => '@netrohub',
+                'value' => '@nxo',
                 'type' => 'text',
                 'description' => 'Twitter/X handle',
                 'is_public' => true,
@@ -227,7 +227,7 @@ class SiteSettingsSeeder extends Seeder
             [
                 'key' => 'email_from_address',
                 'group' => 'email',
-                'value' => 'noreply@netrohub.com',
+                'value' => 'noreply@nxo.com',
                 'type' => 'text',
                 'description' => 'From email address for outgoing emails',
                 'is_public' => false,
@@ -235,7 +235,7 @@ class SiteSettingsSeeder extends Seeder
             [
                 'key' => 'email_from_name',
                 'group' => 'email',
-                'value' => 'NetroHub',
+                'value' => 'NXO',
                 'type' => 'text',
                 'description' => 'From name for outgoing emails',
                 'is_public' => false,
@@ -243,7 +243,7 @@ class SiteSettingsSeeder extends Seeder
             [
                 'key' => 'email_signature',
                 'group' => 'email',
-                'value' => 'Best regards,<br>The NetroHub Team',
+                'value' => 'Best regards,<br>The NXO Team',
                 'type' => 'textarea',
                 'description' => 'Default email signature',
                 'is_public' => false,
@@ -269,7 +269,7 @@ class SiteSettingsSeeder extends Seeder
             [
                 'key' => 'company_name',
                 'group' => 'legal',
-                'value' => 'NetroHub Inc.',
+                'value' => 'NXO Inc.',
                 'type' => 'text',
                 'description' => 'Legal company name',
                 'is_public' => true,

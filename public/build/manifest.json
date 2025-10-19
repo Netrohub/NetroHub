@@ -16,22 +16,22 @@
     "name": "chart"
   },
   "resources/css/admin.css": {
-    "file": "assets/admin-B25SSPrw.css",
+    "file": "assets/admin-DRV48sru.css",
     "src": "resources/css/admin.css",
     "isEntry": true
   },
   "resources/css/app.css": {
-    "file": "assets/app-BWbSI4By.css",
+    "file": "assets/app-CtKydi0c.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/css/mosaic.css": {
-    "file": "assets/mosaic-CqJe0rvb.css",
+    "file": "assets/mosaic-wQ5qubye.css",
     "src": "resources/css/mosaic.css",
     "isEntry": true
   },
   "resources/css/stellar.css": {
-    "file": "assets/stellar-DpNCQYPx.css",
+    "file": "assets/stellar-D1uwzkcD.css",
     "src": "resources/css/stellar.css",
     "isEntry": true
   },
@@ -47,7 +47,7 @@
     ]
   },
   "resources/js/app.js": {
-    "file": "assets/app-BV5MjAlY.js",
+    "file": "assets/app-Dczc9aXd.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,

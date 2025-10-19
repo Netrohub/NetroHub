@@ -12,7 +12,7 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6">
             <div class="text-center">
                 <h1 class="text-4xl md:text-6xl font-black bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-purple-500 to-blue-500 mb-6" data-aos="fade-down">
-                    {{ __('About NetroHub') }}
+                    {{ __('About NXO') }}
                 </h1>
                 <p class="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed" data-aos="fade-down" data-aos-delay="200">
                     {{ __('Your trusted platform for buying and selling digital accounts safely and securely. We connect verified sellers with buyers worldwide.') }}
@@ -30,7 +30,7 @@
                         {{ __('Our Mission') }}
                     </h2>
                     <p class="text-lg text-slate-300 mb-6 leading-relaxed">
-                        {{ __('At NetroHub, we believe in creating a safe, transparent, and efficient marketplace for digital accounts. Our mission is to bridge the gap between sellers and buyers while ensuring the highest standards of security and trust.') }}
+                        {{ __('At NXO, we believe in creating a safe, transparent, and efficient marketplace for digital accounts. Our mission is to bridge the gap between sellers and buyers while ensuring the highest standards of security and trust.') }}
                     </p>
                     <p class="text-lg text-slate-300 leading-relaxed">
                         {{ __('We are committed to providing a platform where users can trade digital assets with confidence, backed by our robust verification system and dedicated support team.') }}
@@ -55,7 +55,7 @@
                     {{ __('Our Core Values') }}
                 </h2>
                 <p class="text-lg text-slate-300 max-w-2xl mx-auto">
-                    {{ __('The principles that guide everything we do at NetroHub') }}
+                    {{ __('The principles that guide everything we do at NXO') }}
                 </p>
             </div>
 
@@ -92,7 +92,7 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6">
             <div class="text-center mb-16" data-aos="fade-up">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
-                    {{ __('Why Choose NetroHub?') }}
+                    {{ __('Why Choose NXO?') }}
                 </h2>
                 <p class="text-lg text-slate-300 max-w-2xl mx-auto">
                     {{ __('Discover what makes us the leading platform for digital account trading') }}
@@ -226,7 +226,7 @@
                 {{ __('Ready to Get Started?') }}
             </h2>
             <p class="text-lg text-slate-300 mb-8" data-aos="fade-up" data-aos-delay="200">
-                {{ __('Join thousands of satisfied users who trust NetroHub for their digital account trading needs.') }}
+                {{ __('Join thousands of satisfied users who trust NXO for their digital account trading needs.') }}
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="400">
                 @auth
@@ -266,8 +266,8 @@
                         <div class="text-4xl mb-4">📧</div>
                         <h3 class="text-lg font-bold text-white mb-2">{{ __('Email Support') }}</h3>
                         <p class="text-slate-400 text-sm mb-4">{{ __('Get help via email') }}</p>
-                        <a href="mailto:support@netrohub.com" class="text-purple-400 hover:text-purple-300 transition-colors">
-                            support@netrohub.com
+                        <a href="mailto:support@nxo.com" class="text-purple-400 hover:text-purple-300 transition-colors">
+                            support@nxo.com
                         </a>
                     </div>
                 </div>

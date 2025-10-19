@@ -19,16 +19,16 @@
     </section>
 
     <!-- Product Details -->
-    <section class="relative pb-12 md:pb-20">
+    <section class="relative pb-10 sm:pb-14">
         <div class="max-w-6xl mx-auto px-4 sm:px-6">
             <div class="grid lg:grid-cols-2 gap-8 lg:gap-12">
                 
                 <!-- Left Column - Product Image/Icon -->
                 <div>
                     <div class="sticky top-24">
-                        <div class="bg-slate-800 rounded-2xl p-8 lg:p-12 aspect-square flex items-center justify-center mb-6">
+                        <div class="bg-slate-800 rounded-2xl p-8 lg:p-12 aspect-[4/3] flex items-center justify-center mb-6">
                             @if($product->thumbnail_url ?? false)
-                                <img src="{{ $product->thumbnail_url }}" alt="{{ $product->title }}" class="w-full h-full object-cover rounded-xl">
+                                <img src="{{ $product->thumbnail_url }}" alt="{{ $product->title }}" class="w-full h-full object-cover rounded-xl" loading="lazy" width="600" height="450">
                             @else
                                 <div class="w-48 h-48 lg:w-64 lg:h-64 bg-slate-700 rounded-3xl flex items-center justify-center">
                                     <x-platform-icon :product="$product" size="3xl" />
@@ -64,7 +64,24 @@
                         </span>
                     @endif
 
-                    <h1 class="h2 text-slate-100 mb-4" data-aos="fade-up">{{ $product->title }}</h1>
+                    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-100 mb-2" data-aos="fade-up">{{ $product->title }}</h1>
+                    
+                    <!-- Rating & Reviews -->
+                    @if($product->rating || $product->reviews_count)
+                        <div class="flex items-center gap-3 mb-4" data-aos="fade-up" data-aos-delay="50">
+                            @if($product->rating)
+                                <div class="flex items-center gap-1">
+                                    <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                    </svg>
+                                    <span class="text-lg font-bold text-white">★ {{ number_format($product->rating, 1) }}</span>
+                                </div>
+                            @endif
+                            @if($product->reviews_count)
+                                <span class="text-slate-400">({{ number_format($product->reviews_count) }} {{ __('reviews') }})</span>
+                            @endif
+                        </div>
+                    @endif
                     
                     <!-- Price -->
                     <div class="flex items-baseline gap-4 mb-6" data-aos="fade-up" data-aos-delay="100">
@@ -83,18 +100,18 @@
 
                     <!-- Description -->
                     <div class="prose prose-invert max-w-none mb-8" data-aos="fade-up" data-aos-delay="200">
-                        <p class="text-slate-300 text-lg leading-relaxed">
+                        <p class="text-slate-200 text-lg leading-relaxed">
                             {!! nl2br(e($product->description)) !!}
                         </p>
                     </div>
 
                     <!-- Add to Cart / Purchase -->
-                    <div class="space-y-4 mb-8" data-aos="fade-up" data-aos-delay="300">
+                    <div class="space-y-4 mb-6" data-aos="fade-up" data-aos-delay="300">
                         @auth
                             @if($product->stock > 0 || !isset($product->stock))
                                 <form action="{{ route('cart.add', $product) }}" method="POST" class="flex gap-4">
                                     @csrf
-                                    <button type="submit" class="btn text-white bg-purple-500 hover:bg-purple-600 w-full lg:flex-1 shadow-lg shadow-purple-500/25">
+                                    <button type="submit" class="btn text-white bg-purple-500 hover:bg-purple-600 w-full lg:flex-1 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40">
                                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
                                         </svg>
@@ -107,10 +124,31 @@
                                 </button>
                             @endif
                         @else
-                            <a href="{{ route('login') }}" class="btn text-white bg-purple-500 hover:bg-purple-600 w-full block text-center">
+                            <a href="{{ route('login') }}" class="btn text-white bg-purple-500 hover:bg-purple-600 w-full block text-center shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40">
                                 {{ __('Login to Purchase') }}
                             </a>
                         @endauth
+                    </div>
+
+                    <!-- Delivery Information -->
+                    <div class="bg-slate-800/50 rounded-xl p-4 mb-8 border border-slate-700/50" data-aos="fade-up" data-aos-delay="350">
+                        <div class="flex items-start gap-3">
+                            <div class="flex-shrink-0">
+                                <svg class="w-5 h-5 text-blue-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-white mb-1">{{ __('Delivery Details') }}</h4>
+                                <p class="text-sm text-slate-200 leading-relaxed">
+                                    @if($product->auto_delivery ?? false)
+                                        {{ __('Instant delivery after payment confirmation. You will receive the account details immediately.') }}
+                                    @else
+                                        {{ __('Manual delivery within 24 hours. Our team will process your order and deliver the account details.') }}
+                                    @endif
+                                </p>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Product Features/Details -->
@@ -334,7 +372,7 @@
             <!-- Reviews Section -->
             @if(isset($product->reviews) && $product->reviews->count() > 0)
                 <div class="mt-16 pt-16 border-t border-slate-800">
-                    <h2 class="h3 text-slate-100 mb-8">{{ __('Customer Reviews') }}</h2>
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-100 mb-8">{{ __('Customer Reviews') }}</h2>
                     <div class="space-y-6">
                         @foreach($product->reviews->take(5) as $review)
                             <div class="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50">

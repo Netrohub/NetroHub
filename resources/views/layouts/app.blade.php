@@ -5,26 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('meta_title', \App\Models\SiteSetting::get('seo_title', (\App\Models\SiteSetting::get('site_name', config('app.name', 'NetroHub')) . ' - Gaming Marketplace')))</title>
+    <title>@yield('meta_title', \App\Models\SiteSetting::get('seo_title', (\App\Models\SiteSetting::get('site_name', config('app.name', 'NXO')) . ' - Gaming Marketplace')))</title>
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="@yield('meta_description', \App\Models\SiteSetting::get('seo_description', 'Discover and trade digital gaming goods on NetroHub - the ultimate gaming marketplace for gamers, by gamers.'))">
+    <meta name="description" content="@yield('meta_description', \App\Models\SiteSetting::get('seo_description', 'Discover and trade digital gaming goods on NXO - the ultimate gaming marketplace for gamers, by gamers.'))">
     <meta name="keywords" content="@yield('meta_keywords', \App\Models\SiteSetting::get('seo_keywords', 'gaming, marketplace, digital goods, games, trading, gaming community'))">
-    <meta name="author" content="@yield('meta_author', \App\Models\SiteSetting::get('site_name', 'NetroHub'))">
+    <meta name="author" content="@yield('meta_author', \App\Models\SiteSetting::get('site_name', 'NXO'))">
     
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="@yield('og_title', config('app.name', 'NetroHub') . ' - Gaming Marketplace')">
-    <meta property="og:description" content="@yield('og_description', 'Discover and trade digital gaming goods on NetroHub - the ultimate gaming marketplace for gamers, by gamers.')">
+    <meta property="og:title" content="@yield('og_title', config('app.name', 'NXO') . ' - Gaming Marketplace')">
+    <meta property="og:description" content="@yield('og_description', 'Discover and trade digital gaming goods on NXO - the ultimate gaming marketplace for gamers, by gamers.')">
     <meta property="og:type" content="@yield('og_type', 'website')">
     <meta property="og:url" content="{{ request()->url() }}">
-    <meta property="og:image" content="@yield('og_image', asset('img/netrohub-og.png'))">
-    <meta property="og:site_name" content="{{ config('app.name', 'NetroHub') }}">
+    <meta property="og:image" content="@yield('og_image', asset('img/nxo-og.png'))">
+    <meta property="og:site_name" content="{{ config('app.name', 'NXO') }}">
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="@yield('twitter_card', 'summary_large_image')">
-    <meta name="twitter:title" content="@yield('twitter_title', config('app.name', 'NetroHub') . ' - Gaming Marketplace')">
-    <meta name="twitter:description" content="@yield('twitter_description', 'Discover and trade digital gaming goods on NetroHub - the ultimate gaming marketplace for gamers, by gamers.')">
-    <meta name="twitter:image" content="@yield('twitter_image', asset('img/netrohub-og.png'))">
+    <meta name="twitter:title" content="@yield('twitter_title', config('app.name', 'NXO') . ' - Gaming Marketplace')">
+    <meta name="twitter:description" content="@yield('twitter_description', 'Discover and trade digital gaming goods on NXO - the ultimate gaming marketplace for gamers, by gamers.')">
+    <meta name="twitter:image" content="@yield('twitter_image', asset('img/nxo-og.png'))">
     
     <!-- Additional SEO -->
     <link rel="canonical" href="{{ request()->url() }}">
@@ -139,7 +139,7 @@
                             </svg>
                         </div>
                         <span class="text-base sm:text-xl md:text-2xl font-black bg-gaming-gradient bg-clip-text text-transparent tracking-tight">
-                            {{ \App\Models\SiteSetting::get('site_name', 'NetroHub') }}
+                            {{ \App\Models\SiteSetting::get('site_name', 'NXO') }}
                         </span>
                     </a>
                 </div>
@@ -584,7 +584,7 @@
                             </svg>
                         </div>
                         <span class="text-lg sm:text-xl md:text-2xl font-black bg-gaming-gradient bg-clip-text text-transparent">
-                            {{ \App\Models\SiteSetting::get('site_name', 'NetroHub') }}
+                            {{ \App\Models\SiteSetting::get('site_name', 'NXO') }}
                         </span>
                     </div>
                     <p class="text-muted-400 text-sm leading-relaxed mb-4 sm:mb-0">
@@ -717,7 +717,7 @@
             <div class="border-t border-gaming mt-8 sm:mt-10 md:mt-12 pt-6 sm:pt-8">
                 <div class="flex flex-col md:flex-row justify-between items-center gap-3 sm:gap-4">
                     <p class="text-muted-400 text-xs sm:text-sm text-center md:text-{{ app()->getLocale() === 'ar' ? 'right' : 'left' }}">
-                        &copy; {{ date('Y') }} {{ \App\Models\SiteSetting::get('company_name', \App\Models\SiteSetting::get('site_name', 'NetroHub')) }}. {{ __('All rights reserved') }}.
+                        &copy; {{ date('Y') }} {{ \App\Models\SiteSetting::get('company_name', \App\Models\SiteSetting::get('site_name', 'NXO')) }}. {{ __('All rights reserved') }}.
                     </p>
                     <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:gap-6">
                         <span class="text-xs text-muted-500 flex items-center gap-1">

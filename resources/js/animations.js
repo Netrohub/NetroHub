@@ -1,5 +1,5 @@
 /**
- * NetroHub Animations & Interactions
+ * NXO Animations & Interactions
  * Smooth scroll animations, micro-interactions, and UI enhancements
  */
 
@@ -293,7 +293,7 @@ const initAnimations = () => {
     animateCounters();
     setupLoadingBar();
     
-    console.log('✨ NetroHub animations initialized');
+    console.log('✨ NXO animations initialized');
 };
 
 // Run on DOM ready

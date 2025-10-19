@@ -1,7 +1,7 @@
 {
-    "name": "netrohub/marketplace",
+    "name": "nxo/marketplace",
     "type": "project",
-    "description": "NetroHub - Digital Goods Marketplace",
+    "description": "NXO - Digital Goods Marketplace",
     "keywords": [
         "laravel",
         "marketplace",

@@ -51,7 +51,7 @@ class RegisteredUserController extends Controller
 
             \App\Models\ActivityLog::log('user_registered', $user, 'User successfully registered');
 
-            return redirect()->route('home')->with('success', 'Welcome to NetroHub! Your account has been created.');
+            return redirect()->route('home')->with('success', 'Welcome to NXO! Your account has been created.');
         } catch (\Exception $e) {
             \Log::error('Registration failed', [
                 'error' => $e->getMessage(),

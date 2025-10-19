@@ -7,7 +7,7 @@
             <!-- 1st block -->
             <div class="sm:col-span-12 lg:col-span-4 order-1 lg:order-none">
                 <div class="h-full flex flex-col sm:flex-row lg:flex-col justify-between">
-                    <div class="mb-4 sm:mb-0">
+                    <div class="mb-6 sm:mb-0">
                         <div class="mb-4">
                             <a class="inline-flex items-center" href="{{ route('home') }}" aria-label="{{ config('app.name') }}">
                                 <svg class="w-8 h-8 fill-current text-purple-500" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
@@ -15,7 +15,10 @@
                                 </svg>
                             </a>
                         </div>
-                        <div class="text-sm text-slate-300">© {{ \App\Models\SiteSetting::get('company_name', \App\Models\SiteSetting::get('site_name', config('app.name'))) }} <span class="text-slate-500">-</span> {{ __('All rights reserved.') }}</div>
+                        <div class="text-sm text-slate-300">
+                            © {{ date('Y') }} {{ \App\Models\SiteSetting::get('company_name', \App\Models\SiteSetting::get('site_name', config('app.name'))) }}. 
+                            {{ __('All rights reserved.') }}
+                        </div>
                     </div>
                     <!-- Social links -->
                     <ul class="flex">
@@ -37,12 +40,15 @@
                 </div>
             </div>
 
-            <!-- 2nd block -->
+            <!-- Platform Links -->
             <div class="sm:col-span-6 md:col-span-3 lg:col-span-2">
-                <h6 class="text-sm text-slate-50 font-medium mb-2">{{ __('Products') }}</h6>
-                <ul class="text-sm space-y-2">
+                <h6 class="text-sm text-slate-50 font-medium mb-3">{{ __('Platform') }}</h6>
+                <ul class="text-sm space-y-2.5">
                     <li>
                         <a class="text-slate-400 hover:text-slate-200 transition duration-150 ease-in-out" href="{{ route('products.index') }}">{{ __('Browse Products') }}</a>
+                    </li>
+                    <li>
+                        <a class="text-slate-400 hover:text-slate-200 transition duration-150 ease-in-out" href="{{ route('sell.index') }}">{{ __('Start Selling') }}</a>
                     </li>
                     <li>
                         <a class="text-slate-400 hover:text-slate-200 transition duration-150 ease-in-out" href="{{ route('pricing.index') }}">{{ __('Pricing & Plans') }}</a>
@@ -53,25 +59,10 @@
                 </ul>
             </div>
 
-            <!-- 3rd block -->
+            <!-- Support Links -->
             <div class="sm:col-span-6 md:col-span-3 lg:col-span-2">
-                <h6 class="text-sm text-slate-50 font-medium mb-2">{{ __('Selling') }}</h6>
-                <ul class="text-sm space-y-2">
-                    <li>
-                        <a class="text-slate-400 hover:text-slate-200 transition duration-150 ease-in-out" href="{{ route('sell.index') }}">{{ __('Start Selling') }}</a>
-                    </li>
-                    @auth
-                        <li>
-                            <a class="text-slate-400 hover:text-slate-200 transition duration-150 ease-in-out" href="{{ route('seller.dashboard') }}">{{ __('Seller Dashboard') }}</a>
-                        </li>
-                    @endauth
-                </ul>
-            </div>
-
-            <!-- 4th block -->
-            <div class="sm:col-span-6 md:col-span-3 lg:col-span-2">
-                <h6 class="text-sm text-slate-50 font-medium mb-2">{{ __('Support') }}</h6>
-                <ul class="text-sm space-y-2">
+                <h6 class="text-sm text-slate-50 font-medium mb-3">{{ __('Support') }}</h6>
+                <ul class="text-sm space-y-2.5">
                     @auth
                         <li>
                             <a class="text-slate-400 hover:text-slate-200 transition duration-150 ease-in-out" href="{{ route('account.index') }}">{{ __('My Account') }}</a>
@@ -79,14 +70,10 @@
                         <li>
                             <a class="text-slate-400 hover:text-slate-200 transition duration-150 ease-in-out" href="{{ route('account.orders') }}">{{ __('My Orders') }}</a>
                         </li>
+                        <li>
+                            <a class="text-slate-400 hover:text-slate-200 transition duration-150 ease-in-out" href="{{ route('seller.dashboard') }}">{{ __('Seller Dashboard') }}</a>
+                        </li>
                     @endauth
-                </ul>
-            </div>
-
-            <!-- 5th block -->
-            <div class="sm:col-span-6 md:col-span-3 lg:col-span-2">
-                <h6 class="text-sm text-slate-50 font-medium mb-2">{{ __('Legal') }}</h6>
-                <ul class="text-sm space-y-2">
                     <li>
                         <a class="text-slate-400 hover:text-slate-200 transition duration-150 ease-in-out" href="{{ route('legal.refund') }}">{{ __('Refund Policy') }}</a>
                     </li>

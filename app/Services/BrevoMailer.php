@@ -35,7 +35,7 @@ class BrevoMailer
                     'verification_link' => $verificationLink,
                     'user_name' => $toName,
                     'year' => now()->year,
-                    'app_name' => config('app.name', 'NetroHub'),
+                    'app_name' => config('app.name', 'NXO'),
                 ],
                 'sender' => [
                     'email' => config('mail.from.address'),
@@ -83,7 +83,7 @@ class BrevoMailer
                     'dashboard_link' => route('account.index'),
                     'products_link' => route('products.index'),
                     'year' => now()->year,
-                    'app_name' => config('app.name', 'NetroHub'),
+                    'app_name' => config('app.name', 'NXO'),
                 ],
                 'sender' => [
                     'email' => config('mail.from.address'),

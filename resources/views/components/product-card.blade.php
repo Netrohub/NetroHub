@@ -3,12 +3,14 @@
 <div class="card card-hover overflow-hidden h-full flex flex-col group scroll-fade-in">
     <a href="{{ route('products.show', $product->slug) }}" class="block flex-1 flex flex-col">
         <!-- Product Image -->
-        <div class="aspect-video bg-gaming-gradient rounded-lg sm:rounded-xl overflow-hidden mb-3 sm:mb-4 img-hover-zoom relative">
+        <div class="aspect-[4/3] bg-gaming-gradient rounded-lg sm:rounded-xl overflow-hidden mb-3 sm:mb-4 img-hover-zoom relative">
             @if($product->thumbnail_url)
                 <img src="{{ $product->thumbnail_url }}" 
                      alt="{{ $product->title }}" 
                      class="w-full h-full object-cover"
-                     loading="lazy">
+                     loading="lazy"
+                     width="400"
+                     height="300">
             @else
                 <div class="w-full h-full flex items-center justify-center text-white text-3xl sm:text-4xl md:text-5xl font-black">
                     {{ substr($product->title, 0, 1) }}
@@ -17,6 +19,16 @@
             
             <!-- Badges -->
             <div class="absolute top-2 left-2 sm:top-3 sm:left-3 flex flex-col gap-1.5 sm:gap-2">
+                {{-- Promoted Badge --}}
+                @if($product->is_featured ?? false)
+                    <span class="inline-flex items-center gap-1 px-2 py-1 sm:px-2.5 sm:py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-[10px] sm:text-xs font-bold rounded-full shadow-lg">
+                        <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/>
+                        </svg>
+                        {{ __('PROMOTED') }}
+                    </span>
+                @endif
+                
                 {{-- New Badge --}}
                 @if($product->created_at->diffInDays() <= 7)
                     <span class="inline-flex items-center gap-1 px-2 py-1 sm:px-2.5 sm:py-1 bg-primary-500 text-white text-[10px] sm:text-xs font-bold rounded-full shadow-gaming animate-pulse">
@@ -69,10 +81,10 @@
         </div>
 
         <!-- Product Info -->
-        <div class="p-3 sm:p-4 flex-1 flex flex-col">
+        <div class="p-3 sm:p-4 flex-1 flex flex-col space-y-3 sm:space-y-4">
             <!-- Platform Badge -->
             @if($product->metadata['platform'] ?? false)
-                <div class="flex items-center gap-2 mb-2 sm:mb-3">
+                <div class="flex items-center gap-2">
                     <div class="flex items-center gap-1 sm:gap-1.5 px-2 py-0.5 sm:px-3 sm:py-1 bg-dark-800/50 border border-gaming rounded-full">
                         <x-platform-icon :product="$product" size="xs" />
                         <span class="text-[10px] sm:text-xs text-muted-300 font-medium">{{ $product->metadata['platform'] }}</span>
@@ -81,17 +93,37 @@
             @endif
 
             <!-- Title -->
-            <h3 class="text-sm sm:text-base md:text-lg font-bold text-white mb-1.5 sm:mb-2 line-clamp-2 group-hover:text-primary-400 transition-colors leading-tight">
+            <h3 class="text-sm sm:text-base md:text-lg font-bold text-white line-clamp-2 group-hover:text-primary-400 transition-colors leading-tight">
                 {{ $product->title }}
             </h3>
             
+            <!-- Trust Signals -->
+            <div class="flex items-center gap-2 text-xs text-slate-400">
+                @if($product->seller && $product->seller->is_verified)
+                    <span class="flex items-center gap-1">
+                        <svg class="w-3 h-3 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        {{ __('Verified Seller') }}
+                    </span>
+                @endif
+                @if($product->auto_delivery ?? false)
+                    <span class="flex items-center gap-1">
+                        <svg class="w-3 h-3 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        {{ __('Instant Delivery') }}
+                    </span>
+                @endif
+            </div>
+            
             <!-- Description -->
-            <p class="text-xs sm:text-sm text-muted-300 line-clamp-2 leading-relaxed mb-3 sm:mb-4 flex-1">
+            <p class="text-xs sm:text-sm text-muted-300 line-clamp-2 leading-relaxed flex-1">
                 {{ $product->description }}
             </p>
 
             <!-- Meta Info -->
-            <div class="flex items-center gap-2 sm:gap-3 text-[10px] sm:text-xs text-muted-400 mb-3 sm:mb-4 flex-wrap">
+            <div class="flex items-center gap-2 sm:gap-3 text-[10px] sm:text-xs text-muted-400 flex-wrap">
                 {{-- Rating --}}
                 @if($product->rating)
                     <div class="flex items-center gap-0.5 sm:gap-1">
@@ -136,7 +168,7 @@
                         </span>
                     @endif
                 </div>
-                <button class="inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2 text-xs sm:text-sm font-bold bg-gaming-gradient text-white rounded-lg shadow-gaming hover:shadow-gaming-lg transition-all duration-300 min-h-[44px] group-hover:scale-105">
+                <button class="inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2 text-xs sm:text-sm font-bold bg-purple-500 hover:bg-purple-600 text-white rounded-lg shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 transition-all duration-300 min-h-[44px] group-hover:scale-105">
                     <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>

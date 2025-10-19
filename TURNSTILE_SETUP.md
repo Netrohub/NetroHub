@@ -1,7 +1,7 @@
 # Cloudflare Turnstile Setup Guide
 
 ## Overview
-This guide explains how to configure Cloudflare Turnstile for your NetroHub application to fix the error 300031 (widget crashed) issue.
+This guide explains how to configure Cloudflare Turnstile for your NXO application to fix the error 300031 (widget crashed) issue.
 
 ## Environment Variables Required
 
@@ -24,8 +24,8 @@ TURNSTILE_SECRET_KEY=your_secret_key_here
    - Click "Add site"
 
 3. **Configure Your Site**
-   - **Site name**: `netrohub.com` (or your domain)
-   - **Domain**: `netrohub.com` (add your actual domain)
+   - **Site name**: `nxo.com` (or your domain)
+   - **Domain**: `nxo.com` (add your actual domain)
    - **Widget mode**: Choose "Managed" for automatic challenges
    - **Pre-clearance**: Enable if you want to reduce challenges for trusted users
 
