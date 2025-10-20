@@ -76,4 +76,11 @@ return [
         'profiles_sample_rate' => env('SENTRY_PROFILES_SAMPLE_RATE', 0.0),
     ],
 
+    'turnstile' => [
+        'site_key' => env('TURNSTILE_SITE_KEY'),
+        'secret_key' => env('TURNSTILE_SECRET_KEY'),
+        'enabled' => env('TURNSTILE_ENABLED', true),
+        'theme' => env('TURNSTILE_THEME', 'auto'),
+    ],
+
 ];
