@@ -16,8 +16,10 @@
         "laravel/socialite": "^5.23",
         "league/flysystem-aws-s3-v3": "^3.0",
         "livewire/livewire": "^3.4",
+        "pragmarx/google2fa": "^8.0",
         "predis/predis": "^2.0",
         "sendinblue/api-v3-sdk": "^8.4",
+        "spatie/laravel-activitylog": "^4.10",
         "spatie/laravel-permission": "^6.0",
         "stripe/stripe-php": "^13.0"
     },

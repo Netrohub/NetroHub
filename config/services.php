@@ -1,6 +1,26 @@
 <?php
 
 return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Third Party Services
+    |--------------------------------------------------------------------------
+    |
+    | This file is for storing the credentials for third party services such
+    | as Mailgun, Postmark, AWS and more. This file provides the de facto
+    | location for this type of information, allowing packages to have
+    | a conventional file to locate the various service credentials.
+    |
+    */
+
+    'mailgun' => [
+        'domain' => env('MAILGUN_DOMAIN'),
+        'secret' => env('MAILGUN_SECRET'),
+        'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
+        'scheme' => 'https',
+    ],
+
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],
@@ -11,86 +31,49 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
-    'resend' => [
-        'key' => env('RESEND_KEY'),
-    ],
-
-    'slack' => [
-        'notifications' => [
-            'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
-            'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
+    'stripe' => [
+        'model' => env('STRIPE_MODEL'),
+        'key' => env('STRIPE_KEY'),
+        'secret' => env('STRIPE_SECRET'),
+        'webhook' => [
+            'secret' => env('STRIPE_WEBHOOK_SECRET'),
+            'tolerance' => env('STRIPE_WEBHOOK_TOLERANCE', 300),
         ],
     ],
 
-    'paddle' => [
-        'vendor_id' => env('PADDLE_VENDOR_ID'),
-        'api_key' => env('PADDLE_API_KEY'),
-        'product_id' => env('PADDLE_PRODUCT_ID'),
-        'webhook_secret' => env('PADDLE_WEBHOOK_SECRET'),
-        'environment' => env('PADDLE_ENVIRONMENT', 'sandbox'), // 'sandbox' or 'production'
-    ],
-
-    'google' => [
-        'client_id' => env('GOOGLE_CLIENT_ID'),
-        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => env('APP_URL').'/login/google/callback',
-    ],
-
-    'discord' => [
-        'client_id' => env('DISCORD_CLIENT_ID'),
-        'client_secret' => env('DISCORD_CLIENT_SECRET'),
-        'redirect' => env('APP_URL').'/login/discord/callback',
-    ],
-
-    'apple' => [
-        'client_id' => env('APPLE_CLIENT_ID'),
-        'client_secret' => env('APPLE_CLIENT_SECRET'),
-        'redirect' => env('APP_URL').'/login/apple/callback',
-    ],
-
-    'google_analytics' => [
-        'measurement_id' => env('GOOGLE_ANALYTICS_MEASUREMENT_ID'),
-        'api_secret' => env('GOOGLE_ANALYTICS_API_SECRET'),
-        'enabled' => env('GOOGLE_ANALYTICS_ENABLED', true),
-    ],
-
-    'posthog' => [
-        'api_key' => env('POSTHOG_API_KEY'),
-        'host' => env('POSTHOG_HOST', 'https://app.posthog.com'),
-    ],
-
-    'brevo' => [
-        'key' => env('BREVO_API_KEY'),
-        'verify_template_id' => env('BREVO_TEMPLATE_VERIFY_ID'),
-        'welcome_template_id' => env('BREVO_TEMPLATE_WELCOME_ID'),
-    ],
-
     'tap' => [
-        'secret_key' => env('TAP_SECRET_KEY'),
-        'public_key' => env('TAP_PUBLIC_KEY'),
+        'key' => env('TAP_KEY'),
+        'secret' => env('TAP_SECRET'),
         'webhook_secret' => env('TAP_WEBHOOK_SECRET'),
-        'sandbox' => env('TAP_SANDBOX', true),
-        'api_url' => env('TAP_SANDBOX', true) 
-            ? 'https://api-sandbox.tap.company/v2' 
-            : 'https://api.tap.company/v2',
+        'base_url' => env('TAP_BASE_URL', 'https://api.tap.company'),
     ],
 
     'persona' => [
         'api_key' => env('PERSONA_API_KEY'),
-        'template_id' => env('PERSONA_TEMPLATE_ID'),
-        'environment' => env('PERSONA_ENVIRONMENT', 'sandbox'), // 'sandbox' or 'production'
         'webhook_secret' => env('PERSONA_WEBHOOK_SECRET'),
+        'base_url' => env('PERSONA_BASE_URL', 'https://withpersona.com/api/v1'),
+        'template_id' => env('PERSONA_TEMPLATE_ID'),
     ],
 
-    'twilio' => [
-        'account_sid' => env('TWILIO_ACCOUNT_SID'),
-        'auth_token' => env('TWILIO_AUTH_TOKEN'),
-        'from_number' => env('TWILIO_FROM_NUMBER'),
-        'whatsapp_from' => env('TWILIO_WHATSAPP_FROM', '+14155238886'), // Twilio Sandbox number
+    'mada' => [
+        'merchant_id' => env('MADA_MERCHANT_ID'),
+        'api_key' => env('MADA_API_KEY'),
+        'base_url' => env('MADA_BASE_URL', 'https://api.mada.com.sa'),
     ],
 
-    'turnstile' => [
-        'site_key' => env('TURNSTILE_SITE_KEY'),
-        'secret_key' => env('TURNSTILE_SECRET_KEY'),
+    'stc_pay' => [
+        'merchant_id' => env('STC_PAY_MERCHANT_ID'),
+        'api_key' => env('STC_PAY_API_KEY'),
+        'base_url' => env('STC_PAY_BASE_URL', 'https://api.stcpay.com.sa'),
     ],
+
+    'sentry' => [
+        'dsn' => env('SENTRY_LARAVEL_DSN', env('SENTRY_DSN')),
+        'environment' => env('SENTRY_ENVIRONMENT', env('APP_ENV', 'production')),
+        'release' => env('SENTRY_RELEASE'),
+        'sample_rate' => env('SENTRY_SAMPLE_RATE', 1.0),
+        'traces_sample_rate' => env('SENTRY_TRACES_SAMPLE_RATE', 0.0),
+        'profiles_sample_rate' => env('SENTRY_PROFILES_SAMPLE_RATE', 0.0),
+    ],
+
 ];

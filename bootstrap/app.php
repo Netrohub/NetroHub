@@ -24,13 +24,19 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
         
         // Add locale middleware to web group
-        $middleware->web(append: [
-            \App\Http\Middleware\SetLocale::class,
-            \App\Http\Middleware\CspHeaders::class,
-        ]);
+    $middleware->web(append: [
+        \App\Http\Middleware\SetLocale::class,
+        \App\Http\Middleware\CspMiddleware::class,
+        \App\Http\Middleware\SecurityHeadersMiddleware::class,
+    ]);
         
         // Configure rate limiting
         $middleware->throttleApi();
+        
+        // Add adaptive rate limiting to specific routes
+        $middleware->alias([
+            'adaptive.rate.limit' => \App\Http\Middleware\AdaptiveRateLimit::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
