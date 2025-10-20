@@ -21,8 +21,8 @@ class CspHeaders
             "default-src 'self'",
             "base-uri 'self'",
             "img-src 'self' data: https:",
-            "style-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://fonts.bunny.net", // Tailwind inline + Turnstile + Fonts
-            "font-src 'self' data: https://fonts.bunny.net",
+            "style-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://fonts.bunny.net https://fonts.googleapis.com", // Tailwind inline + Turnstile + Fonts
+            "font-src 'self' data: https://fonts.bunny.net https://fonts.gstatic.com",
             "connect-src 'self' https://challenges.cloudflare.com",
             "frame-src https://challenges.cloudflare.com",
             "script-src 'self' 'unsafe-inline' 'unsafe-eval' 'nonce-{$nonce}' https://challenges.cloudflare.com", // Added unsafe-eval for Alpine.js
