@@ -17,7 +17,7 @@
     @stack('styles')
 </head>
 <body class="font-sans antialiased bg-background text-foreground tracking-tight">
-    <div class="flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+    <div class="flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip responsive-layout">
         
         <!-- Header -->
         <x-navbar />

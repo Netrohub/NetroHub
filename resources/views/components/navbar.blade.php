@@ -1,5 +1,5 @@
-<!-- NXO Navbar Component - Exact Design Specifications -->
-<nav class="sticky top-0 z-50 w-full border-b border-border/50 glass-card">
+<!-- NXO Navbar Component - Exact Responsive Specifications -->
+<nav class="sticky top-0 z-50 w-full border-b border-border/50 glass-card nav-desktop">
     <div class="max-w-7xl mx-auto px-4">
         <div class="flex h-16 items-center justify-between">
             <!-- Logo Section -->

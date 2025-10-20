@@ -62,7 +62,8 @@
                 <!-- Products Grid -->
                 <div class="md:w-3/4 lg:w-4/5">
                     @if($products->count() > 0)
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        <!-- Product Grid - Exact Responsive Specifications -->
+                        <div class="product-grid">
                             @foreach($products as $product)
                                 <x-product-card :product="$product" />
                             @endforeach

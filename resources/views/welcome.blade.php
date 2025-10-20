@@ -93,7 +93,7 @@
             </div>
             
             <div class="text-center mt-12">
-                <a href="{{ route('products.index') }}" class="btn-primary px-8 py-4 rounded-lg text-primary-foreground font-semibold text-lg">
+                <a href="{{ route('products.index') }}" class="btn-primary btn-desktop px-8 py-4 rounded-lg text-primary-foreground font-semibold text-lg">
                     {{ __('View All Products') }}
                 </a>
             </div>

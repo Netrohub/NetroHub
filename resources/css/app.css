@@ -538,4 +538,232 @@
     max-width: 375px; /* 375px max-width */
     margin: 0 auto;
   }
+  
+  /* NXO Responsive Breakpoints - Exact Specifications */
+  
+  /* Mobile (375px) - Single column layout, Stacked navigation, Full-width buttons, 16px padding */
+  @media (max-width: 375px) {
+    .responsive-layout {
+      display: flex;
+      flex-direction: column;
+      padding: 16px;
+    }
+    
+    .responsive-nav {
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .responsive-buttons {
+      width: 100%;
+    }
+    
+    .responsive-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+  
+  /* Tablet (768px) - 2-column product grid, Side navigation, Medium buttons, 20px padding */
+  @media (min-width: 376px) and (max-width: 768px) {
+    .responsive-layout {
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+      gap: 20px;
+      padding: 20px;
+    }
+    
+    .responsive-nav {
+      flex-direction: column;
+      position: sticky;
+      top: 20px;
+      height: fit-content;
+    }
+    
+    .responsive-buttons {
+      width: auto;
+      min-width: 120px;
+    }
+    
+    .responsive-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+  }
+  
+  /* Desktop (1440px) - 4-column product grid, Top navigation, Large buttons, 24px padding */
+  @media (min-width: 769px) {
+    .responsive-layout {
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+    }
+    
+    .responsive-nav {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .responsive-buttons {
+      width: auto;
+      min-width: 140px;
+    }
+    
+    .responsive-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+  }
+  
+  /* NXO Product Grid Responsive - Exact Specifications */
+  .product-grid {
+    display: grid;
+    gap: 16px;
+    padding: 16px;
+  }
+  
+  @media (min-width: 376px) and (max-width: 768px) {
+    .product-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      padding: 20px;
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .product-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      padding: 24px;
+    }
+  }
+  
+  /* NXO Navigation Responsive - Exact Specifications */
+  .nav-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+  }
+  
+  @media (min-width: 376px) and (max-width: 768px) {
+    .nav-tablet {
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 20px;
+      height: fit-content;
+      padding: 20px;
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .nav-desktop {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px;
+    }
+  }
+  
+  /* NXO Button Responsive - Exact Specifications */
+  .btn-mobile {
+    width: 100%;
+    padding: 12px 16px;
+  }
+  
+  @media (min-width: 376px) and (max-width: 768px) {
+    .btn-tablet {
+      width: auto;
+      min-width: 120px;
+      padding: 12px 20px;
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .btn-desktop {
+      width: auto;
+      min-width: 140px;
+      padding: 12px 24px;
+    }
+  }
+  
+  /* NXO Responsive Utilities - Final Implementation */
+  .responsive-container {
+    width: 100%;
+    max-width: 375px;
+    margin: 0 auto;
+    padding: 16px;
+  }
+  
+  @media (min-width: 376px) and (max-width: 768px) {
+    .responsive-container {
+      max-width: 768px;
+      padding: 20px;
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .responsive-container {
+      max-width: 1440px;
+      padding: 24px;
+    }
+  }
+  
+  /* NXO Mobile-First Responsive Design */
+  .mobile-first {
+    display: block;
+  }
+  
+  @media (min-width: 376px) {
+    .mobile-first {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .mobile-first {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  /* NXO Responsive Text Sizes */
+  .responsive-text {
+    font-size: 14px;
+  }
+  
+  @media (min-width: 376px) {
+    .responsive-text {
+      font-size: 16px;
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .responsive-text {
+      font-size: 18px;
+    }
+  }
+  
+  /* NXO Responsive Spacing */
+  .responsive-spacing {
+    margin: 16px;
+    padding: 16px;
+  }
+  
+  @media (min-width: 376px) {
+    .responsive-spacing {
+      margin: 20px;
+      padding: 20px;
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .responsive-spacing {
+      margin: 24px;
+      padding: 24px;
+    }
+  }
 }
