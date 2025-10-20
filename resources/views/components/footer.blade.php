@@ -73,7 +73,7 @@
                 <h3 class="text-lg font-semibold text-foreground mb-4">{{ __('Support') }}</h3>
                 <ul class="space-y-3">
                     <li>
-                        <a href="{{ route('help') }}" class="text-muted-foreground hover:text-primary transition-colors">
+                        <a href="{{ route('legal.terms') }}" class="text-muted-foreground hover:text-primary transition-colors">
                             {{ __('Help Center') }}
                         </a>
                     </li>
@@ -83,12 +83,12 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('contact') }}" class="text-muted-foreground hover:text-primary transition-colors">
+                        <a href="{{ route('about') }}" class="text-muted-foreground hover:text-primary transition-colors">
                             {{ __('Contact Us') }}
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('status') }}" class="text-muted-foreground hover:text-primary transition-colors">
+                        <a href="{{ route('health') }}" class="text-muted-foreground hover:text-primary transition-colors">
                             {{ __('System Status') }}
                         </a>
                     </li>
@@ -115,7 +115,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('legal.cookies') }}" class="text-muted-foreground hover:text-primary transition-colors">
+                        <a href="{{ route('legal.privacy') }}" class="text-muted-foreground hover:text-primary transition-colors">
                             {{ __('Cookie Policy') }}
                         </a>
                     </li>
