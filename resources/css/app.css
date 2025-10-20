@@ -1,76 +1,59 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 /* NXO Design System - Exact Implementation from nebula-market-blueprint */
-
 @layer base {
   :root {
     /* NXO Design System - Exact Colors from Blueprint */
     --background: 222 84% 5%; /* #0F172A */
     --foreground: 0 0% 100%; /* #FFFFFF */
-
     --card: 222 47% 11%; /* #1E293B */
     --card-foreground: 0 0% 100%; /* #FFFFFF */
-
     --popover: 222 47% 11%; /* #1E293B */
     --popover-foreground: 0 0% 100%; /* #FFFFFF */
-
     /* NXO Primary Colors - Exact Hex Values */
     --primary: 258 90% 66%; /* #8B5CF6 */
     --primary-foreground: 0 0% 100%; /* #FFFFFF */
     --primary-blue: 217 91% 60%; /* #3B82F6 */
     --primary-cyan: 188 94% 43%; /* #06B6D4 */
-    
     /* NXO Accent Colors */
     --accent: 258 90% 66%; /* #8B5CF6 */
     --accent-foreground: 0 0% 100%; /* #FFFFFF */
-    
     /* NXO Secondary Colors */
     --secondary: 217 33% 17%; /* #374151 */
     --secondary-foreground: 215 20% 65%; /* #E2E8F0 */
-
     /* NXO Muted Colors */
     --muted: 217 33% 15%; /* #334155 */
     --muted-foreground: 215 20% 65%; /* #94A3B8 */
-
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-
     /* NXO Border Colors */
     --border: 215 20% 65%; /* #475569 */
     --input: 217 33% 15%; /* #334155 */
     --ring: 258 90% 66%; /* #8B5CF6 */
-
     --radius: 0.75rem; /* 12px */
-    
     /* NXO Design System Gradients - Exact Specifications */
     --gradient-primary: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 50%, #06B6D4 100%);
     --gradient-gaming: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%);
     --gradient-hero: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.05));
     --gradient-nebula: linear-gradient(180deg, rgba(139, 92, 246, 0.15), rgba(15, 23, 42, 0.95));
     --gradient-cosmic: linear-gradient(45deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.1));
-    
     /* NXO Glass Morphism Effects */
     --glass-bg: rgba(30, 41, 59, 0.8);
     --glass-border: rgba(139, 92, 246, 0.2);
     --glass-shadow: 0 8px 32px 0 rgba(139, 92, 246, 0.1);
-    
     /* NXO Glow Effects */
     --glow-primary: 0 0 30px rgba(139, 92, 246, 0.5);
     --glow-accent: 0 0 30px rgba(59, 130, 246, 0.5);
     --glow-card: 0 8px 32px rgba(139, 92, 246, 0.15);
-    
     /* NXO Shadows - Exact Specifications */
     --shadow-card: 0 10px 25px rgba(0, 0, 0, 0.2);
     --shadow-card-hover: 0 20px 40px rgba(0, 0, 0, 0.3);
     --shadow-button: 0 10px 25px rgba(139, 92, 246, 0.25);
     --shadow-button-hover: 0 10px 25px rgba(139, 92, 246, 0.4);
-    
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-
     --sidebar-background: 222 47% 11%;
     --sidebar-foreground: 0 0% 98%;
     --sidebar-primary: 258 90% 66%;
@@ -81,63 +64,52 @@
     --sidebar-ring: 258 90% 66%;
   }
 }
-
 @layer base {
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     font-feature-settings: 'rlig' 1, 'calt' 1;
   }
-  
   /* RTL Support with Emoji Handling */
   [dir="rtl"] {
     direction: rtl;
   }
-  
   /* Ensure emojis display properly in RTL text */
   [dir="rtl"] * {
     unicode-bidi: plaintext;
   }
-  
   h1 {
     font-family: 'Poppins', sans-serif;
     font-size: 60px; /* Exact H1 size */
     @apply font-black tracking-tight;
   }
-  
   h2 {
     font-family: 'Poppins', sans-serif;
     font-size: 48px; /* Exact H2 size */
     @apply font-bold tracking-tight;
   }
-  
   h3 {
     font-family: 'Poppins', sans-serif;
     font-size: 36px; /* Exact H3 size */
     @apply font-bold tracking-tight;
   }
-  
   h4 {
     font-family: 'Poppins', sans-serif;
     font-size: 30px; /* Exact H4 size */
     @apply font-bold tracking-tight;
   }
-  
   h5 {
     font-family: 'Poppins', sans-serif;
     font-size: 24px; /* Exact H5 size */
     @apply font-bold tracking-tight;
   }
-  
   h6 {
     font-family: 'Poppins', sans-serif;
     @apply font-bold tracking-tight;
   }
-  
   /* NXO Body Text Styles - Exact Specifications */
   .text-body-large {
     font-family: 'Inter', sans-serif;
@@ -145,28 +117,24 @@
     font-weight: 500;
     color: #E2E8F0;
   }
-  
   .text-body {
     font-family: 'Inter', sans-serif;
     font-size: 16px;
     font-weight: 400;
     color: #E2E8F0;
   }
-  
   .text-body-small {
     font-family: 'Inter', sans-serif;
     font-size: 14px;
     font-weight: 400;
     color: #94A3B8;
   }
-  
   .text-caption {
     font-family: 'Inter', sans-serif;
     font-size: 12px;
     font-weight: 400;
     color: #94A3B8;
   }
-  
   /* NXO Caption and Label Styles - Missing from Design System */
   .caption {
     font-family: 'Inter', sans-serif;
@@ -175,7 +143,6 @@
     color: #94A3B8;
     line-height: 1.4;
   }
-  
   .label {
     font-family: 'Inter', sans-serif;
     font-size: 14px;
@@ -183,28 +150,23 @@
     color: #E2E8F0;
     line-height: 1.4;
   }
-  
   .label-required::after {
     content: " *";
     color: #EF4444;
   }
-  
   .label-optional::after {
     content: " (optional)";
     color: #94A3B8;
     font-weight: 400;
   }
-  
   .label-sm {
     font-size: 12px;
     font-weight: 500;
   }
-  
   .label-lg {
     font-size: 16px;
     font-weight: 600;
   }
-  
   /* NXO Background */
   #root {
     background: var(--background);
@@ -215,7 +177,6 @@
     min-height: 100vh;
   }
 }
-
 @layer components {
   /* NXO Glass Morphism Card - Exact Specifications */
   .glass-card {
@@ -227,13 +188,11 @@
     box-shadow: 0px 25px 50px rgba(0, 0, 0, 0.25); /* Exact glass-shadow */
     transition: var(--transition-smooth);
   }
-  
   .glass-card:hover {
     border-color: rgba(139, 92, 246, 0.4);
     box-shadow: var(--glow-card);
     transform: translateY(-4px);
   }
-  
   /* NXO Product Card - Exact Specifications */
     .card-hover {
     background: #1E293B;
@@ -243,34 +202,27 @@
     box-shadow: var(--shadow-card);
     transition: var(--transition-smooth);
   }
-  
   .card-hover:hover {
     box-shadow: var(--shadow-card-hover);
     transform: translateY(-4px);
     border-color: #8B5CF6;
   }
-  
   /* NXO Gradient Backgrounds */
   .gradient-primary {
     background: var(--gradient-primary);
   }
-  
   .gradient-gaming {
     background: var(--gradient-gaming);
   }
-  
   .gradient-hero {
     background: var(--gradient-hero);
   }
-  
   .gradient-nebula {
     background: var(--gradient-nebula);
   }
-  
   .gradient-cosmic {
     background: var(--gradient-cosmic);
   }
-  
   /* NXO Button Styles - Exact Specifications */
   .btn-primary {
     background: var(--gradient-primary);
@@ -288,13 +240,11 @@
     box-shadow: var(--shadow-button);
     transition: all 0.3s ease-out;
   }
-  
   .btn-primary:hover {
     background: linear-gradient(135deg, #7C3AED 0%, #2563EB 100%);
     box-shadow: 0px 10px 25px rgba(139, 92, 246, 0.4);
     transform: scale(1.02);
   }
-  
   .btn-secondary {
     background: #374151;
     color: #E2E8F0;
@@ -310,13 +260,11 @@
     justify-content: center;
     transition: all 0.3s ease-out;
   }
-  
   .btn-secondary:hover {
     background: #4B5563;
     border-color: #6B7280;
     transform: scale(1.02);
   }
-  
   /* NXO Ghost Button - Missing Variant */
   .btn-ghost {
     background: transparent;
@@ -333,21 +281,18 @@
     justify-content: center;
     transition: all 0.3s ease-out;
   }
-  
   .btn-ghost:hover {
     background: rgba(139, 92, 246, 0.1);
     border-color: #8B5CF6;
     color: #8B5CF6;
     transform: scale(1.02);
   }
-  
   /* NXO Glow Button */
   .btn-glow {
     position: relative;
     background: var(--gradient-primary);
     transition: var(--transition-smooth);
   }
-  
   .btn-glow::before {
     content: '';
     position: absolute;
@@ -359,16 +304,13 @@
     transition: var(--transition-smooth);
     z-index: -1;
   }
-  
   .btn-glow:hover::before {
     opacity: 0.7;
   }
-  
   .btn-glow:hover {
     box-shadow: var(--glow-primary);
     transform: translateY(-2px);
   }
-  
   /* NXO Form Elements - Exact Specifications */
     .form-input {
     background: rgba(30, 41, 59, 0.5);
@@ -380,17 +322,14 @@
     height: 44px;
     transition: var(--transition-smooth);
   }
-  
   .form-input:focus {
     outline: none;
     border-color: #8B5CF6;
     box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
   }
-  
   .form-input::placeholder {
     color: #64748B;
   }
-  
   /* NXO Form Select - Missing Element */
     .form-select {
     background: rgba(30, 41, 59, 0.5);
@@ -402,13 +341,11 @@
     height: 44px;
     transition: all 0.3s ease-out;
     }
-    
     .form-select:focus {
     outline: none;
     border-color: #8B5CF6;
     box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
   }
-  
   /* NXO Form Checkbox - Missing Element */
   .form-checkbox {
     width: 20px;
@@ -418,17 +355,14 @@
     border-radius: 4px;
     transition: all 0.3s ease-out;
   }
-  
   .form-checkbox:checked {
     background: #8B5CF6;
     border-color: #8B5CF6;
   }
-  
   .form-checkbox:focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
   }
-  
   /* NXO Typography - Exact Specifications */
   .text-gradient {
     background: var(--gradient-primary);
@@ -436,63 +370,51 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  
   .text-gradient-gaming {
     background: var(--gradient-gaming);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  
   /* NXO Animations */
   @keyframes float {
     0%, 100% { transform: translateY(0px) scale(1); }
     50% { transform: translateY(-20px) scale(1.05); }
   }
-  
   @keyframes twinkle {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.3; }
   }
-  
   @keyframes drift {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
   }
-  
   .float-animation {
     animation: float 6s ease-in-out infinite;
   }
-  
   .twinkle-animation {
     animation: twinkle 3s ease-in-out infinite;
   }
-  
   /* NXO Scrollbar Styling */
   ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
   }
-  
   ::-webkit-scrollbar-track {
     background: hsl(var(--muted));
   }
-  
   ::-webkit-scrollbar-thumb {
     background: var(--gradient-primary);
     border-radius: 5px;
   }
-  
   ::-webkit-scrollbar-thumb:hover {
     background: #7C3AED;
   }
-  
   /* NXO Badge Glow */
   .badge-glow {
     background: var(--gradient-primary);
     box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
   }
-  
   /* NXO Icon Styling - Exact Specifications */
   .icon {
     width: 24px;
@@ -500,56 +422,44 @@
     color: #94A3B8; /* muted color */
     transition: var(--transition-smooth);
   }
-  
   .icon:hover {
     color: #8B5CF6; /* primary purple */
   }
-  
   .icon-primary {
     color: #8B5CF6;
   }
-  
   .icon-muted {
     color: #94A3B8;
   }
-  
   .icon-foreground {
     color: #FFFFFF;
   }
-  
   /* NXO Image Aspect Ratios - Exact Specifications */
   .aspect-product {
     aspect-ratio: 4/3;
   }
-  
   .aspect-profile {
     aspect-ratio: 1/1;
   }
-  
   .aspect-hero {
     aspect-ratio: 16/9;
   }
-  
   .aspect-thumbnail {
     aspect-ratio: 1/1;
   }
-  
   /* NXO Animations - Exact Specifications */
   @keyframes float {
     0%, 100% { transform: translateY(0px) scale(1); }
     50% { transform: translateY(-20px) scale(1.05); }
   }
-  
   @keyframes twinkle {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.3; }
   }
-  
   @keyframes drift {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
   }
-  
   @keyframes border-rotate {
     0% { border-image-source: linear-gradient(0deg, hsl(258 90% 66%), hsl(280 85% 65%)); }
     25% { border-image-source: linear-gradient(90deg, hsl(258 90% 66%), hsl(280 85% 65%)); }
@@ -557,43 +467,34 @@
     75% { border-image-source: linear-gradient(270deg, hsl(258 90% 66%), hsl(280 85% 65%)); }
     100% { border-image-source: linear-gradient(360deg, hsl(258 90% 66%), hsl(280 85% 65%)); }
   }
-  
   /* NXO Interaction Animations - Exact Specifications */
   .float-animation {
     animation: float 6s ease-in-out infinite;
   }
-  
   .twinkle-animation {
     animation: twinkle 3s ease-in-out infinite;
   }
-  
   .drift-animation {
     animation: drift 20s linear infinite;
   }
-  
   .border-rotate-animation {
     animation: border-rotate 4s linear infinite;
   }
-  
   /* NXO Hover Effects - Exact Specifications */
   .btn-hover {
     transition: all 0.3s ease-out;
   }
-  
   .btn-hover:hover {
     transform: scale(1.02);
     box-shadow: 0px 10px 25px rgba(139, 92, 246, 0.4);
   }
-  
   .card-hover {
     transition: all 0.3s ease-out;
   }
-  
   .card-hover:hover {
     transform: translateY(-4px);
     box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.3);
   }
-  
   /* NXO Product Card - Exact Specifications */
   .product-card {
     width: 320px; /* Exact width specification */
@@ -604,13 +505,11 @@
     box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2); /* Exact shadow */
     transition: all 0.3s ease-out;
   }
-  
   .product-card:hover {
     transform: translateY(-4px);
     box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.3);
     border: 1px solid #8B5CF6; /* Exact hover border */
   }
-  
   /* NXO Info Card - Missing Variant */
   .info-card {
     background: #1E293B;
@@ -620,22 +519,18 @@
     box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease-out;
   }
-  
   .info-card:hover {
     transform: translateY(-4px);
     box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.3);
     border: 1px solid #8B5CF6;
   }
-  
   .form-focus {
     transition: all 0.3s ease-out;
   }
-  
   .form-focus:focus {
     border-color: #8B5CF6;
     box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
   }
-  
   /* NXO Spacing Scale - Exact Specifications */
   .space-1 { margin: 4px; }
   .space-2 { margin: 8px; }
@@ -647,18 +542,15 @@
   .space-12 { margin: 48px; }
   .space-16 { margin: 64px; }
   .space-20 { margin: 80px; }
-  
   /* NXO Section Padding - Exact Specifications */
   .section-padding {
     padding: 40px 16px; /* Mobile: 40px vertical, 16px horizontal */
   }
-  
   @media (min-width: 768px) {
     .section-padding {
       padding: 56px 24px; /* Desktop: 56px vertical, 24px horizontal */
     }
   }
-  
   /* NXO Grid System - Exact Specifications */
   .grid-desktop {
     display: grid;
@@ -667,7 +559,6 @@
     max-width: 1200px; /* 1200px max-width */
     margin: 0 auto;
   }
-  
   .grid-tablet {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
@@ -675,7 +566,6 @@
     max-width: 768px; /* 768px max-width */
     margin: 0 auto;
   }
-  
   .grid-mobile {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -683,9 +573,7 @@
     max-width: 375px; /* 375px max-width */
     margin: 0 auto;
   }
-  
   /* NXO Responsive Breakpoints - Exact Specifications */
-  
   /* Mobile (375px) - Single column layout, Stacked navigation, Full-width buttons, 16px padding */
   @media (max-width: 375px) {
     .responsive-layout {
@@ -693,22 +581,18 @@
       flex-direction: column;
       padding: 16px;
     }
-    
     .responsive-nav {
       flex-direction: column;
       gap: 16px;
     }
-    
     .responsive-buttons {
       width: 100%;
     }
-    
     .responsive-grid {
       grid-template-columns: 1fr;
       gap: 16px;
     }
   }
-  
   /* Tablet (768px) - 2-column product grid, Side navigation, Medium buttons, 20px padding */
   @media (min-width: 376px) and (max-width: 768px) {
     .responsive-layout {
@@ -717,25 +601,21 @@
       gap: 20px;
       padding: 20px;
     }
-    
     .responsive-nav {
       flex-direction: column;
       position: sticky;
       top: 20px;
       height: fit-content;
     }
-    
     .responsive-buttons {
       width: auto;
       min-width: 120px;
     }
-    
     .responsive-grid {
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
     }
   }
-  
   /* Desktop (1440px) - 4-column product grid, Top navigation, Large buttons, 24px padding */
   @media (min-width: 769px) {
     .responsive-layout {
@@ -743,31 +623,26 @@
       flex-direction: column;
       padding: 24px;
     }
-    
     .responsive-nav {
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
     }
-    
     .responsive-buttons {
       width: auto;
       min-width: 140px;
     }
-    
     .responsive-grid {
       grid-template-columns: repeat(4, 1fr);
       gap: 24px;
     }
   }
-  
   /* NXO Product Grid Responsive - Exact Specifications */
   .product-grid {
     display: grid;
     gap: 16px;
     padding: 16px;
   }
-  
   @media (min-width: 376px) and (max-width: 768px) {
     .product-grid {
       grid-template-columns: repeat(2, 1fr);
@@ -775,7 +650,6 @@
       padding: 20px;
     }
   }
-  
   @media (min-width: 769px) {
     .product-grid {
       grid-template-columns: repeat(4, 1fr);
@@ -783,7 +657,6 @@
       padding: 24px;
     }
   }
-  
   /* NXO Navigation Responsive - Exact Specifications */
   .nav-mobile {
     display: flex;
@@ -791,7 +664,6 @@
     gap: 16px;
     padding: 16px;
   }
-  
   @media (min-width: 376px) and (max-width: 768px) {
     .nav-tablet {
       display: flex;
@@ -802,7 +674,6 @@
       padding: 20px;
     }
   }
-  
   @media (min-width: 769px) {
     .nav-desktop {
       display: flex;
@@ -812,13 +683,11 @@
       padding: 24px;
     }
   }
-  
   /* NXO Button Responsive - Exact Specifications */
   .btn-mobile {
     width: 100%;
     padding: 12px 16px;
   }
-  
   @media (min-width: 376px) and (max-width: 768px) {
     .btn-tablet {
       width: auto;
@@ -826,7 +695,6 @@
       padding: 12px 20px;
     }
   }
-  
   @media (min-width: 769px) {
     .btn-desktop {
       width: auto;
@@ -834,7 +702,6 @@
       padding: 12px 24px;
     }
   }
-  
   /* NXO Responsive Utilities - Final Implementation */
   .responsive-container {
     width: 100%;
@@ -842,133 +709,109 @@
     margin: 0 auto;
     padding: 16px;
   }
-  
   @media (min-width: 376px) and (max-width: 768px) {
     .responsive-container {
       max-width: 768px;
       padding: 20px;
     }
   }
-  
   @media (min-width: 769px) {
     .responsive-container {
       max-width: 1440px;
       padding: 24px;
     }
   }
-  
   /* NXO Mobile-First Responsive Design */
   .mobile-first {
     display: block;
   }
-  
   @media (min-width: 376px) {
     .mobile-first {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
     }
   }
-  
   @media (min-width: 769px) {
     .mobile-first {
       grid-template-columns: repeat(4, 1fr);
     }
   }
-  
   /* NXO Responsive Text Sizes */
   .responsive-text {
     font-size: 14px;
   }
-  
   @media (min-width: 376px) {
     .responsive-text {
       font-size: 16px;
     }
   }
-  
   @media (min-width: 769px) {
     .responsive-text {
       font-size: 18px;
     }
   }
-  
   /* NXO Responsive Spacing */
   .responsive-spacing {
     margin: 16px;
     padding: 16px;
   }
-  
   @media (min-width: 376px) {
     .responsive-spacing {
       margin: 20px;
       padding: 20px;
     }
   }
-  
   @media (min-width: 769px) {
   .responsive-spacing {
     margin: 24px;
     padding: 24px;
   }
-  
   /* NXO Page Transitions - Missing from Design System */
   .page-transition {
     transition: all 0.3s ease-out;
   }
-  
   .page-transition-enter {
     opacity: 0;
     transform: translateY(20px);
   }
-  
   .page-transition-enter-active {
     opacity: 1;
     transform: translateY(0);
   }
-  
   .page-transition-exit {
     opacity: 1;
     transform: translateY(0);
   }
-  
   .page-transition-exit-active {
     opacity: 0;
     transform: translateY(-20px);
   }
-  
   /* NXO Micro-interactions - Missing from Design System */
   .micro-interaction {
     transition: all 0.2s ease-out;
   }
-  
   .micro-interaction:hover {
     transform: scale(1.05);
   }
-  
   .micro-interaction:active {
     transform: scale(0.95);
   }
-  
   /* NXO Loading States */
   .loading-skeleton {
     background: linear-gradient(90deg, #334155 25%, #475569 50%, #334155 75%);
     background-size: 200% 100%;
     animation: loading 1.5s infinite;
   }
-  
   @keyframes loading {
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
   }
-  
   /* NXO Focus States */
   .focus-ring {
     transition: all 0.3s ease-out;
   }
-  
   .focus-ring:focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);
   }
-}}  
- 
+} 
