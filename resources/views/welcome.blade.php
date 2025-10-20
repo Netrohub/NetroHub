@@ -1,158 +1,100 @@
 <x-layouts.app>
-    <x-slot name="title">{{ config('app.name') }} - {{ __('Digital Marketplace for Gaming & Social') }}</x-slot>
-
+    <x-slot name="title">{{ __('Welcome') }} - {{ config('app.name') }}</x-slot>
+    
     <!-- Hero Section -->
     <x-hero />
-
-    <!-- Categories Section -->
-    <section class="py-20 relative">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">
-                    <span class="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-                        {{ __('Browse Categories') }}
-                    </span>
-                </h2>
-                <p class="text-muted-foreground text-lg max-w-2xl mx-auto">
-                    {{ __('Discover premium digital assets across gaming and social media platforms') }}
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Gaming Accounts -->
-                <div class="group glass-card rounded-2xl p-8 text-center hover:scale-105 transition-all duration-300">
-                    <div class="w-16 h-16 mx-auto mb-6 rounded-2xl gradient-primary flex items-center justify-center">
-                        <svg class="w-8 h-8 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-foreground mb-3">{{ __('Gaming Accounts') }}</h3>
-                    <p class="text-muted-foreground mb-6">{{ __('Premium gaming accounts with rare items, high levels, and exclusive content') }}</p>
-                    <a href="{{ route('games') }}" class="inline-flex items-center text-primary hover:text-accent transition-colors font-semibold">
-                        {{ __('Explore Games') }}
-                        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                        </svg>
-                    </a>
-                </div>
-                
-                <!-- Social Media -->
-                <div class="group glass-card rounded-2xl p-8 text-center hover:scale-105 transition-all duration-300">
-                    <div class="w-16 h-16 mx-auto mb-6 rounded-2xl gradient-primary flex items-center justify-center">
-                        <svg class="w-8 h-8 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-foreground mb-3">{{ __('Social Media') }}</h3>
-                    <p class="text-muted-foreground mb-6">{{ __('Verified social media accounts with followers, engagement, and premium content') }}</p>
-                    <a href="{{ route('products.index', ['category' => 'social']) }}" class="inline-flex items-center text-primary hover:text-accent transition-colors font-semibold">
-                        {{ __('Browse Social') }}
-                        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                        </svg>
-                    </a>
-                </div>
-                
-                <!-- Digital Products -->
-                <div class="group glass-card rounded-2xl p-8 text-center hover:scale-105 transition-all duration-300">
-                    <div class="w-16 h-16 mx-auto mb-6 rounded-2xl gradient-primary flex items-center justify-center">
-                        <svg class="w-8 h-8 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-foreground mb-3">{{ __('Digital Products') }}</h3>
-                    <p class="text-muted-foreground mb-6">{{ __('Software, courses, ebooks, and other digital assets for your needs') }}</p>
-                    <a href="{{ route('products.index', ['category' => 'digital']) }}" class="inline-flex items-center text-primary hover:text-accent transition-colors font-semibold">
-                        {{ __('View Products') }}
-                        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    
     <!-- Featured Products Section -->
-    <section class="py-20 relative">
-        <div class="container mx-auto px-4">
+    <section class="py-20 bg-card/30">
+        <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">
-                    <span class="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-                        {{ __('Featured Products') }}
-                    </span>
+                <h2 class="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                    {{ __('Featured Products') }}
                 </h2>
-                <p class="text-muted-foreground text-lg max-w-2xl mx-auto">
-                    {{ __('Handpicked premium products from our top sellers') }}
+                <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+                    {{ __('Discover our most popular gaming accounts and social media profiles.') }}
                 </p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                @forelse(\App\Models\Product::featured()->active()->inStock()->with(['seller', 'category'])->limit(8)->get() as $product)
-                    <x-product-card :product="$product" />
-                @empty
-                    <div class="col-span-full text-center py-12">
-                        <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-muted flex items-center justify-center">
-                            <svg class="w-10 h-10 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
-                            </svg>
+                @for($i = 0; $i < 8; $i++)
+                    <div class="card-hover">
+                        <div class="relative h-48 w-full overflow-hidden rounded-lg mb-4">
+                            <div class="w-full h-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+                                <svg class="w-16 h-16 text-primary/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                            <div class="absolute top-3 right-3">
+                                <span class="badge-glow text-xs font-bold px-2.5 py-1 rounded-full text-primary-foreground">
+                                    Gaming
+                                </span>
+                            </div>
                         </div>
-                        <h3 class="text-xl font-bold text-foreground mb-2">{{ __('No featured products yet') }}</h3>
-                        <p class="text-muted-foreground mb-6">{{ __('Check back soon for amazing featured products!') }}</p>
-                        <a href="{{ route('products.index') }}" class="btn-glow px-6 py-3 rounded-lg text-primary-foreground font-semibold">
-                            {{ __('Browse All Products') }}
-                        </a>
+                        <h3 class="text-lg font-semibold text-foreground mb-2">Premium Gaming Account</h3>
+                        <p class="text-sm text-muted-foreground mb-3 line-clamp-2">High-level gaming account with exclusive items and achievements.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-lg font-bold text-primary">299 SAR</span>
+                            <div class="flex items-center text-sm text-muted-foreground">
+                                <svg class="w-4 h-4 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.929 8.72c-.783-.57-.381-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"/>
+                                </svg>
+                                <span>4.8 (127)</span>
+                            </div>
+                        </div>
                     </div>
-                @endforelse
+                @endfor
             </div>
             
-            @if(\App\Models\Product::featured()->active()->inStock()->count() > 8)
-                <div class="text-center mt-12">
-                    <a href="{{ route('products.index', ['featured' => true]) }}" class="btn-glow px-8 py-4 rounded-lg text-primary-foreground font-semibold text-lg">
-                        {{ __('View All Featured Products') }}
-                        <svg class="inline-block ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                        </svg>
-                    </a>
-                </div>
-            @endif
+            <div class="text-center mt-12">
+                <a href="{{ route('products.index') }}" class="btn-primary px-8 py-4 rounded-lg text-primary-foreground font-semibold text-lg">
+                    {{ __('View All Products') }}
+                </a>
+            </div>
         </div>
     </section>
-
-    <!-- CTA Section -->
-    <section class="py-20 relative">
-        <div class="container mx-auto px-4">
-            <div class="glass-card rounded-3xl p-12 text-center max-w-4xl mx-auto">
-                <h2 class="text-3xl md:text-4xl font-bold mb-6">
-                    <span class="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-                        {{ __('Ready to Get Started?') }}
-                    </span>
+    
+    <!-- Features Section -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                    {{ __('Why Choose NXO?') }}
                 </h2>
-                <p class="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
-                    {{ __('Join thousands of users buying and selling digital assets on our secure platform.') }}
+                <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+                    {{ __('We provide a secure, reliable platform for buying and selling digital assets.') }}
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    @auth
-                        <a href="{{ route('products.index') }}" class="btn-glow px-8 py-4 rounded-lg text-primary-foreground font-semibold text-lg">
-                            {{ __('Browse Products') }}
-                        </a>
-                        @if(auth()->user()->seller)
-                            <a href="{{ route('seller.dashboard') }}" class="px-8 py-4 rounded-lg border border-border hover:border-primary/50 text-foreground font-semibold text-lg transition-all duration-300 hover:bg-primary/5">
-                                {{ __('Seller Dashboard') }}
-                            </a>
-                        @else
-                            <a href="{{ route('sell.index') }}" class="px-8 py-4 rounded-lg border border-border hover:border-primary/50 text-foreground font-semibold text-lg transition-all duration-300 hover:bg-primary/5">
-                                {{ __('Start Selling') }}
-                            </a>
-                        @endif
-                    @else
-                        <a href="{{ route('register') }}" class="btn-glow px-8 py-4 rounded-lg text-primary-foreground font-semibold text-lg">
-                            {{ __('Get Started Free') }}
-                        </a>
-                        <a href="{{ route('login') }}" class="px-8 py-4 rounded-lg border border-border hover:border-primary/50 text-foreground font-semibold text-lg transition-all duration-300 hover:bg-primary/5">
-                            {{ __('Sign In') }}
-                        </a>
-                    @endauth
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="w-16 h-16 mx-auto mb-6 rounded-full gradient-primary flex items-center justify-center">
+                        <svg class="w-8 h-8 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-foreground mb-3">{{ __('Secure Transactions') }}</h3>
+                    <p class="text-muted-foreground">{{ __('All transactions are protected with advanced encryption and secure payment processing.') }}</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 mx-auto mb-6 rounded-full gradient-primary flex items-center justify-center">
+                        <svg class="w-8 h-8 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-foreground mb-3">{{ __('Instant Delivery') }}</h3>
+                    <p class="text-muted-foreground">{{ __('Get your digital assets delivered instantly after successful payment.') }}</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 mx-auto mb-6 rounded-full gradient-primary flex items-center justify-center">
+                        <svg class="w-8 h-8 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 2.25a9.75 9.75 0 100 19.5 9.75 9.75 0 000-19.5z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-foreground mb-3">{{ __('24/7 Support') }}</h3>
+                    <p class="text-muted-foreground">{{ __('Our support team is available around the clock to help you with any issues.') }}</p>
                 </div>
             </div>
         </div>

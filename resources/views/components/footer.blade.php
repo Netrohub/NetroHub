@@ -1,6 +1,6 @@
-<!-- Stellar Footer Component -->
+<!-- NXO Footer Component - Exact Design Specifications -->
 <footer class="relative border-t border-border/50 bg-card/50 backdrop-blur-sm">
-    <div class="container mx-auto px-4 py-12">
+    <div class="max-w-7xl mx-auto px-4 py-12">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <!-- Brand Section -->
             <div class="lg:col-span-1">
@@ -15,8 +15,8 @@
                             </svg>
                         </div>
                     </div>
-                    <span class="text-xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-                        Nexo
+                    <span class="text-xl font-bold text-gradient">
+                        NXO
                     </span>
                 </div>
                 <p class="text-muted-foreground mb-6 max-w-sm">
@@ -57,12 +57,12 @@
                     </li>
                     <li>
                         <a href="{{ route('pricing.index') }}" class="text-muted-foreground hover:text-primary transition-colors">
-                            {{ __('Pricing & Plans') }}
+                            {{ __('Pricing') }}
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('members.index') }}" class="text-muted-foreground hover:text-primary transition-colors">
-                            {{ __('Members') }}
+                            {{ __('Community') }}
                         </a>
                     </li>
                 </ul>
@@ -125,12 +125,16 @@
         
         <!-- Bottom Section -->
         <div class="border-t border-border/50 mt-12 pt-8">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-                <div class="text-muted-foreground text-sm">
-                    © {{ date('Y') }} {{ config('app.name') }}. {{ __('All rights reserved.') }}
-                </div>
-                <div class="flex items-center gap-6 text-sm text-muted-foreground">
-                    <span>{{ __('Made with') }} ❤️ {{ __('for gamers') }}</span>
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-muted-foreground text-sm">
+                    &copy; {{ date('Y') }} NXO Marketplace. {{ __('All rights reserved.') }}
+                </p>
+                <div class="flex items-center gap-4 mt-4 md:mt-0">
+                    <span class="text-muted-foreground text-sm">{{ __('Made with') }}</span>
+                    <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="text-muted-foreground text-sm">{{ __('in Saudi Arabia') }}</span>
                 </div>
             </div>
         </div>

@@ -1,4 +1,4 @@
-<!-- Stellar Hero Section -->
+<!-- NXO Hero Section - Exact Design Specifications -->
 <section class="relative py-20 md:py-32 overflow-hidden">
     <!-- Background Elements -->
     <div class="absolute inset-0">
@@ -6,11 +6,11 @@
         <div class="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-accent/5 rounded-full blur-3xl"></div>
     </div>
     
-    <div class="container mx-auto px-4 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 relative z-10">
         <div class="max-w-4xl mx-auto text-center">
             <!-- Main Heading -->
-            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
-                <span class="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-black mb-6">
+                <span class="text-gradient">
                     {{ __('Digital Marketplace') }}
                 </span>
                 <br>
@@ -26,13 +26,13 @@
             
             <!-- CTA Buttons -->
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-                <a href="{{ route('products.index') }}" class="btn-glow px-8 py-4 rounded-lg text-primary-foreground font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300">
+                <a href="{{ route('products.index') }}" class="btn-primary px-8 py-4 rounded-lg text-primary-foreground font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300">
                     {{ __('Browse Products') }}
                     <svg class="inline-block ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                     </svg>
                 </a>
-                <a href="{{ route('sell.index') }}" class="px-8 py-4 rounded-lg border border-border hover:border-primary/50 text-foreground font-semibold text-lg transition-all duration-300 hover:bg-primary/5">
+                <a href="{{ route('sell.index') }}" class="btn-secondary px-8 py-4 rounded-lg text-foreground font-semibold text-lg transition-all duration-300">
                     {{ __('Start Selling') }}
                 </a>
             </div>
@@ -48,15 +48,10 @@
                     <div class="text-muted-foreground">{{ __('Products Sold') }}</div>
                 </div>
                 <div class="text-center">
-                    <div class="text-3xl md:text-4xl font-bold text-primary mb-2">99.9%</div>
+                    <div class="text-3xl md:text-4xl font-bold text-primary-cyan mb-2">99.9%</div>
                     <div class="text-muted-foreground">{{ __('Satisfaction Rate') }}</div>
                 </div>
             </div>
         </div>
     </div>
-    
-    <!-- Floating Elements -->
-    <div class="absolute top-20 left-10 w-20 h-20 bg-primary/10 rounded-full blur-xl float-animation"></div>
-    <div class="absolute bottom-20 right-10 w-16 h-16 bg-accent/10 rounded-full blur-xl float-animation" style="animation-delay: 2s;"></div>
-    <div class="absolute top-1/2 left-5 w-12 h-12 bg-primary/5 rounded-full blur-lg float-animation" style="animation-delay: 4s;"></div>
 </section>
