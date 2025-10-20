@@ -26,6 +26,8 @@ return Application::configure(basePath: dirname(__DIR__))
         // Add locale middleware to web group
     $middleware->web(append: [
         \App\Http\Middleware\SetLocale::class,
+        \App\Http\Middleware\SanitizeInput::class,
+        \App\Http\Middleware\SecurityMonitoring::class,
         \App\Http\Middleware\CspMiddleware::class,
         \App\Http\Middleware\SecurityHeadersMiddleware::class,
     ]);

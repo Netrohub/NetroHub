@@ -24,13 +24,13 @@ class AuthenticatedSessionController extends Controller
             'password' => $request->password,
         ];
 
-        // Log login attempt for debugging
+        // Log login attempt for debugging (sanitized)
         \Log::info('Login attempt', [
-            'email' => $request->email,
+            'email_hash' => hash('sha256', $request->email),
             'ip' => $request->ip(),
-            'user_agent' => $request->userAgent(),
+            'user_agent_hash' => hash('sha256', $request->userAgent()),
             'turnstile_configured' => config('services.turnstile.secret_key') ? 'yes' : 'no',
-            'turnstile_token' => $request->input('cf-turnstile-response') ? 'present' : 'missing'
+            'turnstile_token_present' => $request->input('cf-turnstile-response') ? 'yes' : 'no'
         ]);
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
@@ -43,15 +43,15 @@ class AuthenticatedSessionController extends Controller
 
             \Log::info('Login successful', [
                 'user_id' => auth()->id(),
-                'email' => $request->email
+                'email_hash' => hash('sha256', $request->email)
             ]);
 
             return redirect()->intended(route('home'));
         }
 
-        // Log failed login attempt
+        // Log failed login attempt (sanitized)
         \Log::warning('Login failed', [
-            'email' => $request->email,
+            'email_hash' => hash('sha256', $request->email),
             'ip' => $request->ip(),
             'reason' => 'Invalid credentials'
         ]);

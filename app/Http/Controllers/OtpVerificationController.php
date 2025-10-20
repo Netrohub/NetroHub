@@ -109,9 +109,8 @@ class OtpVerificationController extends Controller
         $code = $request->code;
 
         try {
-            // Find the most recent OTP for this phone
-            $otpRecord = DB::table('otp_verifications')
-                ->where('phone', $phone)
+            // Use Eloquent model instead of raw DB queries for security
+            $otpRecord = \App\Models\OtpVerification::where('phone', $phone)
                 ->where('otp', $code)
                 ->where('verified', false)
                 ->where('expires_at', '>', Carbon::now())
@@ -119,9 +118,8 @@ class OtpVerificationController extends Controller
                 ->first();
 
             if (!$otpRecord) {
-                // Check if OTP expired
-                $expiredOtp = DB::table('otp_verifications')
-                    ->where('phone', $phone)
+                // Check if OTP expired using Eloquent
+                $expiredOtp = \App\Models\OtpVerification::where('phone', $phone)
                     ->where('otp', $code)
                     ->where('expires_at', '<=', Carbon::now())
                     ->exists();
@@ -139,14 +137,11 @@ class OtpVerificationController extends Controller
                 ], 401);
             }
 
-            // Mark OTP as verified
-            DB::table('otp_verifications')
-                ->where('id', $otpRecord->id)
-                ->update([
-                    'verified' => true,
-                    'verified_at' => Carbon::now(),
-                    'updated_at' => Carbon::now(),
-                ]);
+            // Mark OTP as verified using Eloquent
+            $otpRecord->update([
+                'verified' => true,
+                'verified_at' => Carbon::now(),
+            ]);
 
             Log::info('OTP verified successfully', [
                 'phone' => $phone,

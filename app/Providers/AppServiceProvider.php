@@ -23,6 +23,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Enable mass assignment protection globally
+        \Illuminate\Database\Eloquent\Model::unguard(false);
+        
         // Register policies
         Gate::policy(\App\Models\Product::class, \App\Policies\ProductPolicy::class);
         Gate::policy(\App\Models\Review::class, \App\Policies\ReviewPolicy::class);

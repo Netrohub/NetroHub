@@ -83,4 +83,9 @@ return [
         'theme' => env('TURNSTILE_THEME', 'auto'),
     ],
 
+    'clamav' => [
+        'path' => env('CLAMAV_PATH', '/usr/bin/clamscan'),
+        'enabled' => env('CLAMAV_ENABLED', true),
+    ],
+
 ];

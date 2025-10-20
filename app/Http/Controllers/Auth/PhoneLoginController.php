@@ -133,20 +133,26 @@ class PhoneLoginController extends Controller
         $user = User::where('phone', $phone)->first();
 
         if (! $user) {
-            // Create new user with phone
+            // Create new user with phone - secure implementation
             $user = User::create([
                 'name' => 'User '.substr($phone, -4),
-                'email' => 'phone_'.md5($phone).'@placeholder.local', // Temporary email
+                'email' => Str::random(32) . '@temp.nxo.local', // Truly random email
                 'phone' => $phone,
+                'password' => bcrypt(Str::random(64)), // Strong random password
+            ]);
+
+            // Use secure admin field assignment for verification
+            $user->assignAdminFields([
                 'phone_verified_at' => now(),
-                'password' => bcrypt(Str::random(32)), // Random password
             ]);
 
             $user->assignRole('user');
         } else {
-            // Mark phone as verified
+            // Mark phone as verified using secure method
             if (! $user->phone_verified_at) {
-                $user->update(['phone_verified_at' => now()]);
+                $user->assignAdminFields([
+                    'phone_verified_at' => now(),
+                ]);
             }
         }
 

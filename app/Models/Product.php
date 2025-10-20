@@ -22,7 +22,6 @@ class Product extends Model
         'platform',
         'social_username',
         'title',
-        'slug',
         'description',
         'features',
         'tags',
@@ -33,12 +32,17 @@ class Product extends Model
         'delivery_type',
         'delivery_credentials',
         'is_unique_credential',
-        'verification_status',
         'thumbnail_url',
         'gallery_urls',
         'stock_count',
         'purchase_limit',
         'status',
+    ];
+
+    // Admin-only fields (use explicit assignment)
+    protected $adminOnly = [
+        'slug',
+        'verification_status',
         'is_featured',
         'views_count',
         'sales_count',

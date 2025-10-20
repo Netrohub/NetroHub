@@ -40,6 +40,13 @@ class ScanUploadedFile implements ShouldQueue
                 $this->reEncodeImage($fullPath);
             }
 
+            // Run antivirus scan
+            if (!$this->runAntivirusScan($fullPath)) {
+                Log::warning('Antivirus scan failed', ['file_path' => $this->filePath]);
+                $this->quarantineFile();
+                return;
+            }
+
             // Log successful scan
             Log::info('File scan completed successfully', [
                 'file_path' => $this->filePath,
@@ -67,8 +74,9 @@ class ScanUploadedFile implements ShouldQueue
             return false;
         }
 
-        // Check file size (max 10MB)
-        if (filesize($filePath) > 10 * 1024 * 1024) {
+        // Check file size (max 5MB for security)
+        if (filesize($filePath) > 5 * 1024 * 1024) {
+            Log::warning('File too large', ['file_path' => $this->filePath, 'size' => filesize($filePath)]);
             return false;
         }
 
@@ -84,7 +92,6 @@ class ScanUploadedFile implements ShouldQueue
             'image/webp',
             'application/pdf',
             'text/plain',
-            'application/zip'
         ];
 
         if (!in_array($mimeType, $allowedMimeTypes)) {
@@ -93,7 +100,7 @@ class ScanUploadedFile implements ShouldQueue
 
         // Check file extension
         $extension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
-        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'pdf', 'txt', 'zip'];
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'pdf', 'txt'];
 
         if (!in_array($extension, $allowedExtensions)) {
             return false;
@@ -171,6 +178,49 @@ class ScanUploadedFile implements ShouldQueue
         $extension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
         
         return in_array($extension, $imageExtensions);
+    }
+
+    /**
+     * Run antivirus scan on file
+     */
+    private function runAntivirusScan(string $filePath): bool
+    {
+        try {
+            // Check if ClamAV is available
+            $clamavPath = config('services.clamav.path', '/usr/bin/clamscan');
+            
+            if (!file_exists($clamavPath)) {
+                Log::warning('ClamAV not available, skipping antivirus scan', ['file_path' => $filePath]);
+                return true; // Allow file if ClamAV not available
+            }
+
+            // Run ClamAV scan
+            $command = escapeshellcmd($clamavPath) . ' --no-summary --infected --stdout ' . escapeshellarg($filePath);
+            $output = [];
+            $returnCode = 0;
+            
+            exec($command, $output, $returnCode);
+            
+            // Return code 0 means no threats found
+            if ($returnCode === 0) {
+                Log::info('Antivirus scan passed', ['file_path' => $filePath]);
+                return true;
+            }
+            
+            // Return code 1 means threats found
+            Log::warning('Antivirus scan detected threats', [
+                'file_path' => $filePath,
+                'output' => implode("\n", $output)
+            ]);
+            return false;
+            
+        } catch (\Exception $e) {
+            Log::error('Antivirus scan failed with exception', [
+                'file_path' => $filePath,
+                'error' => $e->getMessage()
+            ]);
+            return false; // Fail safe - quarantine if scan fails
+        }
     }
 
     /**

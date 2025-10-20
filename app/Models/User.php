@@ -43,32 +43,58 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'phone',
         'country_code',
-        'is_verified',
-        'phone_number',
-        'phone_verified_at',
         'password',
         'avatar_url',
         'avatar',
         'is_active',
-        'paddle_customer_id',
         'privacy_mode',
-        'phone_verified_at',
-        'phone_verification_code',
-        'phone_verification_code_expires_at',
         'provider',
         'provider_id',
+    ];
+
+    // Admin-only fields (use explicit assignment)
+    protected $adminOnly = [
+        'is_verified',
+        'phone_verified_at',
+        'phone_number',
+        'phone_verification_code',
+        'phone_verification_code_expires_at',
         'is_banned',
         'banned_reason',
         'banned_at',
         'banned_by',
         'last_login_at',
         'last_login_ip',
+        'paddle_customer_id',
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
+        'phone_verification_code',
+        'two_factor_secret',
+        'two_factor_recovery_codes',
     ];
+
+    /**
+     * Safely assign admin-only fields
+     */
+    public function assignAdminFields(array $attributes): void
+    {
+        $allowedFields = array_intersect_key($attributes, array_flip($this->adminOnly));
+        foreach ($allowedFields as $key => $value) {
+            $this->setAttribute($key, $value);
+        }
+        $this->save();
+    }
+
+    /**
+     * Check if user can be assigned admin fields
+     */
+    public function canAssignAdminFields(): bool
+    {
+        return auth()->check() && auth()->user()->hasRole(['admin', 'super-admin', 'owner']);
+    }
 
     protected function casts(): array
     {
