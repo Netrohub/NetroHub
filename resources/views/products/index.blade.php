@@ -70,7 +70,7 @@
 
                         <!-- Pagination -->
                         <div class="mt-12">
-                            {{ $products->links() }}
+                            <x-pagination :paginator="$products" />
                         </div>
                     @else
                         <div class="text-center py-12">

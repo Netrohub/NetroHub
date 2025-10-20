@@ -103,7 +103,12 @@
     unicode-bidi: plaintext;
   }
   
-  h1, h2, h3, h4, h5, h6 {
+  h1 {
+    font-family: 'Poppins', sans-serif;
+    @apply font-black tracking-tight;
+  }
+  
+  h2, h3, h4, h5, h6 {
     font-family: 'Poppins', sans-serif;
     @apply font-bold tracking-tight;
   }
@@ -184,6 +189,10 @@
     font-weight: 600;
     font-size: 16px;
     height: 48px;
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     box-shadow: var(--shadow-button);
     transition: var(--transition-smooth);
   }
@@ -203,6 +212,10 @@
     font-weight: 600;
     font-size: 16px;
     height: 48px;
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     transition: var(--transition-smooth);
   }
   

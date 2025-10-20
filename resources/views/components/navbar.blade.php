@@ -5,9 +5,9 @@
             <!-- Logo Section -->
             <div class="flex items-center gap-8">
                 <a href="{{ route('home') }}" class="flex items-center gap-3 group">
-                    <div class="relative flex h-10 w-10 items-center justify-center">
-                        <div class="absolute inset-0 rounded-lg gradient-primary blur-md opacity-75 group-hover:opacity-100 transition-opacity"></div>
-                        <div class="relative flex h-10 w-10 items-center justify-center rounded-lg gradient-primary shadow-lg group-hover:scale-110 transition-transform">
+                    <div class="relative flex h-[42px] w-[42px] items-center justify-center">
+                        <div class="absolute inset-0 rounded-full gradient-primary blur-md opacity-75 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="relative flex h-[42px] w-[42px] items-center justify-center rounded-full gradient-primary shadow-lg group-hover:scale-110 transition-transform">
                             <svg class="w-6 h-6 text-primary-foreground" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor" fill-opacity="0.9"/>
                                 <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
