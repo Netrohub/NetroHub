@@ -21,7 +21,7 @@ class SecurityHeadersMiddleware
         $response->headers->set('X-XSS-Protection', '1; mode=block');
         $response->headers->set('Referrer-Policy', 'strict-origin-when-cross-origin');
         
-        // Permissions Policy to restrict browser features
+        // Permissions Policy to restrict browser features (only supported features)
         $response->headers->set('Permissions-Policy', implode(', ', [
             'geolocation=()',
             'microphone=()',
@@ -31,14 +31,11 @@ class SecurityHeadersMiddleware
             'magnetometer=()',
             'gyroscope=()',
             'accelerometer=()',
-            'ambient-light-sensor=()',
-            'autoplay=()',
-            'battery=()',
+            'autoplay=(self "https://challenges.cloudflare.com")',
             'bluetooth=()',
             'clipboard-read=()',
             'clipboard-write=()',
             'display-capture=()',
-            'document-domain=()',
             'encrypted-media=()',
             'fullscreen=(self "https://challenges.cloudflare.com")',
             'gamepad=()',
@@ -46,16 +43,13 @@ class SecurityHeadersMiddleware
             'idle-detection=()',
             'local-fonts=()',
             'midi=()',
-            'notifications=()',
             'picture-in-picture=()',
             'publickey-credentials-get=()',
             'screen-wake-lock=()',
             'serial=()',
-            'speaker-selection=()',
             'storage-access=()',
             'sync-xhr=()',
             'unload=()',
-            'vertical-scroll=()',
             'web-share=()',
             'xr-spatial-tracking=()'
         ]));
