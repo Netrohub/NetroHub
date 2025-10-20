@@ -15,17 +15,9 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login');
     }
 
-    public function store(LoginRequest $request, TurnstileService $ts)
+    public function store(LoginRequest $request)
     {
-        $request->validate([
-            'cf-turnstile-response' => 'required|string',
-        ], [
-            'cf-turnstile-response.required' => __('Please complete the verification challenge.'),
-        ]);
-
-        if (! $ts->verifyToken($request->input('cf-turnstile-response'), $request->ip())) {
-            return back()->withErrors(['turnstile' => __('Verification failed. Please try again.')])->withInput();
-        }
+        // Turnstile validation is already handled in LoginRequest
 
         $credentials = [
             'email' => $request->email,

@@ -87,7 +87,7 @@
                 @endif
             </div>
             <div class="mt-6">
-                <button type="submit" id="submit-btn" x-data="{busy:false}" @click="busy=true" :disabled="busy" class="btn text-sm text-white bg-purple-500 hover:bg-purple-600 w-full shadow-xs group">
+                <button type="submit" id="submit-btn" x-data="{busy:false}" @click="busy=true" @submit="busy=true" :disabled="busy" class="btn text-sm text-white bg-purple-500 hover:bg-purple-600 w-full shadow-xs group">
                     <span x-show="!busy">{{ __('Sign In') }} <span class="tracking-normal text-purple-300 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span></span>
                     <span x-show="busy">{{ __('Processing…') }}</span>
                 </button>
@@ -106,23 +106,39 @@
 
       const siteKey = @json(config('services.turnstile.site_key'));
       const hidden = document.getElementById('cf-turnstile-response');
+      const form = document.getElementById('loginForm');
+      const submitBtn = document.getElementById('submit-btn');
 
       window.turnstile.render('#cf-turnstile-container', {
         sitekey: siteKey,
         callback: function(token) {
           hidden.value = token;
+          console.log('Turnstile token received');
         },
         'error-callback': function() {
           hidden.value = '';
+          console.error('Turnstile error');
         },
         'expired-callback': function() {
           hidden.value = '';
           try { window.turnstile.reset(); } catch(e){}
+          console.log('Turnstile expired');
         },
         'timeout-callback': function() {
           hidden.value = '';
           try { window.turnstile.reset(); } catch(e){}
+          console.log('Turnstile timeout');
         },
+      });
+
+      // Reset button state on form errors
+      form.addEventListener('submit', function() {
+        // If there are validation errors, reset the button state
+        setTimeout(function() {
+          if (document.querySelector('.text-red-400')) {
+            submitBtn.__x.$data.busy = false;
+          }
+        }, 100);
       });
     });
     </script>
