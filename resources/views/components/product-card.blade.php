@@ -1,5 +1,5 @@
 <!-- NXO Product Card Component - Exact Design Specifications -->
-<div class="card-hover group">
+<div class="product-card group">
     <a href="{{ route('products.show', $product->slug) }}" class="block">
         <div class="relative aspect-product w-full overflow-hidden rounded-lg mb-4">
             <img 
