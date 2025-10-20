@@ -32,7 +32,7 @@ class CspMiddleware
             "font-src 'self' data: https://fonts.gstatic.com https://fonts.bunny.net",
             "connect-src 'self' https://challenges.cloudflare.com",
             "frame-src https://challenges.cloudflare.com",
-            "script-src 'self' 'nonce-{$nonce}' https://challenges.cloudflare.com",
+            "script-src 'self' 'unsafe-eval' 'nonce-{$nonce}' https://challenges.cloudflare.com",
             "media-src 'self'",
             "manifest-src 'self'",
             "worker-src 'self'",

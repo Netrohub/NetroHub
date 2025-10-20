@@ -40,7 +40,7 @@ class SecurityHeadersMiddleware
             'display-capture=()',
             'document-domain=()',
             'encrypted-media=()',
-            'fullscreen=(self)',
+            'fullscreen=(self "https://challenges.cloudflare.com")',
             'gamepad=()',
             'hid=()',
             'idle-detection=()',
@@ -60,10 +60,10 @@ class SecurityHeadersMiddleware
             'xr-spatial-tracking=()'
         ]));
 
-        // Cross-Origin policies
-        $response->headers->set('Cross-Origin-Embedder-Policy', 'require-corp');
-        $response->headers->set('Cross-Origin-Opener-Policy', 'same-origin');
-        $response->headers->set('Cross-Origin-Resource-Policy', 'same-origin');
+        // Cross-Origin policies (relaxed for Turnstile compatibility)
+        $response->headers->set('Cross-Origin-Embedder-Policy', 'unsafe-none');
+        $response->headers->set('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
+        $response->headers->set('Cross-Origin-Resource-Policy', 'cross-origin');
         
         // Remove server information
         $response->headers->remove('X-Powered-By');
