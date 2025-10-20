@@ -1,4 +1,4 @@
-<x-layouts.stellar-auth>
+<x-layouts.app>
     <x-slot name="title">{{ __('Verify Email') }} - {{ config('app.name') }}</x-slot>
 
 <section class="relative">
@@ -76,6 +76,6 @@
     </div>
 </section>
 
-</x-layouts.stellar-auth>
+</x-layouts.app>
 
 

@@ -1,4 +1,4 @@
-<x-layouts.stellar>
+<x-layouts.app>
     <x-slot name="title">{{ $product->title }} - {{ config('app.name') }}</x-slot>
 
     <!-- Breadcrumb -->
@@ -402,4 +402,4 @@
             @endif
         </div>
     </section>
-</x-layouts.stellar>
+</x-layouts.app>

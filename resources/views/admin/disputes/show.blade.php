@@ -1,4 +1,4 @@
-<x-layouts.stellar>
+<x-layouts.app>
     <x-slot name="title">{{ __('Review Dispute #:id', ['id' => $dispute->id]) }} - {{ config('app.name') }}</x-slot>
 
     <section class="relative pt-32 pb-12 md:pb-20">
@@ -396,6 +396,6 @@
             // Internal notes visible by default for moderators
         });
     </script>
-</x-layouts.stellar>
+</x-layouts.app>
 
 

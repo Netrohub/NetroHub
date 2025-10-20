@@ -1,4 +1,4 @@
-<x-layouts.stellar>
+<x-layouts.app>
     <x-slot name="title">{{ __('KYC Status (OLD)') }} - {{ config('app.name') }}</x-slot>
 
 <section class="relative pt-32 pb-12">
@@ -143,4 +143,4 @@
 </div>
 </section>
 
-</x-layouts.stellar>
+</x-layouts.app>

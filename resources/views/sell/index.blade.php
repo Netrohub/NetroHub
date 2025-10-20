@@ -1,4 +1,4 @@
-<x-layouts.stellar>
+<x-layouts.app>
     <x-slot name="title">{{ __('Start Selling') }} - {{ config('app.name') }}</x-slot>
 
     <!-- Hero Section -->
@@ -217,4 +217,4 @@
     </section>
 
     <!-- CTA Section removed per design cleanup -->
-</x-layouts.stellar>
+</x-layouts.app>

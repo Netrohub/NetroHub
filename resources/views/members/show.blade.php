@@ -1,4 +1,4 @@
-<x-layouts.stellar>
+<x-layouts.app>
     <x-slot name="title">{{ $user->name }} - {{ config('app.name') }}</x-slot>
 
     <!-- Profile Header -->
@@ -93,4 +93,4 @@
             </div>
         </section>
     @endif
-</x-layouts.stellar>
+</x-layouts.app>

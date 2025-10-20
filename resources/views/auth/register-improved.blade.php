@@ -1,4 +1,4 @@
-<x-layouts.stellar-auth>
+<x-layouts.app>
     <x-slot name="title">{{ __('Create Account') }} - {{ config('app.name') }}</x-slot>
 
 <section class="relative">
@@ -591,4 +591,4 @@ document.querySelector('form').addEventListener('submit', function(e) {
 
 </section>
 
-</x-layouts.stellar-auth>
+</x-layouts.app>

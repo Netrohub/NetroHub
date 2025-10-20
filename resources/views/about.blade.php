@@ -1,4 +1,4 @@
-<x-layouts.stellar>
+<x-layouts.app>
     <x-slot name="title">{{ __('About Us') }} - {{ config('app.name') }}</x-slot>
 
     <!-- Hero Section -->
@@ -297,4 +297,4 @@
         </div>
     </section>
 
-</x-layouts.stellar>
+</x-layouts.app>

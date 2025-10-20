@@ -1,4 +1,4 @@
-<x-layouts.stellar-auth>
+<x-layouts.app>
     <x-slot name="title">{{ __('Sign In with Phone') }} - {{ config('app.name') }}</x-slot>
 
 <section class="relative">
@@ -151,6 +151,6 @@
 
 </section>
 
-</x-layouts.stellar-auth>
+</x-layouts.app>
 
 

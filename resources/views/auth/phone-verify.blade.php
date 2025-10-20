@@ -1,4 +1,4 @@
-<x-layouts.stellar-auth>
+<x-layouts.app>
     <x-slot name="title">{{ __('Verify Code') }} - {{ config('app.name') }}</x-slot>
 
 <section class="relative">
@@ -140,6 +140,6 @@ document.getElementById('otp').addEventListener('input', function(e) {
 
 </section>
 
-</x-layouts.stellar-auth>
+</x-layouts.app>
 
 

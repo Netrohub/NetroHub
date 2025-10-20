@@ -1,4 +1,4 @@
-<x-layouts.stellar-auth>
+<x-layouts.app>
     <x-slot name="title">{{ __('Sign Up') }} - {{ config('app.name') }}</x-slot>
 
     <!-- Page header -->
@@ -173,4 +173,4 @@
     </script>
     @endif
 
-</x-layouts.stellar-auth>
+</x-layouts.app>

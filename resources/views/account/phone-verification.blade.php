@@ -1,4 +1,4 @@
-<x-layouts.stellar>
+<x-layouts.app>
     <x-slot name="title">{{ __('Phone Verification') }} - {{ config('app.name') }}</x-slot>
 
 <section class="relative pt-32 pb-12">
@@ -271,4 +271,4 @@ function phoneVerification() {
 
 </section>
 
-</x-layouts.stellar>
+</x-layouts.app>

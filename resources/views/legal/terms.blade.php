@@ -1,4 +1,4 @@
-<x-layouts.stellar>
+<x-layouts.app>
     <x-slot name="title">{{ __('الشروط والأحكام') }} - {{ config('app.name') }}</x-slot>
 
     <section class="relative pt-32 pb-16 md:pb-20">
@@ -158,4 +158,4 @@
             </div>
         </div>
     </section>
-</x-layouts.stellar>
+</x-layouts.app>

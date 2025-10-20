@@ -1,4 +1,4 @@
-<x-layouts.stellar>
+<x-layouts.app>
     <x-slot name="title">{{ __('Edit Product') }} - {{ config('app.name') }}</x-slot>
 
 <section class="relative pt-32 pb-12">
@@ -246,4 +246,4 @@ function addTag() {
 
 </section>
 
-</x-layouts.stellar>
+</x-layouts.app>

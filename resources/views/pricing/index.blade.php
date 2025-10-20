@@ -1,4 +1,4 @@
-<x-layouts.stellar>
+<x-layouts.app>
     <x-slot name="title">{{ __('Pricing') }} - {{ config('app.name') }}</x-slot>
 
     <!-- Hero -->
@@ -208,4 +208,4 @@
             </div>
         </div>
     </section>
-</x-layouts.stellar>
+</x-layouts.app>

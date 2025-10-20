@@ -1,4 +1,4 @@
-<x-layouts.stellar>
+<x-layouts.app>
     <x-slot name="title">{{ __('Complete Payment') }} - {{ config('app.name') }}</x-slot>
 
 @push('styles')
@@ -76,4 +76,4 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 @endpush
 
-</x-layouts.stellar>
+</x-layouts.app>

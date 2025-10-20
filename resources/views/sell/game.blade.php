@@ -1,4 +1,4 @@
-<x-layouts.stellar>
+<x-layouts.app>
     <x-slot name="title">{{ __('Sell a Game Account') }} - {{ config('app.name') }}</x-slot>
 
 <section class="relative pt-32 pb-12">
@@ -630,4 +630,4 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 @endpush
 
-</x-layouts.stellar>
+</x-layouts.app>

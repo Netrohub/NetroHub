@@ -1,4 +1,4 @@
-<x-layouts.stellar>
+<x-layouts.app>
     <x-slot name="title">{{ __('Order Delivery') }} - {{ config('app.name') }}</x-slot>
 
 <section class="relative pt-32 pb-12">
@@ -340,5 +340,5 @@ function copyToClipboard(dataAttr) {
 
 </section>
 
-</x-layouts.stellar>
+</x-layouts.app>
 
