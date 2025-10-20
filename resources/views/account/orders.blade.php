@@ -4,20 +4,20 @@
     <section class="relative pt-32 pb-12 md:pb-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6">
             
-            <h1 class="h2 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60 mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-foreground mb-8">
                 {{ __('My Orders') }}
             </h1>
 
             <div class="lg:flex lg:gap-8">
                 
                 <!-- Sidebar -->
-                <x-stellar.account-sidebar />
+                <x-account-sidebar />
 
                 <!-- Main Content -->
                 <div class="flex-1 min-w-0">
                     
                     <!-- Filters -->
-                    <div class="bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50 mb-8" data-aos="fade-up">
+                    <div class="card-hover mb-8">
                         <form method="GET" class="grid md:grid-cols-3 gap-4">
                             <div>
                                 <select name="status" onchange="this.form.submit()" class="form-select w-full">

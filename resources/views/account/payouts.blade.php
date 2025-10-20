@@ -11,7 +11,7 @@
             <div class="lg:flex lg:gap-8">
                 
                 <!-- Sidebar -->
-                <x-stellar.account-sidebar />
+                <x-account-sidebar />
 
                 <!-- Main Content -->
                 <div class="flex-1 min-w-0 space-y-8">
