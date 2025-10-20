@@ -19,24 +19,20 @@ class CspMiddleware
 
         $response = $next($request);
 
-        // Strict CSP policy without unsafe-eval and minimal unsafe-inline
+        // Tight, explicit CSP policy that works with Cloudflare Turnstile
         $csp = [
             "default-src 'self'",
-            "base-uri 'self'",
-            "object-src 'none'",
-            "frame-ancestors 'none'",
-            "upgrade-insecure-requests",
-            "form-action 'self'",
-            "img-src 'self' data: https:",
-            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.bunny.net",
-            "font-src 'self' data: https://fonts.gstatic.com https://fonts.bunny.net",
-            "connect-src 'self' https://challenges.cloudflare.com",
+            "script-src 'self' https://challenges.cloudflare.com",
+            "style-src 'self' 'unsafe-inline'",
+            "img-src 'self' data:",
+            "font-src 'self' data:",
             "frame-src https://challenges.cloudflare.com",
-            "script-src 'self' 'unsafe-eval' 'nonce-{$nonce}' https://challenges.cloudflare.com",
-            "media-src 'self'",
-            "manifest-src 'self'",
-            "worker-src 'self'",
-            "child-src 'self'",
+            "connect-src 'self' https://challenges.cloudflare.com",
+            "object-src 'none'",
+            "base-uri 'self'",
+            "frame-ancestors 'self'",
+            "form-action 'self'",
+            "upgrade-insecure-requests",
         ];
 
         $response->headers->set('Content-Security-Policy', implode('; ', $csp));

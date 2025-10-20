@@ -43,7 +43,7 @@ class SecurityHeadersMiddleware
             'idle-detection=()',
             'local-fonts=()',
             'midi=()',
-            'picture-in-picture=()',
+            'picture-in-picture=(self)',
             'publickey-credentials-get=()',
             'screen-wake-lock=()',
             'serial=()',

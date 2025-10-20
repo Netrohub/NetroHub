@@ -97,8 +97,8 @@
 
     <!-- Turnstile Scripts -->
     @if(config('services.turnstile.site_key'))
-    <script nonce="{{ csp_nonce() }}" src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-    <script nonce="{{ csp_nonce() }}">
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script nonce="{{ app('csp_nonce') }}">
     document.addEventListener('DOMContentLoaded', function () {
       if (!window.turnstile || document.getElementById('cf-turnstile-container').dataset.mounted) return;
 
@@ -131,19 +131,28 @@
         },
       });
 
-      // Reset button state on form errors
+      // Reset button state on form errors (optimized)
       form.addEventListener('submit', function() {
-        // If there are validation errors, reset the button state
-        setTimeout(function() {
-          if (document.querySelector('.text-red-400')) {
-            submitBtn.__x.$data.busy = false;
-          }
-        }, 100);
+        // Use requestIdleCallback for better performance
+        if (window.requestIdleCallback) {
+          requestIdleCallback(function() {
+            if (document.querySelector('.text-red-400')) {
+              submitBtn.__x.$data.busy = false;
+            }
+          });
+        } else {
+          // Fallback for browsers without requestIdleCallback
+          setTimeout(function() {
+            if (document.querySelector('.text-red-400')) {
+              submitBtn.__x.$data.busy = false;
+            }
+          }, 100);
+        }
       });
     });
     </script>
     @else
-    <script nonce="{{ csp_nonce() }}">
+    <script nonce="{{ app('csp_nonce') }}">
         console.log('TURNSTILE_SITE_KEY is not set in environment - Turnstile disabled');
     </script>
     @endif
