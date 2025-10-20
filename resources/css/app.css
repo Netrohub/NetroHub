@@ -167,6 +167,44 @@
     color: #94A3B8;
   }
   
+  /* NXO Caption and Label Styles - Missing from Design System */
+  .caption {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: #94A3B8;
+    line-height: 1.4;
+  }
+  
+  .label {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #E2E8F0;
+    line-height: 1.4;
+  }
+  
+  .label-required::after {
+    content: " *";
+    color: #EF4444;
+  }
+  
+  .label-optional::after {
+    content: " (optional)";
+    color: #94A3B8;
+    font-weight: 400;
+  }
+  
+  .label-sm {
+    font-size: 12px;
+    font-weight: 500;
+  }
+  
+  .label-lg {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
   /* NXO Background */
   #root {
     background: var(--background);
