@@ -1,160 +1,230 @@
-<x-layouts.stellar-auth>
+<x-layouts.app>
     <x-slot name="title">{{ __('Sign In') }} - {{ config('app.name') }}</x-slot>
 
-    <!-- Page header -->
-    <div class="text-center mb-8">
-        <!-- Logo -->
-        <div class="mb-6">
-            <div class="relative flex items-center justify-center w-16 h-16 border border-transparent rounded-2xl shadow-2xl mx-auto [background:linear-gradient(var(--color-slate-900),var(--color-slate-900))_padding-box,conic-gradient(var(--color-slate-400),var(--color-slate-700)_25%,var(--color-slate-700)_75%,var(--color-slate-400)_100%)_border-box] before:absolute before:inset-0 before:bg-slate-800/30 before:rounded-2xl">
-                <svg class="w-8 h-8 fill-current text-purple-500" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M31.952 14.751a260.51 260.51 0 00-4.359-4.407C23.932 6.734 20.16 3.182 16.171 0c1.634.017 3.21.28 4.692.751 3.487 3.114 6.846 6.398 10.163 9.737.493 1.346.811 2.776.926 4.262zm-1.388 7.883c-2.496-2.597-5.051-5.12-7.737-7.471-3.706-3.246-10.693-9.81-15.736-7.418-4.552 2.158-4.717 10.543-4.96 16.238A15.926 15.926 0 010 16C0 9.799 3.528 4.421 8.686 1.766c1.82.593 3.593 1.675 5.038 2.587 6.569 4.14 12.29 9.71 17.792 15.57-.237.94-.557 1.846-.952 2.711zm-4.505 5.81a56.161 56.161 0 00-1.007-.823c-2.574-2.054-6.087-4.805-9.394-4.044-3.022.695-4.264 4.267-4.97 7.52a15.945 15.945 0 01-3.665-1.85c.366-3.242.89-6.675 2.405-9.364 2.315-4.107 6.287-3.072 9.613-1.132 3.36 1.96 6.417 4.572 9.313 7.417a16.097 16.097 0 01-2.295 2.275z" />
-                </svg>
-            </div>
+    <section class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative">
+        <!-- Background Elements -->
+        <div class="absolute inset-0">
+            <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-64 h-64 bg-accent/5 rounded-full blur-3xl"></div>
         </div>
-        <!-- Page title -->
-        <h1 class="text-2xl font-bold text-white mb-2">{{ __('Sign in to your account') }}</h1>
-    </div>
-    
-    <!-- Form -->
-    <div class="space-y-6 relative z-20">
-
-        <!-- Flash Messages -->
-        @if(session('success'))
-            <div class="bg-green-500/10 border border-green-500/50 text-green-300 px-4 py-3 rounded-lg">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        @if(session('error'))
-            <div class="bg-red-500/10 border border-red-500/50 text-red-300 px-4 py-3 rounded-lg">
-                {{ session('error') }}
-            </div>
-        @endif
-
-        @if ($errors->any())
-            <div class="bg-red-500/10 border border-red-500/50 text-red-300 px-4 py-3 rounded-lg">
-                {{ __('Please fix the highlighted fields.') }}
-            </div>
-        @endif
-
-        {{-- Error summary (server) --}}
-        @if ($errors->has('turnstile'))
-          <div class="bg-red-500/10 border border-red-500/50 text-red-300 px-4 py-3 rounded-lg mb-3">{{ $errors->first('turnstile') }}</div>
-        @endif
-
-        <form id="loginForm" method="POST" action="{{ route('login') }}">
-            @csrf
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-sm text-slate-300 font-medium mb-1" for="email">{{ __('Email') }}</label>
-                    <input id="email" name="email" class="form-input w-full" type="email" value="{{ old('email') }}" autocomplete="email" required autofocus />
-                    @error('email')
-                        <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
-                    @enderror
+        
+        <div class="max-w-md w-full space-y-8 relative z-10">
+            <!-- Header -->
+            <div class="text-center">
+                <div class="flex justify-center mb-6">
+                    <div class="relative flex h-16 w-16 items-center justify-center">
+                        <div class="absolute inset-0 rounded-2xl gradient-primary blur-md opacity-75"></div>
+                        <div class="relative flex h-16 w-16 items-center justify-center rounded-2xl gradient-primary shadow-lg">
+                            <svg class="w-8 h-8 text-primary-foreground" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor" fill-opacity="0.9"/>
+                                <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <div class="flex justify-between">
-                        <label class="block text-sm text-slate-300 font-medium mb-1" for="password">{{ __('Password') }}</label>
+                <h2 class="text-3xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+                    {{ __('Welcome Back') }}
+                </h2>
+                <p class="mt-2 text-muted-foreground">
+                    {{ __('Sign in to your account to continue') }}
+                </p>
+            </div>
+
+            <!-- Login Form -->
+            <div class="glass-card rounded-2xl p-8">
+                <form method="POST" action="{{ route('login') }}" class="space-y-6" id="loginForm">
+                    @csrf
+
+                    <!-- Email -->
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-foreground mb-2">
+                            {{ __('Email Address') }}
+                        </label>
+                        <input id="email" 
+                               type="email" 
+                               name="email" 
+                               value="{{ old('email') }}" 
+                               required 
+                               autocomplete="email" 
+                               autofocus
+                               class="w-full px-4 py-3 rounded-lg bg-muted/50 border border-border/50 text-foreground placeholder:text-muted-foreground focus:border-primary/50 focus:bg-muted/70 focus:outline-none transition-all"
+                               placeholder="{{ __('Enter your email') }}">
+                        @error('email')
+                            <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-foreground mb-2">
+                            {{ __('Password') }}
+                        </label>
+                        <div class="relative">
+                            <input id="password" 
+                                   type="password" 
+                                   name="password" 
+                                   required 
+                                   autocomplete="current-password"
+                                   class="w-full px-4 py-3 rounded-lg bg-muted/50 border border-border/50 text-foreground placeholder:text-muted-foreground focus:border-primary/50 focus:bg-muted/70 focus:outline-none transition-all"
+                                   placeholder="{{ __('Enter your password') }}">
+                        </div>
+                        @error('password')
+                            <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Remember Me -->
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <input id="remember" 
+                                   name="remember" 
+                                   type="checkbox" 
+                                   class="h-4 w-4 text-primary focus:ring-primary border-border rounded bg-muted/50">
+                            <label for="remember" class="ml-2 block text-sm text-muted-foreground">
+                                {{ __('Remember me') }}
+                            </label>
+                        </div>
+
                         @if (Route::has('password.request'))
-                            <a class="text-sm font-medium text-purple-500 hover:text-purple-400 transition duration-150 ease-in-out ml-2" href="{{ route('password.request') }}">{{ __('Forgot?') }}</a>
+                            <div class="text-sm">
+                                <a href="{{ route('password.request') }}" class="text-primary hover:text-accent transition-colors">
+                                    {{ __('Forgot your password?') }}
+                                </a>
+                            </div>
                         @endif
                     </div>
-                    <input id="password" name="password" class="form-input w-full" type="password" autocomplete="current-password" required />
-                    @error('password')
-                        <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
-                    @enderror
+
+                    <!-- Turnstile -->
+                    @if(config('services.turnstile.secret_key'))
+                        <div class="flex justify-center">
+                            <div id="cf-turnstile-container" data-mounted="0"></div>
+                            <input type="hidden" name="cf-turnstile-response" id="cf-turnstile-response">
+                        </div>
+                    @endif
+
+                    <!-- Submit Button -->
+                    <div>
+                        <button type="submit" 
+                                id="submit-btn" 
+                                x-data="{busy:false}" 
+                                @click="busy=true" 
+                                @submit="busy=true" 
+                                :disabled="busy"
+                                class="w-full btn-glow px-6 py-3 rounded-lg text-primary-foreground font-semibold text-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                            <span x-show="!busy" class="flex items-center justify-center">
+                                {{ __('Sign In') }}
+                                <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                                </svg>
+                            </span>
+                            <span x-show="busy" class="flex items-center justify-center">
+                                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-primary-foreground" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                {{ __('Signing In...') }}
+                            </span>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Divider -->
+                <div class="mt-6">
+                    <div class="relative">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-border/50"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-card text-muted-foreground">{{ __('Or continue with') }}</span>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Remember Me -->
-                <div class="flex items-center">
-                    <input id="remember" name="remember" type="checkbox" class="form-checkbox text-purple-500" {{ old('remember') ? 'checked' : '' }} />
-                    <label for="remember" class="text-sm text-slate-300 ml-2">{{ __('Remember me') }}</label>
+                <!-- Social Login -->
+                <div class="mt-6 grid grid-cols-2 gap-3">
+                    <a href="{{ route('phone-login') }}" class="w-full inline-flex justify-center py-3 px-4 border border-border/50 rounded-lg bg-muted/50 text-sm font-medium text-foreground hover:bg-muted/70 transition-colors">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                        </svg>
+                        {{ __('Phone') }}
+                    </a>
+                    <a href="#" class="w-full inline-flex justify-center py-3 px-4 border border-border/50 rounded-lg bg-muted/50 text-sm font-medium text-foreground hover:bg-muted/70 transition-colors">
+                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                        </svg>
+                        {{ __('Twitter') }}
+                    </a>
                 </div>
-
-                <!-- Turnstile Token (Hidden) -->
-                <input type="hidden" name="cf-turnstile-response" id="cf-turnstile-response">
-
-                <!-- Cloudflare Turnstile Widget -->
-                @if(config('services.turnstile.site_key'))
-                <div class="mt-4" id="cf-turnstile-container"></div>
-                @error('cf-turnstile-response')
-                    <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
-                @enderror
-                @else
-                <div class="text-center text-yellow-400 text-sm">
-                    Turnstile not configured (TURNSTILE_SITE_KEY missing)
-                </div>
-                @endif
             </div>
-            <div class="mt-6">
-                <button type="submit" id="submit-btn" x-data="{busy:false}" @click="busy=true" @submit="busy=true" :disabled="busy" class="btn text-sm text-white bg-purple-500 hover:bg-purple-600 w-full shadow-xs group">
-                    <span x-show="!busy">{{ __('Sign In') }} <span class="tracking-normal text-purple-300 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span></span>
-                    <span x-show="busy">{{ __('Processing…') }}</span>
-                </button>
+
+            <!-- Sign Up Link -->
+            <div class="text-center">
+                <p class="text-muted-foreground">
+                    {{ __('Don\'t have an account?') }}
+                    <a href="{{ route('register') }}" class="text-primary hover:text-accent transition-colors font-semibold">
+                        {{ __('Sign up here') }}
+                    </a>
+                </p>
             </div>
-        </form>
-    </div>
+        </div>
+    </section>
 
-    <!-- Turnstile Scripts -->
-    @if(config('services.turnstile.site_key'))
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-    <script nonce="{{ app('csp_nonce') }}">
-    document.addEventListener('DOMContentLoaded', function () {
-      if (!window.turnstile || document.getElementById('cf-turnstile-container').dataset.mounted) return;
+    <!-- Turnstile Script -->
+    @if(config('services.turnstile.secret_key'))
+        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+        <script nonce="{{ app('csp_nonce') }}">
+        document.addEventListener('DOMContentLoaded', function () {
+            if (!window.turnstile || document.getElementById('cf-turnstile-container').dataset.mounted) return;
 
-      document.getElementById('cf-turnstile-container').dataset.mounted = '1';
+            document.getElementById('cf-turnstile-container').dataset.mounted = '1';
 
-      const siteKey = @json(config('services.turnstile.site_key'));
-      const hidden = document.getElementById('cf-turnstile-response');
-      const form = document.getElementById('loginForm');
-      const submitBtn = document.getElementById('submit-btn');
+            const siteKey = @json(config('services.turnstile.site_key'));
+            const hidden = document.getElementById('cf-turnstile-response');
+            const form = document.getElementById('loginForm');
+            const submitBtn = document.getElementById('submit-btn');
 
-      window.turnstile.render('#cf-turnstile-container', {
-        sitekey: siteKey,
-        callback: function(token) {
-          hidden.value = token;
-          console.log('Turnstile token received');
-        },
-        'error-callback': function() {
-          hidden.value = '';
-          console.error('Turnstile error');
-        },
-        'expired-callback': function() {
-          hidden.value = '';
-          try { window.turnstile.reset(); } catch(e){}
-          console.log('Turnstile expired');
-        },
-        'timeout-callback': function() {
-          hidden.value = '';
-          try { window.turnstile.reset(); } catch(e){}
-          console.log('Turnstile timeout');
-        },
-      });
+            window.turnstile.render('#cf-turnstile-container', {
+                sitekey: siteKey,
+                callback: function(token) {
+                    hidden.value = token;
+                    console.log('Turnstile token received');
+                },
+                'error-callback': function() {
+                    hidden.value = '';
+                    console.error('Turnstile error');
+                },
+                'expired-callback': function() {
+                    hidden.value = '';
+                    try { window.turnstile.reset(); } catch(e){}
+                    console.log('Turnstile expired');
+                },
+                'timeout-callback': function() {
+                    hidden.value = '';
+                    try { window.turnstile.reset(); } catch(e){}
+                    console.log('Turnstile timeout');
+                },
+            });
 
-      // Reset button state on form errors (optimized)
-      form.addEventListener('submit', function() {
-        // Use requestIdleCallback for better performance
-        if (window.requestIdleCallback) {
-          requestIdleCallback(function() {
-            if (document.querySelector('.text-red-400')) {
-              submitBtn.__x.$data.busy = false;
-            }
-          });
-        } else {
-          // Fallback for browsers without requestIdleCallback
-          setTimeout(function() {
-            if (document.querySelector('.text-red-400')) {
-              submitBtn.__x.$data.busy = false;
-            }
-          }, 100);
-        }
-      });
-    });
-    </script>
-    @else
-    <script nonce="{{ app('csp_nonce') }}">
-        console.log('TURNSTILE_SITE_KEY is not set in environment - Turnstile disabled');
-    </script>
+            // Reset button state on form errors (optimized)
+            form.addEventListener('submit', function() {
+                // Use requestIdleCallback for better performance
+                if (window.requestIdleCallback) {
+                    requestIdleCallback(function() {
+                        if (document.querySelector('.text-red-400')) {
+                            submitBtn.__x.$data.busy = false;
+                        }
+                    });
+                } else {
+                    // Fallback for browsers without requestIdleCallback
+                    setTimeout(function() {
+                        if (document.querySelector('.text-red-400')) {
+                            submitBtn.__x.$data.busy = false;
+                        }
+                    }, 100);
+                }
+            });
+        });
+        </script>
     @endif
-
-</x-layouts.stellar-auth>
+</x-layouts.app>

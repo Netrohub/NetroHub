@@ -1,0 +1,160 @@
+<x-layouts.stellar-auth>
+    <x-slot name="title">{{ __('Sign In') }} - {{ config('app.name') }}</x-slot>
+
+    <!-- Page header -->
+    <div class="text-center mb-8">
+        <!-- Logo -->
+        <div class="mb-6">
+            <div class="relative flex items-center justify-center w-16 h-16 border border-transparent rounded-2xl shadow-2xl mx-auto [background:linear-gradient(var(--color-slate-900),var(--color-slate-900))_padding-box,conic-gradient(var(--color-slate-400),var(--color-slate-700)_25%,var(--color-slate-700)_75%,var(--color-slate-400)_100%)_border-box] before:absolute before:inset-0 before:bg-slate-800/30 before:rounded-2xl">
+                <svg class="w-8 h-8 fill-current text-purple-500" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M31.952 14.751a260.51 260.51 0 00-4.359-4.407C23.932 6.734 20.16 3.182 16.171 0c1.634.017 3.21.28 4.692.751 3.487 3.114 6.846 6.398 10.163 9.737.493 1.346.811 2.776.926 4.262zm-1.388 7.883c-2.496-2.597-5.051-5.12-7.737-7.471-3.706-3.246-10.693-9.81-15.736-7.418-4.552 2.158-4.717 10.543-4.96 16.238A15.926 15.926 0 010 16C0 9.799 3.528 4.421 8.686 1.766c1.82.593 3.593 1.675 5.038 2.587 6.569 4.14 12.29 9.71 17.792 15.57-.237.94-.557 1.846-.952 2.711zm-4.505 5.81a56.161 56.161 0 00-1.007-.823c-2.574-2.054-6.087-4.805-9.394-4.044-3.022.695-4.264 4.267-4.97 7.52a15.945 15.945 0 01-3.665-1.85c.366-3.242.89-6.675 2.405-9.364 2.315-4.107 6.287-3.072 9.613-1.132 3.36 1.96 6.417 4.572 9.313 7.417a16.097 16.097 0 01-2.295 2.275z" />
+                </svg>
+            </div>
+        </div>
+        <!-- Page title -->
+        <h1 class="text-2xl font-bold text-white mb-2">{{ __('Sign in to your account') }}</h1>
+    </div>
+    
+    <!-- Form -->
+    <div class="space-y-6 relative z-20">
+
+        <!-- Flash Messages -->
+        @if(session('success'))
+            <div class="bg-green-500/10 border border-green-500/50 text-green-300 px-4 py-3 rounded-lg">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="bg-red-500/10 border border-red-500/50 text-red-300 px-4 py-3 rounded-lg">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @if ($errors->any())
+            <div class="bg-red-500/10 border border-red-500/50 text-red-300 px-4 py-3 rounded-lg">
+                {{ __('Please fix the highlighted fields.') }}
+            </div>
+        @endif
+
+        {{-- Error summary (server) --}}
+        @if ($errors->has('turnstile'))
+          <div class="bg-red-500/10 border border-red-500/50 text-red-300 px-4 py-3 rounded-lg mb-3">{{ $errors->first('turnstile') }}</div>
+        @endif
+
+        <form id="loginForm" method="POST" action="{{ route('login') }}">
+            @csrf
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm text-slate-300 font-medium mb-1" for="email">{{ __('Email') }}</label>
+                    <input id="email" name="email" class="form-input w-full" type="email" value="{{ old('email') }}" autocomplete="email" required autofocus />
+                    @error('email')
+                        <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div>
+                    <div class="flex justify-between">
+                        <label class="block text-sm text-slate-300 font-medium mb-1" for="password">{{ __('Password') }}</label>
+                        @if (Route::has('password.request'))
+                            <a class="text-sm font-medium text-purple-500 hover:text-purple-400 transition duration-150 ease-in-out ml-2" href="{{ route('password.request') }}">{{ __('Forgot?') }}</a>
+                        @endif
+                    </div>
+                    <input id="password" name="password" class="form-input w-full" type="password" autocomplete="current-password" required />
+                    @error('password')
+                        <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Remember Me -->
+                <div class="flex items-center">
+                    <input id="remember" name="remember" type="checkbox" class="form-checkbox text-purple-500" {{ old('remember') ? 'checked' : '' }} />
+                    <label for="remember" class="text-sm text-slate-300 ml-2">{{ __('Remember me') }}</label>
+                </div>
+
+                <!-- Turnstile Token (Hidden) -->
+                <input type="hidden" name="cf-turnstile-response" id="cf-turnstile-response">
+
+                <!-- Cloudflare Turnstile Widget -->
+                @if(config('services.turnstile.site_key'))
+                <div class="mt-4" id="cf-turnstile-container"></div>
+                @error('cf-turnstile-response')
+                    <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
+                @enderror
+                @else
+                <div class="text-center text-yellow-400 text-sm">
+                    Turnstile not configured (TURNSTILE_SITE_KEY missing)
+                </div>
+                @endif
+            </div>
+            <div class="mt-6">
+                <button type="submit" id="submit-btn" x-data="{busy:false}" @click="busy=true" @submit="busy=true" :disabled="busy" class="btn text-sm text-white bg-purple-500 hover:bg-purple-600 w-full shadow-xs group">
+                    <span x-show="!busy">{{ __('Sign In') }} <span class="tracking-normal text-purple-300 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span></span>
+                    <span x-show="busy">{{ __('Processing…') }}</span>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Turnstile Scripts -->
+    @if(config('services.turnstile.site_key'))
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script nonce="{{ app('csp_nonce') }}">
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.turnstile || document.getElementById('cf-turnstile-container').dataset.mounted) return;
+
+      document.getElementById('cf-turnstile-container').dataset.mounted = '1';
+
+      const siteKey = @json(config('services.turnstile.site_key'));
+      const hidden = document.getElementById('cf-turnstile-response');
+      const form = document.getElementById('loginForm');
+      const submitBtn = document.getElementById('submit-btn');
+
+      window.turnstile.render('#cf-turnstile-container', {
+        sitekey: siteKey,
+        callback: function(token) {
+          hidden.value = token;
+          console.log('Turnstile token received');
+        },
+        'error-callback': function() {
+          hidden.value = '';
+          console.error('Turnstile error');
+        },
+        'expired-callback': function() {
+          hidden.value = '';
+          try { window.turnstile.reset(); } catch(e){}
+          console.log('Turnstile expired');
+        },
+        'timeout-callback': function() {
+          hidden.value = '';
+          try { window.turnstile.reset(); } catch(e){}
+          console.log('Turnstile timeout');
+        },
+      });
+
+      // Reset button state on form errors (optimized)
+      form.addEventListener('submit', function() {
+        // Use requestIdleCallback for better performance
+        if (window.requestIdleCallback) {
+          requestIdleCallback(function() {
+            if (document.querySelector('.text-red-400')) {
+              submitBtn.__x.$data.busy = false;
+            }
+          });
+        } else {
+          // Fallback for browsers without requestIdleCallback
+          setTimeout(function() {
+            if (document.querySelector('.text-red-400')) {
+              submitBtn.__x.$data.busy = false;
+            }
+          }, 100);
+        }
+      });
+    });
+    </script>
+    @else
+    <script nonce="{{ app('csp_nonce') }}">
+        console.log('TURNSTILE_SITE_KEY is not set in environment - Turnstile disabled');
+    </script>
+    @endif
+
+</x-layouts.stellar-auth>

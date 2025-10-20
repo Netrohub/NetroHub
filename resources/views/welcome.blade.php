@@ -1,280 +1,160 @@
-<x-layouts.stellar>
-    <x-slot name="title">{{ __('Home') }} - {{ config('app.name') }}</x-slot>
+<x-layouts.app>
+    <x-slot name="title">{{ config('app.name') }} - {{ __('Digital Marketplace for Gaming & Social') }}</x-slot>
 
-<!-- Hero -->
-<section>
-    <div class="relative max-w-6xl mx-auto px-4 sm:px-6">
+    <!-- Hero Section -->
+    <x-hero />
 
-        <!-- Particles animation -->
-        <div class="absolute inset-0 -z-10" aria-hidden="true">
-            <canvas data-particle-animation></canvas>
-        </div>
-
-        <!-- Illustration -->
-        <div class="absolute inset-0 -z-10 -mx-28 rounded-b-[3rem] pointer-events-none overflow-hidden" aria-hidden="true">
-            <div class="absolute left-1/2 -translate-x-1/2 bottom-0 -z-10">
-                <img src="{{ asset('stellar-assets/images/glow-bottom.svg') }}" class="max-w-none" width="2146" height="774" alt="Hero Illustration">
-            </div>
-        </div>
-
-        <div class="pt-32 pb-16 md:pt-52 md:pb-32">
-
-            <!-- Hero content -->
-            <div class="max-w-3xl mx-auto text-center">
-            <div class="mb-6" data-aos="fade-down">
-                <div class="inline-flex relative before:absolute before:inset-0 before:bg-purple-500 before:blur-md">
-                    <a class="btn-sm py-0.5 text-slate-300 hover:text-white transition duration-150 ease-in-out group [background:linear-gradient(var(--color-purple-500),var(--color-purple-500))_padding-box,linear-gradient(var(--color-purple-500),var(--color-purple-200)_75%,transparent_100%)_border-box] relative before:absolute before:inset-0 before:bg-slate-800/50 before:rounded-full before:pointer-events-none shadow-sm" href="{{ url('/pricing') }}">
-                    <span class="relative inline-flex items-center">
-                      {{ __('اختر خطتك الآن 🚀') }} <span class="tracking-normal text-purple-500 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span>
+    <!-- Categories Section -->
+    <section class="py-20 relative">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    <span class="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+                        {{ __('Browse Categories') }}
                     </span>
-                  </a>
+                </h2>
+                <p class="text-muted-foreground text-lg max-w-2xl mx-auto">
+                    {{ __('Discover premium digital assets across gaming and social media platforms') }}
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Gaming Accounts -->
+                <div class="group glass-card rounded-2xl p-8 text-center hover:scale-105 transition-all duration-300">
+                    <div class="w-16 h-16 mx-auto mb-6 rounded-2xl gradient-primary flex items-center justify-center">
+                        <svg class="w-8 h-8 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-foreground mb-3">{{ __('Gaming Accounts') }}</h3>
+                    <p class="text-muted-foreground mb-6">{{ __('Premium gaming accounts with rare items, high levels, and exclusive content') }}</p>
+                    <a href="{{ route('games') }}" class="inline-flex items-center text-primary hover:text-accent transition-colors font-semibold">
+                        {{ __('Explore Games') }}
+                        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                        </svg>
+                    </a>
+                </div>
+                
+                <!-- Social Media -->
+                <div class="group glass-card rounded-2xl p-8 text-center hover:scale-105 transition-all duration-300">
+                    <div class="w-16 h-16 mx-auto mb-6 rounded-2xl gradient-primary flex items-center justify-center">
+                        <svg class="w-8 h-8 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-foreground mb-3">{{ __('Social Media') }}</h3>
+                    <p class="text-muted-foreground mb-6">{{ __('Verified social media accounts with followers, engagement, and premium content') }}</p>
+                    <a href="{{ route('products.index', ['category' => 'social']) }}" class="inline-flex items-center text-primary hover:text-accent transition-colors font-semibold">
+                        {{ __('Browse Social') }}
+                        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                        </svg>
+                    </a>
+                </div>
+                
+                <!-- Digital Products -->
+                <div class="group glass-card rounded-2xl p-8 text-center hover:scale-105 transition-all duration-300">
+                    <div class="w-16 h-16 mx-auto mb-6 rounded-2xl gradient-primary flex items-center justify-center">
+                        <svg class="w-8 h-8 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-foreground mb-3">{{ __('Digital Products') }}</h3>
+                    <p class="text-muted-foreground mb-6">{{ __('Software, courses, ebooks, and other digital assets for your needs') }}</p>
+                    <a href="{{ route('products.index', ['category' => 'digital']) }}" class="inline-flex items-center text-primary hover:text-accent transition-colors font-semibold">
+                        {{ __('View Products') }}
+                        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                        </svg>
+                    </a>
                 </div>
             </div>
-            <h1 class="text-4xl font-bold bg-clip-text text-transparent bg-linear-to-r from-slate-200/60 via-slate-200 to-slate-200/60 pb-4" data-aos="fade-down">
-  @php($title = __('منصّتك الموثوقة لبيع وشراء الحسابات الرقمية 🔐'))
-  {!! str_replace(['🔐','⚡','✨'], ['<span class="emoji">🔐️</span>','<span class="emoji">⚡️</span>','<span class="emoji">✨️</span>'], e($title)) !!}
-</h1>
+        </div>
+    </section>
 
-                <p class="text-lg text-slate-300 mb-8" data-aos="fade-down" data-aos-delay="200">{{ __('Our landing page template works on all devices, so you only have to set it up once, and get beautiful results forever.') }}</p>
-                <div class="max-w-xs mx-auto sm:max-w-none sm:inline-flex sm:justify-center space-y-4 sm:space-y-0 sm:space-x-4" data-aos="fade-down" data-aos-delay="400">
-                    <div>
-                        @auth
-                            @if(auth()->user()->hasVerifiedEmail() && auth()->user()->is_verified && auth()->user()->phone_verified_at)
-                                <a class="btn text-white bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 hover:from-purple-500 hover:via-purple-600 hover:to-purple-700 w-full transition duration-150 ease-in-out group shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40" href="{{ route('sell.index') }}">
-                                    {{ __('ابدأ الآن') }} 🚀 <span class="tracking-normal text-white group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span>
-                                </a>
-                            @else
-                                <a class="btn text-white bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 hover:from-purple-500 hover:via-purple-600 hover:to-purple-700 w-full transition duration-150 ease-in-out group shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40" href="{{ route('account.verification.checklist') }}">
-                                    {{ __('ابدأ الآن') }} 🚀 <span class="tracking-normal text-white group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span>
-                                </a>
-                            @endif
-                        @else
-                            <a class="btn text-white bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 hover:from-purple-500 hover:via-purple-600 hover:to-purple-700 w-full transition duration-150 ease-in-out group shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40" href="{{ route('register') }}">
-                                {{ __('ابدأ الآن') }} 🚀 <span class="tracking-normal text-white group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span>
-                            </a>
-                        @endauth
-                    </div>
-                    <div>
-                        <a class="btn text-slate-200 hover:text-white bg-slate-700/50 hover:bg-slate-600/50 w-full transition duration-150 ease-in-out" href="{{ route('products.index') }}">
-                            <svg class="shrink-0 fill-slate-300 mr-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
-                                <path d="m1.999 0 1 2-1 2 2-1 2 1-1-2 1-2-2 1zM11.999 0l1 2-1 2 2-1 2 1-1-2 1-2-2 1zM11.999 10l1 2-1 2 2-1 2 1-1-2 1-2-2 1zM6.292 7.586l2.646-2.647L11.06 7.06 8.413 9.707zM0 13.878l5.586-5.586 2.122 2.121L2.12 16z" />
+    <!-- Featured Products Section -->
+    <section class="py-20 relative">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    <span class="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+                        {{ __('Featured Products') }}
+                    </span>
+                </h2>
+                <p class="text-muted-foreground text-lg max-w-2xl mx-auto">
+                    {{ __('Handpicked premium products from our top sellers') }}
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                @forelse(\App\Models\Product::featured()->active()->inStock()->with(['seller', 'category'])->limit(8)->get() as $product)
+                    <x-product-card :product="$product" />
+                @empty
+                    <div class="col-span-full text-center py-12">
+                        <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-muted flex items-center justify-center">
+                            <svg class="w-10 h-10 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
                             </svg>
-                            <span>{{ __(' تصفح المنتجات ') }}</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-foreground mb-2">{{ __('No featured products yet') }}</h3>
+                        <p class="text-muted-foreground mb-6">{{ __('Check back soon for amazing featured products!') }}</p>
+                        <a href="{{ route('products.index') }}" class="btn-glow px-6 py-3 rounded-lg text-primary-foreground font-semibold">
+                            {{ __('Browse All Products') }}
                         </a>
                     </div>
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<!-- Clients -->
-<section>
-    <div class="relative max-w-6xl mx-auto px-4 sm:px-6">
-
-        <!-- Particles animation -->
-        <div class="absolute inset-0 max-w-6xl mx-auto px-4 sm:px-6">
-            <div class="absolute inset-0 -z-10" aria-hidden="true">
-                <canvas data-particle-animation data-particle-quantity="5"></canvas>
-            </div>
-        </div>
-
-        <div class="py-12 md:py-16">
-            <div class="overflow-hidden">
-
-                <div class="inline-flex w-full flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
-                    <ul class="flex animate-infinite-scroll items-center justify-center md:justify-start [&_img]:max-w-none [&_li]:mx-8">
-                        <li>
-                            <img src="{{ asset('stellar-assets/images/client-01.svg') }}" alt="Client 1">
-                        </li>
-                        <li>
-                            <img src="{{ asset('stellar-assets/images/client-02.svg') }}" alt="Client 2">
-                        </li>
-                        <li>
-                            <img src="{{ asset('stellar-assets/images/client-03.svg') }}" alt="Client 3">
-                        </li>
-                        <li>
-                            <img src="{{ asset('stellar-assets/images/client-04.svg') }}" alt="Client 4">
-                        </li>
-                        <li>
-                            <img src="{{ asset('stellar-assets/images/client-05.svg') }}" alt="Client 5">
-                        </li>
-                        <li>
-                            <img src="{{ asset('stellar-assets/images/client-06.svg') }}" alt="Client 6">
-                        </li>
-                    </ul>
-                    <ul class="flex animate-infinite-scroll items-center justify-center md:justify-start [&_img]:max-w-none [&_li]:mx-8" aria-hidden="true">
-                        <li>
-                            <img src="{{ asset('stellar-assets/images/client-01.svg') }}" alt="Client 1">
-                        </li>
-                        <li>
-                            <img src="{{ asset('stellar-assets/images/client-02.svg') }}" alt="Client 2">
-                        </li>
-                        <li>
-                            <img src="{{ asset('stellar-assets/images/client-03.svg') }}" alt="Client 3">
-                        </li>
-                        <li>
-                            <img src="{{ asset('stellar-assets/images/client-04.svg') }}" alt="Client 4">
-                        </li>
-                        <li>
-                            <img src="{{ asset('stellar-assets/images/client-05.svg') }}" alt="Client 5">
-                        </li>
-                        <li>
-                            <img src="{{ asset('stellar-assets/images/client-06.svg') }}" alt="Client 6">
-                        </li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Features -->
-<section>
-    <div class="relative max-w-6xl mx-auto px-4 sm:px-6">
-
-        <!-- Illustration -->
-        <div class="absolute inset-0 -z-10 -mx-28 rounded-b-[3rem] pointer-events-none overflow-hidden" aria-hidden="true">
-            <div class="absolute left-1/2 -translate-x-1/2 bottom-0 -z-10">
-                <img src="{{ asset('stellar-assets/images/glow-bottom.svg') }}" class="max-w-none" width="2146" height="774" alt="Hero Illustration">
-            </div>
-        </div>
-
-        <div class="py-12 md:py-20">
-
-            <!-- Section header -->
-            <div class="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-                <h2 class="h2 bg-clip-text text-transparent bg-linear-to-r from-slate-200/60 via-slate-200 to-slate-200/60 pb-4">{{ __('Popular Categories') }}</h2>
-                <p class="text-lg text-slate-300">{{ __('Explore our most popular digital product categories') }}</p>
-            </div>
-
-            <!-- Features grid -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-                @forelse($categories as $category)
-                <div class="group relative" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
-                    <div class="absolute inset-0 bg-gradient-to-b from-slate-800/50 to-slate-900/50 rounded-2xl -m-px opacity-0 group-hover:opacity-100 transition duration-700 ease-out"></div>
-                    <div class="relative bg-slate-800 rounded-2xl p-6 lg:p-8">
-                        <div class="flex items-center justify-center w-12 h-12 bg-slate-700 rounded-xl mb-4">
-                            <x-platform-icon :category="$category->name ?? 'General'" size="lg" />
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-100 mb-2">{{ $category->name ?? 'General' }}</h3>
-                        <p class="text-slate-400 mb-6">{{ $category->description ?? 'Premium digital products in this category' }}</p>
-                        <div class="flex items-center text-sm text-slate-300">
-                            <span>{{ $category->products_count ?? 0 }} {{ __('products') }}</span>
-                            <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
-                        </div>
-                        <a class="absolute inset-0" href="{{ route('products.index', ['category' => $category->slug ?? 'general']) }}"><span class="sr-only">{{ __('View') }} {{ $category->name ?? 'General' }}</span></a>
-                    </div>
-                </div>
-                @empty
-                <div class="col-span-full text-center py-12">
-                    <p class="text-slate-400">{{ __('No categories available at the moment.') }}</p>
-                </div>
                 @endforelse
             </div>
-
-        </div>
-    </div>
-</section>
-
-<!-- Featured Products -->
-@if($featuredProducts->count() > 0)
-<section>
-    <div class="relative max-w-6xl mx-auto px-4 sm:px-6">
-
-        <div class="py-12 md:py-20">
-
-            <!-- Section header -->
-            <div class="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-                <h2 class="h2 bg-clip-text text-transparent bg-linear-to-r from-slate-200/60 via-slate-200 to-slate-200/60 pb-4">{{ __('Featured Products') }}</h2>
-                <p class="text-lg text-slate-300">{{ __('Discover our handpicked premium digital products') }}</p>
-            </div>
-
-            <!-- Products grid -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-                @foreach($featuredProducts as $product)
-                <div class="group relative" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
-                    <div class="absolute inset-0 bg-gradient-to-b from-slate-800/50 to-slate-900/50 rounded-2xl -m-px opacity-0 group-hover:opacity-100 transition duration-700 ease-out"></div>
-                    <div class="relative bg-slate-800 rounded-2xl p-4">
-                        <div class="flex items-center justify-center w-16 h-16 bg-slate-700 rounded-xl mb-3 mx-auto">
-                            <x-platform-icon :product="$product" size="lg" />
-                        </div>
-                        <h3 class="text-lg font-bold text-slate-100 mb-2 text-center">{{ $product->title }}</h3>
-                        <p class="text-slate-400 text-sm mb-4 text-center line-clamp-2">{{ $product->description }}</p>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-2xl font-bold text-white">${{ number_format($product->price, 2) }}</span>
-                            @if($product->category)
-                            <span class="text-xs text-slate-400 bg-slate-700 px-2 py-1 rounded">{{ $product->category->name }}</span>
-                            @endif
-                        </div>
-                        <a class="btn text-slate-900 bg-linear-to-r from-white/80 via-white to-white/80 hover:bg-white w-full transition duration-150 ease-in-out group" href="{{ route('products.show', $product->slug) }}">
-                            {{ __('View Details') }} <span class="tracking-normal text-purple-500 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span>
-                        </a>
-                        <a class="absolute inset-0" href="{{ route('products.show', $product->slug) }}"><span class="sr-only">{{ __('View') }} {{ $product->title }}</span></a>
-                    </div>
+            
+            @if(\App\Models\Product::featured()->active()->inStock()->count() > 8)
+                <div class="text-center mt-12">
+                    <a href="{{ route('products.index', ['featured' => true]) }}" class="btn-glow px-8 py-4 rounded-lg text-primary-foreground font-semibold text-lg">
+                        {{ __('View All Featured Products') }}
+                        <svg class="inline-block ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                        </svg>
+                    </a>
                 </div>
-                @endforeach
-            </div>
-
+            @endif
         </div>
-    </div>
-</section>
-@endif
+    </section>
 
-<!-- Recent Products -->
-@if($recentProducts->count() > 0)
-<section>
-    <div class="relative max-w-6xl mx-auto px-4 sm:px-6">
-
-        <div class="py-12 md:py-20">
-
-            <!-- Section header -->
-            <div class="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-                <h2 class="h2 bg-clip-text text-transparent bg-linear-to-r from-slate-200/60 via-slate-200 to-slate-200/60 pb-4">{{ __('Latest Products') }}</h2>
-                <p class="text-lg text-slate-300">{{ __('Fresh digital products added to our marketplace') }}</p>
-            </div>
-
-            <!-- Products grid -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-                @foreach($recentProducts as $product)
-                <div class="group relative" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
-                    <div class="absolute inset-0 bg-gradient-to-b from-slate-800/50 to-slate-900/50 rounded-2xl -m-px opacity-0 group-hover:opacity-100 transition duration-700 ease-out"></div>
-                    <div class="relative bg-slate-800 rounded-2xl p-4">
-                        <div class="flex items-center justify-center w-16 h-16 bg-slate-700 rounded-xl mb-3 mx-auto">
-                            <x-platform-icon :product="$product" size="lg" />
-                        </div>
-                        <h3 class="text-lg font-bold text-slate-100 mb-2 text-center">{{ $product->title }}</h3>
-                        <p class="text-slate-400 text-sm mb-4 text-center line-clamp-2">{{ $product->description }}</p>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-2xl font-bold text-white">${{ number_format($product->price, 2) }}</span>
-                            @if($product->category)
-                            <span class="text-xs text-slate-400 bg-slate-700 px-2 py-1 rounded">{{ $product->category->name }}</span>
-                            @endif
-                        </div>
-                        <a class="btn text-slate-900 bg-linear-to-r from-white/80 via-white to-white/80 hover:bg-white w-full transition duration-150 ease-in-out group" href="{{ route('products.show', $product->slug) }}">
-                            {{ __('View Details') }} <span class="tracking-normal text-purple-500 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span>
+    <!-- CTA Section -->
+    <section class="py-20 relative">
+        <div class="container mx-auto px-4">
+            <div class="glass-card rounded-3xl p-12 text-center max-w-4xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">
+                    <span class="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+                        {{ __('Ready to Get Started?') }}
+                    </span>
+                </h2>
+                <p class="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
+                    {{ __('Join thousands of users buying and selling digital assets on our secure platform.') }}
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    @auth
+                        <a href="{{ route('products.index') }}" class="btn-glow px-8 py-4 rounded-lg text-primary-foreground font-semibold text-lg">
+                            {{ __('Browse Products') }}
                         </a>
-                        <a class="absolute inset-0" href="{{ route('products.show', $product->slug) }}"><span class="sr-only">{{ __('View') }} {{ $product->title }}</span></a>
-                    </div>
+                        @if(auth()->user()->seller)
+                            <a href="{{ route('seller.dashboard') }}" class="px-8 py-4 rounded-lg border border-border hover:border-primary/50 text-foreground font-semibold text-lg transition-all duration-300 hover:bg-primary/5">
+                                {{ __('Seller Dashboard') }}
+                            </a>
+                        @else
+                            <a href="{{ route('sell.index') }}" class="px-8 py-4 rounded-lg border border-border hover:border-primary/50 text-foreground font-semibold text-lg transition-all duration-300 hover:bg-primary/5">
+                                {{ __('Start Selling') }}
+                            </a>
+                        @endif
+                    @else
+                        <a href="{{ route('register') }}" class="btn-glow px-8 py-4 rounded-lg text-primary-foreground font-semibold text-lg">
+                            {{ __('Get Started Free') }}
+                        </a>
+                        <a href="{{ route('login') }}" class="px-8 py-4 rounded-lg border border-border hover:border-primary/50 text-foreground font-semibold text-lg transition-all duration-300 hover:bg-primary/5">
+                            {{ __('Sign In') }}
+                        </a>
+                    @endauth
                 </div>
-                @endforeach
             </div>
-
-            <!-- CTA -->
-            <div class="text-center mt-12" data-aos="fade-up">
-                <a class="btn text-slate-200 hover:text-white bg-slate-900/25 hover:bg-slate-900/30 transition duration-150 ease-in-out" href="{{ route('products.index') }}">
-                    {{ __('View All Products') }} <span class="tracking-normal text-purple-500 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span>
-                </a>
-            </div>
-
         </div>
-    </div>
-</section>
-@endif
-
-</x-layouts.stellar>
+    </section>
+</x-layouts.app>

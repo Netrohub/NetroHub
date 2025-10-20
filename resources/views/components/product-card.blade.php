@@ -1,203 +1,141 @@
 @props(['product'])
 
-<div class="card card-hover overflow-hidden h-full flex flex-col group scroll-fade-in">
-    <a href="{{ route('products.show', $product->slug) }}" class="block flex-1 flex flex-col">
+<div class="group card-hover rounded-2xl overflow-hidden bg-card border border-border/50">
+    <a href="{{ route('products.show', $product->slug) }}" class="block">
         <!-- Product Image -->
-        <div class="aspect-[4/3] bg-gaming-gradient rounded-lg sm:rounded-xl overflow-hidden mb-3 sm:mb-4 img-hover-zoom relative">
+        <div class="aspect-[4/3] bg-gradient-to-br from-primary/20 to-accent/20 relative overflow-hidden">
             @if($product->thumbnail_url)
                 <img src="{{ $product->thumbnail_url }}" 
                      alt="{{ $product->title }}" 
-                     class="w-full h-full object-cover"
+                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                      loading="lazy"
                      width="400"
                      height="300">
             @else
-                <div class="w-full h-full flex items-center justify-center text-white text-3xl sm:text-4xl md:text-5xl font-black">
-                    {{ substr($product->title, 0, 1) }}
+                <div class="w-full h-full flex items-center justify-center">
+                    <div class="w-16 h-16 rounded-2xl gradient-primary flex items-center justify-center">
+                        <svg class="w-8 h-8 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                        </svg>
+                    </div>
                 </div>
             @endif
             
             <!-- Badges -->
-            <div class="absolute top-2 left-2 sm:top-3 sm:left-3 flex flex-col gap-1.5 sm:gap-2">
-                {{-- Promoted Badge --}}
-                @if($product->is_featured ?? false)
-                    <span class="inline-flex items-center gap-1 px-2 py-1 sm:px-2.5 sm:py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-[10px] sm:text-xs font-bold rounded-full shadow-lg">
-                        <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/>
-                        </svg>
-                        {{ __('PROMOTED') }}
+            <div class="absolute top-3 left-3 flex flex-col gap-2">
+                @if($product->is_featured)
+                    <span class="badge-glow px-3 py-1 rounded-full text-xs font-semibold text-primary-foreground">
+                        {{ __('Featured') }}
                     </span>
                 @endif
-                
-                {{-- New Badge --}}
-                @if($product->created_at->diffInDays() <= 7)
-                    <span class="inline-flex items-center gap-1 px-2 py-1 sm:px-2.5 sm:py-1 bg-primary-500 text-white text-[10px] sm:text-xs font-bold rounded-full shadow-gaming animate-pulse">
-                        <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd"/>
-                        </svg>
-                        {{ __('NEW') }}
+                @if($product->type === 'game_account')
+                    <span class="px-3 py-1 rounded-full text-xs font-semibold bg-green-500/20 text-green-400 border border-green-500/30">
+                        {{ __('Gaming') }}
                     </span>
-                @endif
-                
-                {{-- Trending Badge --}}
-                @if(($product->sales_count ?? 0) > 50)
-                    <span class="inline-flex items-center gap-1 px-2 py-1 sm:px-2.5 sm:py-1 bg-amber-500 text-white text-[10px] sm:text-xs font-bold rounded-full shadow-lg">
-                        <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd"/>
-                        </svg>
-                        <span class="hidden sm:inline">{{ __('TRENDING') }}</span>
+                @elseif($product->type === 'social_account')
+                    <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-400 border border-blue-500/30">
+                        {{ __('Social') }}
                     </span>
-                @endif
-                
-                {{-- Top Rated Badge --}}
-                @if(($product->rating ?? 0) >= 4.5)
-                    <span class="inline-flex items-center gap-1 px-2 py-1 sm:px-2.5 sm:py-1 bg-green-500 text-white text-[10px] sm:text-xs font-bold rounded-full shadow-lg">
-                        <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.519-4.674z"/>
-                        </svg>
-                        <span class="hidden sm:inline">{{ __('TOP RATED') }}</span>
+                @else
+                    <span class="px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/20 text-purple-400 border border-purple-500/30">
+                        {{ __('Digital') }}
                     </span>
                 @endif
             </div>
             
-            <!-- Stock Badge -->
-            <div class="absolute top-2 right-2 sm:top-3 sm:right-3">
-                @if($product->isInStock())
-                    <span class="inline-flex items-center gap-1 px-2 py-1 sm:px-2.5 sm:py-1 bg-green-500 text-white text-[10px] sm:text-xs font-bold rounded-full shadow-lg">
-                        <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span class="hidden sm:inline">{{ __('In Stock') }}</span>
-                    </span>
-                @else
-                    <span class="inline-flex items-center gap-1 px-2 py-1 sm:px-2.5 sm:py-1 bg-red-500 text-white text-[10px] sm:text-xs font-bold rounded-full shadow-lg">
-                        <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
-                        </svg>
-                        <span class="hidden sm:inline">{{ __('Sold Out') }}</span>
-                    </span>
-                @endif
+            <!-- Price Badge -->
+            <div class="absolute top-3 right-3">
+                <span class="px-3 py-1 rounded-full text-sm font-bold bg-card/90 backdrop-blur-sm text-foreground border border-border/50">
+                    ${{ number_format($product->price, 2) }}
+                </span>
             </div>
         </div>
-
+        
         <!-- Product Info -->
-        <div class="p-3 sm:p-4 flex-1 flex flex-col space-y-3 sm:space-y-4">
-            <!-- Platform Badge -->
-            @if($product->metadata['platform'] ?? false)
-                <div class="flex items-center gap-2">
-                    <div class="flex items-center gap-1 sm:gap-1.5 px-2 py-0.5 sm:px-3 sm:py-1 bg-dark-800/50 border border-gaming rounded-full">
-                        <x-platform-icon :product="$product" size="xs" />
-                        <span class="text-[10px] sm:text-xs text-muted-300 font-medium">{{ $product->metadata['platform'] }}</span>
-                    </div>
-                </div>
-            @endif
-
+        <div class="p-6">
             <!-- Title -->
-            <h3 class="text-sm sm:text-base md:text-lg font-bold text-white line-clamp-2 group-hover:text-primary-400 transition-colors leading-tight">
+            <h3 class="text-lg font-bold text-foreground mb-2 line-clamp-2 group-hover:text-primary transition-colors">
                 {{ $product->title }}
             </h3>
             
-            <!-- Trust Signals -->
-            <div class="flex items-center gap-2 text-xs text-slate-400">
-                @if($product->seller && $product->seller->is_verified)
-                    <span class="flex items-center gap-1">
-                        <svg class="w-3 h-3 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        {{ __('Verified Seller') }}
-                    </span>
-                @endif
-                @if($product->auto_delivery ?? false)
-                    <span class="flex items-center gap-1">
-                        <svg class="w-3 h-3 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        {{ __('Instant Delivery') }}
-                    </span>
-                @endif
-            </div>
-            
             <!-- Description -->
-            <p class="text-xs sm:text-sm text-muted-300 line-clamp-2 leading-relaxed flex-1">
-                {{ $product->description }}
+            <p class="text-muted-foreground text-sm mb-4 line-clamp-2">
+                {{ Str::limit($product->description, 100) }}
             </p>
-
-            <!-- Meta Info -->
-            <div class="flex items-center gap-2 sm:gap-3 text-[10px] sm:text-xs text-muted-400 flex-wrap">
-                {{-- Rating --}}
-                @if($product->rating)
-                    <div class="flex items-center gap-0.5 sm:gap-1">
-                        <svg class="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.519-4.674z"/>
-                        </svg>
-                        <span class="font-medium text-white">{{ number_format($product->rating, 1) }}</span>
-                    </div>
-                @endif
-                
-                {{-- Sales --}}
-                @if($product->sales_count)
-                    <span class="flex items-center gap-0.5 sm:gap-1">
-                        <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"/>
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"/>
-                        </svg>
-                        <span class="hidden sm:inline">{{ number_format($product->sales_count) }} {{ __('sales') }}</span>
-                        <span class="sm:hidden">{{ number_format($product->sales_count) }}</span>
-                    </span>
-                @endif
-                
-                {{-- Seller --}}
-                <span class="flex items-center gap-0.5 sm:gap-1 truncate max-w-[120px] sm:max-w-none">
-                    <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
-                    </svg>
-                    <span class="truncate">{{ Str::limit($product->seller->display_name ?? $product->seller->user->name, 10) }}</span>
-                    <x-subscription-badge :user="$product->seller->user" size="xs" />
-                </span>
-            </div>
-
-            <!-- Price & CTA -->
-            <div class="flex items-center justify-between gap-2">
-                <div class="flex flex-col">
-                    <span class="text-lg sm:text-xl md:text-2xl font-black text-gradient leading-none" dir="ltr">
-                        ${{ number_format($product->price, 2) }}
-                    </span>
-                    @if($product->original_price && $product->original_price > $product->price)
-                        <span class="text-xs sm:text-sm text-muted-500 line-through" dir="ltr">
-                            ${{ number_format($product->original_price, 2) }}
+            
+            <!-- Platform/Game Info -->
+            @if($product->platform || $product->game_title)
+                <div class="flex items-center gap-2 mb-4">
+                    @if($product->platform)
+                        <span class="px-2 py-1 rounded-md text-xs font-medium bg-muted text-muted-foreground">
+                            {{ $product->platform }}
+                        </span>
+                    @endif
+                    @if($product->game_title)
+                        <span class="px-2 py-1 rounded-md text-xs font-medium bg-muted text-muted-foreground">
+                            {{ $product->game_title }}
                         </span>
                     @endif
                 </div>
-                <button class="inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2 text-xs sm:text-sm font-bold bg-purple-500 hover:bg-purple-600 text-white rounded-lg shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 transition-all duration-300 min-h-[44px] group-hover:scale-105">
-                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                    </svg>
-                    <span class="hidden sm:inline">{{ __('View') }}</span>
-                </button>
+            @endif
+            
+            <!-- Seller Info -->
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2">
+                    <div class="w-6 h-6 rounded-full bg-gradient-primary flex items-center justify-center">
+                        <span class="text-xs font-bold text-primary-foreground">
+                            {{ strtoupper(substr($product->seller->user->name ?? 'S', 0, 1)) }}
+                        </span>
+                    </div>
+                    <span class="text-sm text-muted-foreground">
+                        {{ $product->seller->user->name ?? 'Unknown Seller' }}
+                    </span>
+                </div>
+                
+                <!-- Rating -->
+                @if($product->rating_avg > 0)
+                    <div class="flex items-center gap-1">
+                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <span class="text-sm text-muted-foreground">{{ number_format($product->rating_avg, 1) }}</span>
+                    </div>
+                @endif
+            </div>
+            
+            <!-- Stats -->
+            <div class="flex items-center justify-between text-sm text-muted-foreground">
+                <div class="flex items-center gap-4">
+                    @if($product->sales_count > 0)
+                        <span class="flex items-center gap-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                            </svg>
+                            {{ $product->sales_count }} {{ __('sold') }}
+                        </span>
+                    @endif
+                    @if($product->views_count > 0)
+                        <span class="flex items-center gap-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                            </svg>
+                            {{ $product->views_count }}
+                        </span>
+                    @endif
+                </div>
+                
+                <!-- Stock Status -->
+                @if($product->stock_count > 0)
+                    <span class="text-green-400 font-medium">
+                        {{ $product->stock_count }} {{ __('in stock') }}
+                    </span>
+                @else
+                    <span class="text-red-400 font-medium">
+                        {{ __('Out of stock') }}
+                    </span>
+                @endif
             </div>
         </div>
     </a>
-    
-    <!-- Quick Actions (on hover) -->
-    <div class="p-3 sm:p-4 pt-0 hidden md:block opacity-0 group-hover:opacity-100 transition-opacity">
-        <div class="flex gap-2">
-            @auth
-                <button onclick="addToWishlist({{ $product->id }})" 
-                        class="flex-1 px-3 py-2 text-xs font-medium bg-dark-700/50 hover:bg-dark-700 text-muted-300 hover:text-white rounded-lg transition-all duration-300 min-h-[36px] flex items-center justify-center gap-1.5">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                    </svg>
-                </button>
-                <button onclick="shareProduct({{ $product->id }})" 
-                        class="flex-1 px-3 py-2 text-xs font-medium bg-dark-700/50 hover:bg-dark-700 text-muted-300 hover:text-white rounded-lg transition-all duration-300 min-h-[36px] flex items-center justify-center gap-1.5">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
-                    </svg>
-                </button>
-            @endauth
-        </div>
-    </div>
 </div>
-
-
