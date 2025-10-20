@@ -127,12 +127,12 @@
 @layer components {
   /* NXO Glass Morphism Card - Exact Specifications */
   .glass-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px);
+    background: rgba(30, 41, 59, 0.8); /* Exact glass-bg */
+    backdrop-filter: blur(20px); /* Exact spec */
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    border-radius: 24px;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(139, 92, 246, 0.2); /* Exact glass-border */
+    border-radius: 16px; /* Exact 16px */
+    box-shadow: 0 8px 32px 0 rgba(139, 92, 246, 0.1); /* Exact glass-shadow */
     transition: var(--transition-smooth);
   }
   
@@ -194,13 +194,13 @@
     align-items: center;
     justify-content: center;
     box-shadow: var(--shadow-button);
-    transition: var(--transition-smooth);
+    transition: all 0.3s ease-out;
   }
   
   .btn-primary:hover {
     background: linear-gradient(135deg, #7C3AED 0%, #2563EB 100%);
-    box-shadow: var(--shadow-button-hover);
-    transform: translateY(-1px);
+    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+    transform: scale(1.02);
   }
   
   .btn-secondary {
@@ -216,12 +216,13 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: var(--transition-smooth);
+    transition: all 0.3s ease-out;
   }
   
   .btn-secondary:hover {
     background: #4B5563;
     border-color: #6B7280;
+    transform: scale(1.02);
   }
   
   /* NXO Glow Button */
@@ -336,5 +337,115 @@
   .badge-glow {
     background: var(--gradient-primary);
     box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+  }
+  
+  /* NXO Icon Styling - Exact Specifications */
+  .icon {
+    width: 24px;
+    height: 24px;
+    color: #94A3B8; /* muted color */
+    transition: var(--transition-smooth);
+  }
+  
+  .icon:hover {
+    color: #8B5CF6; /* primary purple */
+  }
+  
+  .icon-primary {
+    color: #8B5CF6;
+  }
+  
+  .icon-muted {
+    color: #94A3B8;
+  }
+  
+  .icon-foreground {
+    color: #FFFFFF;
+  }
+  
+  /* NXO Image Aspect Ratios - Exact Specifications */
+  .aspect-product {
+    aspect-ratio: 4/3;
+  }
+  
+  .aspect-profile {
+    aspect-ratio: 1/1;
+  }
+  
+  .aspect-hero {
+    aspect-ratio: 16/9;
+  }
+  
+  .aspect-thumbnail {
+    aspect-ratio: 1/1;
+  }
+  
+  /* NXO Animations - Exact Specifications */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-20px) scale(1.05); }
+  }
+  
+  @keyframes twinkle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  
+  @keyframes drift {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  
+  @keyframes border-rotate {
+    0% { border-image-source: linear-gradient(0deg, hsl(258 90% 66%), hsl(280 85% 65%)); }
+    25% { border-image-source: linear-gradient(90deg, hsl(258 90% 66%), hsl(280 85% 65%)); }
+    50% { border-image-source: linear-gradient(180deg, hsl(258 90% 66%), hsl(280 85% 65%)); }
+    75% { border-image-source: linear-gradient(270deg, hsl(258 90% 66%), hsl(280 85% 65%)); }
+    100% { border-image-source: linear-gradient(360deg, hsl(258 90% 66%), hsl(280 85% 65%)); }
+  }
+  
+  /* NXO Interaction Animations - Exact Specifications */
+  .float-animation {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .twinkle-animation {
+    animation: twinkle 3s ease-in-out infinite;
+  }
+  
+  .drift-animation {
+    animation: drift 20s linear infinite;
+  }
+  
+  .border-rotate-animation {
+    animation: border-rotate 4s linear infinite;
+  }
+  
+  /* NXO Hover Effects - Exact Specifications */
+  .btn-hover {
+    transition: all 0.3s ease-out;
+  }
+  
+  .btn-hover:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+  }
+  
+  .card-hover {
+    transition: all 0.3s ease-out;
+  }
+  
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+  
+  .form-focus {
+    transition: all 0.3s ease-out;
+  }
+  
+  .form-focus:focus {
+    border-color: #8B5CF6;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
   }
 }

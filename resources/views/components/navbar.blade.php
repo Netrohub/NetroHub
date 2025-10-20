@@ -44,7 +44,7 @@
             <!-- Search Bar -->
             <div class="hidden lg:flex flex-1 max-w-md mx-8">
                 <div class="relative w-full">
-                    <svg class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-primary/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="absolute left-3 top-1/2 h-6 w-6 -translate-y-1/2 icon-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                     </svg>
                     <input 
@@ -59,22 +59,22 @@
             <div class="flex items-center gap-2">
                 <!-- User Account -->
                 @auth
-                    <a href="{{ route('account.index') }}" class="hidden md:flex items-center justify-center h-9 w-9 rounded-md hover:bg-primary/10 hover:text-primary transition-colors">
-                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <a href="{{ route('account.index') }}" class="hidden md:flex items-center justify-center h-9 w-9 rounded-md hover:bg-primary/10 transition-colors">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                         </svg>
                     </a>
                 @else
-                    <a href="{{ route('login') }}" class="hidden md:flex items-center justify-center h-9 w-9 rounded-md hover:bg-primary/10 hover:text-primary transition-colors">
-                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <a href="{{ route('login') }}" class="hidden md:flex items-center justify-center h-9 w-9 rounded-md hover:bg-primary/10 transition-colors">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                         </svg>
                     </a>
                 @endauth
 
                 <!-- Cart -->
-                <a href="{{ route('cart.index') }}" class="relative flex items-center justify-center h-9 w-9 rounded-md hover:bg-primary/10 hover:text-primary transition-colors">
-                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <a href="{{ route('cart.index') }}" class="relative flex items-center justify-center h-9 w-9 rounded-md hover:bg-primary/10 transition-colors">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
                     </svg>
                     @if(auth()->check() && session('cart', []) !== [])
@@ -85,8 +85,8 @@
                 </a>
 
                 <!-- Mobile Menu Button -->
-                <button type="button" class="md:hidden flex items-center justify-center h-9 w-9 rounded-md hover:bg-primary/10 hover:text-primary transition-colors" x-data="{ open: false }" @click="open = !open">
-                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button type="button" class="md:hidden flex items-center justify-center h-9 w-9 rounded-md hover:bg-primary/10 transition-colors" x-data="{ open: false }" @click="open = !open">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
                 </button>

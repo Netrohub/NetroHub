@@ -26,7 +26,7 @@
                 <!-- Left Column - Product Image (4:3 aspect ratio) -->
                 <div>
                     <div class="sticky top-24">
-                        <div class="card-hover aspect-[4/3] flex items-center justify-center mb-6">
+                        <div class="card-hover aspect-product flex items-center justify-center mb-6">
                             @if($product->thumbnail_url ?? false)
                                 <img src="{{ $product->thumbnail_url }}" alt="{{ $product->title }}" class="w-full h-full object-cover rounded-xl" loading="lazy" width="600" height="450">
                             @else
