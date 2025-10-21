@@ -20,33 +20,30 @@ return [
         // Script sources - allows inline scripts and specific external domains
         'script-src' => [
             "'self'",
-            "'unsafe-inline'", // Required for Alpine.js and inline scripts
-            "'unsafe-eval'",   // Required for some JavaScript frameworks
-            'https://fonts.bunny.net',
-            'https://www.googletagmanager.com',
-            'https://www.google-analytics.com',
+            // No 'unsafe-eval' required when using @alpinejs/csp
             'https://challenges.cloudflare.com',
-            'https://static.cloudflareinsights.com',
-            'https://*.cloudflare.com',
+            // Optional analytics (uncomment as needed)
+            // 'https://static.cloudflareinsights.com',
+            // 'https://www.googletagmanager.com',
+            // 'https://www.google-analytics.com',
         ],
 
         // Script sources for script elements (more specific than script-src)
         'script-src-elem' => [
             "'self'",
-            "'unsafe-inline'", // Required for inline scripts
             'https://challenges.cloudflare.com',
-            'https://www.googletagmanager.com',
-            'https://www.google-analytics.com',
-            'https://static.cloudflareinsights.com',
-            'https://*.cloudflare.com',
+            // Optional analytics (uncomment as needed)
+            // 'https://static.cloudflareinsights.com',
+            // 'https://www.googletagmanager.com',
+            // 'https://www.google-analytics.com',
         ],
 
         // Style sources
         'style-src' => [
             "'self'",
-            "'unsafe-inline'", // Required for Tailwind CSS and inline styles
-            'https://fonts.bunny.net',
-            'https://*.cloudflare.com',
+            "'unsafe-inline'",
+            // If using Bunny fallback for fonts, uncomment:
+            // 'https://fonts.bunny.net',
         ],
 
         // Image sources
@@ -60,23 +57,23 @@ return [
         // Font sources
         'font-src' => [
             "'self'",
-            'https://fonts.bunny.net',
+            'data:',
+            // If using Bunny fallback, uncomment:
+            // 'https://fonts.bunny.net',
         ],
 
         // Connect sources for AJAX/fetch requests
         'connect-src' => [
             "'self'",
-            'https://www.google-analytics.com',
             'https://challenges.cloudflare.com',
-            'https://cloudflareinsights.com',
-            'https://*.cloudflare.com',
+            // Optional analytics (uncomment as needed)
+            // 'https://www.google-analytics.com',
+            // 'https://cloudflareinsights.com',
         ],
 
         // Frame sources for iframes
         'frame-src' => [
-            "'self'",
             'https://challenges.cloudflare.com',
-            'https://*.cloudflare.com',
         ],
 
         // Frame ancestors (who can embed this page)

@@ -3,7 +3,7 @@ import './performance';
 import './animations';
 import './interactions';
 import './nav';
-import Alpine from 'alpinejs';
+import Alpine from '@alpinejs/csp';
 import collapse from '@alpinejs/collapse';
 
 Alpine.plugin(collapse);

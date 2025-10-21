@@ -13,7 +13,7 @@
 
 {{-- Hero Section --}}
 @if($heroBlock && $heroBlock->canView(auth()->user()))
-<section class="relative overflow-hidden bg-dark-900 py-10 sm:py-14 md:py-16 lg:py-20">
+<section class="relative overflow-hidden py-10 sm:py-14 md:py-16 lg:py-20">
     <!-- Animated Background -->
     <div class="absolute inset-0">
         <div class="absolute top-1/4 left-1/4 w-64 h-64 sm:w-96 sm:h-96 bg-primary-500/10 rounded-full blur-3xl animate-float"></div>
@@ -29,19 +29,19 @@
         </div>
         
         <!-- Title -->
-        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-4 sm:mb-6 text-gradient leading-tight sm:leading-snug scroll-fade-in">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-4 sm:mb-6 bg-gradient-primary bg-clip-text text-transparent leading-tight sm:leading-snug scroll-fade-in">
             {{ $heroBlock->title }}
         </h1>
         
         <!-- Description -->
-        <p class="text-base sm:text-lg text-slate-200 max-w-3xl mx-auto mb-4 sm:mb-6 md:mb-8 leading-relaxed scroll-fade-in animation-delay-100">
+        <p class="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto mb-4 sm:mb-6 md:mb-8 leading-relaxed scroll-fade-in animation-delay-100">
             {{ $heroBlock->content }}
         </p>
         
         <!-- CTAs -->
         <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center scroll-fade-in animation-delay-200 max-w-lg mx-auto sm:max-w-none">
             <a href="{{ route('products.index') }}" 
-               class="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-bold bg-slate-700/50 hover:bg-slate-600/50 text-white rounded-xl transition-all duration-300 shadow-lg min-h-[48px] group">
+               class="btn-glow inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-bold text-primary-foreground rounded-xl transition-all duration-300 shadow-lg min-h-[48px] group">
                 <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                 </svg>
@@ -50,7 +50,7 @@
             @auth
                 @if(auth()->user()->hasVerifiedEmail() && auth()->user()->is_verified && auth()->user()->phone_verified_at)
                     <a href="{{ route('sell.index') }}" 
-                       class="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-bold bg-gradient-to-r from-purple-300 via-purple-400 to-purple-500 hover:from-purple-400 hover:via-purple-500 hover:to-purple-600 text-white rounded-xl transition-all duration-300 shadow-lg shadow-purple-400/30 hover:shadow-purple-400/50 min-h-[48px] group">
+                       class="btn-glow inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-bold text-primary-foreground rounded-xl transition-all duration-300 shadow-lg min-h-[48px] group">
                         <svg class="w-5 h-5 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                         </svg>
@@ -58,7 +58,7 @@
                     </a>
                 @else
                     <a href="{{ route('account.verification.checklist') }}" 
-                       class="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-bold bg-gradient-to-r from-purple-300 via-purple-400 to-purple-500 hover:from-purple-400 hover:via-purple-500 hover:to-purple-600 text-white rounded-xl transition-all duration-300 shadow-lg shadow-purple-400/30 hover:shadow-purple-400/50 min-h-[48px] group">
+                   class="btn-glow inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-bold text-primary-foreground rounded-xl transition-all duration-300 shadow-lg min-h-[48px] group">
                         <svg class="w-5 h-5 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                         </svg>
@@ -67,7 +67,7 @@
                 @endif
             @else
                 <a href="{{ route('register') }}" 
-                   class="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-bold bg-gradient-to-r from-purple-300 via-purple-400 to-purple-500 hover:from-purple-400 hover:via-purple-500 hover:to-purple-600 text-white rounded-xl transition-all duration-300 shadow-lg shadow-purple-400/30 hover:shadow-purple-400/50 min-h-[48px] group">
+                   class="btn-glow inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-bold text-primary-foreground rounded-xl transition-all duration-300 shadow-lg min-h-[48px] group">
                     <svg class="w-5 h-5 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                     </svg>

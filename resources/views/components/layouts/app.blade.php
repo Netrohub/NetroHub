@@ -7,17 +7,19 @@
 
     <title>{{ $title ?? config('app.name', 'NXO Marketplace') }}</title>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&family=poppins:400,500,600,700,800,900&display=swap" rel="stylesheet" />
+    <!-- Fonts (Local Inter via @fontsource; Bunny as fallback if needed) -->
+    {{-- <link rel="preconnect" href="https://fonts.bunny.net"> --> Uncomment if using Bunny fallback --}}
+    {{-- <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet" /> --}}
 
-    <!-- Scripts -->
+    <!-- Scripts / Styles via Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
     @stack('styles')
 </head>
 <body class="font-sans antialiased bg-background text-foreground tracking-tight">
-    <div class="flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip responsive-layout">
+    <div class="flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip responsive-layout relative">
+        <!-- Animated background -->
+        <x-starfield />
         
         <!-- Header -->
         <x-navbar />
