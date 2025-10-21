@@ -1,8 +1,10 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
+import react from '@vitejs/plugin-react-swc';
 
 export default defineConfig({
     plugins: [
+        react(),
         laravel({
             input: [
                 // CSS Files
@@ -10,19 +12,22 @@ export default defineConfig({
                 'resources/css/admin.css',
                 'resources/css/mosaic.css',
                 'resources/css/stellar.css',
-                
+
                 // JS Files
                 'resources/js/app.js',
                 'resources/js/admin.js',
                 'resources/js/mosaic.js',
                 'resources/js/stellar.js',
+
+                // React SPA entry
+                'resources/react/main.tsx',
             ],
             refresh: true,
         }),
     ],
     resolve: {
         alias: {
-            '@': '/resources/js',
+            '@': '/resources/react/src',
         },
     },
     build: {
