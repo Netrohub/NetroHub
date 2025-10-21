@@ -15,8 +15,8 @@
                             </svg>
                         </div>
                     </div>
-                    <span class="text-xl font-bold text-gradient">
-                        NXO
+                    <span class="text-xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+                        Nexo
                     </span>
                 </div>
                 <p class="text-muted-foreground mb-6 max-w-sm">
