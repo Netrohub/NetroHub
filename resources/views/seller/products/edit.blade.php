@@ -151,7 +151,7 @@
                             <div class="flex gap-2">
                                 <input type="text" name="features[]" placeholder="Add a new feature"
                                     class="form-input flex-1">
-                                <button type="button" onclick="addFeature()" class="px-4 py-2 btn-glow text-primary-foreground rounded-lg">
+                                <button type="button" onclick="addFeature()" class="px-4 py-2 btn-glow group text-primary-foreground rounded-lg">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                                     </svg>
@@ -180,7 +180,7 @@
                             <div class="flex gap-2">
                                 <input type="text" name="tags[]" placeholder="Add a new tag"
                                     class="form-input flex-1">
-                                <button type="button" onclick="addTag()" class="px-4 py-2 btn-glow text-primary-foreground rounded-lg">
+                                <button type="button" onclick="addTag()" class="px-4 py-2 btn-glow group text-primary-foreground rounded-lg">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                                     </svg>
@@ -200,7 +200,7 @@
                     <a href="{{ route('seller.products.index') }}" class="px-6 py-3 glass-card border-border/50 rounded-lg text-foreground font-medium hover:border-primary/50 transition-colors">
                         Cancel
                     </a>
-                    <button type="submit" class="px-6 py-3 btn-glow text-primary-foreground font-bold rounded-lg transition-colors">
+                    <button type="submit" class="px-6 py-3 btn-glow group text-primary-foreground font-bold rounded-lg transition-colors">
                         Update Product
                     </button>
                 </div>

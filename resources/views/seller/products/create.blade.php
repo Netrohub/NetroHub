@@ -131,7 +131,7 @@
                                             </div>
                                             <span class="text-slate-200 font-medium">{{ __('Start Verification') }}</span>
                                         </div>
-                                        <button type="button" id="start_verification_btn" class="px-4 py-2 btn-glow text-primary-foreground rounded-lg text-sm font-medium transition-colors">
+                                        <button type="button" id="start_verification_btn" class="px-4 py-2 btn-glow group text-primary-foreground rounded-lg text-sm font-medium transition-colors">
                                             {{ __('Start') }}
                                         </button>
                                     </div>
@@ -478,7 +478,7 @@
 
                 <!-- Submit Button -->
                 <div class="flex gap-4" data-aos="fade-up" data-aos-delay="200">
-                    <button type="submit" class="btn-glow text-primary-foreground">
+                    <button type="submit" class="btn-glow group text-primary-foreground">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                         </svg>

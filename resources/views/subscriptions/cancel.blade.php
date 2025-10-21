@@ -18,7 +18,7 @@
             </p>
             
             <div class="space-y-3">
-                <a href="{{ route('pricing.index') }}" class="btn-glow w-full text-primary-foreground px-4 py-3 rounded-lg">{{ __('View Plans Again') }}</a>
+                <a href="{{ route('pricing.index') }}" class="btn-glow group w-full text-primary-foreground px-4 py-3 rounded-lg">{{ __('View Plans Again') }}</a>
                 <a href="{{ route('home') }}" class="w-full glass-card border-border/50 px-4 py-3 rounded-lg block">
                     {{ __('Go to Homepage') }}
                 </a>

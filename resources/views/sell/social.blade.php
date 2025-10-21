@@ -289,7 +289,7 @@
 
                     <!-- Enhanced Action Buttons -->
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <button type="submit" id="btn-list-social" data-flow="social" class="flex-1 btn-glow text-primary-foreground font-bold py-5 px-8 rounded-xl transition-all duration-300 transform hover:scale-105">
+                        <button type="submit" id="btn-list-social" data-flow="social" class="flex-1 btn-glow group text-primary-foreground font-bold py-5 px-8 rounded-xl transition-all duration-300 transform hover:scale-105">
                             <span class="relative z-10 flex items-center justify-center text-lg">
                                 <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />

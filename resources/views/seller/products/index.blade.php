@@ -8,7 +8,7 @@
                 <h1 class="h2 bg-gradient-primary bg-clip-text text-transparent">
                     {{ __('My Products') }}
                 </h1>
-                <a href="{{ route('sell.index') }}" class="btn-glow text-primary-foreground">
+                <a href="{{ route('sell.index') }}" class="btn-glow group text-primary-foreground">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                     </svg>
@@ -76,14 +76,14 @@
 
                                     <!-- Actions -->
                                     <div class="flex md:flex-col gap-2 justify-end">
-                                        <a href="{{ route('products.show', $product->slug) }}" class="btn-glow text-primary-foreground text-sm">
+                                        <a href="{{ route('products.show', $product->slug) }}" class="btn-glow group text-primary-foreground text-sm">
                                             <svg class="w-4 h-4 md:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                                             </svg>
                                             <span class="hidden md:inline">{{ __('View') }}</span>
                                         </a>
-                                        <a href="{{ route('seller.products.edit', $product) }}" class="btn-glow text-primary-foreground text-sm">
+                                        <a href="{{ route('seller.products.edit', $product) }}" class="btn-glow group text-primary-foreground text-sm">
                                             <svg class="w-4 h-4 md:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                             </svg>
@@ -110,7 +110,7 @@
                     </div>
                     <h3 class="text-xl font-bold text-foreground mb-2">{{ __('No products yet') }}</h3>
                     <p class="text-muted-foreground mb-6">{{ __('Start selling by adding your first product') }}</p>
-                    <a href="{{ route('seller.products.create') }}" class="btn-glow text-primary-foreground inline-flex">
+                    <a href="{{ route('seller.products.create') }}" class="btn-glow group text-primary-foreground inline-flex">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                         </svg>

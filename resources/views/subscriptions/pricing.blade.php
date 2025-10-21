@@ -68,7 +68,7 @@
                                 </button>
                             </form>
                         @else
-                            <button onclick="subscribe('{{ $plan->slug }}')" class="w-full py-3 px-6 rounded-lg font-semibold btn-glow text-primary-foreground transition subscribe-btn">
+                            <button onclick="subscribe('{{ $plan->slug }}')" class="w-full py-3 px-6 rounded-lg font-semibold btn-glow group text-primary-foreground transition subscribe-btn">
                                 @if($currentPlan && $currentPlan->price_month < $plan->price_month)
                                     Upgrade
                                 @elseif($currentPlan && $currentPlan->price_month > $plan->price_month)
@@ -79,7 +79,7 @@
                             </button>
                         @endif
                     @else
-                        <a href="{{ route('login') }}" class="block w-full py-3 px-6 rounded-lg font-semibold text-center btn-glow text-primary-foreground transition">
+                        <a href="{{ route('login') }}" class="block w-full py-3 px-6 rounded-lg font-semibold text-center btn-glow group text-primary-foreground transition">
                             Get Started
                         </a>
                     @endauth
