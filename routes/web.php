@@ -29,42 +29,36 @@ Route::middleware(['auth'])->get('/account/verification-checklist', function () 
 })->name('account.verification.checklist');
 
 // Public routes
-Route::get('/', [HomeController::class, 'index'])->name('home');
+// Serve SPA for public-facing pages
+Route::view('/', 'react')->name('home');
 
-// Products
-Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-Route::get('/products/{slug}', [ProductController::class, 'show'])->name('products.show');
+// Products (SPA routes handled client-side)
+Route::view('/products', 'react')->name('products.index');
+Route::view('/products/{slug}', 'react')->name('products.show');
 
-// Members
-Route::get('/members', [MembersController::class, 'index'])->name('members.index');
-Route::get('/members/{user}', [MembersController::class, 'show'])->name('members.show');
+// Members (SPA)
+Route::view('/members', 'react')->name('members.index');
+Route::view('/members/{user}', 'react')->name('members.show');
 
-// Social page
-Route::get('/social', [App\Http\Controllers\SocialController::class, 'index'])->name('social');
+// Social page (SPA)
+Route::view('/social', 'react')->name('social');
 
-// Games page
-Route::get('/games', [App\Http\Controllers\GamesController::class, 'index'])->name('games');
+// Games page (SPA)
+Route::view('/games', 'react')->name('games');
 
-// Leaderboard page
-Route::get('/leaderboard', [App\Http\Controllers\LeaderboardController::class, 'index'])->name('leaderboard');
+// Leaderboard page (SPA)
+Route::view('/leaderboard', 'react')->name('leaderboard');
 
-// Legal Pages
-Route::get('/terms', function () {
-    return view('legal.terms');
-})->name('legal.terms');
-
-Route::get('/privacy', function () {
-    return view('legal.privacy');
-})->name('legal.privacy');
+// Legal Pages (SPA)
+Route::view('/terms', 'react')->name('legal.terms');
+Route::view('/privacy', 'react')->name('legal.privacy');
 
 Route::get('/refund-policy', function () {
     return view('legal.refund');
 })->name('legal.refund');
 
-// About Page
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
+// About Page (SPA)
+Route::view('/about', 'react')->name('about');
 
 // OTP Demo Page (remove in production or protect with auth)
 Route::get('/otp-demo', function () {
@@ -132,16 +126,16 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', App\Http\Middleware\
     Route::put('/cms/{page}', [App\Http\Controllers\Admin\CmsController::class, 'update'])->name('cms.update');
 });
 
-// Cart
+// Cart (SPA entry for index; keep API endpoints if any)
+Route::view('/cart', 'react')->name('cart.index');
 Route::prefix('cart')->name('cart.')->group(function () {
-    Route::get('/', [CartController::class, 'index'])->name('index');
     Route::post('/add/{product}', [CartController::class, 'add'])->name('add');
     Route::delete('/remove/{product}', [CartController::class, 'remove'])->name('remove');
     Route::delete('/clear', [CartController::class, 'clear'])->name('clear');
 });
 
-// Subscriptions & Pricing
-Route::get('/pricing', [PricingController::class, 'index'])->name('pricing.index');
+// Subscriptions & Pricing (SPA)
+Route::view('/pricing', 'react')->name('pricing.index');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     // Subscription management
@@ -165,29 +159,29 @@ Route::get('/subscription/callback', [App\Http\Controllers\TapWebhookController:
     ->name('subscription.callback')
     ->middleware('auth');
 
-// Account area (authenticated and verified)
+// Account area (SPA pages; keep API/actions)
 Route::middleware(['auth', 'verified'])->prefix('account')->name('account.')->group(function () {
-    Route::get('/', [AccountController::class, 'index'])->name('index');
+    Route::view('/', 'react')->name('index');
     Route::put('/', [AccountController::class, 'update'])->name('update');
-    Route::get('/orders', [AccountController::class, 'orders'])->name('orders');
-    Route::get('/sales', [AccountController::class, 'sales'])->name('sales');
-    Route::get('/wallet', [AccountController::class, 'wallet'])->name('wallet');
-    Route::get('/payouts', [AccountController::class, 'payouts'])->name('payouts');
-    Route::get('/promote', [AccountController::class, 'promote'])->name('promote');
-    Route::get('/notifications', [AccountController::class, 'notifications'])->name('notifications');
-    Route::get('/blocked', [AccountController::class, 'blocked'])->name('blocked');
-    Route::get('/fees-calculator', [AccountController::class, 'fees'])->name('fees');
-    Route::get('/challenges', [AccountController::class, 'challenges'])->name('challenges');
-    Route::get('/billing', [AccountController::class, 'billing'])->name('billing');
+    Route::view('/orders', 'react')->name('orders');
+    Route::view('/sales', 'react')->name('sales');
+    Route::view('/wallet', 'react')->name('wallet');
+    Route::view('/payouts', 'react')->name('payouts');
+    Route::view('/promote', 'react')->name('promote');
+    Route::view('/notifications', 'react')->name('notifications');
+    Route::view('/blocked', 'react')->name('blocked');
+    Route::view('/fees-calculator', 'react')->name('fees');
+    Route::view('/challenges', 'react')->name('challenges');
+    Route::view('/billing', 'react')->name('billing');
     Route::post('/privacy-mode/toggle', [AccountController::class, 'togglePrivacy'])->name('privacy.toggle');
 });
 
-// Disputes (authenticated and verified)
+// Disputes (SPA pages; keep actions)
 Route::middleware(['auth', 'verified'])->prefix('disputes')->name('disputes.')->group(function () {
-    Route::get('/', [App\Http\Controllers\DisputeController::class, 'index'])->name('index');
-    Route::get('/create', [App\Http\Controllers\DisputeController::class, 'create'])->name('create');
+    Route::view('/', 'react')->name('index');
+    Route::view('/create', 'react')->name('create');
     Route::post('/', [App\Http\Controllers\DisputeController::class, 'store'])->name('store');
-    Route::get('/{dispute}', [App\Http\Controllers\DisputeController::class, 'show'])->name('show');
+    Route::view('/{dispute}', 'react')->name('show');
     Route::post('/{dispute}/message', [App\Http\Controllers\DisputeController::class, 'addMessage'])->name('message');
     Route::post('/{dispute}/escalate', [App\Http\Controllers\DisputeController::class, 'escalate'])->name('escalate');
     Route::post('/{dispute}/mark-resolved', [App\Http\Controllers\DisputeController::class, 'markResolved'])->name('mark-resolved');
@@ -262,9 +256,9 @@ Route::middleware(['auth'])->prefix('admin/kyc')->name('admin.kyc.')->group(func
     })->name('document');
 });
 
-// Checkout
+// Checkout (SPA entry; keep actions)
+Route::view('/checkout', 'react');
 Route::middleware(['auth', 'verified'])->prefix('checkout')->name('checkout.')->group(function () {
-    Route::get('/', [CheckoutController::class, 'index'])->name('index');
     Route::post('/process', [CheckoutController::class, 'process'])->name('process');
     Route::get('/success/{order}', [CheckoutController::class, 'success'])->name('success');
 });
@@ -317,23 +311,23 @@ Route::middleware(['auth'])->prefix('sell')->name('sell.')->group(function () {
 // Legacy sell entry point (redirect to new landing)
 Route::middleware('auth')->get('/sell-entry', [SellController::class, 'entry'])->name('sell.entry');
 
-// Seller Routes
+// Seller Routes (SPA pages; keep data endpoints if needed)
 Route::middleware(['auth', 'verified', 'require.kyc', 'require.phone', 'require.seller.verifications'])->prefix('seller')->name('seller.')->group(function () {
-    Route::get('/dashboard', [SellerDashboardController::class, 'index'])->name('dashboard');
+    Route::view('/dashboard', 'react')->name('dashboard');
 
-    // Products
-    Route::resource('products', SellerProductController::class);
+    // Products (keep resource routes for API; SPA handles views)
+    Route::resource('products', SellerProductController::class)->except(['create', 'edit', 'index', 'show']);
+    Route::view('/products', 'react')->name('products.index');
+    Route::view('/products/create', 'react')->name('products.create');
 
     // Wallet
-    Route::get('/wallet', [WalletController::class, 'index'])->name('wallet.index');
+    Route::view('/wallet', 'react')->name('wallet.index');
     Route::get('/wallet/transactions', [WalletController::class, 'transactions'])->name('wallet.transactions');
 
     // Payouts
-    Route::get('/payouts', [PayoutController::class, 'index'])->name('payouts.index');
-    Route::get('/payouts/create', [PayoutController::class, 'create'])->name('payouts.create');
+    Route::view('/payouts', 'react')->name('payouts.index');
+    Route::view('/payouts/create', 'react')->name('payouts.create');
     Route::post('/payouts', [PayoutController::class, 'store'])->name('payouts.store');
-
-
 });
 
 // Social account verification routes (accessible from sell pages)
