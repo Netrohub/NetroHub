@@ -290,6 +290,7 @@
   /* NXO Glow Button */
   .btn-glow {
     position: relative;
+    z-index: 0;
     background: var(--gradient-primary);
     transition: var(--transition-smooth);
   }
