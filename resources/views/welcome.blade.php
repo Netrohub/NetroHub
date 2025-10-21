@@ -98,7 +98,7 @@
             </div>
             
             <div class="text-center mt-12">
-                <a href="{{ route('products.index') }}" class="btn-glow text-base px-8 py-4 rounded-lg text-primary-foreground font-semibold">
+                <a href="{{ route('products.index') }}" class="btn-glow group text-base px-8 py-4 rounded-lg text-primary-foreground font-semibold">
                     {{ __('View All Products') }}
                 </a>
             </div>
