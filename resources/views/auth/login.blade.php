@@ -111,7 +111,7 @@
                                 @click="busy=true" 
                                 @submit="busy=true" 
                                 :disabled="busy"
-                                class="w-full btn-glow px-6 py-3 rounded-lg text-primary-foreground font-semibold text-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                                class="group w-full btn-glow px-6 py-3 rounded-lg text-primary-foreground font-semibold text-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
                             <span x-show="!busy" class="flex items-center justify-center">
                                 {{ __('Sign In') }}
                                 <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
