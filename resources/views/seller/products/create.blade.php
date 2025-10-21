@@ -5,13 +5,13 @@
         <div class="max-w-4xl mx-auto px-4 sm:px-6">
             
             <div class="mb-8">
-                <a href="{{ route('seller.products.index') }}" class="inline-flex items-center text-purple-400 hover:text-purple-300 text-sm mb-4">
+                <a href="{{ route('seller.products.index') }}" class="inline-flex items-center text-primary hover:text-primary/80 text-sm mb-4">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                     </svg>
                     {{ __('Back to Products') }}
                 </a>
-                <h1 class="h2 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60">
+                <h1 class="h2 bg-gradient-primary bg-clip-text text-transparent">
                     {{ __('Add New Product') }}
                 </h1>
             </div>
@@ -20,12 +20,12 @@
                 @csrf
 
                 <!-- Basic Information -->
-                <div class="bg-slate-800/50 rounded-2xl p-6 lg:p-8 border border-slate-700/50" data-aos="fade-up">
-                    <h2 class="text-lg font-bold text-slate-100 mb-6">{{ __('Basic Information') }}</h2>
+                <div class="glass-card p-6 lg:p-8" data-aos="fade-up">
+                    <h2 class="text-lg font-bold text-foreground mb-6">{{ __('Basic Information') }}</h2>
                     
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-sm text-slate-300 font-medium mb-2">{{ __('Product Title') }} <span class="text-red-400">*</span></label>
+                            <label class="block text-sm text-foreground font-medium mb-2">{{ __('Product Title') }} <span class="text-destructive">*</span></label>
                             <input type="text" name="title" value="{{ old('title') }}" class="form-input w-full" required>
                             @error('title')
                                 <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
@@ -33,7 +33,7 @@
                         </div>
 
                         <div>
-                            <label class="block text-sm text-slate-300 font-medium mb-2">{{ __('Description') }} <span class="text-red-400">*</span></label>
+                            <label class="block text-sm text-foreground font-medium mb-2">{{ __('Description') }} <span class="text-destructive">*</span></label>
                             <textarea name="description" rows="4" class="form-textarea w-full" required>{{ old('description') }}</textarea>
                             @error('description')
                                 <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
@@ -42,7 +42,7 @@
 
                         <div class="grid md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm text-slate-300 font-medium mb-2">{{ __('Category') }} <span class="text-red-400">*</span></label>
+                                <label class="block text-sm text-foreground font-medium mb-2">{{ __('Category') }} <span class="text-destructive">*</span></label>
                                 <select name="category_id" class="form-select w-full" required>
                                     <option value="">{{ __('Select category') }}</option>
                                     @foreach($categories ?? [] as $category)
@@ -57,9 +57,9 @@
                             </div>
 
                             <div>
-                                <label class="block text-sm text-slate-300 font-medium mb-2">{{ __('Price') }} <span class="text-red-400">*</span></label>
+                                <label class="block text-sm text-foreground font-medium mb-2">{{ __('Price') }} <span class="text-destructive">*</span></label>
                                 <div class="relative">
-                                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
+                                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
                                     <input type="number" name="price" step="0.01" min="0" value="{{ old('price') }}" class="form-input w-full pl-8" required>
                                 </div>
                                 @error('price')
@@ -71,12 +71,12 @@
                 </div>
 
                 <!-- Product Details -->
-                <div class="bg-slate-800/50 rounded-2xl p-6 lg:p-8 border border-slate-700/50" data-aos="fade-up" data-aos-delay="100">
-                    <h2 class="text-lg font-bold text-slate-100 mb-6">{{ __('Product Details') }}</h2>
+                <div class="glass-card p-6 lg:p-8" data-aos="fade-up" data-aos-delay="100">
+                    <h2 class="text-lg font-bold text-foreground mb-6">{{ __('Product Details') }}</h2>
                     
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-sm text-slate-300 font-medium mb-2">{{ __('Product Type') }} <span class="text-red-400">*</span></label>
+                            <label class="block text-sm text-foreground font-medium mb-2">{{ __('Product Type') }} <span class="text-destructive">*</span></label>
                             <select name="type" id="product_type" class="form-select w-full" required>
                                 <option value="digital">{{ __('Digital Product') }}</option>
                                 <option value="social_account">{{ __('Social Media Account') }}</option>
@@ -87,7 +87,7 @@
                         </div>
 
                         <div id="platform_field" class="hidden">
-                            <label class="block text-sm text-slate-300 font-medium mb-2">{{ __('Platform') }} <span class="text-red-400">*</span></label>
+                            <label class="block text-sm text-foreground font-medium mb-2">{{ __('Platform') }} <span class="text-destructive">*</span></label>
                             <select name="platform" class="form-select w-full">
                                 <option value="">{{ __('Select platform') }}</option>
                                 <option value="Instagram">{{ __('Instagram') }}</option>
@@ -104,7 +104,7 @@
                         </div>
 
                         <div id="social_username_field" class="hidden">
-                            <label class="block text-sm text-slate-300 font-medium mb-2">{{ __('Social Media Username') }} <span class="text-red-400">*</span></label>
+                            <label class="block text-sm text-foreground font-medium mb-2">{{ __('Social Media Username') }} <span class="text-destructive">*</span></label>
                             <div class="relative">
                                 <span id="username_prefix" class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">@</span>
                                 <input type="text" name="social_username" id="social_username" class="form-input w-full pl-8" placeholder="username">
@@ -114,24 +114,24 @@
 
                         <!-- Social Account Verification Section -->
                         <div id="verification_section" class="hidden">
-                            <div class="bg-blue-500/10 border border-blue-500/20 rounded-xl p-6">
-                                <h3 class="text-lg font-bold text-blue-400 mb-4 flex items-center">
+                            <div class="glass-card p-6">
+                                <h3 class="text-lg font-bold text-primary mb-4 flex items-center">
                                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                                     </svg>
                                     {{ __('Account Ownership Verification') }}
                                 </h3>
-                                <p class="text-blue-300 text-sm mb-4">{{ __('To ensure account security, we need to verify that you own this social media account.') }}</p>
+                                <p class="text-muted-foreground text-sm mb-4">{{ __('To ensure account security, we need to verify that you own this social media account.') }}</p>
                                 
                                 <div id="verification_step_1" class="space-y-4">
                                     <div class="flex items-center justify-between">
                                         <div class="flex items-center">
-                                            <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
-                                                <span class="text-blue-400 font-bold text-sm">1</span>
+                                        <div class="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center mr-3">
+                                                <span class="text-primary font-bold text-sm">1</span>
                                             </div>
                                             <span class="text-slate-200 font-medium">{{ __('Start Verification') }}</span>
                                         </div>
-                                        <button type="button" id="start_verification_btn" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-sm font-medium transition-colors">
+                                        <button type="button" id="start_verification_btn" class="px-4 py-2 btn-glow text-primary-foreground rounded-lg text-sm font-medium transition-colors">
                                             {{ __('Start') }}
                                         </button>
                                     </div>
@@ -146,29 +146,29 @@
                                             <span class="text-slate-200 font-medium">{{ __('Add Token to Bio') }}</span>
                                         </div>
                                         
-                                        <div class="bg-slate-900/50 rounded-lg p-4 mb-4">
+                                    <div class="glass-card p-4 mb-4">
                                             <div class="flex items-center justify-between mb-2">
-                                                <span class="text-slate-300 text-sm">{{ __('Your verification token:') }}</span>
+                                                <span class="text-muted-foreground text-sm">{{ __('Your verification token:') }}</span>
                                                 <div class="flex items-center gap-2">
                                                     <span id="verification_token" class="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-lg font-mono text-lg font-bold"></span>
-                                                    <button type="button" id="copy_token_btn" class="p-1 text-slate-400 hover:text-blue-400 transition-colors">
+                                                    <button type="button" id="copy_token_btn" class="p-1 text-muted-foreground hover:text-primary transition-colors">
                                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
                                                         </svg>
                                                     </button>
                                                 </div>
                                             </div>
-                                            <p class="text-slate-400 text-xs mb-3">{{ __('Copy this token and add it to your account bio/description. You can remove it after verification.') }}</p>
+                                            <p class="text-muted-foreground text-xs mb-3">{{ __('Copy this token and add it to your account bio/description. You can remove it after verification.') }}</p>
                                             
                                             <div class="flex items-center justify-between">
-                                                <div class="flex items-center text-sm text-slate-400">
+                                                <div class="flex items-center text-sm text-muted-foreground">
                                                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                                     </svg>
                                                     <span>{{ __('Time remaining:') }}</span>
                                                     <span id="countdown_timer" class="ml-1 font-mono text-blue-400"></span>
                                                 </div>
-                                                <a id="account_link" href="#" target="_blank" class="text-blue-400 hover:text-blue-300 text-sm flex items-center">
+                                                <a id="account_link" href="#" target="_blank" class="text-primary hover:text-primary/80 text-sm flex items-center">
                                                     {{ __('Open Account') }}
                                                     <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
@@ -179,12 +179,12 @@
                                         
                                         <div class="flex items-center justify-between">
                                             <div class="flex items-center">
-                                                <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
-                                                    <span class="text-blue-400 font-bold text-sm">3</span>
+                                        <div class="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center mr-3">
+                                                <span class="text-primary font-bold text-sm">3</span>
                                                 </div>
                                                 <span class="text-slate-200 font-medium">{{ __('Verify Ownership') }}</span>
                                             </div>
-                                            <button type="button" id="verify_ownership_btn" class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg text-sm font-medium transition-colors">
+                                            <button type="button" id="verify_ownership_btn" class="px-4 py-2 gradient-primary text-white rounded-lg text-sm font-medium transition-colors">
                                                 {{ __('Verify') }}
                                             </button>
                                         </div>
@@ -192,19 +192,19 @@
                                 </div>
 
                                 <div id="verification_success" class="hidden">
-                                    <div class="bg-green-500/10 border border-green-500/20 rounded-lg p-4">
+                                    <div class="glass-card p-4">
                                         <div class="flex items-center">
                                             <svg class="w-5 h-5 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                             </svg>
                                             <span class="text-green-400 font-medium">{{ __('Account verified successfully!') }}</span>
                                         </div>
-                                        <p class="text-green-300 text-sm mt-1">{{ __('You can now proceed with creating your product listing.') }}</p>
+                                        <p class="text-muted-foreground text-sm mt-1">{{ __('You can now proceed with creating your product listing.') }}</p>
                                     </div>
                                 </div>
 
                                 <div id="verification_error" class="hidden">
-                                    <div class="bg-red-500/10 border border-red-500/20 rounded-lg p-4">
+                                    <div class="glass-card p-4">
                                         <div class="flex items-center">
                                             <svg class="w-5 h-5 text-red-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -272,19 +272,19 @@
                 </div>
 
                 <!-- General Checklist -->
-                <div class="bg-slate-800/50 rounded-2xl p-6 lg:p-8 border border-slate-700/50" data-aos="fade-up" data-aos-delay="150">
-                    <h2 class="text-lg font-bold text-slate-100 mb-6">{{ __('Product Checklist') }}</h2>
-                    <p class="text-slate-400 text-sm mb-6">{{ __('Please fill out the following checklist to provide important information about your product') }}</p>
+                <div class="glass-card p-6 lg:p-8" data-aos="fade-up" data-aos-delay="150">
+                    <h2 class="text-lg font-bold text-foreground mb-6">{{ __('Product Checklist') }}</h2>
+                    <p class="text-muted-foreground text-sm mb-6">{{ __('Please fill out the following checklist to provide important information about your product') }}</p>
                     
                     <div class="space-y-4">
-                        <div class="flex items-center justify-between p-4 bg-slate-700/30 rounded-xl border border-slate-600/30">
+                        <div class="flex items-center justify-between p-4 bg-muted/30 rounded-xl border border-border/50">
                             <div class="flex items-center">
                                 <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
                                     <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                     </svg>
                                 </div>
-                                <span class="text-slate-200 font-medium">{{ __('تسليم تلقائي؟') }}</span>
+                                <span class="text-foreground font-medium">{{ __('تسليم تلقائي؟') }}</span>
                             </div>
                             <div class="flex gap-2">
                                 <label class="flex items-center">
@@ -298,14 +298,14 @@
                             </div>
                         </div>
 
-                        <div class="flex items-center justify-between p-4 bg-slate-700/30 rounded-xl border border-slate-600/30">
+                        <div class="flex items-center justify-between p-4 bg-muted/30 rounded-xl border border-border/50">
                             <div class="flex items-center">
                                 <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
                                     <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                                     </svg>
                                 </div>
-                                <span class="text-slate-200 font-medium">{{ __('مع الأيميل الأساسي؟') }}</span>
+                                <span class="text-foreground font-medium">{{ __('مع الأيميل الأساسي؟') }}</span>
                             </div>
                             <div class="flex gap-2">
                                 <label class="flex items-center">
@@ -319,14 +319,14 @@
                             </div>
                         </div>
 
-                        <div class="flex items-center justify-between p-4 bg-slate-700/30 rounded-xl border border-slate-600/30">
+                        <div class="flex items-center justify-between p-4 bg-muted/30 rounded-xl border border-border/50">
                             <div class="flex items-center">
                                 <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
                                     <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                                     </svg>
                                 </div>
-                                <span class="text-slate-200 font-medium">{{ __('مع الأيميل الحالي؟') }}</span>
+                                <span class="text-foreground font-medium">{{ __('مع الأيميل الحالي؟') }}</span>
                             </div>
                             <div class="flex gap-2">
                                 <label class="flex items-center">
@@ -340,14 +340,14 @@
                             </div>
                         </div>
 
-                        <div class="flex items-center justify-between p-4 bg-slate-700/30 rounded-xl border border-slate-600/30">
+                        <div class="flex items-center justify-between p-4 bg-muted/30 rounded-xl border border-border/50">
                             <div class="flex items-center">
                                 <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
                                     <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
                                     </svg>
                                 </div>
-                                <span class="text-slate-200 font-medium">{{ __('مربوط برقم؟') }}</span>
+                                <span class="text-foreground font-medium">{{ __('مربوط برقم؟') }}</span>
                             </div>
                             <div class="flex gap-2">
                                 <label class="flex items-center">
@@ -361,14 +361,14 @@
                             </div>
                         </div>
 
-                        <div class="flex items-center justify-between p-4 bg-slate-700/30 rounded-xl border border-slate-600/30">
+                        <div class="flex items-center justify-between p-4 bg-muted/30 rounded-xl border border-border/50">
                             <div class="flex items-center">
                                 <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
                                     <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                                     </svg>
                                 </div>
-                                <span class="text-slate-200 font-medium">{{ __('صاحب المنتج موثق بهوية؟') }}</span>
+                                <span class="text-foreground font-medium">{{ __('صاحب المنتج موثق بهوية؟') }}</span>
                             </div>
                             <div class="flex gap-2">
                                 <label class="flex items-center">
@@ -385,19 +385,19 @@
                 </div>
 
                 <!-- Whiteout Survival Specific Checklist -->
-                <div id="whiteout-survival-checklist" class="bg-slate-800/50 rounded-2xl p-6 lg:p-8 border border-slate-700/50 hidden" data-aos="fade-up" data-aos-delay="175">
-                    <h2 class="text-lg font-bold text-slate-100 mb-6">{{ __('Whiteout Survival Checklist') }}</h2>
-                    <p class="text-slate-400 text-sm mb-6">{{ __('Additional checklist items specific to Whiteout Survival game accounts') }}</p>
+                <div id="whiteout-survival-checklist" class="glass-card p-6 lg:p-8 hidden" data-aos="fade-up" data-aos-delay="175">
+                    <h2 class="text-lg font-bold text-foreground mb-6">{{ __('Whiteout Survival Checklist') }}</h2>
+                    <p class="text-muted-foreground text-sm mb-6">{{ __('Additional checklist items specific to Whiteout Survival game accounts') }}</p>
                     
                     <div class="space-y-4">
-                        <div class="flex items-center justify-between p-4 bg-slate-700/30 rounded-xl border border-slate-600/30">
+                        <div class="flex items-center justify-between p-4 bg-muted/30 rounded-xl border border-border/50">
                             <div class="flex items-center">
                                 <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
                                     <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
                                     </svg>
                                 </div>
-                                <span class="text-slate-200 font-medium">{{ __('مربوط بالفيس بوك؟') }}</span>
+                                <span class="text-foreground font-medium">{{ __('مربوط بالفيس بوك؟') }}</span>
                             </div>
                             <div class="flex gap-2">
                                 <label class="flex items-center">
@@ -411,14 +411,14 @@
                             </div>
                         </div>
 
-                        <div class="flex items-center justify-between p-4 bg-slate-700/30 rounded-xl border border-slate-600/30">
+                        <div class="flex items-center justify-between p-4 bg-muted/30 rounded-xl border border-border/50">
                             <div class="flex items-center">
                                 <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
                                     <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9"/>
                                     </svg>
                                 </div>
-                                <span class="text-slate-200 font-medium">{{ __('مربوط بقوقل؟') }}</span>
+                                <span class="text-foreground font-medium">{{ __('مربوط بقوقل؟') }}</span>
                             </div>
                             <div class="flex gap-2">
                                 <label class="flex items-center">
@@ -432,14 +432,14 @@
                             </div>
                         </div>
 
-                        <div class="flex items-center justify-between p-4 bg-slate-700/30 rounded-xl border border-slate-600/30">
+                        <div class="flex items-center justify-between p-4 bg-muted/30 rounded-xl border border-border/50">
                             <div class="flex items-center">
                                 <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
                                     <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
                                     </svg>
                                 </div>
-                                <span class="text-slate-200 font-medium">{{ __('مربوط بأبل؟') }}</span>
+                                <span class="text-foreground font-medium">{{ __('مربوط بأبل؟') }}</span>
                             </div>
                             <div class="flex gap-2">
                                 <label class="flex items-center">
@@ -453,14 +453,14 @@
                             </div>
                         </div>
 
-                        <div class="flex items-center justify-between p-4 bg-slate-700/30 rounded-xl border border-slate-600/30">
+                        <div class="flex items-center justify-between p-4 bg-muted/30 rounded-xl border border-border/50">
                             <div class="flex items-center">
                                 <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
                                     <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
                                     </svg>
                                 </div>
-                                <span class="text-slate-200 font-medium">{{ __('مربوط بقيم سنتر؟') }}</span>
+                                <span class="text-foreground font-medium">{{ __('مربوط بقيم سنتر؟') }}</span>
                             </div>
                             <div class="flex gap-2">
                                 <label class="flex items-center">
@@ -478,13 +478,13 @@
 
                 <!-- Submit Button -->
                 <div class="flex gap-4" data-aos="fade-up" data-aos-delay="200">
-                    <button type="submit" class="btn text-white bg-purple-500 hover:bg-purple-600">
+                    <button type="submit" class="btn-glow text-primary-foreground">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                         </svg>
                         {{ __('Publish Product') }}
                     </button>
-                    <a href="{{ route('seller.products.index') }}" class="btn text-slate-300 hover:text-white bg-slate-700 hover:bg-slate-600">
+                    <a href="{{ route('seller.products.index') }}" class="glass-card border-border/50 px-4 py-2 rounded-lg">
                         {{ __('Cancel') }}
                     </a>
                 </div>

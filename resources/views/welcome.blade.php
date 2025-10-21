@@ -1,9 +1,6 @@
 <x-layouts.app>
     <x-slot name="title">{{ __('Welcome') }} - {{ config('app.name') }}</x-slot>
     
-    <!-- Starfield Background -->
-    <x-starfield />
-    
     <!-- Hero Section -->
     <x-hero />
     

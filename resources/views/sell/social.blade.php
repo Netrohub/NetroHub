@@ -2,7 +2,7 @@
     <x-slot name="title">{{ __('Sell a Social Account') }} - {{ config('app.name') }}</x-slot>
 
 <section class="relative pt-32 pb-12">
-<div class="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-900">
+<div class="min-h-screen relative overflow-hidden">
     <!-- Animated Background Elements -->
     <div class="absolute inset-0 opacity-20">
         <div class="absolute top-20 left-10 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
@@ -13,7 +13,7 @@
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Enhanced Header -->
         <div class="mb-8 animate-fade-in-down">
-            <a href="{{ route('sell.index') }}" class="group inline-flex items-center text-purple-400 hover:text-purple-300 mb-6 transition-all duration-300">
+            <a href="{{ route('sell.index') }}" class="group inline-flex items-center text-primary hover:text-primary/80 mb-6 transition-all duration-300">
                 <div class="w-8 h-8 rounded-lg bg-pink-500/20 flex items-center justify-center mr-2 group-hover:bg-pink-500/30 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -29,17 +29,17 @@
                     </svg>
                 </div>
                 <div>
-                    <h1 class="text-5xl font-black mb-2 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/70 via-slate-200 to-slate-200/70">
+                    <h1 class="text-5xl font-black mb-2 bg-gradient-primary bg-clip-text text-transparent">
                         Sell a Social Account
                     </h1>
-                    <p class="text-slate-300 text-lg">List your social media account and monetize your influence</p>
+                    <p class="text-muted-foreground text-lg">List your social media account and monetize your influence</p>
                 </div>
             </div>
         </div>
 
         <!-- Enhanced Policy Block -->
         <div class="mb-8 animate-fade-in">
-            <div class="relative overflow-hidden bg-gradient-to-r from-slate-800/70 to-slate-900/70 backdrop-blur-xl border border-purple-500/30 rounded-2xl p-8 shadow-2xl">
+            <div class="relative overflow-hidden glass-card p-8">
                 <div class="absolute top-0 right-0 w-64 h-64 bg-red-500/10 rounded-full blur-3xl"></div>
                 <div class="relative flex items-start">
                     <div class="flex-shrink-0">
@@ -50,15 +50,15 @@
                         </div>
                     </div>
                     <div class="ml-6">
-                        <h3 class="text-2xl font-black text-slate-100 mb-4 flex items-center">
+                        <h3 class="text-2xl font-black text-foreground mb-4 flex items-center">
                             <span>⚠️ Important Selling Rules & Policy</span>
                         </h3>
-                        <ul class="space-y-3 text-slate-200">
+                        <ul class="space-y-3 text-foreground">
                             <li class="flex items-start group">
                                 <svg class="w-5 h-5 mr-3 mt-0.5 text-purple-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                                 </svg>
-                                <span class="group-hover:text-white transition-colors">You may <strong>NOT</strong> sell accounts with illegal content, stolen credentials, or that violate platform ToS.</span>
+                                <span class="group-hover:text-foreground transition-colors">You may <strong>NOT</strong> sell accounts with illegal content, stolen credentials, or that violate platform ToS.</span>
                             </li>
                             <li class="flex items-start group">
                                 <svg class="w-5 h-5 mr-3 mt-0.5 text-purple-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
@@ -97,27 +97,27 @@
                 <!-- Enhanced Form Column -->
                 <div class="lg:col-span-2 space-y-6">
                     <!-- Account Information Card -->
-                    <div class="bg-slate-800/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 shadow-2xl">
+                    <div class="glass-card p-8">
                         <div class="flex items-center mb-6">
                             <div class="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center mr-3">
                                 <svg class="w-5 h-5 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                 </svg>
                             </div>
-                            <h2 class="text-2xl font-bold text-slate-100">Account Information</h2>
+                            <h2 class="text-2xl font-bold text-foreground">Account Information</h2>
                         </div>
                         
                         <div class="space-y-6">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <!-- Enhanced Platform Select -->
                                 <div class="group">
-                                    <label for="platform" class="block text-sm font-semibold text-slate-300 mb-3 flex items-center">
+                                    <label for="platform" class="block text-sm font-semibold text-foreground mb-3 flex items-center">
                                         <span>Platform</span>
                                         <span class="ml-2 text-red-400">*</span>
                                     </label>
                                     <div class="relative">
                                         <select name="platform" id="platform" required
-                                            class="w-full px-5 py-4 bg-slate-900/60 border-2 border-slate-700/60 rounded-xl text-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300 appearance-none group-hover:border-slate-600 @error('platform') border-red-500 @enderror">
+                                            class="form-select w-full @error('platform') border-red-500 @enderror">
                                             <option value="Instagram" {{ old('platform') == 'Instagram' ? 'selected' : 'selected' }}>📸 Instagram</option>
                                             <option value="TikTok" {{ old('platform') == 'TikTok' ? 'selected' : '' }}>🎵 TikTok</option>
                                             <option value="X (Twitter)" {{ old('platform') == 'X (Twitter)' ? 'selected' : '' }}>🐦 X (Twitter)</option>
@@ -126,7 +126,7 @@
                                             <option value="Other" {{ old('platform') == 'Other' ? 'selected' : '' }}>🌐 Other</option>
                                         </select>
                                         <div class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg class="w-5 h-5 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                                             </svg>
                                         </div>
@@ -138,15 +138,13 @@
 
                                 <!-- Enhanced Handle Input -->
                                 <div class="group">
-                                    <label for="handle" class="block text-sm font-semibold text-slate-300 mb-3 flex items-center">
+                                    <label for="handle" class="block text-sm font-semibold text-foreground mb-3 flex items-center">
                                         <span>Username / Handle</span>
                                         <span class="ml-2 text-red-400">*</span>
                                     </label>
                                     <div class="relative">
-                                        <span class="absolute left-5 top-1/2 transform -translate-y-1/2 text-pink-400 font-bold">@</span>
-                                        <input type="text" name="handle" id="handle" value="{{ old('handle') }}" required
-                                            placeholder="yourhandle"
-                                            class="w-full pl-10 pr-5 py-4 bg-slate-900/60 border-2 border-slate-700/60 rounded-xl text-white placeholder-slate-400 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300 group-hover:border-slate-600 @error('handle') border-red-500 @enderror">
+                                        <span class="absolute left-5 top-1/2 transform -translate-y-1/2 text-muted-foreground font-bold">@</span>
+                                        <input type="text" name="handle" id="handle" value="{{ old('handle') }}" required placeholder="yourhandle" class="form-input w-full pl-10 @error('handle') border-red-500 @enderror">
                                     </div>
                                     @error('handle')
                                         <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
@@ -157,13 +155,11 @@
 
                             <!-- Enhanced Title Input -->
                             <div class="group">
-                                <label for="title" class="block text-sm font-semibold text-slate-300 mb-3 flex items-center">
+                                <label for="title" class="block text-sm font-semibold text-foreground mb-3 flex items-center">
                                     <span>Listing Title</span>
                                     <span class="ml-2 text-red-400">*</span>
                                 </label>
-                                <input type="text" name="title" id="title" value="{{ old('title') }}" required maxlength="190"
-                                    placeholder="e.g., 50K Instagram Gaming Account • High Engagement"
-                                    class="w-full px-5 py-4 bg-slate-900/60 border-2 border-slate-700/60 rounded-xl text-white placeholder-slate-400 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300 group-hover:border-slate-600 @error('title') border-red-500 @enderror">
+                                <input type="text" name="title" id="title" value="{{ old('title') }}" required maxlength="190" placeholder="e.g., 50K Instagram Gaming Account • High Engagement" class="form-input w-full @error('title') border-red-500 @enderror">
                                 @error('title')
                                     <p class="mt-2 text-sm text-red-400 flex items-center">
                                         <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
@@ -176,16 +172,14 @@
 
                             <!-- Enhanced Description -->
                             <div class="group">
-                                <label for="description" class="block text-sm font-semibold text-slate-300 mb-3 flex items-center justify-between">
+                                <label for="description" class="block text-sm font-semibold text-foreground mb-3 flex items-center justify-between">
                                     <span class="flex items-center">
                                         <span>Account Description</span>
                                         <span class="ml-2 text-red-400">*</span>
                                     </span>
-                                    <span class="text-xs text-gray-500">Min. 50 characters</span>
+                                    <span class="text-xs text-muted-foreground">Min. 50 characters</span>
                                 </label>
-                                <textarea name="description" id="description" rows="6" required minlength="50"
-                                    placeholder="Describe the account, its content, engagement, and what makes it valuable..."
-                                    class="w-full px-5 py-4 bg-slate-900/60 border-2 border-slate-700/60 rounded-xl text-white placeholder-slate-400 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300 resize-none group-hover:border-slate-600 @error('description') border-red-500 @enderror">{{ old('description') }}</textarea>
+                                <textarea name="description" id="description" rows="6" required minlength="50" placeholder="Describe the account, its content, engagement, and what makes it valuable..." class="form-textarea w-full resize-none @error('description') border-red-500 @enderror">{{ old('description') }}</textarea>
                                 <div class="mt-3 p-4 bg-yellow-900/20 border border-yellow-500/30 rounded-xl flex items-start text-sm">
                                     <svg class="w-5 h-5 text-yellow-400 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
@@ -200,15 +194,13 @@
 
                             <!-- Enhanced Price Input -->
                             <div class="group">
-                                <label for="price" class="block text-sm font-semibold text-slate-300 mb-3 flex items-center">
+                                <label for="price" class="block text-sm font-semibold text-foreground mb-3 flex items-center">
                                     <span>Price (USD)</span>
                                     <span class="ml-2 text-red-400">*</span>
                                 </label>
                                 <div class="relative">
-                                    <span class="absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl font-bold">$</span>
-                                    <input type="number" name="price" id="price" value="{{ old('price') }}" step="0.01" min="0.01" required
-                                        placeholder="0.00"
-                                        class="w-full pl-12 pr-5 py-4 bg-slate-900/60 border-2 border-slate-700/60 rounded-xl text-white text-xl font-semibold placeholder-slate-400 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300 group-hover:border-slate-600 @error('price') border-red-500 @enderror">
+                                    <span class="absolute left-5 top-1/2 transform -translate-y-1/2 text-muted-foreground text-xl font-bold">$</span>
+                                    <input type="number" name="price" id="price" value="{{ old('price') }}" step="0.01" min="0.01" required placeholder="0.00" class="form-input w-full pl-12 text-xl font-semibold @error('price') border-red-500 @enderror">
                                 </div>
                                 @error('price')
                                     <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
@@ -219,18 +211,18 @@
 
 
                     <!-- Social Media Account Legal Agreement -->
-                    <div class="bg-slate-800/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 shadow-2xl">
+                    <div class="glass-card p-8">
                         <div class="flex items-center mb-6">
                             <div class="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center mr-3">
                                 <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                                 </svg>
                             </div>
-                            <h2 class="text-2xl font-bold text-slate-100">Legal Agreement</h2>
+                            <h2 class="text-2xl font-bold text-foreground">Legal Agreement</h2>
                         </div>
                         
-                        <div class="bg-slate-900/50 rounded-lg p-4 mb-4">
-                            <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                        <div class="glass-card p-4 mb-4">
+                            <p class="text-muted-foreground text-sm leading-relaxed mb-4">
                                 أتعهد بأن وصف المنتج خالٍ تمامًا من أي وسيلة تواصل خارج المنصة بأي شكلٍ كان، سواء بشكل مباشر أو غير مباشر.
                                 وأقرّ بتحملي كامل المسؤولية القانونية عن أي نشاط أو محتوى أو تصرف صدر من الحساب المعروض منذ تاريخ إنشائه أو شرائه وحتى تاريخ بيعه عبر منصة نيترو، وأتعهد بخلوه من أي مخالفات أو جرائم إلكترونية.
                             </p>
@@ -242,7 +234,7 @@
                                            name="legal_agreement" 
                                            class="w-4 h-4 text-amber-500 bg-slate-800 border-slate-600 rounded focus:ring-amber-500 focus:ring-2">
                                 </div>
-                                <label for="legal_agreement" class="mr-3 text-sm text-slate-300 leading-relaxed cursor-pointer">
+                                <label for="legal_agreement" class="mr-3 text-sm text-foreground leading-relaxed cursor-pointer">
                                     I agree to the above terms and conditions
                                 </label>
                             </div>
@@ -260,21 +252,21 @@
 
 
                     <!-- Enhanced Agreements Card -->
-                    <div class="bg-slate-800/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 shadow-2xl">
+                    <div class="glass-card p-8">
                         <div class="flex items-center mb-6">
                             <div class="w-10 h-10 rounded-xl bg-green-500/20 flex items-center justify-center mr-3">
                                 <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                             </div>
-                            <h2 class="text-2xl font-bold text-slate-100">Terms & Agreements</h2>
+                            <h2 class="text-2xl font-bold text-foreground">Terms & Agreements</h2>
                         </div>
                         
                         <div class="space-y-5">
-                            <label class="flex items-start p-5 rounded-xl border-2 border-slate-700/50 hover:border-purple-500/50 cursor-pointer group transition-all duration-300 bg-slate-900/40">
+                            <label class="flex items-start p-5 rounded-xl border border-border/50 hover:border-primary/50 cursor-pointer group transition-all duration-300 bg-muted/30">
                                 <input type="checkbox" name="agree_no_external_contact" value="1" required
                                     class="mt-1 w-5 h-5 bg-gray-800 border-2 border-gray-600 rounded text-pink-600 focus:ring-2 focus:ring-pink-500 transition-all">
-                                <span class="ml-4 text-gray-300 group-hover:text-white transition-colors leading-relaxed">
+                                <span class="ml-4 text-muted-foreground group-hover:text-foreground transition-colors leading-relaxed">
                                     I will not include external contact information in the listing.
                                 </span>
                             </label>
@@ -282,10 +274,10 @@
                                 <p class="ml-9 text-sm text-red-400">{{ $message }}</p>
                             @enderror
 
-                            <label class="flex items-start p-5 rounded-xl border-2 border-slate-700/50 hover:border-purple-500/50 cursor-pointer group transition-all duration-300 bg-slate-900/40">
+                            <label class="flex items-start p-5 rounded-xl border border-border/50 hover:border-primary/50 cursor-pointer group transition-all duration-300 bg-muted/30">
                                 <input type="checkbox" name="agree_legal_responsibility" value="1" required
                                     class="mt-1 w-5 h-5 bg-gray-800 border-2 border-gray-600 rounded text-pink-600 focus:ring-2 focus:ring-pink-500 transition-all">
-                                <span class="ml-4 text-gray-300 group-hover:text-white transition-colors leading-relaxed">
+                                <span class="ml-4 text-muted-foreground group-hover:text-foreground transition-colors leading-relaxed">
                                     I accept full legal responsibility for the content and confirm compliance with platform rules and local laws.
                                 </span>
                             </label>
@@ -297,8 +289,7 @@
 
                     <!-- Enhanced Action Buttons -->
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <button type="submit" id="btn-list-social" data-flow="social"
-                            class="flex-1 group relative overflow-hidden bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold py-5 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg shadow-purple-500/40">
+                        <button type="submit" id="btn-list-social" data-flow="social" class="flex-1 btn-glow text-primary-foreground font-bold py-5 px-8 rounded-xl transition-all duration-300 transform hover:scale-105">
                             <span class="relative z-10 flex items-center justify-center text-lg">
                                 <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
@@ -308,8 +299,7 @@
                             <div class="absolute inset-0 bg-gradient-to-r from-red-600 to-rose-600 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                         </button>
                         
-                        <button type="submit" name="action" value="draft"
-                            class="flex-1 bg-slate-900/40 backdrop-blur-sm hover:bg-slate-900/60 border-2 border-slate-700/50 hover:border-slate-600 text-white font-bold py-5 px-8 rounded-xl transition-all duration-300 text-lg">
+                        <button type="submit" name="action" value="draft" class="flex-1 glass-card border-border/50 text-foreground font-bold py-5 px-8 rounded-xl transition-all duration-300 text-lg">
                             <span class="flex items-center justify-center">
                                 <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
@@ -322,12 +312,12 @@
 
                 <!-- Enhanced Preview Panel -->
                 <div class="lg:col-span-1">
-                    <div class="bg-slate-800/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6 shadow-2xl sticky top-8">
+                    <div class="glass-card p-6 shadow-2xl sticky top-8">
                         <div class="flex items-center justify-between mb-6">
-                            <h3 class="text-xl font-bold text-white">Live Preview</h3>
+                            <h3 class="text-xl font-bold text-foreground">Live Preview</h3>
                             <div class="flex items-center space-x-1">
                                 <div class="w-2 h-2 bg-pink-400 rounded-full animate-pulse"></div>
-                                <span class="text-xs text-gray-400">Real-time</span>
+                                <span class="text-xs text-muted-foreground">Real-time</span>
                             </div>
                         </div>
                         
@@ -348,31 +338,31 @@
                             </div>
 
                             <!-- Title -->
-                            <div class="pt-4 border-t border-white/10">
-                                <h4 id="preview-title" class="text-lg font-semibold text-white leading-tight">Your listing title will appear here</h4>
+                            <div class="pt-4 border-t border-border/50">
+                                <h4 id="preview-title" class="text-lg font-semibold text-foreground leading-tight">Your listing title will appear here</h4>
                             </div>
 
 
                             <!-- Seller Info -->
-                            <div class="flex items-center space-x-3 pt-4 border-t border-white/10">
+                            <div class="flex items-center space-x-3 pt-4 border-t border-border/50">
                                 <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg">
                                     {{ substr($seller->display_name, 0, 1) }}
                                 </div>
                                 <div>
-                                    <p class="text-xs text-gray-400">Seller</p>
-                                    <p class="text-white font-semibold">{{ $seller->display_name }}</p>
+                                    <p class="text-xs text-muted-foreground">Seller</p>
+                                    <p class="text-foreground font-semibold">{{ $seller->display_name }}</p>
                                 </div>
                             </div>
 
                             <!-- Price -->
-                            <div class="pt-4 border-t border-white/10">
-                                <p class="text-sm text-gray-400 mb-2">Listing Price</p>
+                            <div class="pt-4 border-t border-border/50">
+                                <p class="text-sm text-muted-foreground mb-2">Listing Price</p>
                                 <p id="preview-price" class="text-4xl font-black text-transparent bg-gradient-to-r from-purple-300 to-indigo-300 bg-clip-text">$0.00</p>
                             </div>
 
                             <!-- Live Indicator -->
-                            <div class="pt-4 border-t border-white/10">
-                                <div class="flex items-center text-xs text-gray-500">
+                            <div class="pt-4 border-t border-border/50">
+                                <div class="flex items-center text-xs text-muted-foreground">
                                     <div class="flex items-center mr-3">
                                         <div class="w-2 h-2 bg-pink-400 rounded-full animate-pulse mr-2"></div>
                                         <span>Updates as you type</span>
